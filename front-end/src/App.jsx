@@ -1,5 +1,5 @@
-import './App.css'
-import ResumeBuilder from './pages/ResumeBuilder'
+import '@/App.css'
+import ResumeBuilder from '@/pages/ResumeBuilder'
 
 function App() {
   return (
