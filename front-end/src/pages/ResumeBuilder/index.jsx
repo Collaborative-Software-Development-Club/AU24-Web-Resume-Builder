@@ -1,5 +1,14 @@
-import jsonData from '@/../../data/resume.json'
+import jsonData from '@/../../data/resume.json';
+import {Name} from './Name';
+import {ContactMethods} from './ContactMethods'
 export default function ResumeBuilder() {
-    console.log(jsonData)
-    return <p>{JSON.stringify(jsonData)}</p>
+    console.log(jsonData);
+    const name = jsonData.name;
+    const contactMethods = jsonData.contact_methods;
+    return (
+        <div className="flex flex-col items-center justify-start">
+            <Name name={name} />
+            <ContactMethods contactMethods={contactMethods} />
+        </div>
+    )
 }
