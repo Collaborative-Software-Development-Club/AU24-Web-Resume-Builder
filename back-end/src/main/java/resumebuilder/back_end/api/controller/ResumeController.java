@@ -41,7 +41,7 @@ public class ResumeController {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    // EXPERIENCE MAPPINGS -------------------------------
+    // EXPERIENCE MAPPINGS --------------------------------
 
     @GetMapping("/{resumeId}/experiences")
     public ResponseEntity<List<Experience>> getExperiences(@PathVariable("resumeId") int resumeId) {
