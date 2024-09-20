@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.naming.NameNotFoundException;
+
 @Service
 public class ResumeService {
 
@@ -51,12 +53,15 @@ public class ResumeService {
         return optional;
     }
 
-    public void createExperience(int resumeId, Experience experience) {
+    public void createExperience(int resumeId, Experience experience) throws Exception {
         for (Resume resume : resumes) {
             if (resume.getId() == resumeId) {
                 resume.addExperience(experience);
+                return;
             }
         }
+        // TODO create a better exception or refactor the check if resume exists before calling this method
+        throw new Exception("Resume not found");
     }
 
     public Optional<Experience> updateExperience(int resumeId, int experienceId, Experience updatedExperience) {

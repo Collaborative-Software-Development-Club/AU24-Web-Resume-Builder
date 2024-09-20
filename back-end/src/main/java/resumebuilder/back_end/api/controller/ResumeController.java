@@ -66,10 +66,13 @@ public class ResumeController {
     @PostMapping("/{resumeId}/experiences")
     public ResponseEntity<Experience> createExperience(@PathVariable("resumeId") int resumeId,
             @RequestBody Experience experience) {
-        // TODO this doesn't throw an error if the resume doesn't exist
         // ! is taking in an id, but the id should be created on the back-end
-        resumeService.createExperience(resumeId, experience);
-        return new ResponseEntity<>(experience, HttpStatus.CREATED);
+        try {
+            resumeService.createExperience(resumeId, experience);
+            return new ResponseEntity<>(experience, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("{resumeId}/experiences/{id}")
