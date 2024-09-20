@@ -38,7 +38,7 @@ public class ResumeController {
 
     @PatchMapping("/{resumeId}")
     public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     // EXPERIENCE MAPPINGS -------------------------------
