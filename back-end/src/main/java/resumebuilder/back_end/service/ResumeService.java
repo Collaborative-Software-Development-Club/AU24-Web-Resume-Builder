@@ -23,6 +23,15 @@ public class ResumeService {
 
     }
 
+    public Optional<Resume> getResume(int resumeId) {
+        for (Resume resume : resumes) {
+            if (resume.getId() == resumeId) {
+                return Optional.of(resume);
+            }
+        }
+        return Optional.empty();
+    }
+
     public Optional<List<Experience>> getExperiences(int resumeId) {
         for (Resume resume : resumes) {
             if (resume.getId() == resumeId) {

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import resumebuilder.back_end.api.model.Experience;
+import resumebuilder.back_end.api.model.Resume;
 import resumebuilder.back_end.service.ResumeService;
 
 import java.util.List;
@@ -26,6 +27,21 @@ public class ResumeController {
         System.out.println("is in / path");
         return ResponseEntity.ok("the api is working");
     }
+
+    @GetMapping("/{resumeId}")
+    public ResponseEntity<Resume> getResume(@PathVariable("resumeId") int resumeId) {
+        if(resumeService.getResume(resumeId).isPresent()) {
+            return new ResponseEntity<Resume>(resumeService.getResume(resumeId).get(), HttpStatus.OK);
+        } 
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PatchMapping("/{resumeId}")
+    public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    // EXPERIENCE MAPPINGS -------------------------------
 
     @GetMapping("/{resumeId}/experiences")
     public ResponseEntity<List<Experience>> getExperiences(@PathVariable("resumeId") int resumeId) {
