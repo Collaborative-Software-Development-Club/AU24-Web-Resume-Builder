@@ -1,6 +1,7 @@
 package resumebuilder.back_end.api.model;
 
 public class Experience {
+    private static int idCounter = 0;
     private int id;
     private String company;
     private String location;
@@ -19,16 +20,13 @@ public class Experience {
         this.end_date = end_date;
         this.description = description;
         this.visible = visible;
+        this.id = idCounter;
+        idCounter++;
     }
 
     public int getId() {
         return id;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getCompany() {
         return company;
     }
