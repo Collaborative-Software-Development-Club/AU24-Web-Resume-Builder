@@ -38,6 +38,12 @@ public class ResumeController {
 
     @PatchMapping("/{resumeId}")
     public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
+        if(resume.getContactMethods() != null){
+            System.out.println("no contact methods");
+        } else {
+            System.out.println(resume.getContactMethods());
+        }
+
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 

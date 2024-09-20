@@ -1,5 +1,6 @@
 package resumebuilder.back_end.api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,14 +15,24 @@ public class Resume {
     private static int idCounter = 0;
     private int id;
     private List<Experience> experiences;
+    private List<String> contactMethods;
 
     public Resume() {
         this.id = idCounter;
+        this.contactMethods = new ArrayList<>();
         idCounter++;
     }
 
     public int getId() {
         return this.id;
+    }
+
+    public void setContactMethods(List<String> contactMethods) {
+        this.contactMethods = contactMethods;
+    }
+
+    public List<String> getContactMethods() {
+        return this.contactMethods;
     }
 
     public void setExperiences(List<Experience> experiences) {

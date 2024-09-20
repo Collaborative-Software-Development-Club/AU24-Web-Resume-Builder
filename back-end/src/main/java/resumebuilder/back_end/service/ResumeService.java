@@ -6,6 +6,7 @@ import resumebuilder.back_end.api.model.Experience;
 import resumebuilder.back_end.api.model.Resume;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -190,6 +191,8 @@ public class ResumeService {
                 false));
         Resume resume = new Resume();
         resume.setExperiences(experienceList);
+        String[] contactMethods = {"buckeye.1@osu.edu", "614-222-2222", "100 Ohio State Ave, Columbus OH, 43210"};
+        resume.setContactMethods(Arrays.asList(contactMethods));
         return resume;
     }
 }
