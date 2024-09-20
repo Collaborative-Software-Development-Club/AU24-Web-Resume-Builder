@@ -17,6 +17,8 @@ export function ContactMethods({contactMethods}) {
                     </div>
                 );
             }}
+            title="Conctact Methods"
+            description="Edit contact methods"
         />
     );
 }
