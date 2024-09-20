@@ -13,7 +13,7 @@ import {EditModal} from './EditModal';
  * @param {React.ComponentType<{list: Array<string>}>} props.RenderList - A component that renders the list of items.
  *        This component should accept a `list` prop of type Array<string>.
  */
-export function EditableList({list, RenderList}) {
+export function EditableList({list, RenderList, title, description}) {
     const {editableList, handleChange, addNew, remove} = useEditableList(list);
     return (
         <div className="relative">
@@ -22,7 +22,7 @@ export function EditableList({list, RenderList}) {
                 <DialogTrigger asChild>
                     <Button className="absolute -right-20 top-0">Edit</Button>
                 </DialogTrigger>
-                <EditModal elements={editableList} handleChange={handleChange} addNew={addNew} remove={remove} />
+                <EditModal elements={editableList} handleChange={handleChange} addNew={addNew} remove={remove} title={title} description={description} />
             </Dialog>
         </div>
     );
