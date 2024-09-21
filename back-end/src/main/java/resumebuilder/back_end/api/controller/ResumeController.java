@@ -38,7 +38,13 @@ public class ResumeController {
 
     @PatchMapping("/{resumeId}")
     public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        if (resumeService.getResume(resumeId).isPresent()) {
+            Optional<Resume> updatedResume = resumeService.partialUpdateResume(resumeId, resume);
+            if (updatedResume.isPresent()) {
+                return new ResponseEntity<>(updatedResume.get(), HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     // EXPERIENCE MAPPINGS -------------------------------

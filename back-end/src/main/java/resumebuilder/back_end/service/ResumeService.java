@@ -5,6 +5,7 @@ import resumebuilder.back_end.api.model.CustomDate;
 import resumebuilder.back_end.api.model.Experience;
 import resumebuilder.back_end.api.model.Resume;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,18 @@ public class ResumeService {
         Resume resume = this.createSampleResume();
         resumes.add(resume);
 
+    }
+
+    public Optional<Resume> partialUpdateResume(int resumeId, Resume updatedResume) {
+        for (Resume resume : resumes) {
+            if (resume.getId() == resumeId) {
+                if (updatedResume.getExperiences() != null) {
+                    resume.setExperiences(updatedResume.getExperiences());
+                }
+                return Optional.of(resume);
+            }
+        }
+        return Optional.empty();
     }
 
     public Optional<Resume> getResume(int resumeId) {
