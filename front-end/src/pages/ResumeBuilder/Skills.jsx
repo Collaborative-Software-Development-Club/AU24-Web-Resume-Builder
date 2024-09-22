@@ -1,6 +1,6 @@
 import {EditableList} from '@/components/EditableList';
 import jsonData from '@/../../data/resume.json';
-import { Title } from './Title';
+import {SectionTitle} from './SectionTitle';
 
 const Skills = () => {
     const skills = jsonData.skills.items;
@@ -20,7 +20,7 @@ const Skills = () => {
 
     return (
         <div>
-            <Title title="Skills" />
+            <SectionTitle title="Skills" />
             <EditableList
                 list={skills}
                 RenderList={({list}) => {

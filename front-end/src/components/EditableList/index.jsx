@@ -20,7 +20,7 @@ export function EditableList({list, RenderList, title, description}) {
             <RenderList list={editableList.map((element) => element.value)} />
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button className="absolute -right-20 top-0">Edit</Button>
+                    <Button className="absolute right-0 top-0">Edit</Button>
                 </DialogTrigger>
                 <EditModal elements={editableList} handleChange={handleChange} addNew={addNew} remove={remove} title={title} description={description} />
             </Dialog>

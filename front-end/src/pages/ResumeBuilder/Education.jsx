@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {Input} from '@/components/ui/input'; // Assuming you're using Shadcn Input component
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select'; // Assuming you're using Shadcn Select component
-import {List} from 'lucide-react';
+import {SectionTitle} from './SectionTitle';
 
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 const Education = () => {
     const [educationData, setEducationData] = useState({
@@ -27,11 +27,10 @@ const Education = () => {
     };
 
     return (
-        <div className="absolute left-0 right-0 p-20">
+        <div className="">
             {/* Education Form Section */}
-            <div className="education-section w-full rounded-lg bg-white p-6">
-                <h2 className="times mb-4 text-left text-2xl">Education:</h2>
-
+            <div className="w-full">
+                <SectionTitle title="Education" />
                 {/* Combined Row for Institution, Location */}
                 <div className="mb-4 flex flex-col justify-between space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
                     <div className="sm:flex-grow">
@@ -49,13 +48,16 @@ const Education = () => {
                     </div>
 
                     <div className="flex space-x-4 md:w-1/3">
-                        <Select className='times' onValueChange={(value) => handleSelectChange('graduationMonth', value)}>
+                        <Select className="times" onValueChange={(value) => handleSelectChange('graduationMonth', value)}>
                             <SelectTrigger className="times">
-                                <SelectValue placeholder="Graduation Month"/>
+                                <SelectValue placeholder="Graduation Month" />
                             </SelectTrigger>
                             <SelectContent>
-                                {MONTHS.map((month, index) => (<SelectItem value={index} key={month}>{month}</SelectItem>))}
-
+                                {MONTHS.map((month, index) => (
+                                    <SelectItem value={index} key={month}>
+                                        {month}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
 

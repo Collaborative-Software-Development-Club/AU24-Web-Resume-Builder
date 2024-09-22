@@ -9,7 +9,7 @@ export default function ResumeBuilder() {
     const name = jsonData.name;
     const contactMethods = jsonData.contact_methods;
     return (
-        <div className="flex flex-col items-center justify-start">
+        <div className="items-strech flex flex-col justify-start self-stretch">
             <Name name={name} />
             <ContactMethods contactMethods={contactMethods} />
             <Education />
