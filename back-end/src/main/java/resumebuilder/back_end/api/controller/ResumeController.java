@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import resumebuilder.back_end.api.model.Experience;
 import resumebuilder.back_end.api.model.Resume;
 import resumebuilder.back_end.service.ResumeService;
+import resumebuilder.back_end.api.model.Education;
+
 
 import java.util.List;
 import java.util.Map;
@@ -39,7 +41,19 @@ public class ResumeController {
     @PatchMapping("/{resumeId}")
     public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }    
+    
+    // EDUCATION MAPPINGS --------------------------------
+
+    @GetMapping("/{resumeId}/education")
+    public ResponseEntity<Education> getEducation(@PathVariable("resumeId") int resumeId) {
+        Optional<Education> optional = resumeService.getEducation(resumeId);
+        if (optional.isPresent()) {
+            return new ResponseEntity<Education>(optional.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 
     // EXPERIENCE MAPPINGS --------------------------------
 

@@ -1,9 +1,8 @@
 package resumebuilder.back_end.service;
 
 import org.springframework.stereotype.Service;
-import resumebuilder.back_end.api.model.CustomDate;
-import resumebuilder.back_end.api.model.Experience;
-import resumebuilder.back_end.api.model.Resume;
+import resumebuilder.back_end.api.model.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,6 @@ public class ResumeService {
         resumes = new ArrayList<Resume>();
         Resume resume = this.createSampleResume();
         resumes.add(resume);
-
     }
 
     public Optional<Resume> getResume(int resumeId) {
@@ -31,6 +29,26 @@ public class ResumeService {
         }
         return Optional.empty();
     }
+
+    public Optional<Education> getEducation(int resumeId) {
+        for (Resume resume : resumes) {
+            if (resume.getId() == resumeId) {
+                return Optional.of(resume.getEducation());
+            }
+        }
+        return Optional.empty();
+    }
+
+//    public void createEducation(int resumeId, Education education) throws Exception {
+//        for (Resume resume : resumes) {
+//            if (resume.getId() == resumeId) {
+//                resume.addEducation(education);
+//                return;
+//            }
+//        }
+//        // TODO create a better exception or refactor the check if resume exists before calling this method
+//        throw new Exception("Resume not found");
+//    }
 
     public Optional<List<Experience>> getExperiences(int resumeId) {
         for (Resume resume : resumes) {
@@ -129,6 +147,21 @@ public class ResumeService {
 
     private Resume createSampleResume() {
         List<Experience> experienceList = new ArrayList<Experience>();
+        List<Honor> honorList = new ArrayList<>();
+        honorList.add(new Honor("Fisher Pacesetter Award", "Given to the top one percent of students based on academic performance and demonstrated leadership ability"));
+        honorList.add(new Honor("Honors Cohort Program", "One of 30 students selected to participate in the College of Business’ flagship two-year academic program"));
+
+        Education education = new Education(
+            "The Ohio State University",
+		    "Columbus, Ohio",
+		    "Bachelor of Science in Business Administration",
+		    new GraduationDate(5, 2021),
+		    "Finance",
+		    "Business Analytics",
+		    new Gpa(4.0),
+            honorList
+        );
+        
         experienceList.add(new Experience(
                 nextId++,
                 "The Ohio State University",
@@ -189,6 +222,7 @@ public class ResumeService {
                 "Participated in a consulting career readiness program focusing on problem solving, professionalism, and networking",
                 false));
         Resume resume = new Resume();
+        resume.setEducation(education);
         resume.setExperiences(experienceList);
         return resume;
     }
