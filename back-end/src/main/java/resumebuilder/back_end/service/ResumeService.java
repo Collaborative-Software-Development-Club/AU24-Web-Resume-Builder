@@ -24,6 +24,22 @@ public class ResumeService {
 
     }
 
+    public Optional<Resume> partialUpdateResume(int resumeId, Resume updatedResume) {
+
+        for (Resume resume : resumes) {
+            if (resume.getId() == resumeId) {
+                if (updatedResume.getExperiences() != null) {
+                    resume.setExperiences(updatedResume.getExperiences());
+                }
+                if(resume.getContactMethods() != null){
+                    resume.setExperiences(updatedResume.getExperiences());
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
+
     public Optional<Resume> getResume(int resumeId) {
         for (Resume resume : resumes) {
             if (resume.getId() == resumeId) {
