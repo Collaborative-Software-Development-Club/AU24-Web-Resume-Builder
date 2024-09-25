@@ -24,7 +24,7 @@ export function Name({name}) {
 
     return (
         <Form {...form}>
-            <form>
+            <form className="self-center">
                 <FormField
                     control={form.control}
                     name="name"

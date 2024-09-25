@@ -8,7 +8,7 @@ export function ContactMethods({contactMethods}) {
             RenderList={({list}) => {
                 console.log(list);
                 return (
-                    <div className="flex flex-row gap-2">
+                    <div className="flex flex-row gap-2 self-center">
                         {list.map((element) => (
                             <p className="times underline" key={element}>
                                 {element}
@@ -17,6 +17,8 @@ export function ContactMethods({contactMethods}) {
                     </div>
                 );
             }}
+            title="Conctact Methods"
+            description="Edit contact methods"
         />
     );
 }
