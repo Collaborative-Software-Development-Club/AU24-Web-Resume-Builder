@@ -13,8 +13,8 @@ public class Resume {
      */
     private static int idCounter = 0;
     private int id;
-    private List<Experience> experiences;
     private Education education;
+    private List<Experience> experiences;
 
     public Resume() {
         this.id = idCounter;

@@ -3,12 +3,12 @@ import {Button} from '../ui/button';
 import {Input} from '../ui/input';
 import {TrashIcon} from '@radix-ui/react-icons';
 
-export function EditModal({elements, handleChange, addNew, remove}) {
+export function EditModal({elements, handleChange, addNew, remove, title, description}) {
     return (
         <DialogContent className="sm:max-w-md">
             <DialogHeader>
-                <DialogTitle>Conctact Methods</DialogTitle>
-                <DialogDescription>Edit contact methods</DialogDescription>
+                <DialogTitle>{title}</DialogTitle>
+                <DialogDescription>{description}</DialogDescription>
             </DialogHeader>
             <form className="flex flex-col items-stretch gap-2" onSubmit={(e) => e.preventDefault()}>
                 <div className="flex items-center space-x-2">

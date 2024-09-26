@@ -40,10 +40,14 @@ public class ResumeController {
 
     @PatchMapping("/{resumeId}")
     public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }    
-    
-    // EDUCATION MAPPINGS --------------------------------
+        if (resumeService.getResume(resumeId).isPresent()) {
+            Optional<Resume> updatedResume = resumeService.partialUpdateResume(resumeId, resume);
+            if (updatedResume.isPresent()) {
+                return new ResponseEntity<>(updatedResume.get(), HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
     @GetMapping("/{resumeId}/education")
     public ResponseEntity<Education> getEducation(@PathVariable("resumeId") int resumeId) {
@@ -55,7 +59,6 @@ public class ResumeController {
     }
 
 
-    // EXPERIENCE MAPPINGS --------------------------------
 
     @GetMapping("/{resumeId}/experiences")
     public ResponseEntity<List<Experience>> getExperiences(@PathVariable("resumeId") int resumeId) {
@@ -89,16 +92,17 @@ public class ResumeController {
         }
     }
 
-    @PutMapping("{resumeId}/experiences/{id}")
+    @PutMapping("{resumeId}/experiences/{experienceId}")
     public ResponseEntity<Experience> updateExperience(
-            @PathVariable("resumeId") int resumeId, @RequestBody Experience updatedExperience) {
-        Optional<Experience> existingExperienceOpt = resumeService.getExperience(resumeId, updatedExperience.getId());
+            @PathVariable("resumeId") int resumeId,
+            @PathVariable("experienceId") int experienceId,
+            @RequestBody Experience updatedExperience) {
+        Optional<Experience> existingExperienceOpt = resumeService.getExperience(resumeId, experienceId);
         if (!existingExperienceOpt.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Optional<Experience> updated = resumeService.updateExperience(resumeId, updatedExperience.getId(),
-                updatedExperience);
+        Optional<Experience> updated = resumeService.updateExperience(resumeId, experienceId, updatedExperience);
         if (updated.isPresent()) {
             return new ResponseEntity<>(updated.get(), HttpStatus.OK);
         }
