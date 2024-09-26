@@ -9,10 +9,10 @@ public class Education extends Section {
     private GraduationDate graduation_date;
     private String specialization;
     private String minor;
-    private Gpa gpa;
+    private double gpa;
     private List<Honor> honors;
 
-    public Education(String institution, String location, String degree, GraduationDate graduation_date, String specialization, String minor, Gpa gpa, List<Honor> honors) {
+    public Education(String institution, String location, String degree, GraduationDate graduation_date, String specialization, String minor, double gpa, List<Honor> honors) {
         this.institution = institution;
         this.location = location;
         this.degree = degree;
@@ -58,10 +58,10 @@ public class Education extends Section {
     public void setMinor(String minor) {
         this.minor = minor;
     }
-    public Gpa getGpa() {
+    public double getGpa() {
         return gpa;
     }
-    public void setGpa(Gpa gpa) {
+    public void setGpa(double gpa) {
         this.gpa = gpa;
     }
     public List<Honor> getHonors() {

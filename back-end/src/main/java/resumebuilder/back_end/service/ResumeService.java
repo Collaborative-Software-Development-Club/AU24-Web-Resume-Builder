@@ -174,7 +174,7 @@ public class ResumeService {
 		    new GraduationDate(5, 2021),
 		    "Finance",
 		    "Business Analytics",
-		    new Gpa(4.0),
+		    4.0,
             honorList
         );
         
