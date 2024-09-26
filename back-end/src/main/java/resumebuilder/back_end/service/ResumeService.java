@@ -30,6 +30,9 @@ public class ResumeService {
                 if (updatedResume.getExperiences() != null) {
                     resume.setExperiences(updatedResume.getExperiences());
                 }
+                if (updatedResume.getSkills() != null) {
+                    resume.setSkills(updatedResume.getSkills());
+                }
                 return Optional.of(resume);
             }
         }
@@ -201,8 +204,17 @@ public class ResumeService {
                 new CustomDate(4, 2019),
                 "Participated in a consulting career readiness program focusing on problem solving, professionalism, and networking",
                 false));
+
+        List<String> skillsList = new ArrayList<>();
+
+        skillsList.add("Archery");
+        skillsList.add("Java");
+        skillsList.add("Python");
+        skillsList.add("Italian");
+
         Resume resume = new Resume();
         resume.setExperiences(experienceList);
+        resume.setSkills(skillsList);
         return resume;
     }
 }
