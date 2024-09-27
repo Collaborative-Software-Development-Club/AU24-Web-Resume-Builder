@@ -25,7 +25,7 @@ public class ResumeService {
     }
 
     public Optional<Resume> partialUpdateResume(int resumeId, Resume updatedResume) {
-
+        System.out.println(updatedResume);
         for (Resume resume : resumes) {
             if (resume.getId() == resumeId) {
                 if (updatedResume.getExperiences() != null) {
@@ -34,6 +34,7 @@ public class ResumeService {
                 if(resume.getContactMethods() != null){
                     resume.setExperiences(updatedResume.getExperiences());
                 }
+                return Optional.of(resume);
             }
         }
 
