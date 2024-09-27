@@ -1,6 +1,6 @@
 {
 	"name": "Brutus Buckeye",
-	"contact_methods": [
+	"contactMethods": [
 		"buckeye.1@osu.edu",
 		"614-222-2222",
 		"100 Ohio State Ave, Columbus OH, 43210"
@@ -10,7 +10,7 @@
 		"institution": "The Ohio State University",
 		"location": "Columbus, Ohio",
 		"degree": "Bachelor of Science in Business Administration",
-		"graduation_date": {
+		"graduationDate": {
 			"month": 5,
 			"year": 2021
 		},
@@ -35,11 +35,11 @@
 				"company": "The Ohio State University",
 				"location": "Columbus, Ohio",
 				"position": "Resident Advisor",
-				"start_date": {
+				"startDate": {
 					"month": 8,
 					"year": 2018
 				},
-				"end_date": null,
+				"endDate": null,
 				"description": "Ensured safety and served as a resource for 65+ residents\nFacilitated programs to foster the growth and development of undergraduate students\nAddressed and resolved issues to ensure a quality living experience for all residents in the residence hall",
 				"visible": true
 			},
@@ -47,11 +47,11 @@
 				"company": "L Brands",
 				"location": "Columbus, Ohio",
 				"position": "Operations Management Intern",
-				"start_date": {
+				"startDate": {
 					"month": 5,
 					"year": 2019
 				},
-				"end_date": {
+				"endDate": {
 					"month": 8,
 					"year": 2019
 				},
@@ -62,11 +62,11 @@
 				"company": "The Ohio State University Wexner Medical Center",
 				"location": "Columbus, Ohio",
 				"position": "Supply Chain Intern",
-				"start_date": {
+				"startDate": {
 					"month": 5,
 					"year": 2018
 				},
-				"end_date": {
+				"endDate": {
 					"month": 8,
 					"year": 2018
 				},
@@ -77,11 +77,11 @@
 				"organization": "Buckeye Undergraduate Consulting Club",
 				"location": "Columbus, Ohio",
 				"position": "VP of Marketing and Communications",
-				"start_date": {
+				"startDate": {
 					"month": 1,
 					"year": 2017
 				},
-				"end_date": null,
+				"endDate": null,
 				"description": "Conducted market research on blockchain technology feasibility for wire transactions\nDeveloped analytical skills through Power BI and Tableau workshops\nCompeted in three case competitions",
 				"visible": false
 			},
@@ -89,11 +89,11 @@
 				"organization": "Phi Chi Theta Professional Business Fraternity",
 				"location": "Columbus, Ohio",
 				"position": "Professional Development Chair",
-				"start_date": {
+				"startDate": {
 					"month": 2,
 					"year": 2018
 				},
-				"end_date": null,
+				"endDate": null,
 				"description": "Created individualized professional development experiences for new members\nDeveloped and executed workshops to enrich pledges' understanding of brotherhood, professionalism, and philanthropy",
 				"visible": false
 			},
@@ -101,11 +101,11 @@
 				"organization": "Fisher Emerging Consultants",
 				"location": "Columbus, Ohio",
 				"position": "Member",
-				"start_date": {
+				"startDate": {
 					"month": 2,
 					"year": 2019
 				},
-				"end_date": {
+				"endDate": {
 					"month": 4,
 					"year": 2019
 				},
@@ -121,11 +121,11 @@
 				"title": "Blockchain Feasibility Research",
 				"organization": "Buckeye Undergraduate Consulting Club",
 				"location": "Columbus, Ohio",
-				"start_date": {
+				"startDate": {
 					"month": 1,
 					"year": 2018
 				},
-				"end_date": {
+				"endDate": {
 					"month": 3,
 					"year": 2018
 				},
@@ -135,11 +135,11 @@
 				"title": "Consumer Insights Case Competition",
 				"organization": "Phi Chi Theta",
 				"location": "Columbus, Ohio",
-				"start_date": {
+				"startDate": {
 					"month": 9,
 					"year": 2018
 				},
-				"end_date": {
+				"endDate": {
 					"month": 11,
 					"year": 2018
 				},
@@ -149,11 +149,11 @@
 				"title": "Johnson & Johnson M&A Case",
 				"organization": "Ohio State Business Association",
 				"location": "Columbus, Ohio",
-				"start_date": {
+				"startDate": {
 					"month": 4,
 					"year": 2019
 				},
-				"end_date": {
+				"endDate": {
 					"month": 5,
 					"year": 2019
 				},
