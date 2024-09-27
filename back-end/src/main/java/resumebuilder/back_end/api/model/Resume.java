@@ -13,6 +13,7 @@ public class Resume {
      */
     private static int idCounter = 0;
     private int id;
+    private Education education;
     private List<Experience> experiences;
     private List<String> skills;
 
@@ -24,6 +25,14 @@ public class Resume {
     public int getId() {
         return this.id;
     }
+
+    public Education getEducation(){
+        return this.education;
+    }
+    public void setEducation(Education education) {
+        this.education = education;
+    }
+
 
     public void setExperiences(List<Experience> experiences) {
         this.experiences = experiences;
