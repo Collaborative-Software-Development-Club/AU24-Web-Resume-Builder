@@ -32,7 +32,7 @@ public class ResumeService {
                     resume.setExperiences(updatedResume.getExperiences());
                 }
                 if(resume.getContactMethods() != null){
-                    resume.setExperiences(updatedResume.getExperiences());
+                    resume.setContactMethods(updatedResume.getContactMethods());
                 }
                 return Optional.of(resume);
             }

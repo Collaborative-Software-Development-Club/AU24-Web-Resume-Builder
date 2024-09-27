@@ -38,13 +38,8 @@ public class ResumeController {
 
     @PatchMapping("/{resumeId}")
     public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
-        System.out.println(resume);
-        System.out.println(resumeService.getResume(resumeId).isPresent());
-        System.out.println(resumeService.getResume(resumeId).get());
         if (resumeService.getResume(resumeId).isPresent()) {
             Optional<Resume> updatedResume = resumeService.partialUpdateResume(resumeId, resume);
-            System.out.println(updatedResume);
-            System.out.println(updatedResume.isPresent());
             if (updatedResume.isPresent()) {
                 return new ResponseEntity<>(updatedResume.get(), HttpStatus.OK);
             }
