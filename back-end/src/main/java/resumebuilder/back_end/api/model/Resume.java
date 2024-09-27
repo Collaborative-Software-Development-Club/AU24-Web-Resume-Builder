@@ -16,6 +16,7 @@ public class Resume {
     private int id;
     private List<Experience> experiences;
     private List<String> contactMethods;
+    private List<String> skills;
 
     public Resume() {
         this.id = idCounter;
@@ -64,4 +65,11 @@ public class Resume {
         }
         return Optional.empty();
     }
+
+    /*Skills*/
+    public void setSkills(List<String> skills) {this.skills = skills;}
+
+    public void addSkill(String newSkill) {skills.add(newSkill);}
+
+    public List<String> getSkills() {return this.skills;}
 }

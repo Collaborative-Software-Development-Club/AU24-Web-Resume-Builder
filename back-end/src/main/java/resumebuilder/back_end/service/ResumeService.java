@@ -21,7 +21,6 @@ public class ResumeService {
         resumes = new ArrayList<Resume>();
         Resume resume = this.createSampleResume();
         resumes.add(resume);
-
     }
 
     public Optional<Resume> partialUpdateResume(int resumeId, Resume updatedResume) {
@@ -33,6 +32,9 @@ public class ResumeService {
                 }
                 if(resume.getContactMethods() != null){
                     resume.setContactMethods(updatedResume.getContactMethods());
+                }
+                if (updatedResume.getSkills() != null) {
+                    resume.setSkills(updatedResume.getSkills());
                 }
                 return Optional.of(resume);
             }
@@ -206,10 +208,19 @@ public class ResumeService {
                 new CustomDate(4, 2019),
                 "Participated in a consulting career readiness program focusing on problem solving, professionalism, and networking",
                 false));
+
+        List<String> skillsList = new ArrayList<>();
+
+        skillsList.add("Archery");
+        skillsList.add("Java");
+        skillsList.add("Python");
+        skillsList.add("Italian");
+
         Resume resume = new Resume();
         resume.setExperiences(experienceList);
         String[] contactMethods = {"buckeye.1@osu.edu", "614-222-2222", "100 Ohio State Ave, Columbus OH, 43210"};
         resume.setContactMethods(Arrays.asList(contactMethods));
+        resume.setSkills(skillsList);
         return resume;
     }
 }
