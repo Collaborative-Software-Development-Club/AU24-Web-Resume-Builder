@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Input} from '@/components/ui/input'; // Assuming you're using Shadcn Input component
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select'; // Assuming you're using Shadcn Select component
+import {Input} from '@/components/ui/input';
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {SectionTitle} from './SectionTitle';
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
