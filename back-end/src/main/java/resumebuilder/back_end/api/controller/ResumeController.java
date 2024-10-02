@@ -39,6 +39,16 @@ public class ResumeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping("/resumes")
+    public ResponseEntity<Resume> createResume(@RequestBody Resume resume) {
+        try {
+            Resume createdResume = resumeService.createResume(resume);
+            return new ResponseEntity<>(createdResume, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PatchMapping("/{resumeId}")
     public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
         if (resumeService.getResume(resumeId).isPresent()) {

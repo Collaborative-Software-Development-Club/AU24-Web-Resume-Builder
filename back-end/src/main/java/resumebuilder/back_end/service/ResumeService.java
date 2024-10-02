@@ -22,6 +22,14 @@ public class ResumeService {
         resumes.add(resume);
     }
 
+    public Resume createResume(Resume newResume) {
+        Resume createdResume = new Resume();
+        createdResume.setSkills(newResume.getSkills());
+        createdResume.setExperiences(newResume.getExperiences());
+        resumes.add(createdResume);
+
+        return createdResume;
+    }
     public Optional<Resume> partialUpdateResume(int resumeId, Resume updatedResume) {
         System.out.println(updatedResume);
         for (Resume resume : resumes) {
