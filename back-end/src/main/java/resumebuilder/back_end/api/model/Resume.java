@@ -13,7 +13,9 @@ public class Resume {
      * Also, changing these to interfaces might be good later.
      */
     private static int idCounter = 0;
+
     private int id;
+    private String name;
     private Education education;
     private List<Experience> experiences;
     private List<String> contactMethods;
@@ -27,6 +29,14 @@ public class Resume {
 
     public int getId() {
         return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String newName){
+        this.name = newName;
     }
 
     public void setContactMethods(List<String> contactMethods) {

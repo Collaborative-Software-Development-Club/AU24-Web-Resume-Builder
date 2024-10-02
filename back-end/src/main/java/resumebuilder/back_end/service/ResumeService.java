@@ -38,6 +38,9 @@ public class ResumeService {
                 if (updatedResume.getEducation() != null) {
                     resume.setEducation(updatedResume.getEducation());
                 }
+                if (updatedResume.getName() != null) {
+                    resume.setName(updatedResume.getName());
+                }
                 return Optional.of(resume);
             }
         }
@@ -254,6 +257,7 @@ public class ResumeService {
         skillsList.add("Italian");
 
         Resume resume = new Resume();
+        resume.setName("Brutus Buckeye");
         resume.setEducation(education);
         resume.setExperiences(experienceList);
         String[] contactMethods = {"buckeye.1@osu.edu", "614-222-2222", "100 Ohio State Ave, Columbus OH, 43210"};
