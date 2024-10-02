@@ -3,6 +3,7 @@ import {Name} from './Name';
 import Education from './Education';
 import {ContactMethods} from './ContactMethods';
 import Skills from './Skills';
+import { Sidebar } from './Sidebar';
 
 export default function ResumeBuilder() {
     console.log(jsonData);
@@ -10,6 +11,7 @@ export default function ResumeBuilder() {
     const contactMethods = jsonData.contact_methods;
     return (
         <div className="items-strech flex flex-col justify-start self-stretch">
+            <Sidebar/>
             <Name name={name} />
             <ContactMethods contactMethods={contactMethods} />
             <Education />
