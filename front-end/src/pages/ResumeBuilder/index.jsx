@@ -15,7 +15,7 @@ export default function ResumeBuilder() {
         <div className="items-strech flex flex-col justify-start self-stretch">
             <Name name={resume.name} />
             <ContactMethods contactMethods={resume.contactMethods} />
-            <Education />
+            <Education education={resume.education} />
             <Skills skills={resume.skills.items} />
         </div>
     );
