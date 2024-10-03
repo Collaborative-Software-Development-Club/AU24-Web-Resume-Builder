@@ -16,7 +16,6 @@ const Education = ({education}) => {
         graduationMonth: '',
         graduationYear: education.graduationDate.year,
         honors: education.honors.name,
-        // honors: '',
     });
 
     const handleInputChange = (e) => {
@@ -70,7 +69,7 @@ const Education = ({education}) => {
 
                 <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                     <div className="w-24">
-                        <Input name="gpa" placeholder="Enter GPA" value={education.gpa} onChange={handleInputChange} className="times" />
+                        <Input name="gpa" placeholder="Enter GPA" value={educationData.gpa} onChange={handleInputChange} className="times" />
                     </div>
                 </div>
 
