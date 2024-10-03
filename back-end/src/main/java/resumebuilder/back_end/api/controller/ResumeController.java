@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/resume")
 public class ResumeController {
 
     private ResumeService resumeService;
@@ -36,7 +37,7 @@ public class ResumeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/resumes")
+    @PostMapping("/")
     public ResponseEntity<Resume> createResume(@RequestBody Resume resume) {
         try {
             Resume createdResume = resumeService.createResume(resume);
