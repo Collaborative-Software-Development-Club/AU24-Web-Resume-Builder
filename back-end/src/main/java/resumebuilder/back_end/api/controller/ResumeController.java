@@ -47,6 +47,17 @@ public class ResumeController {
         }
     }
 
+    @DeleteMapping("/{resumeId}")
+    public ResponseEntity<Resume> deleteResume(@PathVariable("resumeId") int resumeId) {
+        Optional<Resume> deletedResume = resumeService.deleteResume(resumeId);
+        if (deletedResume.isPresent()) {
+            return new ResponseEntity<>(deletedResume.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
     @PatchMapping("/{resumeId}")
     public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
         if (resumeService.getResume(resumeId).isPresent()) {

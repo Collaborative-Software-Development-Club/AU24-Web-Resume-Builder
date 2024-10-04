@@ -31,6 +31,16 @@ public class ResumeService {
 
         return createdResume;
     }
+
+    public Optional<Resume> deleteResume(int id) {
+        for (Resume resume : resumes) {
+            if (resume.getId() == id) {
+                resumes.remove(resume);
+                return Optional.of(resume);
+            }
+        }
+        return Optional.empty();
+    }
     public Optional<Resume> partialUpdateResume(int resumeId, Resume updatedResume) {
 
         for (Resume resume : resumes) {
