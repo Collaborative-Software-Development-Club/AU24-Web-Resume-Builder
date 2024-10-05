@@ -1,6 +1,6 @@
 package resumebuilder.back_end.api.model;
 
-public class Education extends Section {
+public class Education extends VisibleElement {
     private String institution;
     private String location;
     private String degree;

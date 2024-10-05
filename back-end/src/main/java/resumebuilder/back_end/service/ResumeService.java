@@ -106,7 +106,7 @@ public class ResumeService {
             experienceToUpdate.setStart_date(updatedExperience.getStart_date());
             experienceToUpdate.setEnd_date(updatedExperience.getEnd_date());
             experienceToUpdate.setDescription(updatedExperience.getDescription());
-            experienceToUpdate.setVisible(updatedExperience.isVisible());
+            experienceToUpdate.setVisibility(updatedExperience.getVisibility());
         }
         return experienceOptional;
     }
@@ -142,7 +142,7 @@ public class ResumeService {
                     experienceToPatch.setDescription((String) value);
                     break;
                 case "visible":
-                    experienceToPatch.setVisible((Boolean) value);
+                    experienceToPatch.setVisibility((Boolean) value);
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid field: " + key);
