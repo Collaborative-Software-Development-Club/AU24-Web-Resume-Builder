@@ -16,12 +16,18 @@
     },
     "specialization": "Finance",
     "minor": "Business Analytics",
-    "gpa": "4.0",
-    "honors": {
-      "name": "Fisher Pacesetter Award"
-    }
+    "gpa": 4.0,
+    "honors": [
+      {
+        "name": "Fisher Pacesetter Award",
+        "description": "Given to the top one percent of students based on academic performance and demonstrated leadership ability"
+      },
+      {
+        "name": "Honors Cohort Program",
+        "description": "One of 30 students selected to participate in the College of Business’ flagship two-year academic program"
+      }
+    ]
   },
-
   "experience": {
     "visible": true,
     "items": [

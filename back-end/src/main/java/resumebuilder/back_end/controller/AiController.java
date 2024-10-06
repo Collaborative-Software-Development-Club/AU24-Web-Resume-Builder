@@ -1,4 +1,4 @@
-package resumebuilder.back_end.api.controller;
+package resumebuilder.back_end.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
