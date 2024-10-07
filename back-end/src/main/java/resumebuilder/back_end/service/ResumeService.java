@@ -1,11 +1,11 @@
 package resumebuilder.back_end.service;
 
 import org.springframework.stereotype.Service;
-import resumebuilder.back_end.api.model.CustomDate;
-import resumebuilder.back_end.api.model.Experience;
-import resumebuilder.back_end.api.model.Resume;
+import resumebuilder.back_end.api.model.*;
+
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -20,19 +20,28 @@ public class ResumeService {
         resumes = new ArrayList<Resume>();
         Resume resume = this.createSampleResume();
         resumes.add(resume);
-
     }
 
     public Optional<Resume> partialUpdateResume(int resumeId, Resume updatedResume) {
-
+        System.out.println(updatedResume);
         for (Resume resume : resumes) {
             if (resume.getId() == resumeId) {
                 if (updatedResume.getExperiences() != null) {
                     resume.setExperiences(updatedResume.getExperiences());
                 }
+                if(resume.getContactMethods() != null){
+                    resume.setContactMethods(updatedResume.getContactMethods());
+                }
+                if (updatedResume.getSkills() != null) {
+                    resume.setSkills(updatedResume.getSkills());
+                }
+                if (updatedResume.getEducation() != null) {
+                    resume.setEducation(updatedResume.getEducation());
+                }
                 return Optional.of(resume);
             }
         }
+
         return Optional.empty();
     }
 
@@ -44,6 +53,26 @@ public class ResumeService {
         }
         return Optional.empty();
     }
+
+    public Optional<Education> getEducation(int resumeId) {
+        for (Resume resume : resumes) {
+            if (resume.getId() == resumeId) {
+                return Optional.of(resume.getEducation());
+            }
+        }
+        return Optional.empty();
+    }
+
+//    public void createEducation(int resumeId, Education education) throws Exception {
+//        for (Resume resume : resumes) {
+//            if (resume.getId() == resumeId) {
+//                resume.addEducation(education);
+//                return;
+//            }
+//        }
+//        // TODO create a better exception or refactor the check if resume exists before calling this method
+//        throw new Exception("Resume not found");
+//    }
 
     public Optional<List<Experience>> getExperiences(int resumeId) {
         for (Resume resume : resumes) {
@@ -142,6 +171,21 @@ public class ResumeService {
 
     private Resume createSampleResume() {
         List<Experience> experienceList = new ArrayList<Experience>();
+        List<Honor> honorList = new ArrayList<>();
+        honorList.add(new Honor("Fisher Pacesetter Award", "Given to the top one percent of students based on academic performance and demonstrated leadership ability"));
+        honorList.add(new Honor("Honors Cohort Program", "One of 30 students selected to participate in the College of Business’ flagship two-year academic program"));
+
+        Education education = new Education(
+            "The Ohio State University",
+		    "Columbus, Ohio",
+		    "Bachelor of Science in Business Administration",
+		    new GraduationDate(5, 2021),
+		    "Finance",
+		    "Business Analytics",
+		    4.0,
+            honorList
+        );
+        
         experienceList.add(new Experience(
                 nextId++,
                 "The Ohio State University",
@@ -201,8 +245,20 @@ public class ResumeService {
                 new CustomDate(4, 2019),
                 "Participated in a consulting career readiness program focusing on problem solving, professionalism, and networking",
                 false));
+
+        List<String> skillsList = new ArrayList<>();
+
+        skillsList.add("Archery");
+        skillsList.add("Java");
+        skillsList.add("Python");
+        skillsList.add("Italian");
+
         Resume resume = new Resume();
+        resume.setEducation(education);
         resume.setExperiences(experienceList);
+        String[] contactMethods = {"buckeye.1@osu.edu", "614-222-2222", "100 Ohio State Ave, Columbus OH, 43210"};
+        resume.setContactMethods(Arrays.asList(contactMethods));
+        resume.setSkills(skillsList);
         return resume;
     }
 }
