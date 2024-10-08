@@ -9,10 +9,17 @@ export const Sidebar = () => {
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
     };
+    //const main = document.querySelector('.main');
 
     useEffect(() => {
         function handleResize() {
-            setWindowSmall(window.innerWidth <= 1040 ? true : false);
+            if (window.innerWidth <= 1480) {
+                setWindowSmall(true);
+                // main.style.left = '0px';
+            } else {
+                setWindowSmall(false);
+                // main.style.left = '250px';
+            }
         }
 
         window.addEventListener('resize', handleResize);
@@ -21,7 +28,7 @@ export const Sidebar = () => {
     }, []);
 
     return (
-        <div className="Sidebar" style={{display: 'flex'}}>
+        <div className="Sidebar flex">
             {/* Toggle button */}
             <Button className={`fixed left-5 top-5 ${windowSmall ? '' : 'hidden'}`} onClick={toggleSidebar}>
                 <Menu />
@@ -31,7 +38,7 @@ export const Sidebar = () => {
             <aside
                 className={`sidebar ${isOpen ? 'open' : ''}`}
                 style={{
-                    width: '230px',
+                    width: '220px',
                     height: '100%',
                     backgroundColor: '#6b6b6b',
                     color: 'white',

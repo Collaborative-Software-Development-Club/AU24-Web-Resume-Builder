@@ -29,7 +29,7 @@ const SidebarItem = ({name, elements}) => {
                 <ul style={{cursor: 'pointer', listStyleType: 'none'}}>
                     {elements.map((item) => (
                         <li className="my-2 ml-7" key="item">
-                            <Label className="times flex text-base">
+                            <Label className="times flex text-bar4se">
                                 <Input type="checkbox" className="h-5 basis-1/4" checked={childCheckbox} onChange={handleChildChange} />
                                 {item}
                             </Label>
