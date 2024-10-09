@@ -16,8 +16,8 @@ public class Resume {
 
     private int id;
     private String name;
-    private Education education;
-    private List<Experience> experiences;
+    private EducationSection education;
+    private ExperienceSection experience;
     private List<String> contactMethods;
     private List<String> skills;
 
@@ -46,42 +46,31 @@ public class Resume {
     public List<String> getContactMethods() {
         return this.contactMethods;
     }
-    public Education getEducation(){
+    public EducationSection getEducation(){
         return this.education;
     }
-    public void setEducation(Education education) {
+    public void setEducation(EducationSection education) {
         this.education = education;
     }
 
 
-    public void setExperiences(List<Experience> experiences) {
-        this.experiences = experiences;
+    public void setExperience(ExperienceSection experience) {
+        this.experience = experience;
     }
 
-    public void addExperience(Experience newExperience) {
-        experiences.add(newExperience);
+    public void addExperience(ExperienceItem newExperience) {
+        experience.add(newExperience);
     }
 
-    public Optional<Experience> removeExperience(int id) {
-        for (Experience experience : experiences) {
-            if (experience.getId() == id) {
-                experiences.remove(experience);
-                return Optional.of(experience);
-            }
-        }
-        return Optional.empty();
+    public Optional<ExperienceItem> removeExperience(int id) {
+        return experience.remove(id);
     }
-    public List<Experience> getExperiences(){
-        return this.experiences;
+    public ExperienceSection getExperience(){
+        return this.experience;
     }
 
-    public Optional<Experience> getExperience(int id) {
-        for (Experience experience : experiences) {
-            if (experience.getId() == id) {
-                return Optional.of(experience);
-            }
-        }
-        return Optional.empty();
+    public Optional<ExperienceItem> getExperienceItem(int id) {
+        return experience.get(id);
     }
 
     /*Skills*/
