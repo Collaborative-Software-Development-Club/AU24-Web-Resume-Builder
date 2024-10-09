@@ -115,6 +115,8 @@
         "title": "Blockchain Feasibility Research",
         "organization": "Buckeye Undergraduate Consulting Club",
         "location": "Columbus, Ohio",
+        "link": "Github.com",
+        "technologies": "React, Express, Node",
         "startDate": {
           "month": 1,
           "year": 2018

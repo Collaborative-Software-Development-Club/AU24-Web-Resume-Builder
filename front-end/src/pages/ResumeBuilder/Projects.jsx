@@ -3,15 +3,15 @@ import {Input} from '@/components/ui/input';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {SectionTitle} from './SectionTitle';
 
-const MONTHS = ['Spring', 'Summer', 'Fall', 'Winter'];
+const SEASONS = ['Spring', 'Summer', 'Fall', 'Winter'];
 
 const Projects = ({projects}) => {
     const [projectData, setProjectData] = useState({
         title: projects.items[0]?.title || '',
         description: projects.items[0]?.description || '',
-        technologies: '',
+        technologies: projects.items[0]?.technologies,
         role: projects.items[0]?.organization || '',
-        link: '',
+        link: projects.items[0]?.link,
         location: projects.items[0]?.location || '',
         startMonth: projects.items[0]?.startDate.month || '',
         startYear: projects.items[0]?.startDate.year || '',
@@ -79,10 +79,10 @@ const Projects = ({projects}) => {
                     <div className="flex space-x-4 md:w-1/2">
                         <Select className="times" onValueChange={(value) => handleSelectChange('startMonth', value)}>
                             <SelectTrigger className="times">
-                                <SelectValue placeholder={projects.items[0]?.startDate.month ? MONTHS[projects.items[0]?.startDate.month - 1] : 'Start Month'} />
+                                <SelectValue placeholder={projects.items[0]?.startDate.month ? SEASONS[projects.items[0]?.startDate.month - 1] : 'Start Month'} />
                             </SelectTrigger>
                             <SelectContent>
-                                {MONTHS.map((month, index) => (
+                                {SEASONS.map((month, index) => (
                                     <SelectItem value={index + 1} key={month}>
                                         {month}
                                     </SelectItem>
