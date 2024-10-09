@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
-import {Input} from '@/components/ui/input'; // Assuming you're using Shadcn Input component
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select'; // Assuming you're using Shadcn Select component
+import {Input} from '@/components/ui/input';
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {SectionTitle} from './SectionTitle';
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const Education = () => {
+const Education = ({education}) => {
     const [educationData, setEducationData] = useState({
-        institution: '',
-        location: '',
-        degree: '',
+        institution: education.institution,
+        location: education.location,
+        degree: education.degree,
         specialization: '',
         minor: '',
-        gpa: '',
+        gpa: education.gpa,
         graduationMonth: '',
-        graduationYear: '',
-        honors: '',
+        graduationYear: education.graduationDate.year,
+        honors: education.honors.name,
     });
 
     const handleInputChange = (e) => {
@@ -44,7 +44,7 @@ const Education = () => {
                 {/* Additional Fields */}
                 <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                     <div className="sm:flex-grow">
-                        <Input name="major" placeholder="Enter Major/Minor" onChange={handleInputChange} className="times" />
+                        <Input name="major" placeholder="Enter Major/Minor" value={educationData.degree} onChange={handleInputChange} className="times" />
                     </div>
 
                     <div className="flex space-x-4 md:w-1/3">
@@ -62,21 +62,21 @@ const Education = () => {
                         </Select>
 
                         <div className="w-">
-                            <Input name="year" placeholder="Year" onChange={handleInputChange} className="times" />
+                            <Input name="year" placeholder="Year" value={educationData.graduationYear} onChange={handleInputChange} className="times" />
                         </div>
                     </div>
                 </div>
 
                 <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                     <div className="w-24">
-                        <Input name="gpa" placeholder="Enter GPA" onChange={handleInputChange} className="times" />
+                        <Input name="gpa" placeholder="Enter GPA" value={educationData.gpa} onChange={handleInputChange} className="times" />
                     </div>
                 </div>
 
                 {/* GPA and Honors */}
                 <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                     <div className="w-full">
-                        <Input name="honors" placeholder="Enter Honors and Awards" onChange={handleInputChange} className="times" />
+                        <Input name="honors" placeholder="Enter Honors and Awards" value={educationData.honors} onChange={handleInputChange} className="times" />
                     </div>
                 </div>
             </div>
