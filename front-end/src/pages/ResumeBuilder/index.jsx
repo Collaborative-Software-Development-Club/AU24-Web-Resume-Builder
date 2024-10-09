@@ -3,7 +3,7 @@ import Education from './Education';
 import {ContactMethods} from './ContactMethods';
 import Skills from './Skills';
 import useResumeData from './useResumeData';
-import Projects from './Projects';
+import {Projects} from './Projects';
 
 const USE_API = false;
 
@@ -18,7 +18,7 @@ export default function ResumeBuilder() {
             <ContactMethods contactMethods={resume.contactMethods} />
             <Education education={resume.education} />
             <Skills skills={resume.skills.items} />
-            <Projects projects={resume.projects}/>
+            <Projects projects={resume.projects} />
         </div>
     );
 }
