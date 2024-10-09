@@ -18,6 +18,7 @@ export default function ResumeBuilder() {
             <ContactMethods contactMethods={resume.contactMethods} />
             <Education education={resume.education} />
             <Skills skills={resume.skills.items} />
+            <Projects projects={resume.projects}/>
         </div>
     );
 }
