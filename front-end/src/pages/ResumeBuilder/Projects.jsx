@@ -15,8 +15,6 @@ const Projects = ({projects}) => {
         location: projects.items[0]?.location || '',
         startMonth: projects.items[0]?.startDate.month || '',
         startYear: projects.items[0]?.startDate.year || '',
-        endMonth: projects.items[0]?.endDate.month || '',
-        endYear: projects.items[0]?.endDate.year || '',
     });
 
     const handleInputChange = (e) => {
@@ -32,7 +30,6 @@ const Projects = ({projects}) => {
             {/* Projects Form Section */}
             <div className="mt-6 w-full">
                 {' '}
-                {/* Added margin-top to create gap between Skills and Projects section */}
                 <SectionTitle title="Projects" />
                 {/* Combined Row for Project Title and Description */}
                 <div className="mb-4 flex flex-col justify-between space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
@@ -49,7 +46,7 @@ const Projects = ({projects}) => {
                         />
                     </div>
                 </div>
-                {/* Additional Fields */}
+                {/* Technologies and Organizations */}
                 <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                     <div className="sm:flex-grow">
                         <Input name="technologies" placeholder="Technologies used (e.g., JavaScript, React)" value={projectData.technologies} onChange={handleInputChange} className="times" />
