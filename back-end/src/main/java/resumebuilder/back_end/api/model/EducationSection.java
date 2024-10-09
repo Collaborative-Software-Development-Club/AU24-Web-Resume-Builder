@@ -1,9 +1,8 @@
 package resumebuilder.back_end.api.model;
 import java.util.List;
 
-public class Education extends VisibleElement {
+public class EducationSection extends VisibleElement {
 
-public class Education extends Section {
     private String institution;
     private String location;
     private String degree;
@@ -13,7 +12,7 @@ public class Education extends Section {
     private double gpa;
     private List<Honor> honors;
 
-    public Education(String institution, String location, String degree, GraduationDate graduation_date, String specialization, String minor, double gpa, List<Honor> honors) {
+    public EducationSection(String institution, String location, String degree, GraduationDate graduation_date, String specialization, String minor, double gpa, List<Honor> honors) {
         this.institution = institution;
         this.location = location;
         this.degree = degree;

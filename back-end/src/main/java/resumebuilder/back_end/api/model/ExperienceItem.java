@@ -1,6 +1,6 @@
 package resumebuilder.back_end.api.model;
 
-public class Experience extends VisibleElement {
+public class ExperienceItem extends VisibleElement {
     private static int idCounter = 0;
     private int id;
     private String company;
@@ -10,7 +10,7 @@ public class Experience extends VisibleElement {
     private CustomDate end_date;
     private String description;
 
-    public Experience(int id, String company, String location, String position, CustomDate start_date, CustomDate end_date, String description, boolean visible) {
+    public ExperienceItem(int id, String company, String location, String position, CustomDate start_date, CustomDate end_date, String description, boolean visible) {
         this.id = id;
         this.company = company;
         this.location = location;
