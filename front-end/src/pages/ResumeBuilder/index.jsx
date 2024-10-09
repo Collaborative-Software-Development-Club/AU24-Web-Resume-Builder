@@ -3,7 +3,7 @@ import Education from './Education';
 import {ContactMethods} from './ContactMethods';
 import Skills from './Skills';
 import useResumeData from './useResumeData';
-import {NavBar} from './navbar';
+import {NavBar} from '../../components/navbar';
 
 const USE_API = false;
 

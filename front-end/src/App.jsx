@@ -1,6 +1,6 @@
 import '@/App.css';
 import ResumeBuilder from '@/pages/ResumeBuilder';
-import {NavBar} from '@/pages/ResumeBuilder/navbar';
+import {NavBar} from '@/components/navbar';
 function App() {
     return (
         <div className="flex w-full flex-col items-stretch gap-10 p-10">
