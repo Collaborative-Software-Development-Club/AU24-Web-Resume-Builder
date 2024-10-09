@@ -4,18 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import resumebuilder.back_end.api.model.Experience;
 import resumebuilder.back_end.api.model.Resume;
 import resumebuilder.back_end.service.ResumeService;
-import resumebuilder.back_end.api.model.Education;
 
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
+@RequestMapping("/resume")
 public class ResumeController {
 
     private ResumeService resumeService;
@@ -39,7 +36,7 @@ public class ResumeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/resumes")
+    @PostMapping("/")
     public ResponseEntity<Resume> createResume(@RequestBody Resume resume) {
         try {
             Resume createdResume = resumeService.createResume(resume);
@@ -48,6 +45,17 @@ public class ResumeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/{resumeId}")
+    public ResponseEntity<Resume> deleteResume(@PathVariable("resumeId") int resumeId) {
+        Optional<Resume> deletedResume = resumeService.deleteResume(resumeId);
+        if (deletedResume.isPresent()) {
+            return new ResponseEntity<>(deletedResume.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @PatchMapping("/{resumeId}")
     public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
@@ -60,93 +68,6 @@ public class ResumeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{resumeId}/education")
-    public ResponseEntity<Education> getEducation(@PathVariable("resumeId") int resumeId) {
-        Optional<Education> optional = resumeService.getEducation(resumeId);
-        if (optional.isPresent()) {
-            return new ResponseEntity<Education>(optional.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-
-
-    @GetMapping("/{resumeId}/experiences")
-    public ResponseEntity<List<Experience>> getExperiences(@PathVariable("resumeId") int resumeId) {
-        Optional<List<Experience>> optional = resumeService.getExperiences(resumeId);
-        if (optional.isPresent()) {
-            return new ResponseEntity<List<Experience>>(optional.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/{resumeId}/experiences/{experienceId}")
-    public ResponseEntity<Experience> getExperience(@PathVariable("resumeId") int resumeId,
-            @PathVariable("experienceId") int experienceId) {
-        Optional<Experience> experience = resumeService.getExperience(resumeId, experienceId);
-        if (experience.isPresent()) {
-            return new ResponseEntity<>(experience.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PostMapping("/{resumeId}/experiences")
-    public ResponseEntity<Experience> createExperience(@PathVariable("resumeId") int resumeId,
-            @RequestBody Experience experience) {
-        // ! is taking in an id, but the id should be created on the back-end
-        try {
-            resumeService.createExperience(resumeId, experience);
-            return new ResponseEntity<>(experience, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PutMapping("{resumeId}/experiences/{experienceId}")
-    public ResponseEntity<Experience> updateExperience(
-            @PathVariable("resumeId") int resumeId,
-            @PathVariable("experienceId") int experienceId,
-            @RequestBody Experience updatedExperience) {
-        Optional<Experience> existingExperienceOpt = resumeService.getExperience(resumeId, experienceId);
-        if (!existingExperienceOpt.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        Optional<Experience> updated = resumeService.updateExperience(resumeId, experienceId, updatedExperience);
-        if (updated.isPresent()) {
-            return new ResponseEntity<>(updated.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-    }
-
-    @PatchMapping("{resumeId}/experiences/{experienceId}")
-    public ResponseEntity<Experience> patchExperience(
-            @PathVariable("resumeId") int resumeId, @PathVariable("experienceId") int experienceId,
-            @RequestBody Map<String, Object> updates) {
-        // Fetch the existing experience
-        Optional<Experience> existingExperienceOpt = resumeService.getExperience(resumeId, experienceId);
-
-        if (!existingExperienceOpt.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        // Partially update the experience
-        Experience updatedExperience = resumeService.partialUpdateExperience(resumeId, experienceId, updates);
-
-        return new ResponseEntity<>(updatedExperience, HttpStatus.OK);
-    }
-
-    @DeleteMapping("{resumeId}/experiences/{experienceId}")
-    public ResponseEntity<Experience> deleteExperience(@PathVariable("resumeId") int resumeId,
-            @PathVariable("experienceId") int experienceId) {
-        Optional<Experience> deletedExperience = resumeService.deleteExperience(resumeId, experienceId);
-        if (deletedExperience.isPresent()) {
-            return new ResponseEntity<>(deletedExperience.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+    //! experience methods and individual mappings were removed to not cause confusion, if needed they can be added back from version control
 
 }

@@ -7,7 +7,6 @@ import resumebuilder.back_end.api.model.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,17 +24,27 @@ public class ResumeService {
     public Resume createResume(Resume newResume) {
         Resume createdResume = new Resume();
         createdResume.setSkills(newResume.getSkills());
-        createdResume.setExperiences(newResume.getExperiences());
+        createdResume.setExperience(newResume.getExperience());
         resumes.add(createdResume);
 
         return createdResume;
+    }
+
+    public Optional<Resume> deleteResume(int id) {
+        for (Resume resume : resumes) {
+            if (resume.getId() == id) {
+                resumes.remove(resume);
+                return Optional.of(resume);
+            }
+        }
+        return Optional.empty();
     }
     public Optional<Resume> partialUpdateResume(int resumeId, Resume updatedResume) {
         System.out.println(updatedResume);
         for (Resume resume : resumes) {
             if (resume.getId() == resumeId) {
-                if (updatedResume.getExperiences() != null) {
-                    resume.setExperiences(updatedResume.getExperiences());
+                if (updatedResume.getExperience() != null) {
+                    resume.setExperience(updatedResume.getExperience());
                 }
                 if(resume.getContactMethods() != null){
                     resume.setContactMethods(updatedResume.getContactMethods());
@@ -65,128 +74,15 @@ public class ResumeService {
         return Optional.empty();
     }
 
-    public Optional<Education> getEducation(int resumeId) {
-        for (Resume resume : resumes) {
-            if (resume.getId() == resumeId) {
-                return Optional.of(resume.getEducation());
-            }
-        }
-        return Optional.empty();
-    }
-
-//    public void createEducation(int resumeId, Education education) throws Exception {
-//        for (Resume resume : resumes) {
-//            if (resume.getId() == resumeId) {
-//                resume.addEducation(education);
-//                return;
-//            }
-//        }
-//        // TODO create a better exception or refactor the check if resume exists before calling this method
-//        throw new Exception("Resume not found");
-//    }
-
-    public Optional<List<Experience>> getExperiences(int resumeId) {
-        for (Resume resume : resumes) {
-            if (resume.getId() == resumeId) {
-                return Optional.of(resume.getExperiences());
-            }
-        }
-        return Optional.empty();
-    }
-
-    public Optional<Experience> getExperience(int resumeId, int experienceId) {
-        Optional<Experience> optional = Optional.empty();
-        for (Resume resume : resumes) {
-            if (resume.getId() == resumeId) {
-                return resume.getExperience(experienceId);
-            }
-        }
-        return optional;
-    }
-
-    public void createExperience(int resumeId, Experience experience) throws Exception {
-        for (Resume resume : resumes) {
-            if (resume.getId() == resumeId) {
-                resume.addExperience(experience);
-                return;
-            }
-        }
-        // TODO create a better exception or refactor the check if resume exists before calling this method
-        throw new Exception("Resume not found");
-    }
-
-    public Optional<Experience> updateExperience(int resumeId, int experienceId, Experience updatedExperience) {
-        Optional<Experience> experienceOptional = getExperience(resumeId, experienceId);
-        if(experienceOptional.isPresent()){
-            Experience experienceToUpdate = experienceOptional.get();
-            experienceToUpdate.setCompany(updatedExperience.getCompany());
-            experienceToUpdate.setLocation(updatedExperience.getLocation());
-            experienceToUpdate.setPosition(updatedExperience.getPosition());
-            experienceToUpdate.setStart_date(updatedExperience.getStart_date());
-            experienceToUpdate.setEnd_date(updatedExperience.getEnd_date());
-            experienceToUpdate.setDescription(updatedExperience.getDescription());
-            experienceToUpdate.setVisible(updatedExperience.isVisible());
-        }
-        return experienceOptional;
-    }
-
-    public Experience partialUpdateExperience(int resumeId, int experienceId, Map<String, Object> updates) {
-        Experience experienceToPatch = getExperience(resumeId, experienceId)
-                .orElseThrow(() -> new IllegalArgumentException("Experience not found"));
-        // Loop through the updates and apply them if the field exists
-        updates.forEach((key, value) -> {
-            switch (key) {
-                case "company":
-                    experienceToPatch.setCompany((String) value);
-                    break;
-                case "location":
-                    experienceToPatch.setLocation((String) value);
-                    break;
-                case "position":
-                    experienceToPatch.setPosition((String) value);
-                    break;
-                case "start_date":
-                    Map<String, Integer> startDate = (Map<String, Integer>) value;
-                    experienceToPatch.setStart_date(new CustomDate(startDate.get("month"), startDate.get("year")));
-                    break;
-                case "end_date":
-                    if (value != null) {
-                        Map<String, Integer> endDate = (Map<String, Integer>) value;
-                        experienceToPatch.setEnd_date(new CustomDate(endDate.get("month"), endDate.get("year")));
-                    } else {
-                        experienceToPatch.setEnd_date(null);
-                    }
-                    break;
-                case "description":
-                    experienceToPatch.setDescription((String) value);
-                    break;
-                case "visible":
-                    experienceToPatch.setVisible((Boolean) value);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid field: " + key);
-            }
-        });
-
-        return experienceToPatch;
-    }
-
-    public Optional<Experience> deleteExperience(int resumeId, int experienceId) {
-        for (Resume resume : resumes) {
-            if (resume.getId() == resumeId) {
-                resume.removeExperience(experienceId);
-            }
-        }
-        return Optional.empty();
-    }
+    //! individual experience methods were removed to not cause confusion, if needed they can be added back from version control
 
     private Resume createSampleResume() {
-        List<Experience> experienceList = new ArrayList<Experience>();
+        List<ExperienceItem> experienceList = new ArrayList<ExperienceItem>();
         List<Honor> honorList = new ArrayList<>();
         honorList.add(new Honor("Fisher Pacesetter Award", "Given to the top one percent of students based on academic performance and demonstrated leadership ability"));
         honorList.add(new Honor("Honors Cohort Program", "One of 30 students selected to participate in the College of Business’ flagship two-year academic program"));
 
-        Education education = new Education(
+        EducationSection education = new EducationSection(
             "The Ohio State University",
 		    "Columbus, Ohio",
 		    "Bachelor of Science in Business Administration",
@@ -197,7 +93,7 @@ public class ResumeService {
             honorList
         );
         
-        experienceList.add(new Experience(
+        experienceList.add(new ExperienceItem(
                 nextId++,
                 "The Ohio State University",
                 "Columbus, Ohio",
@@ -207,7 +103,7 @@ public class ResumeService {
                 "Ensured safety and served as a resource for 65+ residents\nFacilitated programs to foster the growth and development of undergraduate students\nAddressed and resolved issues to ensure a quality living experience for all residents in the residence hall",
                 true));
 
-        experienceList.add(new Experience(
+        experienceList.add(new ExperienceItem(
                 nextId++,
                 "L Brands",
                 "Columbus, Ohio",
@@ -217,7 +113,7 @@ public class ResumeService {
                 "Developed 40+ new standardized operating procedures to improve efficiency, productivity, and employee morale\nWorked with a team of 10 distribution managers to expand Bath and Body Works operations to a secondary campus",
                 true));
 
-        experienceList.add(new Experience(
+        experienceList.add(new ExperienceItem(
                 nextId++,
                 "The Ohio State University Wexner Medical Center",
                 "Columbus, Ohio",
@@ -227,7 +123,7 @@ public class ResumeService {
                 "Collaborated with the purchasing department to develop metrics for tracking department performance\nResolved several hundred pricing discrepancies\nFormulated standard operating procedures for future interns",
                 true));
 
-        experienceList.add(new Experience(
+        experienceList.add(new ExperienceItem(
                 nextId++,
                 "Buckeye Undergraduate Consulting Club",
                 "Columbus, Ohio",
@@ -237,7 +133,7 @@ public class ResumeService {
                 "Conducted market research on blockchain technology feasibility for wire transactions\nDeveloped analytical skills through Power BI and Tableau workshops\nCompeted in three case competitions",
                 false));
 
-        experienceList.add(new Experience(
+        experienceList.add(new ExperienceItem(
                 nextId++,
                 "Phi Chi Theta Professional Business Fraternity",
                 "Columbus, Ohio",
@@ -247,7 +143,7 @@ public class ResumeService {
                 "Created individualized professional development experiences for new members\nDeveloped and executed workshops to enrich pledges' understanding of brotherhood, professionalism, and philanthropy",
                 false));
 
-        experienceList.add(new Experience(
+        experienceList.add(new ExperienceItem(
                 nextId++,
                 "Fisher Emerging Consultants",
                 "Columbus, Ohio",
@@ -267,7 +163,7 @@ public class ResumeService {
         Resume resume = new Resume();
         resume.setName("Brutus Buckeye");
         resume.setEducation(education);
-        resume.setExperiences(experienceList);
+        resume.setExperience(new ExperienceSection(experienceList));
         String[] contactMethods = {"buckeye.1@osu.edu", "614-222-2222", "100 Ohio State Ave, Columbus OH, 43210"};
         resume.setContactMethods(Arrays.asList(contactMethods));
         resume.setSkills(skillsList);

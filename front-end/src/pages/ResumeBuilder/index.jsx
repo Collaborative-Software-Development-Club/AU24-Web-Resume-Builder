@@ -3,7 +3,7 @@ import Education from './Education';
 import {ContactMethods} from './ContactMethods';
 import Skills from './Skills';
 import useResumeData from './useResumeData';
-import {NavBar} from '../../components/navbar';
+import {Projects} from './Projects';
 
 const USE_API = false;
 
@@ -16,8 +16,9 @@ export default function ResumeBuilder() {
         <div className="items-strech flex flex-col justify-start self-stretch">
             <Name name={resume.name} />
             <ContactMethods contactMethods={resume.contactMethods} />
-            <Education />
+            <Education education={resume.education} />
             <Skills skills={resume.skills.items} />
+            <Projects projects={resume.projects} />
         </div>
     );
 }
