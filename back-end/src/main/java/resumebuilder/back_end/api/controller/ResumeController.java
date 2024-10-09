@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
+@RequestMapping("/resume")
 public class ResumeController {
 
     private ResumeService resumeService;
@@ -39,7 +40,7 @@ public class ResumeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/resumes")
+    @PostMapping("/")
     public ResponseEntity<Resume> createResume(@RequestBody Resume resume) {
         try {
             Resume createdResume = resumeService.createResume(resume);
@@ -48,6 +49,17 @@ public class ResumeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/{resumeId}")
+    public ResponseEntity<Resume> deleteResume(@PathVariable("resumeId") int resumeId) {
+        Optional<Resume> deletedResume = resumeService.deleteResume(resumeId);
+        if (deletedResume.isPresent()) {
+            return new ResponseEntity<>(deletedResume.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @PatchMapping("/{resumeId}")
     public ResponseEntity<Resume> updateResume(@PathVariable("resumeId") int resumeId, @RequestBody Resume resume) {
