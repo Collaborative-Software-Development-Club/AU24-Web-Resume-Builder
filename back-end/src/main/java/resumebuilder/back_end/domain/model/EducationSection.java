@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @Builder
-public class Education extends Section {
+public class EducationSection extends VisibleElement {
     private String institution;
     private String location;
     private String degree;

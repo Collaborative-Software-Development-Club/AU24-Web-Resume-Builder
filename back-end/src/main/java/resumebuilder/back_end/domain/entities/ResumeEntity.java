@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import resumebuilder.back_end.domain.model.Education;
-import resumebuilder.back_end.domain.model.Experience;
+import resumebuilder.back_end.domain.model.EducationSection;
+import resumebuilder.back_end.domain.model.ExperienceSection;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ public class ResumeEntity {
     private String id;
 
     private String name;
-    private Education education;
-    private List<Experience> experiences;
+    private EducationSection education;
+    private ExperienceSection experiences;
     private List<String> contactMethods;
     private List<String> skills;
 }
