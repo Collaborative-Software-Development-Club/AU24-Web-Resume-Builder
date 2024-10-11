@@ -1,4 +1,4 @@
-package resumebuilder.back_end.api.model;
+package resumebuilder.back_end.domain.model;
 
 public abstract class VisibleElement {
     private boolean visibility;

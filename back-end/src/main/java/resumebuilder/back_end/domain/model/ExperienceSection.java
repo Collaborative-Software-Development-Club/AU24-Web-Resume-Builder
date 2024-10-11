@@ -1,4 +1,7 @@
-package resumebuilder.back_end.api.model;
+package resumebuilder.back_end.domain.model;
+
+import resumebuilder.back_end.domain.model.ExperienceItem;
+import resumebuilder.back_end.domain.model.VisibleElement;
 
 import java.util.List;
 import java.util.Optional;
