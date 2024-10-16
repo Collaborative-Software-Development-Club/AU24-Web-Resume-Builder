@@ -4,6 +4,7 @@ import {ContactMethods} from './ContactMethods';
 import Skills from './Skills';
 import useResumeData from './useResumeData';
 import {Projects} from './Projects';
+import Experience from './Experience';
 
 const USE_API = false;
 
@@ -17,6 +18,7 @@ export default function ResumeBuilder() {
             <Name name={resume.name} />
             <ContactMethods contactMethods={resume.contactMethods} />
             <Education education={resume.education} />
+            <Experience />
             <Skills skills={resume.skills.items} />
             <Projects projects={resume.projects} />
         </div>
