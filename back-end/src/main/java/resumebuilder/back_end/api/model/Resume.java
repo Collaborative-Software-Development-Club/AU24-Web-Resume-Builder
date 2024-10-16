@@ -15,6 +15,8 @@ public class Resume {
     private int id;
     private Education education;
     private List<Experience> experiences;
+    private List<Project> projects;
+
 
     public Resume() {
         this.id = idCounter;
@@ -31,7 +33,6 @@ public class Resume {
     public void setEducation(Education education) {
         this.education = education;
     }
-
 
     public void setExperiences(List<Experience> experiences) {
         this.experiences = experiences;
@@ -62,4 +63,36 @@ public class Resume {
         }
         return Optional.empty();
     }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
+    public void addProject(Project newProject) {
+        projects.add(newProject);
+    }
+
+    public Optional<Project> removeProject(int id) {
+        for (Project project : projects) {
+            if (project.getId() == id) {
+                projects.remove(project);
+                return Optional.of(project);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public List<Project> getProjects(){
+        return this.projects;
+    }
+
+    public Optional<Project> getProject(int id) {
+        for (Project project : projects) {
+            if (project.getId() == id) {
+                return Optional.of(project);
+            }
+        }
+        return Optional.empty();
+    }
+
 }

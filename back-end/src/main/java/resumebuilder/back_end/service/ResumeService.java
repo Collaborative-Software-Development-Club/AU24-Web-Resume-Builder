@@ -161,9 +161,105 @@ public class ResumeService {
         return Optional.empty();
     }
 
+    public Optional<List<Project>> getProjects(int resumeId) {
+        for (Resume resume : resumes) {
+            if (resume.getId() == resumeId) {
+                return Optional.of(resume.getProjects());
+            }
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Project> getProject(int resumeId, int projectId) {
+        Optional<Project> optional = Optional.empty();
+        for (Resume resume : resumes) {
+            if (resume.getId() == resumeId) {
+                return resume.getProject(projectId);
+            }
+        }
+        return optional;
+    }
+
+    public void createProject(int resumeId, Project project) throws Exception {
+        for (Resume resume : resumes) {
+            if (resume.getId() == resumeId) {
+                resume.addProject(project);
+                return;
+            }
+        }
+        // TODO create a better exception or refactor the check if resume exists before calling this method
+        throw new Exception("Resume not found");
+    }
+
+    public Optional<Project> updateProject(int resumeId, int projectId, Project updatedProject) {
+        Optional<Project> projectOptional = getProject(resumeId, projectId);
+        if(projectOptional.isPresent()){
+            Project projectToUpdate = projectOptional.get();
+            projectToUpdate.setTitle(updatedProject.getTitle());
+            projectToUpdate.setOrganization(updatedProject.getOrganization());
+            projectToUpdate.setLocation(updatedProject.getLocation());
+            projectToUpdate.setStart_date(updatedProject.getStart_date());  // Assuming method names match
+            projectToUpdate.setEnd_date(updatedProject.getEnd_date());      // Assuming method names match
+            projectToUpdate.setDescription(updatedProject.getDescription());
+            projectToUpdate.setVisible(updatedProject.isVisible());
+        }
+        return projectOptional;
+    }
+
+    public Project partialUpdateProject(int resumeId, int projectId, Map<String, Object> updates) {
+        Project projectToPatch = getProject(resumeId, projectId)
+                .orElseThrow(() -> new IllegalArgumentException("Experience not found"));
+        // Loop through the updates and apply them if the field exists
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "title":
+                    projectToPatch.setTitle((String) value);
+                    break;
+                case "organization":
+                    projectToPatch.setLocation((String) value);
+                    break;
+                case "location":
+                    projectToPatch.setLocation((String) value);
+                    break;
+                case "start_date":
+                    Map<String, Integer> startDate = (Map<String, Integer>) value;
+                    projectToPatch.setStart_date(new CustomDate(startDate.get("month"), startDate.get("year")));
+                    break;
+                case "end_date":
+                    if (value != null) {
+                        Map<String, Integer> endDate = (Map<String, Integer>) value;
+                        projectToPatch.setEnd_date(new CustomDate(endDate.get("month"), endDate.get("year")));
+                    } else {
+                        projectToPatch.setEnd_date(null);
+                    }
+                    break;
+                case "description":
+                    projectToPatch.setDescription((String) value);
+                    break;
+                case "visible":
+                    projectToPatch.setVisible((Boolean) value);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid field: " + key);
+            }
+        });
+
+        return projectToPatch;
+    }
+
+    public Optional<Project> deleteProject(int resumeId, int projectId) {
+        for (Resume resume : resumes) {
+            if (resume.getId() == resumeId) {
+                resume.removeProject(projectId);
+            }
+        }
+        return Optional.empty();
+    }
+
     private Resume createSampleResume() {
         List<Experience> experienceList = new ArrayList<Experience>();
         List<Honor> honorList = new ArrayList<>();
+        List<Project> projectList = new ArrayList<>();
         honorList.add(new Honor("Fisher Pacesetter Award", "Given to the top one percent of students based on academic performance and demonstrated leadership ability"));
         honorList.add(new Honor("Honors Cohort Program", "One of 30 students selected to participate in the College of Business’ flagship two-year academic program"));
 
@@ -237,9 +333,21 @@ public class ResumeService {
                 new CustomDate(4, 2019),
                 "Participated in a consulting career readiness program focusing on problem solving, professionalism, and networking",
                 false));
+
+        projectList.add(new Project(
+                nextId++,
+                "Blockchain Feasibility Research",
+                "Buckeye Undergraduate Consulting Club",
+                "Columbus, Ohio",
+                new CustomDate(1, 2018),
+                new CustomDate(3, 2018),
+                "Conducted in-depth research on the feasibility of incorporating blockchain technology for wire transactions for a local Columbus client.",
+                true));
+
         Resume resume = new Resume();
         resume.setEducation(education);
         resume.setExperiences(experienceList);
+        resume.setProjects(projectList);
         return resume;
     }
 }

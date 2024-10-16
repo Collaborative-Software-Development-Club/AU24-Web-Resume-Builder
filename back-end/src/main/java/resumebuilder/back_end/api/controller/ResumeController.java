@@ -8,6 +8,8 @@ import resumebuilder.back_end.api.model.Experience;
 import resumebuilder.back_end.api.model.Resume;
 import resumebuilder.back_end.service.ResumeService;
 import resumebuilder.back_end.api.model.Education;
+import resumebuilder.back_end.api.model.Project;
+
 
 
 import java.util.List;
@@ -78,6 +80,15 @@ public class ResumeController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/{resumeId}/projects")
+    public ResponseEntity<List<Project>> getProjects(@PathVariable("resumeId") int resumeId) {
+        Optional<List<Project>> optional = resumeService.getProjects(resumeId);
+        if (optional.isPresent()) {
+            return new ResponseEntity<List<Project>>(optional.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/{resumeId}/experiences")
