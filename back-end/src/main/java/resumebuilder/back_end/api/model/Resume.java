@@ -20,13 +20,21 @@ public class Resume {
     private List<Experience> experiences;
     private List<String> contactMethods;
     private List<String> skills;
+    private Integer userId;
 
     public Resume() {
         this.id = idCounter;
         this.contactMethods = new ArrayList<>();
         idCounter++;
     }
+    public Integer getUserId() {
+        return userId;
+    }
 
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+    
     public int getId() {
         return this.id;
     }
