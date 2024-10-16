@@ -37,7 +37,7 @@ export function Experience({experience}) {
                 <Input name="company" value={experienceData.company} placeholder={PLACEHOLDERS.company} className="col-span-2" readOnly />
                 <Input name="location" value={experienceData.location} placeholder={PLACEHOLDERS.location} className="col-span-2" readOnly />
             </div>
-            
+
             {/* Start Date (Month and Year) */}
             <div className="grid grid-cols-6 gap-2">
                 <Input name="startMonth" value={formatMonth(experienceData.startMonth)} placeholder={PLACEHOLDERS.startMonth} className="col-span-1" readOnly />
@@ -56,6 +56,4 @@ export function Experience({experience}) {
     );
 }
 
-
-
-export default Experience
+export default Experience;
