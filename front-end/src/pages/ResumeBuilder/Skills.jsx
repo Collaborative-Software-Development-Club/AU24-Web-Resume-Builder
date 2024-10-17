@@ -2,8 +2,7 @@ import {EditableList} from '@/components/EditableList';
 import jsonData from '@/../../data/resume.json';
 import {SectionTitle} from './SectionTitle';
 
-const Skills = () => {
-    const skills = jsonData.skills.items;
+const Skills = ({skills}) => {
     const choice1 = `<div>
                             <p className="times list-disc" key="skills">
                                 • {list.join(', ')}
