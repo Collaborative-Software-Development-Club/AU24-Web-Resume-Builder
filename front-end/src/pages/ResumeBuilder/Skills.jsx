@@ -22,7 +22,6 @@ const Skills = ({skills}) => {
             <EditableList
                 list={skills}
                 RenderList={({list}) => {
-                    console.log(list);
                     return (
                         <div>
                             <p className="times list-disc" style={{overflow: 'hidden'}} key="skills">

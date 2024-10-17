@@ -3,16 +3,11 @@ import {useState} from 'react';
 
 const SidebarItem = ({name, elements}) => {
     const [checkbox, setCheckbox] = useState(true);
-    //const [childCheckbox, setChildCheckbox] = useState(true);
 
     const handleChange = (e) => {
         setCheckbox(e);
         setVisibility(name);
     };
-    // const handleChildChange = (e) => {
-    //     setChildCheckbox(e);
-    //     setVisibility(name);
-    // };
 
     //still needs to implement functionality
     const setVisibility = (component) => {};
