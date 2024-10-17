@@ -8,6 +8,7 @@ export const Sidebar = () => {
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
     };
+    //const main = document.querySelector('.main');
 
     return (
         <div className="Sidebar flex">

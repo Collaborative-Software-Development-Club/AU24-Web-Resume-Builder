@@ -15,18 +15,14 @@ export default function ResumeBuilder() {
         return <p>Loading...</p>;
     }
     return (
-
-        <div className="flex w-full justify-center">
-            <div className="items-strech flex w-full max-w-screen-lg flex-col justify-start self-stretch">
-                <Sidebar />
-                <Name name={resume.name} />
-                <ContactMethods contactMethods={resume.contactMethods} />
-                <Education education={resume.education} />
-                <Experiences experiences={resume.experience} />
-                <Projects projects={resume.projects} />
-                <Skills skills={resume.skills.items} />
-            </div>
-
+        <div className="items-strech flex flex-col justify-start self-stretch">
+            <Sidebar />
+            <Name name={resume.name} />
+            <ContactMethods contactMethods={resume.contactMethods} />
+            <Education education={resume.education} />
+            <Experiences experiences={resume.experience} />
+            <Skills skills={resume.skills.items} />
+            <Projects projects={resume.projects} />
         </div>
     );
 }
