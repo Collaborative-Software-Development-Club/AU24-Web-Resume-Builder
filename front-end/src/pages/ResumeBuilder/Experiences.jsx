@@ -1,17 +1,11 @@
 import {SectionTitle} from './SectionTitle';
-import {Experience} from './Experience';
+import EditableComponent from './EditableComponent';
 
 export function Experiences({experiences}) {
     return (
-        <div className="times mt-6 mb-6">
+        <div className="mt-6 grid">
             <SectionTitle title="Experiences" />
-            <div className="flex flex-col gap-8">
-                {experiences.items
-                    .filter((experience) => experience.visible)
-                    .map((experience) => (
-                        <Experience key={experience.position} experience={experience} />
-                    ))}
-            </div>
+            <EditableComponent type="Experience" data={experiences} />
         </div>
     );
 }
