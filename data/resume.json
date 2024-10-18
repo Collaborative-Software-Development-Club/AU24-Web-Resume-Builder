@@ -131,7 +131,8 @@
           "month": 3,
           "year": 2018
         },
-        "description": "Conducted in-depth research on the feasibility of incorporating blockchain technology for wire transactions for a local Columbus client."
+        "description": "Conducted in-depth research on the feasibility of incorporating blockchain technology for wire transactions for a local Columbus client.",
+        "visible": true
       },
       {
         "title": "Consumer Insights Case Competition",
@@ -145,7 +146,8 @@
           "month": 11,
           "year": 2018
         },
-        "description": "Competed and won first place in the Phi Chi Theta-DSP Case Competition, presenting innovative solutions for consumer insights."
+        "description": "Competed and won first place in the Phi Chi Theta-DSP Case Competition, presenting innovative solutions for consumer insights.",
+        "visible": true
       },
       {
         "title": "Johnson & Johnson M&A Case",
@@ -159,7 +161,8 @@
           "month": 5,
           "year": 2019
         },
-        "description": "Won first place in Johnson & Johnson’s M&A case competition, providing strategic merger recommendations to a panel of executives."
+        "description": "Won first place in Johnson & Johnson’s M&A case competition, providing strategic merger recommendations to a panel of executives.",
+        "visible": false
       }
     ]
   },
