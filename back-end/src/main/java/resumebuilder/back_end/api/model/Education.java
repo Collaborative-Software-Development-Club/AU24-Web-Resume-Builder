@@ -3,7 +3,6 @@ import java.util.List;
 
 public class Education extends VisibleElement {
 
-public class Education extends Section {
     private String institution;
     private String location;
     private String degree;
