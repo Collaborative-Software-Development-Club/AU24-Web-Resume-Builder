@@ -1,9 +1,6 @@
 package resumebuilder.back_end.domain.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,14 +17,14 @@ public class UserEntity {
     @Id
     private String id;
    
-    private List<Integer> resumesId;
+    private List<String> resumesId;
 
 
-    public void addResume(Integer resumeId) {
+    public void addResume(String resumeId) {
         this.resumesId.add(resumeId);
     }
 
-    public void removeResume(Integer resumeId) {
+    public void removeResume(String resumeId) {
         this.resumesId.remove(resumeId);
     }
 
