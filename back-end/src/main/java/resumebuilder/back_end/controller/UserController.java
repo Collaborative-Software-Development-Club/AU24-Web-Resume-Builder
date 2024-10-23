@@ -1,6 +1,6 @@
 package resumebuilder.back_end.controller;
 
-import resumebuilder.back_end.domain.entities.User;
+import resumebuilder.back_end.domain.entities.UserEntity;
 import resumebuilder.back_end.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,21 +24,21 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
+    public ResponseEntity<List<UserEntity>> getAllUsers() {
+        List<UserEntity> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id) {
+    public ResponseEntity<UserEntity> getUserById(@PathVariable int id) {
         return userService.getUserById(id)
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser() {
-        User newUser = userService.createUser();
+    public ResponseEntity<UserEntity> createUser() {
+        UserEntity newUser = userService.createUser();
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
