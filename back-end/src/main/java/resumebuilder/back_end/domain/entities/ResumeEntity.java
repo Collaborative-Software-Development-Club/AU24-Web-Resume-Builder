@@ -8,7 +8,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import resumebuilder.back_end.domain.model.EducationSection;
 import resumebuilder.back_end.domain.model.ExperienceSection;
+import resumebuilder.back_end.domain.model.enums.SectionNames;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -26,4 +28,6 @@ public class ResumeEntity {
     private ExperienceSection experiences;
     private List<String> contactMethods;
     private List<String> skills;
+    private List<SectionNames> orderOfSections;
+
 }

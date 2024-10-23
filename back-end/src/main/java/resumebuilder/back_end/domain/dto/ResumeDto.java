@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import resumebuilder.back_end.domain.model.EducationSection;
 import resumebuilder.back_end.domain.model.ExperienceSection;
+import resumebuilder.back_end.domain.model.enums.SectionNames;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,4 +24,6 @@ public class ResumeDto {
     private ExperienceSection experiences;
     private List<String> contactMethods;
     private List<String> skills;
+    private List<SectionNames> orderOfSections = List.of(SectionNames.EDUCATION, SectionNames.EXPERIENCES, SectionNames.PROJECTS, SectionNames.SKILLS);
+
 }
