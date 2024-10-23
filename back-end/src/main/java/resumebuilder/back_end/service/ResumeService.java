@@ -53,6 +53,7 @@ public class ResumeService {
             Optional.ofNullable(resumeDto.getExperiences()).ifPresent(resume::setExperiences);
             Optional.ofNullable(resumeDto.getContactMethods()).ifPresent(resume::setContactMethods);
             Optional.ofNullable(resumeDto.getSkills()).ifPresent(resume::setSkills);
+            Optional.ofNullable(resumeDto.getProjects()).ifPresent(resume::setProjects);
 
             ResumeEntity updatedResume = resumeRepository.save(resumeMapper.mapToEntity(resume));
             return resumeMapper.mapToDto(updatedResume);
