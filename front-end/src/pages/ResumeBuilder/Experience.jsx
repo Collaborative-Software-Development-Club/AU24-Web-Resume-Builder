@@ -43,7 +43,7 @@ export function Experience({experience}) {
             {/* Combined Row for Position Title, Company/Organization, and Location */}
             <div className="grid grid-cols-6 gap-2">
                 <Input name="position" value={experienceData.position} placeholder={PLACEHOLDERS.position} className="text-md col-span-2 font-bold" onChange={handleInputChange} />
-                <Input name="location" value={experienceData.location} placeholder={PLACEHOLDERS.location} className="col-span-2" onChange={handleInputChange}/>
+                <Input name="location" value={experienceData.location} placeholder={PLACEHOLDERS.location} className="col-span-2" onChange={handleInputChange} />
                 <Input name="company" value={experienceData.company} placeholder={PLACEHOLDERS.company} className="col-span-2" onChange={handleInputChange} />
             </div>
 

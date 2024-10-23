@@ -3,6 +3,7 @@ import Experience from './Experience';
 import {Button} from '@/components/ui/button';
 import {Trash2, Plus} from 'lucide-react';
 import {useState, useEffect} from 'react';
+import {PopupSideButton} from '@/components/PopupSideButton';
 
 const createNewExperience = (id) => ({
     id: id,
@@ -70,11 +71,14 @@ export default function EditableComponent({type, data}) {
     return (
         <div className="times flex flex-col gap-8">
             {array.map((item) => (
-                <div key={item.id} className="group flex items-center transition duration-300 hover:bg-gray-200 hover:shadow-lg">
+                <div key={item.id} className="group relative flex items-center transition duration-300 hover:bg-gray-200 hover:shadow-lg">
                     {isExp ? <Experience experience={item} /> : <Project project={item} />}
-                    <Button className="mb-1 ml-4 hidden group-hover:block" onClick={() => removeExperience(item.id)}>
+                    {/* <Button className="mb-1 ml-4 hidden group-hover:block" onClick={() => removeExperience(item.id)}>
                         <Trash2 />
-                    </Button>
+                    </Button> */}
+                    <PopupSideButton onlyOnHover={true} onClick={() => removeExperience(item.id)}>
+                        <Trash2 />
+                    </PopupSideButton>
                 </div>
             ))}
             <Button className="mx-auto" onClick={addExperience}>
