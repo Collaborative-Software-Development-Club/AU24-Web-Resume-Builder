@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import resumebuilder.back_end.domain.model.EducationSection;
 import resumebuilder.back_end.domain.model.ExperienceSection;
+import resumebuilder.back_end.domain.model.ProjectSection;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class ResumeDto {
     private String name;
     private EducationSection education;
     private ExperienceSection experiences;
+    private ProjectSection projects;
     private List<String> contactMethods;
     private List<String> skills;
 }
