@@ -1,4 +1,4 @@
-package resumebuilder.back_end.api.model;
+package resumebuilder.back_end.domain.entities;
 
 import java.util.ArrayList;
 import java.util.List;

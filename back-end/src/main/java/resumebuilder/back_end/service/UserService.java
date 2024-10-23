@@ -1,8 +1,7 @@
 package resumebuilder.back_end.service;
 
 import org.springframework.stereotype.Service;
-import resumebuilder.back_end.api.model.*;
-
+import resumebuilder.back_end.domain.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
