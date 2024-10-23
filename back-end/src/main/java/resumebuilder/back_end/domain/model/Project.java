@@ -1,4 +1,4 @@
-package resumebuilder.back_end.api.model;
+package resumebuilder.back_end.domain.model;
 
 public class Project {
     private static int idCounter = 0;
