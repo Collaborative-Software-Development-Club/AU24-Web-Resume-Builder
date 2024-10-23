@@ -99,3 +99,4 @@ public class Resume {
 
     public List<String> getSkills() {return this.skills;}
 }
+

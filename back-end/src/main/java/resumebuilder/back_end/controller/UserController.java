@@ -1,6 +1,6 @@
-package resumebuilder.back_end.api.controller;
+package resumebuilder.back_end.controller;
 
-import resumebuilder.back_end.api.model.User;
+import resumebuilder.back_end.domain.entities.User;
 import resumebuilder.back_end.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
