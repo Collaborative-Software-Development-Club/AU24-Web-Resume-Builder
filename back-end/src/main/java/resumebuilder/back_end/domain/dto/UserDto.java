@@ -1,25 +1,20 @@
-package resumebuilder.back_end.domain.entities;
+package resumebuilder.back_end.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document
-public class UserEntity {
+public class UserDto {
 
-    @Id
     private String id;
-   
+
     private List<Integer> resumesId;
 
 
@@ -32,11 +27,3 @@ public class UserEntity {
     }
 
 }
-
-
-// id
-// resumes: list of resumes
-// UserController (/users)
-// GET
-// POST
-// UserService
