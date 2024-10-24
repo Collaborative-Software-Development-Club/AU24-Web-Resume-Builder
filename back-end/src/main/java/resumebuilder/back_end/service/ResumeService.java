@@ -50,7 +50,7 @@ public class ResumeService {
             ResumeDto resume = resumeMapper.mapToDto(resumeEntity.get());
             Optional.ofNullable(resumeDto.getName()).ifPresent(resume::setName);
             Optional.ofNullable(resumeDto.getEducation()).ifPresent(resume::setEducation);
-            Optional.ofNullable(resumeDto.getExperiences()).ifPresent(resume::setExperiences);
+            Optional.ofNullable(resumeDto.getExperience()).ifPresent(resume::setExperience);
             Optional.ofNullable(resumeDto.getContactMethods()).ifPresent(resume::setContactMethods);
             Optional.ofNullable(resumeDto.getSkills()).ifPresent(resume::setSkills);
             Optional.ofNullable(resumeDto.getProjects()).ifPresent(resume::setProjects);

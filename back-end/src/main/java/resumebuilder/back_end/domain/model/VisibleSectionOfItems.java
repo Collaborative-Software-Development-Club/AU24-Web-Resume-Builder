@@ -7,10 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectSection {
-    private List<Project> items;
+public class VisibleSectionOfItems<T> extends VisibleElement {
+   private List<T> items; 
 }
