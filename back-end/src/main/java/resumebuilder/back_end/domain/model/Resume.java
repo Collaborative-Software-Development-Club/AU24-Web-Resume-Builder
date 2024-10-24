@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import resumebuilder.back_end.domain.model.enums.SectionNames;
 
 @Data
 @AllArgsConstructor
@@ -15,4 +16,5 @@ public class Resume {
     private VisibleSectionOfItems<Project> projects;
     private List<String> contactMethods;
     private VisibleSectionOfItems<Skill> skills;
+    private List<SectionNames> orderOfSections = List.of(SectionNames.EDUCATION, SectionNames.EXPERIENCES, SectionNames.PROJECTS, SectionNames.SKILLS);
 }
