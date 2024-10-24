@@ -22,13 +22,13 @@ public class ResumeController {
         this.resumeService = resumeService;
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<ResumeDto> createResume(@RequestBody ResumeDto resumeDto) {
         ResumeDto createdResume = resumeService.save(resumeDto);
         return new ResponseEntity<>(createdResume, HttpStatus.CREATED);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<ResumeDto>> getAllResumes() {
         List<ResumeDto> resumes = resumeService.findAll();
         if (resumes.isEmpty()) {
@@ -54,7 +54,6 @@ public class ResumeController {
         if(!resumeService.exists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        resumeDto.setId(id);
         ResumeDto updatedResume = resumeService.save(resumeDto);
         return new ResponseEntity<>(updatedResume, HttpStatus.OK);
     }
@@ -67,7 +66,6 @@ public class ResumeController {
         if(!resumeService.exists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        resumeDto.setId(id);
         ResumeDto updatedResume = resumeService.partialUpdate(id, resumeDto);
         return new ResponseEntity<>(updatedResume, HttpStatus.OK);
     }

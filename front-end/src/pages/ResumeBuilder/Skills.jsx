@@ -1,5 +1,4 @@
 import {EditableList} from '@/components/EditableList';
-import jsonData from '@/../../data/resume.json';
 import {SectionTitle} from './SectionTitle';
 
 const Skills = ({skills}) => {
@@ -23,10 +22,9 @@ const Skills = ({skills}) => {
             <EditableList
                 list={skills}
                 RenderList={({list}) => {
-                    console.log(list);
                     return (
                         <div>
-                            <p className="times list-disc" key="skills">
+                            <p className="times list-disc" style={{overflow: 'hidden'}} key="skills">
                                 • {list.join(', ')}
                             </p>
                         </div>
