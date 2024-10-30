@@ -8,7 +8,8 @@ import { Projects } from './Projects';
 import { Experiences } from './Experiences';
 import { useState } from 'react';
 
-const USE_API = false;
+const USE_API = true;
+const DEFAULT_RESUME_ID = '6718101a6929694694c9f0b7';
 const INITIAL_ORDER = [
     { id: '1', title: 'education' },
     { id: '2', title: 'experience' },
@@ -17,7 +18,7 @@ const INITIAL_ORDER = [
 ];
 
 export default function ResumeBuilder() {
-    const resume = useResumeData(USE_API);
+    const resume = useResumeData(DEFAULT_RESUME_ID, USE_API);
     const [ordering, setOrdering] = useState(INITIAL_ORDER);
 
     if (!resume) return <p>Loading...</p>;

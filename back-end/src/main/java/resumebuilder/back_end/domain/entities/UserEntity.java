@@ -1,19 +1,28 @@
 package resumebuilder.back_end.domain.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import resumebuilder.back_end.domain.model.Resume;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Document
-public class ResumeEntity extends Resume {
+public class UserEntity {
 
     @Id
     private String id;
-
+   
+    private List<String> resumesId;
 }
+
+
+// id
+// resumes: list of resumes
+// UserController (/users)
+// GET
+// POST
+// UserService

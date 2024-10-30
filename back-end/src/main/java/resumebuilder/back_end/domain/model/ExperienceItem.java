@@ -13,7 +13,7 @@ public class ExperienceItem extends VisibleElement {
     private String company;
     private String location;
     private String position;
-    private CustomDate start_date;
-    private CustomDate end_date;
+    private CustomDate startDate;
+    private CustomDate endDate;
     private String description;
 }
