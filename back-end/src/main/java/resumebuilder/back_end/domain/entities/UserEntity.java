@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Document
 public class UserEntity {

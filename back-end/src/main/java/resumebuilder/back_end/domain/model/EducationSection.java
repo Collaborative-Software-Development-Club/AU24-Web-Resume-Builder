@@ -13,7 +13,7 @@ public class EducationSection extends VisibleElement {
     private String institution;
     private String location;
     private String degree;
-    private CustomDate graduation_date;
+    private CustomDate graduationDate;
     private String specialization;
     private String minor;
     private double gpa;
