@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Document
 public class UserEntity {
@@ -17,7 +15,7 @@ public class UserEntity {
     @Id
     private String id;
    
-    private List<String> resumesId;
+    private List<String> resumesId = new ArrayList<>();
 
 
     public void addResume(String resumeId) {

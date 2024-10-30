@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/resumes/{resumeId}")
-    public ResponseEntity<Void> addResumeToUser(@PathVariable("id") String userId, @PathVariable String resumeId) {
+    public ResponseEntity<Void> addResumeToUser(@PathVariable("userId") String userId, @PathVariable("resumeId") String resumeId) {
         boolean added = userService.addResumeToUser(userId, resumeId);
         if (added) {
             return new ResponseEntity<>(HttpStatus.OK);
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}/resumes/{resumeId}")
-    public ResponseEntity<Void> removeResumeFromUser(@PathVariable("id") String userId, @PathVariable String resumeId) {
+    public ResponseEntity<Void> removeResumeFromUser(@PathVariable("userId") String userId, @PathVariable("resumeId") String resumeId) {
         userService.removeResumeFromUser(userId, resumeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
