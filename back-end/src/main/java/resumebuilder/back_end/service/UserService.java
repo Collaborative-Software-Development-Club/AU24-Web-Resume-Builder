@@ -45,23 +45,6 @@ public class UserService {
         return user.map(userMapper::mapToDto);
     }
 
-    public boolean addResumeToUser(String userId, String resumeId) {
-        Optional<UserEntity> user = userRepository.findById(userId);
-        if (user.isPresent()) {
-            UserEntity userEntity = user.get();
-            userEntity.addResume(resumeId);
-            return true;
-        }
-        return false;
-    }
-
-    public void removeResumeFromUser(String userId, String resumeId) {
-        Optional<UserEntity> user = userRepository.findById(userId);
-        if (user.isPresent()) {
-            UserEntity userEntity = user.get();
-            userEntity.removeResume(resumeId);
-        }
-    }
 
     public void delete(String id) {
         userRepository.deleteById(id);

@@ -36,20 +36,4 @@ public class UserController {
         UserDto newUser = userService.save(userDto);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
-
-    @PostMapping("/{userId}/resumes/{resumeId}")
-    public ResponseEntity<Void> addResumeToUser(@PathVariable("id") String userId, @PathVariable String resumeId) {
-        boolean added = userService.addResumeToUser(userId, resumeId);
-        if (added) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @DeleteMapping("/{userId}/resumes/{resumeId}")
-    public ResponseEntity<Void> removeResumeFromUser(@PathVariable("id") String userId, @PathVariable String resumeId) {
-        userService.removeResumeFromUser(userId, resumeId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 }
