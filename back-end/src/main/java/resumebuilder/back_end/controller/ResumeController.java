@@ -4,14 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import resumebuilder.back_end.domain.dto.ResumeDto;
-import resumebuilder.back_end.domain.entities.ResumeEntity;
 import resumebuilder.back_end.service.ResumeService;
 
 
 import java.util.List;
 import java.util.Optional;
 
-//@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/resume")
 public class ResumeController {
@@ -22,13 +21,13 @@ public class ResumeController {
         this.resumeService = resumeService;
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<ResumeDto> createResume(@RequestBody ResumeDto resumeDto) {
         ResumeDto createdResume = resumeService.save(resumeDto);
         return new ResponseEntity<>(createdResume, HttpStatus.CREATED);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<ResumeDto>> getAllResumes() {
         List<ResumeDto> resumes = resumeService.findAll();
         if (resumes.isEmpty()) {
@@ -54,7 +53,6 @@ public class ResumeController {
         if(!resumeService.exists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        resumeDto.setId(id);
         ResumeDto updatedResume = resumeService.save(resumeDto);
         return new ResponseEntity<>(updatedResume, HttpStatus.OK);
     }
@@ -67,7 +65,6 @@ public class ResumeController {
         if(!resumeService.exists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        resumeDto.setId(id);
         ResumeDto updatedResume = resumeService.partialUpdate(id, resumeDto);
         return new ResponseEntity<>(updatedResume, HttpStatus.OK);
     }

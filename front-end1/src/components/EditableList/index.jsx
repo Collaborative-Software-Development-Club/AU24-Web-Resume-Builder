@@ -1,8 +1,8 @@
 import React from 'react';
-import {Button} from '@/components/ui/button';
 import {Dialog, DialogTrigger} from '@/components/ui/dialog';
 import {useEditableList} from './useEditableList';
 import {EditModal} from './EditModal';
+import {PopupSideButton} from '../PopupSideButton';
 
 /**
  * A component that renders an editable list with a modal for editing and adding new items.
@@ -16,11 +16,11 @@ import {EditModal} from './EditModal';
 export function EditableList({list, RenderList, title, description}) {
     const {editableList, handleChange, addNew, remove} = useEditableList(list);
     return (
-        <div className="relative">
+        <div className="group relative">
             <RenderList list={editableList.map((element) => element.value)} />
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button className="absolute right-0 top-0">Edit</Button>
+                    <PopupSideButton onlyOnHover={true}>Edit</PopupSideButton>
                 </DialogTrigger>
                 <EditModal elements={editableList} handleChange={handleChange} addNew={addNew} remove={remove} title={title} description={description} />
             </Dialog>
