@@ -1,11 +1,11 @@
 import {SectionTitle} from './SectionTitle';
 import EditableComponent from './EditableComponent';
 
-export function Experiences({experiences}) {
+export function Experiences({resume, experiences}) {
     return (
-        <div className="mt-6 grid">
+        <div className="mt-4 grid">
             <SectionTitle title="Experiences" />
-            <EditableComponent type="Experience" data={experiences} />
+            <EditableComponent resume={resume} type="Experience" data={experiences} />
         </div>
     );
 }

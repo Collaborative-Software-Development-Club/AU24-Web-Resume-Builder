@@ -6,7 +6,7 @@
     "100 Ohio State Ave, Columbus OH, 43210"
   ],
   "education": {
-    "visible": "true",
+    "visible": true,
     "institution": "The Ohio State University",
     "location": "Columbus, Ohio",
     "degree": "Bachelor of Science in Business Administration",
@@ -16,8 +16,8 @@
     },
     "specialization": "Finance",
     "minor": "Business Analytics",
-    "gpa": 4.0,
-    "honors": [
+    "gpa": {"visible": true, "item": "4.0"},
+    "honors": {"visible": true, "items": [
       {
         "name": "Fisher Pacesetter Award",
         "description": "Given to the top one percent of students based on academic performance and demonstrated leadership ability"
@@ -26,7 +26,7 @@
         "name": "Honors Cohort Program",
         "description": "One of 30 students selected to participate in the College of Business’ flagship two-year academic program"
       }
-    ]
+    ]}
   },
   "experience": {
     "visible": true,
