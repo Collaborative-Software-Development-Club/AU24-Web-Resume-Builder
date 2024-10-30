@@ -12,10 +12,10 @@ const Education = ({ education }) => {
         degree: education.degree,
         specialization: '',
         minor: '',
-        gpa: education.gpa.item,
+        gpa: education.gpa,
         graduationMonth: '',
         graduationYear: education.graduationDate.year,
-        honors: education.honors.items.name,
+        honors: education.honors,
     });
 
     const handleInputChange = (e) => {
