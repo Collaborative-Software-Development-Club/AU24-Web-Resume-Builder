@@ -4,14 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import resumebuilder.back_end.domain.dto.ResumeDto;
-import resumebuilder.back_end.domain.entities.ResumeEntity;
 import resumebuilder.back_end.service.ResumeService;
 
 
 import java.util.List;
 import java.util.Optional;
 
-//@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/resume")
 public class ResumeController {
