@@ -10,19 +10,19 @@ export const Sidebar = ({resume, ordering, setOrdering}) => {
         setIsOpen(!isOpen);
     };
 
-    const updatedOrder = ordering.map((item) => {
+    const updatedOrder = ordering?.map((item) => {
         let content;
         switch (item.title) {
-            case 'education':
+            case 'EDUCATION':
                 content = <SidebarItem key={item.id} resume={resume} name="Education" elements={['GPA', 'Honors']} />;
                 break;
-            case 'experience':
+            case 'EXPERIENCES':
                 content = <SidebarItem key={item.id} resume={resume} name="Experience" />;
                 break;
-            case 'projects':
+            case 'PROJECTS':
                 content = <SidebarItem key={item.id} resume={resume} name="Projects" />;
                 break;
-            case 'skills':
+            case 'SKILLS':
                 content = <SidebarItem key={item.id} resume={resume} name="Skills" />;
                 break;
             default:

@@ -1,7 +1,7 @@
 import React from 'react';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 
-export default function DragAndDropList({resume = '', array, setArray}) {
+export default function DragAndDropList({resume, array, setArray}) {
     // Handle drag end event
     const handleOnDragEnd = (result) => {
         const {source, destination} = result;
@@ -14,6 +14,7 @@ export default function DragAndDropList({resume = '', array, setArray}) {
 
         setArray(reorderedArray);
         console.log(array);
+        console.log(resume);
     };
 
     return (
@@ -21,7 +22,7 @@ export default function DragAndDropList({resume = '', array, setArray}) {
             <Droppable droppableId="sections">
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef} className="flex flex-col gap-2 p-2">
-                        {array.map((item, index) => (
+                        {array?.map((item, index) => (
                             <Draggable key={item.id} draggableId={item.id} index={index}>
                                 {(provided) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="rounded-lg p-2 shadow">
