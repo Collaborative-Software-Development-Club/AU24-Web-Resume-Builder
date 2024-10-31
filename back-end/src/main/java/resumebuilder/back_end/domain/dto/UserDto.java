@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -15,14 +16,14 @@ public class UserDto {
 
     private String id;
 
-    private List<Integer> resumesId;
+    private List<String> resumesId;
 
 
-    public void addResume(Integer resumeId) {
+    public void addResume(String resumeId) {
         this.resumesId.add(resumeId);
     }
 
-    public void removeResume(Integer resumeId) {
+    public void removeResume(String resumeId) {
         this.resumesId.remove(resumeId);
     }
 
