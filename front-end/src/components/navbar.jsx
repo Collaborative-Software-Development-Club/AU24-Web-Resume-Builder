@@ -1,4 +1,5 @@
 'use client';
+import { Link } from 'react-router-dom';
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -9,26 +10,28 @@ import {
     navigationMenuTriggerStyle,
     NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
-// To-do: make links work?
+
 export function NavBar() {
+    const userId = "123";  // Hardcoded user ID for demonstration
+
     return (
         <div className="flex flex-row justify-end rounded-xl">
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>
-                        <a href="/placeholder1">
+                        <Link to={`/resume/${userId}`}>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>Resume</NavigationMenuLink>
-                        </a>
+                        </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <a href="/placeholder2">
+                        <Link to="/about">
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>About</NavigationMenuLink>
-                        </a>
+                        </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <a href="/placeholder3">
+                        <Link to="/account">
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>Account</NavigationMenuLink>
-                        </a>
+                        </Link>
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>
