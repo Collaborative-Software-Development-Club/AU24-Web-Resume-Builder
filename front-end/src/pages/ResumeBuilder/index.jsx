@@ -2,7 +2,7 @@ import {Name} from './Name';
 import Education from './Education';
 import {ContactMethods} from './ContactMethods';
 import Skills from './Skills';
-import {Sidebar} from './Sidebar';
+import Sidebar from './Sidebar';
 import useResumeData from './useResumeData';
 import {Projects} from './Projects';
 import {Experiences} from './Experiences';
@@ -16,8 +16,10 @@ export default function ResumeBuilder() {
     }
     return (
         <div className="flex justify-center">
-            <div className="items-strech flex flex-col justify-start self-stretch">
+            <div>
                 <Sidebar />
+            </div>
+            <div className="items-strech flex flex-col justify-start self-stretch 2xl:ml-56">
                 <Name name={resume.name} />
                 <ContactMethods contactMethods={resume.contactMethods} />
                 <Education education={resume.education} />

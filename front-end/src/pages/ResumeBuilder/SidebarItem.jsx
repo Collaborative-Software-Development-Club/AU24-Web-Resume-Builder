@@ -14,8 +14,8 @@ const SidebarItem = ({name, elements}) => {
     return (
         <li className="my-2">
             <div className="flex items-center space-x-2">
-                <Checkbox name={name} className="h-4" checked={checkbox} onCheckedChange={handleChange} />
-                <label htmlFor="terms" className="times grid-cols-43 grid text-lg">
+                <Checkbox name={name} className="h-4 border-2 border-black" checked={checkbox} onCheckedChange={handleChange} />
+                <label htmlFor="terms" className=" grid-cols-43 grid text-lg">
                     {name}
                 </label>
             </div>
@@ -34,8 +34,8 @@ const SidebarItem = ({name, elements}) => {
                         return (
                             <li className="my-2 ml-7" key={item}>
                                 <div className="flex items-center space-x-2">
-                                    <Checkbox name={item} className="h-4" checked={childCheckbox && checkbox} onCheckedChange={handleChildChange} />
-                                    <label htmlFor="terms" className="times grid grid-cols-4 text-lg">
+                                    <Checkbox name={item} className="h-4 border-2 border-black" checked={childCheckbox && checkbox} onCheckedChange={handleChildChange} />
+                                    <label htmlFor="terms" className=" grid grid-cols-4 text-lg">
                                         {item}
                                     </label>
                                 </div>
