@@ -13,8 +13,6 @@ export default function DragAndDropList({resume, array, setArray}) {
         reorderedArray.splice(destination.index, 0, movedItem);
 
         setArray(reorderedArray);
-        console.log(array);
-        console.log(resume);
     };
 
     return (

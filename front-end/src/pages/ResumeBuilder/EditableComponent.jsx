@@ -27,9 +27,10 @@ export default function EditableComponent({resume, type, data}) {
     const [array, setArray] = useState([]);
     const [nextId, setNextId] = useState(0);
 
-    // Initialize the array with visible items from data
+    // Initialize the array
     useEffect(() => {
         if (data && data.items) {
+            console.log(data.items);
             setArray(data.items.map((item, index) => ({...item, id: index.toString()})));
             setNextId(data.items.length);
         }
@@ -55,8 +56,11 @@ export default function EditableComponent({resume, type, data}) {
 
     // Passed in setter for array
     const setArrayWithVisibility = (newArray) => {
-        const invisibleItems = array.filter(item => !item.visible);
+        const invisibleItems = array.filter((item) => !item.visible);
         setArray([...newArray, ...invisibleItems]);
+        resume[type.toLowerCase()].items = array;
+        console.log(array);
+        console.log(resume);
     };
 
     return (
@@ -69,7 +73,7 @@ export default function EditableComponent({resume, type, data}) {
                         ...item,
                         content: (
                             <div key={item.id} className="group relative flex items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg">
-                                {isExperience ? <Experience experience={item} /> : <Project project={item} />}
+                                {isExperience ? <Experience resume={resume} experience={item} /> : <Project resume={resume} project={item} />}
                                 <PopupSideButton onlyOnHover={true} onClick={() => removeItem(item.id)}>
                                     <Trash2 />
                                 </PopupSideButton>

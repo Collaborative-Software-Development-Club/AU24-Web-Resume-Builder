@@ -17,38 +17,46 @@ export default function ResumeBuilder() {
 
     useEffect(() => {
         if (resume?.orderOfSections) {
-            setOrdering(resume.orderOfSections.map((item, index) => ({
-                title: item,
-                id: index.toString(),
-            })));
+            setOrdering(
+                resume.orderOfSections.map((item, index) => ({
+                    title: item,
+                    id: index.toString(),
+                }))
+            );
         }
     }, [resume]);
 
     if (!resume) return <p>Loading...</p>;
 
+    // Map of components for easy rendering
     const components = {
-        EDUCATION: <Education education={resume.education} />,
-        EXPERIENCES: <Experiences resume={resume} experience={resume.experience} />,
-        PROJECTS: <Projects projects={resume.projects} />,
+        EDUCATION: <Education resume={resume} education={resume.education} />,
+        EXPERIENCE: <Experiences resume={resume} experiences={resume.experience} />,
+        PROJECTS: <Projects resume={resume} projects={resume.projects} />,
         SKILLS: <Skills skills={resume.skills.items} />,
     };
+
+    // Helper function to check visibility
+    const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
 
     return (
         <div className="flex justify-center">
             <div className="flex flex-col items-stretch justify-start self-stretch">
+                {/* Sidebar to control visibility and ordering */}
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} />
+
+                {/* Static components */}
                 <Name name={resume.name} />
                 <ContactMethods contactMethods={resume.contactMethods} />
-                {ordering?.map((item) => {
-                    if (resume?.[item.title.toLowerCase()]?.visible) {
-                        return (
-                            <div key={item.id}>
-                                {components[item.title]}
-                            </div>
-                        );
-                    }
-                    return null;
-                })}
+
+                {/* Render ordered components conditionally */}
+                {ordering?.map((item) => (
+                    isVisible(item.title) && (
+                        <div key={item.id}>
+                            {components[item.title]}
+                        </div>
+                    )
+                ))}
             </div>
         </div>
     );

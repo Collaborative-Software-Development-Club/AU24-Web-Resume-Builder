@@ -16,7 +16,7 @@ export const Sidebar = ({resume, ordering, setOrdering}) => {
             case 'EDUCATION':
                 content = <SidebarItem key={item.id} resume={resume} name="Education" elements={['GPA', 'Honors']} />;
                 break;
-            case 'EXPERIENCES':
+            case 'EXPERIENCE':
                 content = <SidebarItem key={item.id} resume={resume} name="Experience" />;
                 break;
             case 'PROJECTS':
@@ -34,15 +34,23 @@ export const Sidebar = ({resume, ordering, setOrdering}) => {
         };
     });
 
+    // Passed in setter for array
+    const setResumeOrdering = (newArray) => {
+        setOrdering(newArray);
+        resume.orderOfSections = newArray.map((item) => {
+            return item.title;
+        });
+    };
+
     return (
-        <div className="Sidebar flex ">
+        <div className="Sidebar flex">
             {/* Toggle button */}
             <Button className="fixed left-5 top-5 2xl:hidden" onClick={toggleSidebar}>
                 <Menu />
             </Button>
 
             {/* Sidebar */}
-            <aside className={`sidebar fixed top-0  ${isOpen ? 'left-0' : 'hidden'} h-full w-58 bg-neutral-500 overflow-visible px-4 text-secondary 2xl:left-0 2xl:block`}>
+            <aside className={`sidebar fixed top-0 ${isOpen ? 'left-0' : 'hidden'} w-58 h-full overflow-visible bg-neutral-500 px-4 text-secondary 2xl:left-0 2xl:block`}>
                 <section className="flex justify-between pt-9">
                     <p className="py-3 text-xl">Set Visibility & Ordering</p>
                     <button className="2xl:hidden" onClick={toggleSidebar}>
@@ -51,7 +59,7 @@ export const Sidebar = ({resume, ordering, setOrdering}) => {
                 </section>
                 <div className="sidebar-content">
                     <ul className="cursor-pointer list-none">
-                        <DragAndDropList resume={resume} array={updatedOrder} setArray={setOrdering} />
+                        <DragAndDropList resume={resume} array={updatedOrder} setArray={setResumeOrdering} />
                     </ul>
                 </div>
             </aside>

@@ -21,10 +21,10 @@ const SidebarItem = ({resume, name, elements}) => {
 
     const setChildVisibility = (component, child, state) => {
         // Update the child visibility directly
-        if (resume[component] && resume[component][child]) {
-            resume[component][child].visible = state;
-        }
-        console.log(resume);
+        // if (resume[component] && resume[component][child]) {
+        //     resume[component][child].visible = state;
+        // }
+        // console.log(resume);
     };
 
     const handleChange = (e) => {
