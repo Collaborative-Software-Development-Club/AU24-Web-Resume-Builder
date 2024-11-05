@@ -2,24 +2,21 @@ import {Checkbox} from '@/components/ui/checkbox';
 import {GripVertical} from 'lucide-react';
 import {useState} from 'react';
 
-const SidebarItem = ({resume, name, elements}) => {
-    const [checkbox, setCheckbox] = useState(resume[name.toLowerCase()]?.visible || false);
+const SidebarItem = ({name, section, elements, handleVisibilityChange}) => {
+    console.log(section);
+    const [checkbox, setCheckbox] = useState(section?.visible || false);
     const [childCheckboxes, setChildCheckboxes] = useState(
         elements?.reduce((acc, item) => {
-            acc[item] = resume[name.toLowerCase()]?.[item.toLowerCase()]?.visible || false;
+            acc[item] = section[item.toLowerCase()]?.visible || false;
             return acc;
-        }, {}) || {},
+        }, {}) || {}
     );
 
-    const setVisibility = (component, state) => {
-        // Update the parent visibility directly
-        if (resume[component]) {
-            resume[component].visible = state;
-        }
-        console.log(resume);
+    const setVisibility = (state) => {
+        handleVisibilityChange(state);
     };
 
-    const setChildVisibility = (component, child, state) => {
+    const setChildVisibility = (state) => {
         // Update the child visibility directly
         // if (resume[component] && resume[component][child]) {
         //     resume[component][child].visible = state;
@@ -29,13 +26,13 @@ const SidebarItem = ({resume, name, elements}) => {
 
     const handleChange = (e) => {
         setCheckbox(e);
-        setVisibility(name.toLowerCase(), e);
+        setVisibility(e);
 
         // Update all children to match the parent state
         const updatedChildren = {...childCheckboxes};
         Object.keys(updatedChildren).forEach((child) => {
             updatedChildren[child] = e; // Set each child to the same state as the parent
-            setChildVisibility(name.toLowerCase(), child.toLowerCase(), e);
+            setChildVisibility(e);
         });
         setChildCheckboxes(updatedChildren);
     };

@@ -12,19 +12,21 @@ const USE_API = true;
 const DEFAULT_RESUME_ID = '6718101a6929694694c9f0b7';
 
 export default function ResumeBuilder() {
-    const resume = useResumeData(DEFAULT_RESUME_ID, USE_API);
+    const fetchedResume = useResumeData(DEFAULT_RESUME_ID, USE_API);
+    const [resume, setResume] = useState(null);
     const [ordering, setOrdering] = useState([]);
 
     useEffect(() => {
-        if (resume?.orderOfSections) {
+        if (fetchedResume) {
+            setResume(fetchedResume);
             setOrdering(
-                resume.orderOfSections.map((item, index) => ({
+                fetchedResume.orderOfSections.map((item, index) => ({
                     title: item,
                     id: index.toString(),
                 }))
             );
         }
-    }, [resume]);
+    }, [fetchedResume]);
 
     if (!resume) return <p>Loading...</p>;
 
@@ -36,14 +38,26 @@ export default function ResumeBuilder() {
         SKILLS: <Skills skills={resume.skills.items} />,
     };
 
+    // function to toggle visibility
+    const toggleSectionVisibility = (sectionName, isVisible) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            [sectionName]: {
+                ...prevResume[sectionName],
+                visible: isVisible,
+            },
+        }));
+    };
+
     // Helper function to check visibility
     const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
+
 
     return (
         <div className="flex justify-center">
             <div className="flex flex-col items-stretch justify-start self-stretch">
                 {/* Sidebar to control visibility and ordering */}
-                <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} />
+                <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility}/>
 
                 {/* Static components */}
                 <Name name={resume.name} />

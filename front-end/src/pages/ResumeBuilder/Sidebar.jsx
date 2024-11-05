@@ -4,7 +4,7 @@ import {Menu, X} from 'lucide-react';
 import SidebarItem from './SidebarItem';
 import DragAndDropList from './DragAndDropList';
 
-export const Sidebar = ({resume, ordering, setOrdering}) => {
+export const Sidebar = ({resume, ordering, setOrdering, toggleSectionVisibility}) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
@@ -12,18 +12,25 @@ export const Sidebar = ({resume, ordering, setOrdering}) => {
 
     const updatedOrder = ordering?.map((item) => {
         let content;
+
+        const sectionName = item.title.toLowerCase();
+
+        const handleVisibilityChange = (isVisible) => {
+            toggleSectionVisibility(sectionName, isVisible);
+        };
+
         switch (item.title) {
             case 'EDUCATION':
-                content = <SidebarItem key={item.id} resume={resume} name="Education" elements={['GPA', 'Honors']} />;
+                content = <SidebarItem key={item.id} section={resume.education} name="Education" elements={['GPA', 'Honors']} handleVisibilityChange={handleVisibilityChange} />;
                 break;
             case 'EXPERIENCE':
-                content = <SidebarItem key={item.id} resume={resume} name="Experience" />;
+                content = <SidebarItem key={item.id} section={resume.experience} name="Experience" handleVisibilityChange={handleVisibilityChange} />;
                 break;
             case 'PROJECTS':
-                content = <SidebarItem key={item.id} resume={resume} name="Projects" />;
+                content = <SidebarItem key={item.id} section={resume.projects} name="Projects" handleVisibilityChange={handleVisibilityChange} />;
                 break;
             case 'SKILLS':
-                content = <SidebarItem key={item.id} resume={resume} name="Skills" />;
+                content = <SidebarItem key={item.id} section={resume.skills}  name="Skills" handleVisibilityChange={handleVisibilityChange} />;
                 break;
             default:
                 content = null;
