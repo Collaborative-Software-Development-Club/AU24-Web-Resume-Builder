@@ -7,7 +7,7 @@ import useResumeData from './useResumeData';
 import {Projects} from './Projects';
 import {Experiences} from './Experiences';
 
-const USE_API = true;
+const USE_API = false;
 const DEFAULT_RESUME_ID = '6718101a6929694694c9f0b7';
 
 export default function ResumeBuilder() {
