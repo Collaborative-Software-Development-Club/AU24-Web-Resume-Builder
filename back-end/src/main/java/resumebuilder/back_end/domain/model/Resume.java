@@ -16,5 +16,5 @@ public class Resume {
     private VisibleSectionOfItems<Project> projects;
     private List<String> contactMethods;
     private VisibleSectionOfItems<Skill> skills;
-    private List<SectionNames> orderOfSections = List.of(SectionNames.EDUCATION, SectionNames.EXPERIENCES, SectionNames.PROJECTS, SectionNames.SKILLS);
+    private List<SectionNames> orderOfSections = List.of(SectionNames.EDUCATION, SectionNames.EXPERIENCE, SectionNames.PROJECTS, SectionNames.SKILLS);
 }
