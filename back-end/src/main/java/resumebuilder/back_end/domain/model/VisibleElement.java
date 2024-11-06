@@ -1,17 +1,17 @@
 package resumebuilder.back_end.domain.model;
 
 public abstract class VisibleElement {
-    private boolean visibility;
+    private boolean visible;
 
     public VisibleElement() {
-        this.visibility = true;
+        this.visible = true;
     }
 
-    public boolean getVisibility() {
-        return this.visibility;
+    public boolean getVisible() {
+        return this.visible;
     }
 
-    public void setVisibility(boolean visibility) {
-        this.visibility = visibility;
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }
