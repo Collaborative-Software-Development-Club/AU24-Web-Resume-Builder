@@ -7,11 +7,11 @@ public abstract class VisibleElement {
         this.visible = true;
     }
 
-    public boolean getVisibile() {
+    public boolean getVisible() {
         return this.visible;
     }
 
-    public void setVisibile(boolean visible) {
+    public void setVisible(boolean visible) {
         this.visible = visible;
     }
 }
