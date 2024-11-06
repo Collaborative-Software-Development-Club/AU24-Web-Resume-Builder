@@ -73,3 +73,4 @@ export const Sidebar = ({resume, ordering, setOrdering, toggleSectionVisibility}
         </div>
     );
 };
+
