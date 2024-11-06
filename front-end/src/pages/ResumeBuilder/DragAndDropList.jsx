@@ -1,7 +1,7 @@
 import React from 'react';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 
-export default function DragAndDropList({resume, array, setArray}) {
+export default function DragAndDropList({array, setArray}) {
     // Handle drag end event
     const handleOnDragEnd = (result) => {
         const {source, destination} = result;

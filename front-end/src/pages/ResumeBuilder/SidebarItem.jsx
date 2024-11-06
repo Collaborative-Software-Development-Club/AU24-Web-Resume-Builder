@@ -3,7 +3,7 @@ import {GripVertical} from 'lucide-react';
 import {useState} from 'react';
 
 const SidebarItem = ({name, section, elements, handleVisibilityChange}) => {
-    console.log(section);
+
     const [checkbox, setCheckbox] = useState(section?.visible || false);
     const [childCheckboxes, setChildCheckboxes] = useState(
         elements?.reduce((acc, item) => {
