@@ -1,45 +1,49 @@
-import React from 'react';
-import { DndContext, closestCenter } from '@dnd-kit/core';
-import { SortableContext, useSortable, arrayMove, rectSortingStrategy } from '@dnd-kit/sortable';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 export default function DragAndDropList({ array, setArray }) {
-    const handleDragEnd = (event) => {
-        const { active, over } = event;
+    // Handle drag end event
+    const handleOnDragEnd = (result) => {
+        const { source, destination } = result;
 
-        if (over && active.id !== over.id) {
-            const oldIndex = array.findIndex(item => item.id === active.id);
-            const newIndex = array.findIndex(item => item.id === over.id);
-            setArray(arrayMove(array, oldIndex, newIndex));
-        }
+        // If there's no destination (dropped outside), or if it's the same position, do nothing
+        if (!destination || source.index === destination.index) return;
+
+        // Reorder array based on drag result
+        const reorderedArray = Array.from(array);
+        const [movedItem] = reorderedArray.splice(source.index, 1);
+        reorderedArray.splice(destination.index, 0, movedItem);
+
+        // Update the array state
+        setArray(reorderedArray);
     };
 
     return (
-        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-            <SortableContext items={array} strategy={rectSortingStrategy}>
-                <div className="flex flex-col gap-2 py-2">
-                    {array.map((item) => (
-                        <SortableItem key={item.id} id={item.id}>
-                            <div className="rounded-lg p-2 shadow">{item.content}</div>
-                        </SortableItem>
-                    ))}
-                </div>
-            </SortableContext>
-        </DndContext>
-    );
-}
-
-// Create a SortableItem component for each sortable item
-function SortableItem({ id, children }) {
-    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
-
-    const style = {
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-        transition,
-    };
-
-    return (
-        <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-            {children}
-        </div>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="sections">
+                {(provided) => (
+                    <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        className="flex flex-col gap-2 py-2"
+                    >
+                        {array.map((item, index) => (
+                            <Draggable key={item.id} draggableId={item.id} index={index}>
+                                {(provided) => (
+                                    <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        className="rounded-lg p-2 shadow"
+                                    >
+                                        {item.content}
+                                    </div>
+                                )}
+                            </Draggable>
+                        ))}
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
     );
 }
