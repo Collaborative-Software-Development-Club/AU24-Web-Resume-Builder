@@ -58,7 +58,7 @@ export default function ResumeBuilder() {
             <div className="flex flex-col items-stretch justify-start self-stretch">
                 {/* Sidebar to control visibility and ordering */}
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility}/>
-
+                
                 {/* Static components */}
                 <Name name={resume.name} />
                 <ContactMethods contactMethods={resume.contactMethods} />
