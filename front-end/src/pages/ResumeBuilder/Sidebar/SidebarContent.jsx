@@ -50,8 +50,8 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
     };
 
     return (
-        <div className="Sidebar flex flex-col w-60">
-            <p className="pt-3 text-lg">Set Visibility & Ordering</p>
+        <div className="Sidebar flex flex-col w-full">
+            <p className="2xl:pt-5 text-lg">Set Visibility & Ordering</p>
             <div className="sidebar-content">
                 <ul className="cursor-pointer list-none">
                     <DragAndDropList resume={resume} array={updatedOrder} setArray={setResumeOrdering} />

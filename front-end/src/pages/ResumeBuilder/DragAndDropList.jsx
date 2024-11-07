@@ -19,7 +19,7 @@ export default function DragAndDropList({array, setArray}) {
         <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="sections">
                 {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef} className="flex flex-col gap-2 p-2">
+                    <div {...provided.droppableProps} ref={provided.innerRef} className="flex flex-col gap-2 py-2">
                         {array?.map((item, index) => (
                             <Draggable key={item.id} draggableId={item.id} index={index}>
                                 {(provided) => (

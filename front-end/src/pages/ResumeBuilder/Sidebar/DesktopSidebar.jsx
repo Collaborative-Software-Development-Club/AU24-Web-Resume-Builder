@@ -2,7 +2,7 @@ import {SidebarContent} from './SidebarContent';
 
 export const DesktopSidebar = ({resume, ordering, setOrdering, toggleSectionVisibility}) => {
     return (
-        <aside className={`sm:xl fixed top-0 hidden h-full w-56 bg-white px-6 pt-10 2xl:left-0 2xl:block`}>
+        <aside className={`sm:xl fixed top-5 hidden h-full w-[250px] bg-white px-6 py-10 2xl:left-0 2xl:block`}>
             <p className="text-lg font-semibold">Resume Settings</p>
             <hr />
             <SidebarContent resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility}/>

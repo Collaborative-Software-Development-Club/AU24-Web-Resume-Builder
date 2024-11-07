@@ -20,7 +20,7 @@ export const MobileSidebar = ({resume, ordering, setOrdering, toggleSectionVisib
             </SheetTrigger>
 
             {/* Sidebar */}
-            <SheetContent side={"left"} className="w-40-">
+            <SheetContent side={"left"} className="w-[250px] flex flex-col ">
                 <SheetHeader>
                     <SheetTitle>Resume Settings</SheetTitle>
                     <hr />

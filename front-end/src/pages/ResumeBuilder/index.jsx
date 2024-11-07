@@ -8,7 +8,7 @@ import { Projects } from './Projects';
 import { Experiences } from './Experiences';
 import { useState, useEffect } from 'react';
 
-const USE_API = false;
+const USE_API = true;
 const DEFAULT_RESUME_ID = '6718101a6929694694c9f0b7';
 
 export default function ResumeBuilder() {
