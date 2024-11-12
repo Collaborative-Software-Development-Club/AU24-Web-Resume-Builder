@@ -15,7 +15,7 @@ export function NavBar() {
     const userId = "123";  // Hardcoded user ID for demonstration
 
     return (
-        <div className="flex flex-row justify-end rounded-xl">
+        <div className="flex flex-row justify-end rounded-xl pt-6 pr-5">
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>

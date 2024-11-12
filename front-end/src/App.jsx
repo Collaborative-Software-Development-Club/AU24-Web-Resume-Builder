@@ -8,7 +8,7 @@ import { NavBar } from '@/components/Navbar';
 function App() {
     return (
         <Router>
-            <div className="flex w-full flex-col items-stretch gap-10 p-10">
+            <div className="flex w-full flex-col items-stretch gap-10">
                 <NavBar />
                 <Routes>
                     <Route path="/about" element={<About />} />
