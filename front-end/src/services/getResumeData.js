@@ -6,6 +6,5 @@ export default async function getResumeData(resumeId, {useApi}) {
     }
     const response = await fetch(`http://localhost:8080/resume/${resumeId}`);
     const data = await response.json();
-    console.log(data);
     return data;
 }

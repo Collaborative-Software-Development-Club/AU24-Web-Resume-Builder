@@ -12,13 +12,13 @@ const USE_API = true;
 const DEFAULT_RESUME_ID = '6718101a6929694694c9f0b7';
 
 export default function ResumeBuilder() {
-    const {resume, update} = useResumeData(DEFAULT_RESUME_ID, USE_API);
+    const {resume, save, setResume} = useResumeData(DEFAULT_RESUME_ID, USE_API);
     if (!resume) {
         return <p>Loading...</p>;
     }
-    const save = () => {
-        resume.name = 'test 2';
-        update();
+    console.log('on ResumeBuilder page', resume);
+    const updateName = (name) => {
+        setResume({...resume, name: name});
     };
     return (
         <div className="flex justify-center">
@@ -27,7 +27,7 @@ export default function ResumeBuilder() {
                 <Button className="self-end" onClick={save}>
                     Save
                 </Button>
-                <Name name={resume.name} />
+                <Name name={resume.name} updateName={updateName} />
                 <ContactMethods contactMethods={resume.contactMethods} />
                 <Education education={resume.education} />
                 <Experiences experiences={resume.experience} />

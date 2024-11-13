@@ -50,7 +50,6 @@ export default function EditableComponent({type, data}) {
             const visibleItems = data.items.filter((item) => item.visible).map((item, index) => ({...item, id: index}));
             setArray(visibleItems);
             setNextId(visibleItems.length);
-            console.log('Updating state with visible items:', visibleItems);
         }
     }, [data]);
 
