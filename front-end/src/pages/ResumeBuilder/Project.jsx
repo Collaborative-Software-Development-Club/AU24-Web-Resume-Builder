@@ -16,7 +16,7 @@ const PLACEHOLDERS = {
 
 const SEASONS = ['Spring', 'Summer', 'Fall', 'Winter'];
 
-export function Project({project}) {
+export function Project({resume, project}) {
     const [projectData, setProjectData] = useState({
         title: project?.title || '',
         description: project?.description || '',
