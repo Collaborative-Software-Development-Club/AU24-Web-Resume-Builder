@@ -8,26 +8,33 @@ import {Projects} from './Projects';
 import {Experiences} from './Experiences';
 import {Button} from '@/components/ui/button';
 import {useState, useEffect} from 'react';
+import uploadResumeData from '@/services/uploadResumeData';
 
 const USE_API = true;
-const DEFAULT_RESUME_ID = '6718101a6929694694c9f0b7';
+const DEFAULT_RESUME_ID = '67352f2265e5d74b8503ce90';
 
 export default function ResumeBuilder() {
-    const fetchedResume = useResumeData(DEFAULT_RESUME_ID, USE_API);
-    const [resume, setResume] = useState(null);
+    const {resume, setResume, save} = useResumeData(DEFAULT_RESUME_ID, USE_API);
     const [ordering, setOrdering] = useState([]);
+    console.log(resume);
 
     useEffect(() => {
-        if (fetchedResume) {
-            setResume(fetchedResume);
+        if (resume) {
             setOrdering(
-                fetchedResume.orderOfSections.map((item, index) => ({
+                resume.orderOfSections.map((item, index) => ({
                     title: item,
                     id: index.toString(),
                 })),
             );
         }
-    }, [fetchedResume]);
+    }, [resume]);
+
+    const updateName = (name) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            name: name,
+        }));
+    };
 
     if (!resume) return <p>Loading...</p>;
 

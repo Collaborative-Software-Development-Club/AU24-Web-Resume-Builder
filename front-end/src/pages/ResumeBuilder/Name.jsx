@@ -18,6 +18,7 @@ export function Name({name, updateName}) {
             name: '',
         },
     });
+    console.log(form);
     useEffect(() => {
         form.setValue('name', name);
     }, []);
@@ -32,7 +33,16 @@ export function Name({name, updateName}) {
                         <FormItem>
                             <FormControl>
                                 <h1>
-                                    <Input type="text" {...field} placeholder="Brutus Buckeye" className="times text-center text-2xl" onChange={(e) => updateName(e.target.value)} />
+                                    <Input
+                                        type="text"
+                                        {...field}
+                                        placeholder="Brutus Buckeye"
+                                        className="times text-center text-2xl"
+                                        onChange={(e) => {
+                                            form.setValue('name', e.target.value);
+                                            updateName(e.target.value);
+                                        }}
+                                    />
                                 </h1>
                             </FormControl>
                             <FormMessage />
