@@ -2,9 +2,7 @@ import {EditableList} from '@/components/EditableList';
 import {SectionTitle} from './SectionTitle';
 
 const Skills = ({skills}) => {
-    console.log(skills);
     const visibleSkills = skills.filter((skill) => skill.visible);
-    console.log('visibleSkills', visibleSkills);
     const choice1 = `<div>
                             <p className="times list-disc" key="skills">
                                 • {list.join(', ')}
@@ -25,7 +23,6 @@ const Skills = ({skills}) => {
             <EditableList
                 list={visibleSkills.map((skill) => skill.skillName)}
                 RenderList={({list}) => {
-                    console.log('list', list);
                     return (
                         <div>
                             <p className="times list-disc" style={{overflow: 'hidden'}} key="skills">
