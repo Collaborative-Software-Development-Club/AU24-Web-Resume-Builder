@@ -14,7 +14,6 @@ export function EditModal({elements, handleChange, addNew, remove, title, descri
                 <div className="flex items-center space-x-2">
                     <div className="grid flex-1 gap-2">
                         {elements.map((element) => {
-                            console.log(element);
                             return (
                                 <div className="flex flex-row items-center gap-2">
                                     <Input type="text" value={element.value} key={element.id} onChange={(e) => handleChange(e.target.value, element.id)} />

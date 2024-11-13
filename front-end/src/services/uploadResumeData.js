@@ -7,6 +7,9 @@ export default async function uploadResumeData(resumeId, resumeData) {
         },
         body: JSON.stringify(resumeData),
     });
+    console.log('response: ', response);
     const data = await response.json();
+    console.log('data returned: ');
+    console.log(data);
     return data;
 }
