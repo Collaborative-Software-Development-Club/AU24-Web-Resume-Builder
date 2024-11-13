@@ -3,16 +3,13 @@ import {SlidersHorizontal} from 'lucide-react';
 import {SidebarContent} from './SidebarContent';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-export const MobileSidebar = () => {
+export const MobileSidebar = ({resume, ordering, setOrdering, toggleSectionVisibility}) => {
     return(
         <Sheet>
             {/* Toggle button */}
@@ -23,13 +20,13 @@ export const MobileSidebar = () => {
             </SheetTrigger>
 
             {/* Sidebar */}
-            <SheetContent side={"left"}>
+            <SheetContent side={"left"} className="w-[250px] flex flex-col ">
                 <SheetHeader>
                     <SheetTitle>Resume Settings</SheetTitle>
                     <hr />
                 </SheetHeader>
 
-                <SidebarContent />
+                <SidebarContent resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility}/>
 
             </SheetContent>
         </Sheet>
