@@ -1,12 +1,12 @@
 import {SectionTitle} from './SectionTitle';
 import EditableComponent from './EditableComponent';
 
-export function Experiences({resume, experiences}) {
+export function Experiences({updateExperience, experiences}) {
     console.log(experiences);
     return (
         <div className="grid">
             <SectionTitle title="Experience" />
-            <EditableComponent resume={resume} type="experience" data={experiences} />
+            <EditableComponent updateComponent={updateExperience} type="experience" data={experiences} />
         </div>
     );
 }

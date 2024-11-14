@@ -19,6 +19,7 @@ export default function ResumeBuilder() {
     const [ordering, setOrdering] = useState([]);
     console.log(resume);
 
+    //change to updateOrder
     useEffect(() => {
         if (resume) {
             setOrdering(
@@ -37,13 +38,39 @@ export default function ResumeBuilder() {
         }));
     };
 
+    const updateEducation = (education) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            education: education,
+        }));
+    };
+
+    const updateExperience = (experience) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            experience: {
+                ...prevResume.experience,
+                items: experience,
+            }
+        }));
+    };
+
+    const updateProjects = (projects) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            projects: {
+                ...prevResume.projects,
+                items: projects,
+        }}));
+    };
+
     if (!resume) return <p>Loading...</p>;
 
     // Map of components for easy rendering
     const components = {
-        EDUCATION: <Education resume={resume} education={resume.education} />,
-        EXPERIENCE: <Experiences resume={resume} experiences={resume.experience} />,
-        PROJECTS: <Projects resume={resume} projects={resume.projects} />,
+        EDUCATION: <Education updateEducation={updateEducation} education={resume.education} />,
+        EXPERIENCE: <Experiences updateExperience={updateExperience} experiences={resume.experience} />,
+        PROJECTS: <Projects updateProjects={updateProjects} projects={resume.projects} />,
         SKILLS: <Skills skills={resume.skills.items} />,
     };
 
@@ -62,7 +89,7 @@ export default function ResumeBuilder() {
     const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center pb-20 sm:mx-2">
             <div className="flex flex-col items-stretch justify-start self-stretch">
                 {/* Sidebar to control visibility and ordering */}
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility} />

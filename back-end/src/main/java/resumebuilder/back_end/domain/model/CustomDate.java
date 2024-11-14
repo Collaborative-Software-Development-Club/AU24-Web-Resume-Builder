@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class CustomDate {
-    private int month;
+    private String month;
     private int year;
 }

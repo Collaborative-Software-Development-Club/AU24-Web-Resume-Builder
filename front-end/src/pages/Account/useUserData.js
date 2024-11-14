@@ -10,6 +10,6 @@ export default function useUserData(userId, USE_API) {
             setUser(userData);
         };
         getData();
-    }, []);
+    });
     return user;
 }

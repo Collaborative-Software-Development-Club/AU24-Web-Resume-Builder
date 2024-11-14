@@ -1,6 +1,7 @@
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 export default function DragAndDropList({ array, setArray }) {
+    
     // Handle drag end event
     const handleOnDragEnd = (result) => {
         const { source, destination } = result;

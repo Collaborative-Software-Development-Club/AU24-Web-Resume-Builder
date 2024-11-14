@@ -1,29 +1,37 @@
-import React, {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {Input} from '@/components/ui/input';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {SectionTitle} from './SectionTitle';
 
+//change to array of map
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const Education = ({resume, education}) => {
+const Education = ({updateEducation, education}) => {
     const [educationData, setEducationData] = useState({
+        visible: education.visible,
         institution: education.institution,
         location: education.location,
         degree: education.degree,
-        specialization: '',
-        minor: '',
+        specialization: education.specialization,
+        minor: education.minor,
         gpa: education.gpa,
-        graduationMonth: '',
-        graduationYear: education.graduationDate.year,
+        graduationDate: {
+            graduationMonth: education.graduationDate.month,
+            graduationYear: education.graduationDate.year,
+        },
         honors: education.honors,
     });
 
     const handleInputChange = (e) => {
-        setEducationData({...educationData, [e.target.name]: e.target.value});
+        const newEducationData = {...educationData, [e.target.name]: e.target.value};
+        setEducationData(newEducationData);
+        updateEducation(newEducationData);
     };
 
     const handleSelectChange = (name, value) => {
-        setEducationData({...educationData, [name]: value});
+        const newEducationData = {...educationData, graduationDate: {...educationData.graduationDate, [name]: value}};
+        setEducationData(newEducationData);
+        updateEducation(newEducationData);
     };
 
     return (
@@ -53,7 +61,7 @@ const Education = ({resume, education}) => {
                                 <SelectValue placeholder="Graduation Month" />
                             </SelectTrigger>
                             <SelectContent>
-                                {MONTHS.map((month, index) => (
+                                {MONTHS.map((month) => (
                                     <SelectItem value={month} key={month}>
                                         {month}
                                     </SelectItem>
