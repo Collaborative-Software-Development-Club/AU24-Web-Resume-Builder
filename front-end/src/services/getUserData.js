@@ -1,6 +1,4 @@
-import jsonData from '@/../../data/resume.json';
-
-export default async function getUserData(userId, {useApi}) {
+export default async function getUserData(userId, useApi) {
     if (useApi == false) {
         return '';
     }

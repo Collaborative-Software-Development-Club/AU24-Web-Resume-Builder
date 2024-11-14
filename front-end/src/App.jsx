@@ -1,9 +1,9 @@
 import '@/App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import About from '@/pages/About';
-import Account from '@/pages/Account';
+import Account from '@/pages/Account/Account';
 import ResumeBuilder from '@/pages/ResumeBuilder';
-import { NavBar } from '@/components/Navbar';
+import {NavBar} from '@/components/Navbar';
 
 function App() {
     return (
@@ -13,7 +13,7 @@ function App() {
                 <Routes>
                     <Route path="/about" element={<About />} />
                     <Route path="/account" element={<Account />} />
-                    <Route path="/resume/:userId" element={<ResumeBuilder />} />
+                    <Route path="/resume/:resumeId" element={<ResumeBuilder />} />
                 </Routes>
             </div>
         </Router>

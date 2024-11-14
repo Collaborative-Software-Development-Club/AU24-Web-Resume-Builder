@@ -1,6 +1,6 @@
 import jsonData from '@/../../data/resume.json';
 
-export default async function getResumeData(resumeId, {useApi}) {
+export default async function getResumeData(resumeId, useApi) {
     if (useApi == false) {
         return jsonData;
     }
