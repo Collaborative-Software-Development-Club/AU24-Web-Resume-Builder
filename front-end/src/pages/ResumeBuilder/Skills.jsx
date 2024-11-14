@@ -1,7 +1,7 @@
 import {EditableList} from '@/components/EditableList';
 import {SectionTitle} from './SectionTitle';
 
-const Skills = ({skills}) => {
+const Skills = ({skills, updateSkills}) => {
     const visibleSkills = skills.filter((skill) => skill.visible);
     const choice1 = `<div>
                             <p className="times list-disc" key="skills">
@@ -33,6 +33,7 @@ const Skills = ({skills}) => {
                 }}
                 title="Skills"
                 description="Edit Skill List"
+                updateList={updateSkills}
             />
         </div>
     );

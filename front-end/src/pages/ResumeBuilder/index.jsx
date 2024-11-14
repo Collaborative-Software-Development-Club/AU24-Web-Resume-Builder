@@ -38,6 +38,13 @@ export default function ResumeBuilder() {
         }));
     };
 
+    const updateContactMethods = (contactMethods) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            contactMethods: contactMethods,
+        }));
+    }
+
     const updateEducation = (education) => {
         setResume((prevResume) => ({
             ...prevResume,
@@ -64,6 +71,16 @@ export default function ResumeBuilder() {
         }}));
     };
 
+    const updateSkills = (skills) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            skills: {
+                ...prevResume.skills,
+                items: skills
+            },
+        }));
+    }
+
     if (!resume) return <p>Loading...</p>;
 
     // Map of components for easy rendering
@@ -71,7 +88,7 @@ export default function ResumeBuilder() {
         EDUCATION: <Education updateEducation={updateEducation} education={resume.education} />,
         EXPERIENCE: <Experiences updateExperience={updateExperience} experiences={resume.experience} />,
         PROJECTS: <Projects updateProjects={updateProjects} projects={resume.projects} />,
-        SKILLS: <Skills skills={resume.skills.items} />,
+        SKILLS: <Skills updateSkills={updateSkills} skills={resume.skills.items} />,
     };
 
     // function to toggle visibility
@@ -99,7 +116,7 @@ export default function ResumeBuilder() {
                     Save
                 </Button>
                 <Name name={resume.name} updateName={updateName} />
-                <ContactMethods contactMethods={resume.contactMethods} />
+                <ContactMethods contactMethods={resume.contactMethods} updateContactMethods={updateContactMethods}/>
 
                 {/* Render ordered components conditionally */}
                 {ordering?.map((item) => isVisible(item.title) && <div key={item.id}>{components[item.title]}</div>)}

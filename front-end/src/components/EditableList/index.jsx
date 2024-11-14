@@ -13,8 +13,8 @@ import {PopupSideButton} from '../PopupSideButton';
  * @param {React.ComponentType<{list: Array<string>}>} props.RenderList - A component that renders the list of items.
  *        This component should accept a `list` prop of type Array<string>.
  */
-export function EditableList({list, RenderList, title, description}) {
-    const {editableList, handleChange, addNew, remove} = useEditableList(list);
+export function EditableList({list, RenderList, title, description, updateList}) {
+    const {editableList, handleChange, addNew, remove} = useEditableList(list, updateList);
     return (
         <div className="group relative">
             <RenderList list={editableList.map((element) => element.value)} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import {EditableList} from '@/components/EditableList';
 
-export function ContactMethods({contactMethods}) {
+export function ContactMethods({contactMethods, updateContactMethods}) {
     return (
         <EditableList
             list={contactMethods}
@@ -18,6 +18,7 @@ export function ContactMethods({contactMethods}) {
             }}
             title="Conctact Methods"
             description="Edit contact methods"
+            updateList={updateContactMethods}
         />
     );
 }
