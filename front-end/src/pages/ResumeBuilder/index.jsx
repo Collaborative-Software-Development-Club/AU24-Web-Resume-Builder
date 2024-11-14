@@ -6,27 +6,75 @@ import Sidebar from './Sidebar';
 import useResumeData from './useResumeData';
 import {Projects} from './Projects';
 import {Experiences} from './Experiences';
+import {Button} from '@/components/ui/button';
+import {useState, useEffect} from 'react';
+import uploadResumeData from '@/services/uploadResumeData';
 
-const USE_API = false;
-const DEFAULT_RESUME_ID = '6718101a6929694694c9f0b7';
+const USE_API = true;
+const DEFAULT_RESUME_ID = '67352f2265e5d74b8503ce90';
 
 export default function ResumeBuilder() {
-    const resume = useResumeData(DEFAULT_RESUME_ID, USE_API);
-    if (!resume) {
-        return <p>Loading...</p>;
-    }
+    const {resume, setResume, save} = useResumeData(DEFAULT_RESUME_ID, USE_API);
+    const [ordering, setOrdering] = useState([]);
+    console.log(resume);
+
+    useEffect(() => {
+        if (resume) {
+            setOrdering(
+                resume.orderOfSections.map((item, index) => ({
+                    title: item,
+                    id: index.toString(),
+                })),
+            );
+        }
+    }, [resume]);
+
+    const updateName = (name) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            name: name,
+        }));
+    };
+
+    if (!resume) return <p>Loading...</p>;
+
+    // Map of components for easy rendering
+    const components = {
+        EDUCATION: <Education resume={resume} education={resume.education} />,
+        EXPERIENCE: <Experiences resume={resume} experiences={resume.experience} />,
+        PROJECTS: <Projects resume={resume} projects={resume.projects} />,
+        SKILLS: <Skills skills={resume.skills.items} />,
+    };
+
+    // function to toggle visibility
+    const toggleSectionVisibility = (sectionName, isVisible) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            [sectionName]: {
+                ...prevResume[sectionName],
+                visible: isVisible,
+            },
+        }));
+    };
+
+    // Helper function to check visibility
+    const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
+
     return (
         <div className="flex justify-center">
-            <div>
-                <Sidebar />
-            </div>
-            <div className="items-strech flex flex-col justify-start self-stretch 2xl:ml-56">
-                <Name name={resume.name} />
+            <div className="flex flex-col items-stretch justify-start self-stretch">
+                {/* Sidebar to control visibility and ordering */}
+                <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility} />
+
+                {/* Static components */}
+                <Button className="self-end" onClick={save}>
+                    Save
+                </Button>
+                <Name name={resume.name} updateName={updateName} />
                 <ContactMethods contactMethods={resume.contactMethods} />
-                <Education education={resume.education} />
-                <Experiences experiences={resume.experience} />
-                <Projects projects={resume.projects} />
-                <Skills skills={resume.skills.items} />
+
+                {/* Render ordered components conditionally */}
+                {ordering?.map((item) => isVisible(item.title) && <div key={item.id}>{components[item.title]}</div>)}
             </div>
         </div>
     );

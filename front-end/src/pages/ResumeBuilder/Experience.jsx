@@ -15,7 +15,7 @@ const PLACEHOLDERS = {
 
 const SEASONS = ['Spring', 'Summer', 'Fall', 'Winter'];
 
-export function Experience({experience}) {
+export function Experience({resume, experience}) {
     const [experienceData, setExperienceData] = useState({
         position: experience?.position || '',
         company: experience?.company || experience?.organization || '',
@@ -34,6 +34,7 @@ export function Experience({experience}) {
             ...experienceData,
             [name]: value,
         });
+        resume.experience[experience] = experienceData;
     };
 
     const formatMonth = (month) => SEASONS[month - 1] || '';
