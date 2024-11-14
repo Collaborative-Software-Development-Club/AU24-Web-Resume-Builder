@@ -9,12 +9,13 @@ import {Experiences} from './Experiences';
 import {Button} from '@/components/ui/button';
 import {useState, useEffect} from 'react';
 import uploadResumeData from '@/services/uploadResumeData';
+import { useParams } from 'react-router-dom';
 
 const USE_API = true;
-const DEFAULT_RESUME_ID = '6718101a6929694694c9f0b7';
 
 export default function ResumeBuilder() {
-    const {resume, setResume, save} = useResumeData(DEFAULT_RESUME_ID, USE_API);
+    const resumeId = useParams()?.resumeId;
+    const {resume, setResume, save} = useResumeData(resumeId, USE_API);
     const [ordering, setOrdering] = useState([]);
     console.log(resume);
 
