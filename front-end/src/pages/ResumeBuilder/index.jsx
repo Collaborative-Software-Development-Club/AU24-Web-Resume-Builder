@@ -1,30 +1,76 @@
-import {Name} from './Name';
+import { Name } from './Name';
 import Education from './Education';
-import {ContactMethods} from './ContactMethods';
+import { ContactMethods } from './ContactMethods';
 import Skills from './Skills';
-import {Sidebar} from './Sidebar';
+import Sidebar from './Sidebar';
 import useResumeData from './useResumeData';
-import {Projects} from './Projects';
-import {Experiences} from './Experiences';
+import { Projects } from './Projects';
+import { Experiences } from './Experiences';
+import { useState, useEffect } from 'react';
 
 const USE_API = true;
 const DEFAULT_RESUME_ID = '6718101a6929694694c9f0b7';
 
 export default function ResumeBuilder() {
-    const resume = useResumeData(DEFAULT_RESUME_ID, USE_API);
-    if (!resume) {
-        return <p>Loading...</p>;
-    }
+    const fetchedResume = useResumeData(DEFAULT_RESUME_ID, USE_API);
+    const [resume, setResume] = useState(null);
+    const [ordering, setOrdering] = useState([]);
+
+    useEffect(() => {
+        if (fetchedResume) {
+            setResume(fetchedResume);
+            setOrdering(
+                fetchedResume.orderOfSections.map((item, index) => ({
+                    title: item,
+                    id: index.toString(),
+                }))
+            );
+        }
+    }, [fetchedResume]);
+
+    if (!resume) return <p>Loading...</p>;
+
+    // Map of components for easy rendering
+    const components = {
+        EDUCATION: <Education resume={resume} education={resume.education} />,
+        EXPERIENCE: <Experiences resume={resume} experiences={resume.experience} />,
+        PROJECTS: <Projects resume={resume} projects={resume.projects} />,
+        SKILLS: <Skills skills={resume.skills.items} />,
+    };
+
+    // function to toggle visibility
+    const toggleSectionVisibility = (sectionName, isVisible) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            [sectionName]: {
+                ...prevResume[sectionName],
+                visible: isVisible,
+            },
+        }));
+    };
+
+    // Helper function to check visibility
+    const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
+
+
     return (
         <div className="flex justify-center">
-            <div className="items-strech flex flex-col justify-start self-stretch">
-                <Sidebar />
+            <div className="flex flex-col items-stretch justify-start self-stretch">
+                {/* Sidebar to control visibility and ordering */}
+                <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility}/>
+                
+                {/* Static components */}
                 <Name name={resume.name} />
                 <ContactMethods contactMethods={resume.contactMethods} />
-                <Education education={resume.education} />
-                <Experiences experiences={resume.experience} />
-                <Projects projects={resume.projects} />
-                <Skills skills={resume.skills.items} />
+
+                {/* Render ordered components conditionally */}
+                {ordering?.map((item) => (
+                    isVisible(item.title) && (
+                        <div key={item.id}>
+                            {components[item.title]}
+                        </div>
+                    )
+                ))}
             </div>
         </div>
     );
