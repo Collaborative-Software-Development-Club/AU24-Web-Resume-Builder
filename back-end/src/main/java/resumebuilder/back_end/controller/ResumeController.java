@@ -62,9 +62,6 @@ public class ResumeController {
             @PathVariable("id") String id,
             @RequestBody ResumeDto resumeDto
     ) {
-        if(!resumeService.exists(id)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         ResumeDto updatedResume = resumeService.partialUpdate(id, resumeDto);
         return new ResponseEntity<>(updatedResume, HttpStatus.OK);
     }
