@@ -6,32 +6,35 @@ import Sidebar from './Sidebar';
 import useResumeData from './useResumeData';
 import {Projects} from './Projects';
 import {Experiences} from './Experiences';
+import {Button} from '@/components/ui/button';
 import {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import uploadResumeData from '@/services/uploadResumeData';
 
 const USE_API = true;
 const DEFAULT_RESUME_ID = '6718101a6929694694c9f0b7';
 
 export default function ResumeBuilder() {
-    //Gets the resumeId from its url parameter
-    const resumeId = useParams()?.resumeId;
-    console.log(resumeId);
-
-    const fetchedResume = useResumeData(resumeId, USE_API);
-    const [resume, setResume] = useState(null);
+    const {resume, setResume, save} = useResumeData(DEFAULT_RESUME_ID, USE_API);
     const [ordering, setOrdering] = useState([]);
+    console.log(resume);
 
     useEffect(() => {
-        if (fetchedResume) {
-            setResume(fetchedResume);
+        if (resume) {
             setOrdering(
-                fetchedResume.orderOfSections.map((item, index) => ({
+                resume.orderOfSections.map((item, index) => ({
                     title: item,
                     id: index.toString(),
                 })),
             );
         }
-    }, [fetchedResume]);
+    }, [resume]);
+
+    const updateName = (name) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            name: name,
+        }));
+    };
 
     if (!resume) return <p>Loading...</p>;
 
@@ -64,7 +67,10 @@ export default function ResumeBuilder() {
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility} />
 
                 {/* Static components */}
-                <Name name={resume.name} />
+                <Button className="self-end" onClick={save}>
+                    Save
+                </Button>
+                <Name name={resume.name} updateName={updateName} />
                 <ContactMethods contactMethods={resume.contactMethods} />
 
                 {/* Render ordered components conditionally */}
