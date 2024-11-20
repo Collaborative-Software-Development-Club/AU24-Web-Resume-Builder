@@ -6,7 +6,6 @@ export function ContactMethods({contactMethods}) {
         <EditableList
             list={contactMethods}
             RenderList={({list}) => {
-                console.log(list);
                 return (
                     <div className="flex flex-row gap-2 self-center">
                         {list.map((element) => (

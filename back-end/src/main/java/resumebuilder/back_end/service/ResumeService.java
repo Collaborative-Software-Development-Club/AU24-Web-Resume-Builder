@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import resumebuilder.back_end.domain.dto.ResumeDto;
 import resumebuilder.back_end.domain.entities.*;
 import resumebuilder.back_end.error_handling.exceptions.ResumeNotFoundException;
+import resumebuilder.back_end.error_handling.exceptions.ResumeNotFoundException;
 import resumebuilder.back_end.mappers.ResumeMapper;
 import resumebuilder.back_end.repository.ResumeRepository;
 

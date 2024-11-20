@@ -11,13 +11,14 @@ const FormSchema = z.object({
     }),
 });
 
-export function Name({name}) {
+export function Name({name, updateName}) {
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
             name: '',
         },
     });
+    console.log(form);
     useEffect(() => {
         form.setValue('name', name);
     }, []);
@@ -32,7 +33,16 @@ export function Name({name}) {
                         <FormItem>
                             <FormControl>
                                 <h1>
-                                    <Input type="text" {...field} placeholder="Brutus Buckeye" className="times text-center text-2xl" />
+                                    <Input
+                                        type="text"
+                                        {...field}
+                                        placeholder="Brutus Buckeye"
+                                        className="times text-center text-2xl"
+                                        onChange={(e) => {
+                                            form.setValue('name', e.target.value);
+                                            updateName(e.target.value);
+                                        }}
+                                    />
                                 </h1>
                             </FormControl>
                             <FormMessage />
