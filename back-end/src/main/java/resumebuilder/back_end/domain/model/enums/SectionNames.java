@@ -5,4 +5,8 @@ public enum SectionNames {
     EXPERIENCE,
     PROJECTS,
     SKILLS,
+    CERTIFICATIONS,
+    HONORS,
+    VOLUNTEER_EXPERIENCE,
+    PROFESSIONAL_SUMMARY,
 }
