@@ -58,6 +58,10 @@ public class ResumeService {
         Optional.ofNullable(resumeDto.getProjects()).ifPresent(resume::setProjects);
         Optional.ofNullable(resumeDto.getDescription()).ifPresent(resume::setDescription);
         Optional.ofNullable(resumeDto.getOrderOfSections()).ifPresent(resume::setOrderOfSections);
+        Optional.ofNullable(resumeDto.getVolunteerExperience()).ifPresent(resume::setVolunteerExperience);
+        Optional.ofNullable(resumeDto.getCertifications()).ifPresent(resume::setCertifications);
+        Optional.ofNullable(resumeDto.getHonors()).ifPresent(resume::setHonors);
+        Optional.ofNullable(resumeDto.getProfessionalSummary()).ifPresent(resume::setProfessionalSummary);
         ResumeEntity updatedResume = resumeRepository.save(resumeMapper.mapToEntity(resume));
         return resumeMapper.mapToDto(updatedResume);
     }
