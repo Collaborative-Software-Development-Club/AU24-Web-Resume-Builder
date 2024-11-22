@@ -1,3 +1,14 @@
+
+.multiLineInput li{
+    margin-left: 1em;
+    display: list-item;
+    list-style-type: disc;
+}
+ .multiLineInput[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    color: #555; 
+} 
+
 .times {
     @apply font-serif;
 }
