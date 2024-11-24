@@ -16,8 +16,8 @@ const Education = ({updateEducation, education}) => {
         minor: education.minor,
         gpa: education.gpa,
         graduationDate: {
-            graduationMonth: education.graduationDate.month,
-            graduationYear: education.graduationDate.year,
+            month: education.graduationDate.month,
+            year: education.graduationDate.year,
         },
         honors: education.honors,
     });
@@ -25,11 +25,17 @@ const Education = ({updateEducation, education}) => {
     const handleInputChange = (e) => {
         const newEducationData = {...educationData, [e.target.name]: e.target.value};
         setEducationData(newEducationData);
+        updateEducation((newEducationData));
+    };
+
+    const handleYearInputChange = (e) => {
+        const newEducationData = {...educationData, graduationDate: {...educationData.graduationDate, year: e.target.value}};
+        setEducationData(newEducationData);
         updateEducation(newEducationData);
     };
 
-    const handleSelectChange = (name, value) => {
-        const newEducationData = {...educationData, graduationDate: {...educationData.graduationDate, [name]: value}};
+    const handleSelectChange = (value) => {
+        const newEducationData = {...educationData, graduationDate: {...educationData.date, month: value}};
         setEducationData(newEducationData);
         updateEducation(newEducationData);
     };
@@ -56,7 +62,7 @@ const Education = ({updateEducation, education}) => {
                     </div>
 
                     <div className="flex space-x-4 md:w-1/3">
-                        <Select className="times" onValueChange={(value) => handleSelectChange('graduationMonth', value)}>
+                        <Select className="times" value={educationData.graduationDate.month} onValueChange={(value) => handleSelectChange(value)}>
                             <SelectTrigger className="times">
                                 <SelectValue placeholder="Graduation Month" />
                             </SelectTrigger>
@@ -70,7 +76,7 @@ const Education = ({updateEducation, education}) => {
                         </Select>
 
                         <div className="w-">
-                            <Input name="graduationYear" placeholder="Year" value={educationData.graduationYear} onChange={handleInputChange} className="times" />
+                            <Input name="year" placeholder="Year" value={educationData.year} onChange={handleYearInputChange} className="times" />
                         </div>
                     </div>
                 </div>
