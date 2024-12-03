@@ -45,12 +45,16 @@ export default function ResumeBuilder() {
         }));
     }
 
-    const updateEducation = (education) => {
+    const updateEducation = (updatedFields) => {
         setResume((prevResume) => ({
             ...prevResume,
-            education: education,
+            education: {
+                ...prevResume.education,
+                ...updatedFields,
+            },
         }));
     };
+    
 
     const updateExperience = (experience) => {
         setResume((prevResume) => ({
