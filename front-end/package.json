@@ -21,6 +21,8 @@
         "@radix-ui/react-slot": "^1.1.0",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
+        "docx": "^9.1.1",
+        "file-saver": "^2.0.5",
         "lucide-react": "^0.441.0",
         "prettier-plugin-tailwindcss": "^0.6.6",
         "react": "^18.3.1",

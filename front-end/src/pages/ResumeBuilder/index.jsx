@@ -8,9 +8,9 @@ import {Projects} from './Projects';
 import {Experiences} from './Experiences';
 import {Button} from '@/components/ui/button';
 import {useState, useEffect} from 'react';
-import uploadResumeData from '@/services/uploadResumeData';
+import {downloadResume} from '@/services/downloadResume';
 
-const USE_API = true;
+const USE_API = false;
 const DEFAULT_RESUME_ID = '67352f2265e5d74b8503ce90';
 
 export default function ResumeBuilder() {
@@ -60,6 +60,10 @@ export default function ResumeBuilder() {
     // Helper function to check visibility
     const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
 
+    const download = () => {
+        downloadResume(resume);
+    };
+
     return (
         <div className="flex justify-center">
             <div className="flex flex-col items-stretch justify-start self-stretch">
@@ -67,9 +71,14 @@ export default function ResumeBuilder() {
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility} />
 
                 {/* Static components */}
-                <Button className="self-end" onClick={save}>
-                    Save
-                </Button>
+                <div className="flex flex-row justify-end gap-4">
+                    <Button className="" variant="secondary" onClick={() => download()}>
+                        Download
+                    </Button>
+                    <Button className="" onClick={save}>
+                        Save
+                    </Button>
+                </div>
                 <Name name={resume.name} updateName={updateName} />
                 <ContactMethods contactMethods={resume.contactMethods} />
 
