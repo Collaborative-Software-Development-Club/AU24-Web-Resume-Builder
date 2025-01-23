@@ -61,18 +61,21 @@ export default function ResumeBuilder() {
             ...prevResume,
             experience: {
                 ...prevResume.experience,
-                items: experience,
-            }
+                items: [...experience],
+            },
         }));
     };
-
+    
+    
+    
     const updateProjects = (projects) => {
         setResume((prevResume) => ({
             ...prevResume,
             projects: {
                 ...prevResume.projects,
-                items: projects,
-        }}));
+                items: [...projects],
+            },
+        }));
     };
 
     const updateSkills = (skills) => {
@@ -90,8 +93,8 @@ export default function ResumeBuilder() {
     // Map of components for easy rendering
     const components = {
         EDUCATION: <Education updateEducation={updateEducation} education={resume.education} />,
-        EXPERIENCE: <Experiences updateExperience={updateExperience} experiences={resume.experience} />,
-        PROJECTS: <Projects updateProjects={updateProjects} projects={resume.projects} />,
+        EXPERIENCE: <Experiences updateExperience={updateExperience} experiences={resume.experience.items} />,
+        PROJECTS: <Projects updateProjects={updateProjects} projects={resume.projects.items} />,
         SKILLS: <Skills updateSkills={updateSkills} skills={resume.skills.items} />,
     };
 

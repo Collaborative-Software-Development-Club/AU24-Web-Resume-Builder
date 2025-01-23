@@ -15,7 +15,7 @@ const PLACEHOLDERS = {
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export function Experience({ setItems, experience }) {
+export function Experience({ updateItem, experience }) {
     const [experienceData, setExperienceData] = useState({
         visible: experience?.visible,
         id: experience?.id,
@@ -41,7 +41,7 @@ export function Experience({ setItems, experience }) {
             [name]: value,
         };
         setExperienceData(newExperienceData);
-        setItems(newExperienceData); 
+        updateItem(newExperienceData); 
     };
 
     // Handle selection changes for month
@@ -54,7 +54,7 @@ export function Experience({ setItems, experience }) {
             },
         };
         setExperienceData(updatedData);
-        setItems(updatedData); 
+        updateItem(updatedData); 
     };
 
     return (

@@ -16,7 +16,7 @@ const PLACEHOLDERS = {
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export function Project({setItems, project}) {
+export function Project({updateItem, project}) {
     const [projectData, setProjectData] = useState({
         id: project?.id,
         visible: project?.visible,
@@ -40,7 +40,7 @@ export function Project({setItems, project}) {
             [name]: value,
         };
         setProjectData(newExperienceData);
-        setItems(newExperienceData); 
+        updateItem(newExperienceData); 
     };
 
     // Handle selection changes for month
@@ -53,7 +53,7 @@ export function Project({setItems, project}) {
             },
         };
         setProjectData(updatedData);
-        setItems(updatedData); 
+        updateItem(updatedData); 
     };
 
     return (

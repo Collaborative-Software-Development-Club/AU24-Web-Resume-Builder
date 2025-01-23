@@ -2,7 +2,6 @@ import {SectionTitle} from './SectionTitle';
 import EditableComponent from './EditableComponent';
 
 export function Experiences({updateExperience, experiences}) {
-    console.log(experiences);
     return (
         <div className="grid">
             <SectionTitle title="Experience" />

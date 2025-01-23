@@ -24,11 +24,11 @@ const createNewItem = (id, type) => {
 };
 
 export default function EditableComponent({updateComponent, type, data}) {
-    const [array, setArray] = useState(data?.items?.map((item, index) => ({...item, id: index.toString()})) || []);
-    const [nextId, setNextId] = useState(data?.items?.length || 0);
-
+    const [array, setArray] = useState(data?.map((item) => ({...item, id: item.id.toString()})) || []);
+    const [nextId, setNextId] = useState(data?.length || 0);
     const isExperience = type === 'experience';
 
+    
     // Add a new item to the list
     const addItem = () => {
         const newItem = createNewItem(nextId, type);
