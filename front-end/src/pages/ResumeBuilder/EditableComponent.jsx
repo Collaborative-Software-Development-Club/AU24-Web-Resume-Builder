@@ -2,7 +2,6 @@ import {Project} from './Project';
 import Experience from './Experience';
 import {Button} from '@/components/ui/button';
 import {Trash2, Plus} from 'lucide-react';
-import {useState} from 'react';
 import DragAndDropList from './DragAndDropList';
 import {PopupSideButton} from '@/components/PopupSideButton';
 
@@ -24,47 +23,44 @@ const createNewItem = (id, type) => {
 };
 
 export default function EditableComponent({updateComponent, type, data}) {
-    const [array, setArray] = useState(data?.map((item) => ({...item, id: item.id.toString()})) || []);
-    const [nextId, setNextId] = useState(data?.length || 0);
+    const sanitizedData = data?.map((item) => ({ ...item, id: item.id.toString() })) || [];
     const isExperience = type === 'experience';
-
+    
+    //Ensure that the IDs are integers when updating resume
+    const revertIdsToInt = (array) => {
+        return array.map((item) => ({ ...item, id: Number.isInteger(item.id) ? item.id : parseInt(item.id, 10) }));
+    };
     
     // Add a new item to the list
     const addItem = () => {
-        const newItem = createNewItem(nextId, type);
-        const updatedArray = [...array, newItem];
-        setArray(updatedArray);
+        const newItem = createNewItem(data?.length, type);
+        const updatedArray = [...data, newItem];
         updateComponent(updatedArray);
-        setNextId((prevId) => prevId + 1);
     };
 
     // Remove an item by its ID
     const removeItem = (id) => {
-        const updatedArray = array.filter((item) => item.id !== id);
-        setArray(updatedArray);
+        const updatedArray = data?.filter((item) => item.id !== id);
         updateComponent(updatedArray);
     };
 
     // Passed in setter for array, preserving items marked as invisible
     const setArrayWithVisibility = (newArray) => {
-        const invisibleItems = array.filter((item) => !item.visible);
+        const invisibleItems = data?.filter((item) => !item.visible);
         const updatedArray = [...newArray, ...invisibleItems];
-        setArray(updatedArray);
-        updateComponent(updatedArray);
+        updateComponent(revertIdsToInt(updatedArray));
     };
 
     // Update an item in the array
     const editArray = (updatedItem) => {
-        const updatedArray = array.map((item) => (item.id === updatedItem.id ? updatedItem : item));
-        setArray(updatedArray);
-        updateComponent(updatedArray);
+        const updatedArray = data.map((item) => (item.id === updatedItem.id ? updatedItem : item));
+        updateComponent(revertIdsToInt(updatedArray));
     };
 
     return (
         <div className="times flex flex-col gap-6">
             <DragAndDropList
-                array={array
-                    .filter((item) => item.visible)
+                array={sanitizedData?.filter((item) => item.visible)
                     .map((item) => ({
                         ...item,
                         content: (
