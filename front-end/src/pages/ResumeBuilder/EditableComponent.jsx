@@ -8,7 +8,7 @@ import {PopupSideButton} from '@/components/PopupSideButton';
 // Helper function to create new items with a unique ID
 const createNewItem = (id, type) => {
     const base = {
-        id: id.toString(),
+        id: id,
         startDate: {month: '', year: ''},
         endDate: {month: '', year: ''},
         location: '',
@@ -23,14 +23,14 @@ const createNewItem = (id, type) => {
 };
 
 export default function EditableComponent({updateComponent, type, data}) {
-    const sanitizedData = data?.map((item) => ({ ...item, id: item.id.toString() })) || [];
+    const sanitizedData = data?.map((item) => ({...item, id: item.id.toString()})) || [];
     const isExperience = type === 'experience';
-    
+
     //Ensure that the IDs are integers when updating resume
     const revertIdsToInt = (array) => {
-        return array.map((item) => ({ ...item, id: Number.isInteger(item.id) ? item.id : parseInt(item.id, 10) }));
+        return array.map((item) => ({...item, id: Number(item.id)}));
     };
-    
+
     // Add a new item to the list
     const addItem = () => {
         const newItem = createNewItem(data?.length, type);
@@ -52,7 +52,8 @@ export default function EditableComponent({updateComponent, type, data}) {
     };
 
     // Update an item in the array
-    const editArray = (updatedItem) => {
+    const editItems = (updatedItem) => {
+        console.log(updatedItem);
         const updatedArray = data.map((item) => (item.id === updatedItem.id ? updatedItem : item));
         updateComponent(revertIdsToInt(updatedArray));
     };
@@ -60,12 +61,13 @@ export default function EditableComponent({updateComponent, type, data}) {
     return (
         <div className="times flex flex-col gap-6">
             <DragAndDropList
-                array={sanitizedData?.filter((item) => item.visible)
+                array={sanitizedData
+                    ?.filter((item) => item.visible)
                     .map((item) => ({
                         ...item,
                         content: (
                             <div key={item.id} className="group relative flex items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg">
-                                {isExperience ? <Experience setItems={editArray} experience={item} /> : <Project setItems={editArray} project={item} />}
+                                {isExperience ? <Experience updateItems={editItems} experience={item} /> : <Project updateItems={editItems} project={item} />}
                                 <PopupSideButton onlyOnHover={true} onClick={() => removeItem(item.id)}>
                                     <Trash2 />
                                 </PopupSideButton>

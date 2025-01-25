@@ -15,15 +15,15 @@ const MONTHS = [
     {name: 'December', value: 12},
 ];
 
-export default function Months({type, updateComponent, value}) {
-    const handleSelectChange = (month) => {
+export default function Months({type, handleSelectChange, value}) {
+    const newHandleSelectChange = (month) => {
         const monthValue = MONTHS.find((m) => m.name === month);
-        updateComponent(monthValue.value);
+        handleSelectChange(type.toLowerCase()+"Date", 'month',  Number(monthValue.value));
     };
 
     return (
         <div className="times">
-            <Select value={MONTHS.find((m) => m.value === value)} onValueChange={handleSelectChange}>
+            <Select value={MONTHS.find((m) => m.value === value)?.name} onValueChange={newHandleSelectChange}>
                 <SelectTrigger>
                     <SelectValue placeholder={`${type} Month`} />
                 </SelectTrigger>
