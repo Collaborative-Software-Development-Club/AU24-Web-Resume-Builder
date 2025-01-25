@@ -8,17 +8,47 @@ export function downloadResume(resumeData) {
             {
                 properties: {},
                 children: [
-                    new Paragraph({
-                        children: [new TextRun({text: resumeData.name})],
-                    }),
-                    new Paragraph({
-                        children: [new TextRun({text: resumeData.contactMethods.join(' | ')})],
-                    }),
+                    formatName(resumeData.name),
+                    formatContactMethods(resumeData.contactMethods),
+                    ...formatEducation(resumeData.education),
+                    formatSkills(resumeData.skills),
+                    ...formatExperience(resumeData.experience),
+                    ...formatProjects(resumeData.projects),
+                    formatSkills(resumeData.skills),
                 ],
             },
         ],
     });
+    console.log(doc);
     Packer.toBlob(doc).then((blob) => {
         saveAs(blob, 'resume.docx');
     });
+}
+
+function formatName(name) {
+    return new Paragraph({
+        children: [new TextRun({text: name})],
+    });
+}
+
+function formatContactMethods(contactMethods) {
+    return new Paragraph({
+        children: [new TextRun({text: contactMethods.join(' | ')})],
+    });
+}
+
+function formatExperience(experience) {
+    return experience.items.map((item) => [new Paragraph({children: [new TextRun({text: item.company})]}), new Paragraph({children: [new TextRun({text: item.position})]})]).flat();
+}
+
+function formatProjects(projects) {
+    return projects.items.map((item) => [new Paragraph({children: [new TextRun({text: item.company})]}), new Paragraph({children: [new TextRun({text: item.position})]})]).flat();
+}
+
+function formatSkills(skills) {
+    return new Paragraph({children: [new TextRun(skills.items.map((skill) => skill.skillName).join(', '))]});
+}
+
+function formatEducation(education) {
+    return [new Paragraph({children: [new TextRun({text: education.institution})]}), new Paragraph([new TextRun({text: education.degree})])];
 }
