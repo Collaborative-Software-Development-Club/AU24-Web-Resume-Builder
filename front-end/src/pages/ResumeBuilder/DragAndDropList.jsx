@@ -1,21 +1,17 @@
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 export default function DragAndDropList({ array, setArray }) {
-    // Handle drag end event
-    const handleOnDragEnd = (result) => {
-        const { source, destination } = result;
-
-        // If there's no destination (dropped outside), or if it's the same position, do nothing
+    console.log(array);
+    
+    const handleOnDragEnd = ({ source, destination }) => {
         if (!destination || source.index === destination.index) return;
 
-        // Reorder array based on drag result
-        const reorderedArray = Array.from(array);
-        const [movedItem] = reorderedArray.splice(source.index, 1);
-        reorderedArray.splice(destination.index, 0, movedItem);
-
-        // Update the array state
-        setArray(reorderedArray);
+        const reorderedList = array?.slice();
+        const [removedItem] = reorderedList.splice(source.index, 1);
+        reorderedList.splice(destination.index, 0, removedItem);
+        setArray(reorderedList);
     };
+    
 
     return (
         <DragDropContext onDragEnd={handleOnDragEnd}>

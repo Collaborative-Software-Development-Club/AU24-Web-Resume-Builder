@@ -6,7 +6,7 @@
 		"100 Ohio State Ave, Columbus OH, 43210"
 	],
 	"education": {
-		"visible": "true",
+		"visible": true,
 		"institution": "The Ohio State University",
 		"location": "Columbus, Ohio",
 		"degree": "Bachelor of Science in Business Administration",
