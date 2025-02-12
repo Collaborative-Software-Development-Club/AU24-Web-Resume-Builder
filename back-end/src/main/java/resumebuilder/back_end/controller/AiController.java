@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import resumebuilder.back_end.service.ai.AiService;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,13 @@ public class AiController {
      * - Mock: is just a placeholder. Use if you want to test the endpoints without having a local model 
      */
     @Autowired
-    public AiController(@Qualifier("Local") AiService aiService) {
+    public AiController(@Qualifier("Mock") AiService aiService) {
         this.aiService= aiService;
     }
     @GetMapping("/enhance-text")
-    public Map<String,String> generate(@RequestParam(value = "message") String message) {
-        return Map.of("generation", aiService.enhanceResumeBulletPoints(message));
+    public Map<String,String> generate(@RequestParam(value = "message") String message) throws UnsupportedEncodingException{
+        String decodedMessage = URLDecoder.decode(message, "UTF-8");  
+        return Map.of("generation", aiService.enhanceResumeBulletPoints(decodedMessage));
     }
 
 }

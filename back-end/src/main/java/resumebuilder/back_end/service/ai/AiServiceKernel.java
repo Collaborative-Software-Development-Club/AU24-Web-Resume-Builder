@@ -10,7 +10,7 @@ public abstract class AiServiceKernel implements AiService {
                 "Guidelines: 1- Use the following action verbs at the start of the bullet points: " + ACTION_VERBS + "\n" + //
                 "2- Follow the instructions for the XYZ method: " + XYZ_METHOD + "\n" + //
                 "Apply changes to the follwing description: " + initialText + "\n" + //
-                "Return only the improved description and nothing more.";
+                "Return only the improved description and nothing more. DO NOT OUTPUT ANYTHIGN APART FROM THE BULLET POINTS FOR THE RESUME. Do not add formatting to the bullet points, meaning do not add a dash or a dot or anything. Just separate the with \\n.";
     }
     private final String ACTION_VERBS = "LEADERSHIP\t\t\t\t\t\t\t\n" + //
                 "Accomplished\tAchieved\tAdministered\tAnalyzed\tAssigned\tAttained\tChaired\tConsolidated\n" + //

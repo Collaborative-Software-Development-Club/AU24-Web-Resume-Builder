@@ -16,6 +16,19 @@ public class Resume {
     private VisibleSectionOfItems<Project> projects;
     private List<String> contactMethods;
     private VisibleSectionOfItems<Skill> skills;
-    private List<SectionNames> orderOfSections = List.of(SectionNames.EDUCATION, SectionNames.EXPERIENCE, SectionNames.PROJECTS, SectionNames.SKILLS);
+    private VisibleSectionOfItems<ExperienceItem> volunteerExperience;
+    private VisibleSectionOfItems<Certification> certifications;
+    private VisibleSectionOfItems<Honor> honors;
+    private ProfessionalSummary professionalSummary;
+    private List<SectionNames> orderOfSections = List.of(
+            SectionNames.PROFESSIONAL_SUMMARY,
+            SectionNames.EDUCATION,
+            SectionNames.EXPERIENCE,
+            SectionNames.PROJECTS,
+            SectionNames.SKILLS,
+            SectionNames.HONORS,
+            SectionNames.CERTIFICATIONS,
+            SectionNames.VOLUNTEER_EXPERIENCE
+    );
     private String description;
 }
