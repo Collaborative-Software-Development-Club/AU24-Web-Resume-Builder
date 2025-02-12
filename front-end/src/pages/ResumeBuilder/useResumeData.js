@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {getResumeData} from '@/services';
 import uploadResumeData from '@/services/uploadResumeData';
 
+
 export default function useResumeData(resumeId, USE_API) {
     const [resume, setResume] = useState(null);
     const save = async () => {

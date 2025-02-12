@@ -5,40 +5,10 @@ import { Plus } from 'lucide-react';
 import ResumePreview from './ResumePreview';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { DEFAULT_RESUME } from '../ResumeBuilder/DEFAULT_RESUME';
 
 const USE_API = true;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
-const DEFAULT_RESUME = {
-    name: '',
-    contactMethods: [],
-    education: {
-        visible: true,
-        institution: '',
-        location: '',
-        degree: '',
-        graduationDate: {
-            month: null,
-            year: null,
-        },
-        specialization: '',
-        minor: '',
-        gpa: null,
-        honors: [],
-    },
-    experience: {
-        visible: true,
-        items: [],
-    },
-    projects: {
-        visible: true,
-        items: [],
-    },
-    skills: {
-        visible: true,
-        items: [],
-    },
-    orderOfSections: ['EDUCATION', 'EXPERIENCE', 'PROJECTS', 'SKILLS'],
-};
 
 const Account = () => {
     const fetchedUserData = useUserData(DEFAULT_USER_ID, USE_API);
