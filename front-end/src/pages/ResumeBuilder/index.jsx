@@ -9,15 +9,17 @@ import {Experiences} from './Experiences';
 import {Button} from '@/components/ui/button';
 import {useState, useEffect} from 'react';
 import {downloadResume} from '@/services/downloadResume';
+import {useParams} from 'react-router-dom';
 
-const USE_API = false;
-const DEFAULT_RESUME_ID = '67352f2265e5d74b8503ce90';
+const USE_API = true;
 
 export default function ResumeBuilder() {
-    const {resume, setResume, save} = useResumeData(DEFAULT_RESUME_ID, USE_API);
+    const resumeId = useParams()?.resumeId;
+    const {resume, setResume, save} = useResumeData(resumeId, USE_API);
     const [ordering, setOrdering] = useState([]);
     console.log(resume);
 
+    //change to updateOrder
     useEffect(() => {
         if (resume) {
             setOrdering(
@@ -36,14 +38,61 @@ export default function ResumeBuilder() {
         }));
     };
 
+    const updateContactMethods = (contactMethods) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            contactMethods: contactMethods,
+        }));
+    };
+
+    const updateEducation = (updatedFields) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            education: {
+                ...prevResume.education,
+                ...updatedFields,
+            },
+        }));
+    };
+
+    const updateExperience = (experience) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            experience: {
+                ...prevResume.experience,
+                items: [...experience],
+            },
+        }));
+    };
+
+    const updateProjects = (projects) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            projects: {
+                ...prevResume.projects,
+                items: [...projects],
+            },
+        }));
+    };
+
+    const updateSkills = (skills) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            skills: {
+                ...prevResume.skills,
+                items: skills,
+            },
+        }));
+    };
+
     if (!resume) return <p>Loading...</p>;
 
     // Map of components for easy rendering
     const components = {
-        EDUCATION: <Education resume={resume} education={resume.education} />,
-        EXPERIENCE: <Experiences resume={resume} experiences={resume.experience} />,
-        PROJECTS: <Projects resume={resume} projects={resume.projects} />,
-        SKILLS: <Skills skills={resume.skills.items} />,
+        EDUCATION: <Education updateEducation={updateEducation} education={resume.education} />,
+        EXPERIENCE: <Experiences updateExperience={updateExperience} experiences={resume.experience.items} />,
+        PROJECTS: <Projects updateProjects={updateProjects} projects={resume.projects.items} />,
+        SKILLS: <Skills updateSkills={updateSkills} skills={resume.skills.items} />,
     };
 
     // function to toggle visibility
@@ -65,7 +114,7 @@ export default function ResumeBuilder() {
     };
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center pb-20 sm:mx-2">
             <div className="flex flex-col items-stretch justify-start self-stretch">
                 {/* Sidebar to control visibility and ordering */}
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility} />
@@ -80,7 +129,7 @@ export default function ResumeBuilder() {
                     </Button>
                 </div>
                 <Name name={resume.name} updateName={updateName} />
-                <ContactMethods contactMethods={resume.contactMethods} />
+                <ContactMethods contactMethods={resume.contactMethods} updateContactMethods={updateContactMethods} />
 
                 {/* Render ordered components conditionally */}
                 {ordering?.map((item) => isVisible(item.title) && <div key={item.id}>{components[item.title]}</div>)}

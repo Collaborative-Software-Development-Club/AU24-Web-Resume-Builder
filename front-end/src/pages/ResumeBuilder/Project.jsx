@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {Input} from '@/components/ui/input';
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
+import Months from './Months';
 
 const PLACEHOLDERS = {
     title: 'Enter project title',
@@ -14,45 +14,53 @@ const PLACEHOLDERS = {
     startYear: 'Start Year',
 };
 
-const SEASONS = ['Spring', 'Summer', 'Fall', 'Winter'];
-
-export function Project({resume, project}) {
+export function Project({updateItems, project}) {
     const [projectData, setProjectData] = useState({
+        id: project?.id,
+        visible: project?.visible,
         title: project?.title || '',
         description: project?.description || '',
         technologies: project?.technologies,
         role: project?.organization || '',
         link: project?.link,
         location: project?.location || '',
-        startMonth: project?.startDate.month || '',
-        startYear: project?.startDate.year || '',
+        startDate: {
+            month: project?.startDate?.month || '',
+            year: project?.startDate?.year || '',
+        },
     });
 
+    // Handle input changes for text fields
     const handleInputChange = (e) => {
-        setProjectData({...projectData, [e.target.name]: e.target.value});
+        const {name, value} = e.target;
+        const newExperienceData = {
+            ...projectData,
+            [name]: value,
+        };
+        setProjectData(newExperienceData);
+        updateItems(newExperienceData);
     };
 
-    const handleSelectChange = (name, value) => {
-        setProjectData({...projectData, [name]: value});
+    // Handle selection changes for month
+    const handleSelectChange = (dateType, field, value) => {
+        const updatedData = {
+            ...projectData,
+            startDate: {
+                ...projectData.startDate,
+                month: value,
+            },
+        };
+        setProjectData(updatedData);
+        updateItems(updatedData);
     };
+
     return (
         <div className="flex w-full flex-col gap-2">
-            {/* Combined Row for Project Title and Date */}
+            {/* Combined Row for Project T  itle and Date */}
             <div className="grid grid-cols-6 gap-2">
                 <Input name="title" value={projectData.title} onChange={handleInputChange} placeholder={PLACEHOLDERS.title} className="text-md col-span-3 font-bold" />
                 <Input name="link" placeholder={PLACEHOLDERS.link} value={projectData.link} onChange={handleInputChange} className="col-span-1" />
-                <Select className="" onValueChange={(value) => handleSelectChange('startMonth', value)}>
-                    <SelectTrigger className="col-span-1">
-                        <SelectValue placeholder={PLACEHOLDERS.startMonth} />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {SEASONS.map((month, index) => (
-                            <SelectItem value={index + 1} key={month}>
-                                {month}
-                            </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
+                <Months type="Start" value={projectData.startDate.month} handleSelectChange={handleSelectChange} className="col-span-1" />
                 <Input name="startYear" placeholder={PLACEHOLDERS.startYear} value={projectData.startYear} onChange={handleInputChange} className="col-span-1" />
             </div>
             {/*  Organization and location*/}

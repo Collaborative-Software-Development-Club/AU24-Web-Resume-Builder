@@ -12,14 +12,14 @@ import {
 } from '@/components/ui/navigation-menu';
 
 export function NavBar() {
-    const userId = "123";  // Hardcoded user ID for demonstration
+    const defaultResumeId = '67352f2265e5d74b8503ce90';  // Hardcoded resume ID for demonstration
 
     return (
-        <div className="flex flex-row justify-end rounded-xl">
+        <div className="flex flex-row justify-end rounded-xl pt-6 pr-5 shadow-sm">
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>
-                        <Link to={`/resume/${userId}`}>
+                        <Link to={`/resume/${defaultResumeId}`}>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>Resume</NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
