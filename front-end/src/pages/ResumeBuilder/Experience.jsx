@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {Input} from '@/components/ui/input';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import Months from './Months';
+import {BulletedInputBox} from '@/components/BulletedInputBox';
 
 const PLACEHOLDERS = {
     position: 'Enter your position title',
@@ -78,7 +79,8 @@ export function Experience({updateItems, experience}) {
 
             {/* Experience Description */}
             <div className="w-full">
-                <Input name="description" value={experienceData.description} placeholder={PLACEHOLDERS.description} onChange={handleInputChange} />
+                {/* <Input name="description" value={experienceData.description} placeholder={PLACEHOLDERS.description} className="" onChange={handleInputChange} /> */}
+                <BulletedInputBox placeholderText={PLACEHOLDERS.description} data={experienceData.description} />
             </div>
         </div>
     );
