@@ -8,8 +8,8 @@ import {Projects} from './Projects';
 import {Experiences} from './Experiences';
 import {Button} from '@/components/ui/button';
 import {useState, useEffect} from 'react';
-import uploadResumeData from '@/services/uploadResumeData';
-import { useParams } from 'react-router-dom';
+import {downloadResume} from '@/services/downloadResume';
+import {useParams} from 'react-router-dom';
 
 const USE_API = true;
 
@@ -43,7 +43,7 @@ export default function ResumeBuilder() {
             ...prevResume,
             contactMethods: contactMethods,
         }));
-    }
+    };
 
     const updateEducation = (updatedFields) => {
         setResume((prevResume) => ({
@@ -54,7 +54,6 @@ export default function ResumeBuilder() {
             },
         }));
     };
-    
 
     const updateExperience = (experience) => {
         setResume((prevResume) => ({
@@ -65,9 +64,7 @@ export default function ResumeBuilder() {
             },
         }));
     };
-    
-    
-    
+
     const updateProjects = (projects) => {
         setResume((prevResume) => ({
             ...prevResume,
@@ -83,10 +80,10 @@ export default function ResumeBuilder() {
             ...prevResume,
             skills: {
                 ...prevResume.skills,
-                items: skills
+                items: skills,
             },
         }));
-    }
+    };
 
     if (!resume) return <p>Loading...</p>;
 
@@ -112,6 +109,10 @@ export default function ResumeBuilder() {
     // Helper function to check visibility
     const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
 
+    const download = () => {
+        downloadResume(resume);
+    };
+
     return (
         <div className="flex justify-center pb-20 sm:mx-2">
             <div className="flex flex-col items-stretch justify-start self-stretch">
@@ -119,11 +120,16 @@ export default function ResumeBuilder() {
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility} />
 
                 {/* Static components */}
-                <Button className="self-end" onClick={save}>
-                    Save
-                </Button>
+                <div className="flex flex-row justify-end gap-4">
+                    <Button className="" variant="secondary" onClick={() => download()}>
+                        Download
+                    </Button>
+                    <Button className="" onClick={save}>
+                        Save
+                    </Button>
+                </div>
                 <Name name={resume.name} updateName={updateName} />
-                <ContactMethods contactMethods={resume.contactMethods} updateContactMethods={updateContactMethods}/>
+                <ContactMethods contactMethods={resume.contactMethods} updateContactMethods={updateContactMethods} />
 
                 {/* Render ordered components conditionally */}
                 {ordering?.map((item) => isVisible(item.title) && <div key={item.id}>{components[item.title]}</div>)}
