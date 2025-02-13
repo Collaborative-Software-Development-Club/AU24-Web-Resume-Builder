@@ -113,8 +113,8 @@ export default function ResumeBuilder() {
     };
 
     return (
-        <div className="flex justify-center pb-20 sm:mx-2">
-            <div className="flex flex-col items-stretch justify-start self-stretch">
+        <div className="flex justify-center pb-20 sm:mx-10">
+            <div className="flex flex-col items-stretch justify-start self-stretch max-w-6xl w-full">
                 {/* Sidebar to control visibility and ordering */}
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility} />
 
