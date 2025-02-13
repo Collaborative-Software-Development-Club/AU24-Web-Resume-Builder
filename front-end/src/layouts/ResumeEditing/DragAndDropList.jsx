@@ -11,6 +11,7 @@ export default function DragAndDropList({array, setArray}) {
         reorderedList.splice(destination.index, 0, removedItem);
         setArray(reorderedList);
     };
+    
 
     return (
         <DragDropContext onDragEnd={handleOnDragEnd}>
