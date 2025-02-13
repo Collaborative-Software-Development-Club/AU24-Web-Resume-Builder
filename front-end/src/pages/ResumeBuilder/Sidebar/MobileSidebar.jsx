@@ -13,7 +13,7 @@ export const MobileSidebar = ({resume, ordering, setOrdering, toggleSectionVisib
     return(
         <Sheet>
             {/* Toggle button */}
-            <SheetTrigger className="fixed left-5 top-5 3xl:hidden" asChild >
+            <SheetTrigger className="fixed left-5 top-5 2xl:hidden" asChild >
                 <Button>
                 <SlidersHorizontal />
                 </Button>
