@@ -68,7 +68,7 @@ export default function EditableComponent({updateComponent, type, data}) {
                         content: (
                             <div key={item.id} className="group relative flex items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg">
                                 {isExperience ? <Experience updateItems={editItems} experience={item} /> : <Project updateItems={editItems} project={item} />}
-                                <PopupSideButton onlyOnHover={true} onClick={() => removeItem(item.id)}>
+                                <PopupSideButton onlyOnHover={true} onClick={() => removeItem(Number(item.id))}>
                                     <Trash2 />
                                 </PopupSideButton>
                             </div>
