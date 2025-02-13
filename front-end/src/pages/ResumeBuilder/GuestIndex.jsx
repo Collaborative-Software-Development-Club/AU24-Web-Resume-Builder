@@ -6,9 +6,11 @@ import Sidebar from './Sidebar';
 import {Projects} from './Projects';
 import {Experiences} from './Experiences';
 import {Button} from '@/components/ui/button';
+import {GuestSaveDialog} from '@/components/GuestSaveDialog';
 import {useState} from 'react';
-import uploadResumeData from '@/services/uploadResumeData';
-import { DEFAULT_RESUME } from './DEFAULT_RESUME';
+import createResume from '@/services/createResume';
+import {downloadResume} from '@/services/downloadResume';
+import {DEFAULT_RESUME} from './DEFAULT_RESUME';
 
 export default function ResumeBuilder() {
     const [resume, setResume] = useState(DEFAULT_RESUME);
@@ -21,14 +23,17 @@ export default function ResumeBuilder() {
 
     console.log(resume);
 
+    //to be passed into GuestSaveDialog
     const handleSave = async () => {
         try {
-            await uploadResumeData(resume);
-            // You might want to show a success message here
+            await createResume(resume);
         } catch (error) {
             console.error('Failed to save resume:', error);
-            // You might want to show an error message here
         }
+    };
+
+    const download = () => {
+        downloadResume(resume);
     };
 
     const updateName = (name) => {
@@ -110,15 +115,18 @@ export default function ResumeBuilder() {
     const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
 
     return (
-        <div className="flex justify-center pb-20 sm:mx-2">
+        <div className="flex justify-center pb-20 sm:mx-10">
             <div className="flex flex-col items-stretch justify-start self-stretch">
                 {/* Sidebar to control visibility and ordering */}
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility} />
 
                 {/* Static components */}
-                <Button className="self-end" onClick={handleSave}>
-                    Save
-                </Button>
+                <div className="flex flex-row justify-end gap-4">
+                    <Button className="" variant="secondary" onClick={() => download()}>
+                        Download
+                    </Button>
+                    <GuestSaveDialog />
+                </div>
                 <Name name={resume.name} updateName={updateName} />
                 <ContactMethods contactMethods={resume.contactMethods} updateContactMethods={updateContactMethods} />
 
