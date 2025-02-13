@@ -3,33 +3,38 @@ import Education from './Education';
 import {ContactMethods} from './ContactMethods';
 import Skills from './Skills';
 import Sidebar from './Sidebar';
-import useResumeData from './useResumeData';
 import {Projects} from './Projects';
 import {Experiences} from './Experiences';
 import {Button} from '@/components/ui/button';
-import {useState, useEffect} from 'react';
+import {GuestSaveDialog} from '@/components/GuestSaveDialog';
+import {useState} from 'react';
+import createResume from '@/services/createResume';
 import {downloadResume} from '@/services/downloadResume';
-import {useParams} from 'react-router-dom';
-
-const USE_API = true;
+import {DEFAULT_RESUME} from './DEFAULT_RESUME';
 
 export default function ResumeBuilder() {
-    const resumeId = useParams()?.resumeId;
-    const {resume, setResume, save} = useResumeData(resumeId, USE_API);
-    const [ordering, setOrdering] = useState([]);
+    const [resume, setResume] = useState(DEFAULT_RESUME);
+    const [ordering, setOrdering] = useState(
+        DEFAULT_RESUME.orderOfSections.map((item, index) => ({
+            title: item,
+            id: index.toString(),
+        })),
+    );
+
     console.log(resume);
 
-    //change to updateOrder
-    useEffect(() => {
-        if (resume) {
-            setOrdering(
-                resume.orderOfSections.map((item, index) => ({
-                    title: item,
-                    id: index.toString(),
-                })),
-            );
+    //to be passed into GuestSaveDialog
+    const handleSave = async () => {
+        try {
+            await createResume(resume);
+        } catch (error) {
+            console.error('Failed to save resume:', error);
         }
-    }, [resume]);
+    };
+
+    const download = () => {
+        downloadResume(resume);
+    };
 
     const updateName = (name) => {
         setResume((prevResume) => ({
@@ -64,6 +69,7 @@ export default function ResumeBuilder() {
             },
         }));
     };
+
     const updateProjects = (projects) => {
         setResume((prevResume) => ({
             ...prevResume,
@@ -108,13 +114,9 @@ export default function ResumeBuilder() {
     // Helper function to check visibility
     const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
 
-    const download = () => {
-        downloadResume(resume);
-    };
-
     return (
         <div className="flex justify-center pb-20 sm:mx-10">
-            <div className="flex flex-col items-stretch justify-start self-stretch max-w-6xl w-full">
+            <div className="flex flex-col items-stretch justify-start self-stretch">
                 {/* Sidebar to control visibility and ordering */}
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility} />
 
@@ -123,9 +125,7 @@ export default function ResumeBuilder() {
                     <Button className="" variant="secondary" onClick={() => download()}>
                         Download
                     </Button>
-                    <Button className="" onClick={save}>
-                        Save
-                    </Button>
+                    <GuestSaveDialog />
                 </div>
                 <Name name={resume.name} updateName={updateName} />
                 <ContactMethods contactMethods={resume.contactMethods} updateContactMethods={updateContactMethods} />

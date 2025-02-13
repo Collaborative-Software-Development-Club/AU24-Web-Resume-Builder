@@ -9,8 +9,8 @@ import {PopupSideButton} from '@/components/PopupSideButton';
 const createNewItem = (id, type) => {
     const base = {
         id: id,
-        startDate: {month: '', year: ''},
-        endDate: {month: '', year: ''},
+        startDate: {month: null, year: null},
+        endDate: {month: null, year: null},
         location: '',
         visible: true,
     };
@@ -25,7 +25,7 @@ const createNewItem = (id, type) => {
 export default function EditableComponent({updateComponent, type, data}) {
     const sanitizedData = data?.map((item) => ({...item, id: item.id.toString()})) || [];
     const isExperience = type === 'experience';
-
+    
     //Ensure that the IDs are integers when updating resume
     const revertIdsToInt = (array) => {
         return array.map((item) => ({...item, id: Number(item.id)}));
@@ -68,7 +68,7 @@ export default function EditableComponent({updateComponent, type, data}) {
                         content: (
                             <div key={item.id} className="group relative flex items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg">
                                 {isExperience ? <Experience updateItems={editItems} experience={item} /> : <Project updateItems={editItems} project={item} />}
-                                <PopupSideButton onlyOnHover={true} onClick={() => removeItem(item.id)}>
+                                <PopupSideButton onlyOnHover={true} onClick={() => removeItem(Number(item.id))}>
                                     <Trash2 />
                                 </PopupSideButton>
                             </div>

@@ -28,7 +28,7 @@ const Education = ({updateEducation, education}) => {
                         <Input name="institution" value={education?.institution || ''} onChange={handleInputChange} placeholder="Enter institution" className="times" />
                     </div>
                     <div>
-                        <Input name="location" value={education?.location || ''} onChange={handleInputChange} placeholder="City, State" className="times text-right" />
+                        <Input name="location" value={education?.location || ''} onChange={handleInputChange} placeholder="City, State" className="times" />
                     </div>
                 </div>
 
