@@ -1,9 +1,8 @@
 import {useEffect, useState} from 'react';
-import {getResumeData} from '@/services';
+import {getResumeData} from '@/services/getResumeData';
 import uploadResumeData from '@/services/uploadResumeData';
 
-
-export default function useResumeData(resumeId, USE_API) {
+export default function useResumeData(resumeId, useApi) {
     const [resume, setResume] = useState(null);
     const save = async () => {
         const newResume = await uploadResumeData(resumeId, resume);
@@ -11,7 +10,7 @@ export default function useResumeData(resumeId, USE_API) {
     };
     useEffect(() => {
         const getData = async () => {
-            const resumeData = await getResumeData(resumeId, {useApi: USE_API});
+            const resumeData = await getResumeData(resumeId, {useApi: useApi});
             setResume(resumeData);
         };
         getData();

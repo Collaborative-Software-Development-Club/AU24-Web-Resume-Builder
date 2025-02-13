@@ -31,6 +31,11 @@ export default function EditableComponent({updateComponent, type, data}) {
         return array.map((item) => ({...item, id: Number(item.id)}));
     };
 
+    //Ensure that the IDs are integers when updating resume
+    const revertIdsToInt = (array) => {
+        return array.map((item) => ({...item, id: Number(item.id)}));
+    };
+
     // Add a new item to the list
     const addItem = () => {
         const newItem = createNewItem(data?.length, type);
