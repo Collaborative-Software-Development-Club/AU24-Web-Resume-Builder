@@ -62,7 +62,7 @@ export function Project({updateItems, project}) {
         <div className="flex w-full flex-col gap-2">
             {/* Combined Row for Project T  itle and Date */}
             <SectionEditing
-                empty={project == undefined || project.title == ''}
+                empty={projectData == undefined || projectData.title == ''}
                 editingView={
                     <>
                         <div className="grid grid-cols-6 gap-2">

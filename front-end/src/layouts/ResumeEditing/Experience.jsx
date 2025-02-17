@@ -59,11 +59,10 @@ export function Experience({updateItems, experience}) {
         setExperienceData(updatedData);
         updateItems(updatedData);
     };
-
     return (
         <div className="flex w-full flex-col gap-2">
             <SectionEditing
-                empty={experience == undefined || experience.position == ''}
+                empty={experience == undefined || experienceData.position == ''}
                 editingView={
                     <>
                         <div className="grid grid-cols-6 gap-2">

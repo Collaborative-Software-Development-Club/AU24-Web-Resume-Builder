@@ -2,7 +2,6 @@ import {Input} from '@/components/ui/input';
 import {SectionTitle} from './SectionTitle';
 import Months from './Months';
 import {SectionEditing} from './SectionEditing';
-import {MONTHS} from '@/constants/months';
 import {MonthDisplayView} from './MonthDisplayView';
 
 const Education = ({updateEducation, education}) => {
