@@ -3,6 +3,7 @@ import {SectionTitle} from './SectionTitle';
 import Months from './Months';
 import {SectionEditing} from './SectionEditing';
 import {MONTHS} from '@/constants/months';
+import {MonthDisplayView} from './MonthDisplayView';
 
 const Education = ({updateEducation, education}) => {
     const handleInputChange = (e) => {
@@ -26,7 +27,7 @@ const Education = ({updateEducation, education}) => {
                 <SectionTitle title="Education" />
                 {/* Combined Row for Institution, Location */}
                 <SectionEditing
-                    empty={false}
+                    empty={education == undefined || education.institution == ''}
                     editingView={
                         <>
                             <div className="mb-4 flex flex-col justify-between space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
@@ -131,12 +132,9 @@ const Education = ({updateEducation, education}) => {
                                     <p className="times">{education?.degree || ''}</p>
                                 </div>
                                 <div className="flex space-x-4 md:w-1/3">
-                                    <p className="times">
-                                        {MONTHS.find(
-                                            (monthInfo) =>
-                                                monthInfo.value == education.graduationDate.month,
-                                        ).name ?? ''}
-                                    </p>
+                                    <MonthDisplayView
+                                        monthNumber={education.graduationDate.month}
+                                    />
                                     <div>
                                         <p className="times">
                                             {education.graduationDate?.year || ''}
