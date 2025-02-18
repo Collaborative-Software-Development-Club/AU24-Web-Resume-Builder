@@ -121,9 +121,12 @@ export function Experience({updateItems, experience}) {
 
                         {/* Experience Description */}
                         <div className="w-full">
-                            <BulletedInputBox
-                                placeholderText={PLACEHOLDERS.description}
-                                data={experienceData.description}
+                            <Input
+                                name="description"
+                                value={experienceData.description}
+                                onChange={handleInputChange}
+                                placeholder={PLACEHOLDERS.description}
+                                className=""
                             />
                         </div>
                     </>

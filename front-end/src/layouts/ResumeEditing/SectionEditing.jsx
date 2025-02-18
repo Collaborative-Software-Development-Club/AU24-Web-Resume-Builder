@@ -1,10 +1,18 @@
 import {useState, useRef, useEffect} from 'react';
 export function SectionEditing({displayView, editingView, empty}) {
     const [isEditing, setIsEditing] = useState(empty);
+    return isEditing || empty ? (
+        <EditView closeEditing={() => setIsEditing(false)}>{editingView}</EditView>
+    ) : (
+        <div onClick={() => setIsEditing(true)}>{displayView}</div>
+    );
+}
+
+function EditView({children, closeEditing}) {
     const divRef = useRef(null);
     const handleClickOutside = (event) => {
         if (divRef.current && !divRef.current.contains(event.target)) {
-            setIsEditing(false);
+            closeEditing();
         }
     };
     useEffect(() => {
@@ -13,9 +21,5 @@ export function SectionEditing({displayView, editingView, empty}) {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
-    return isEditing || empty ? (
-        <div ref={divRef}>{editingView}</div>
-    ) : (
-        <div onClick={() => setIsEditing(true)}>{displayView}</div>
-    );
+    return <div ref={divRef}>{children}</div>;
 }
