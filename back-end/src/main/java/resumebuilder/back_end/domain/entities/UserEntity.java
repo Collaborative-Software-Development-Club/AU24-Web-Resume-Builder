@@ -1,7 +1,9 @@
 package resumebuilder.back_end.domain.entities;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -11,13 +13,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document
+@Document(collection = "users")
 public class UserEntity {
 
     @Id
     private String id;
    
     private List<String> resumesId = new ArrayList<>();
+
+    @Indexed(unique = true)
+    @NotBlank
+    private String username;
+
+    @NotBlank
+    private String password;
+
 
 
     public void addResume(String resumeId) {

@@ -15,6 +15,7 @@ import java.util.List;
 public class UserDto {
 
     private String id;
+    private String username;
 
     private List<String> resumesId;
 
