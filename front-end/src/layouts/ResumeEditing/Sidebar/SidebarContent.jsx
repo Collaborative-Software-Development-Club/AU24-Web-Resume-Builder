@@ -1,6 +1,4 @@
 import {useState} from 'react';
-import {Button} from '@/components/ui/button';
-import {Menu, X} from 'lucide-react';
 import SidebarItem from './SidebarItem';
 import DragAndDropList from '../DragAndDropList';
 
@@ -50,8 +48,8 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
     };
 
     return (
-        <div className="Sidebar flex flex-col w-full">
-            <p className="2xl:pt-5 text-lg">Set Visibility & Ordering</p>
+        <div className="Sidebar flex w-full flex-col">
+            <p className="text-lg 2xl:pt-5">Set Visibility & Ordering</p>
             <div className="sidebar-content">
                 <ul className="cursor-pointer list-none">
                     <DragAndDropList resume={resume} array={updatedOrder} setArray={setResumeOrdering} />

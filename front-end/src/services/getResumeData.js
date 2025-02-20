@@ -1,7 +1,7 @@
 import jsonData from '@/../../data/resume.json';
 
-export default async function getResumeData(resumeId, {useApi}) {
-    if (useApi == false) {
+export async function getResumeData(resumeId, {useApi}) {
+    if (useApi === false) {
         return jsonData;
     }
     const response = await fetch(`http://localhost:8080/resume/${resumeId}`);

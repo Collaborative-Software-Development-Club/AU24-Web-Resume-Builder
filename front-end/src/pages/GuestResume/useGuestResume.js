@@ -1,33 +1,14 @@
-import {useEffect, useState} from 'react';
-import {getResumeData} from '@/services/getResumeData';
-import uploadResumeData from '@/services/uploadResumeData';
+import {useState} from 'react';
+import {DEFAULT_RESUME} from '@/services/DEFAULT_RESUME';
 
-export default function useResumeData(resumeId, useApi) {
-    const [resume, setResume] = useState(null);
-    const [ordering, setOrdering] = useState([]);
-
-    //change to updateOrder
-    useEffect(() => {
-        if (resume) {
-            setOrdering(
-                resume.orderOfSections.map((item, index) => ({
-                    title: item,
-                    id: index.toString(),
-                })),
-            );
-        }
-    }, [resume]);
-    const save = async () => {
-        const newResume = await uploadResumeData(resumeId, resume);
-        setResume(newResume);
-    };
-    useEffect(() => {
-        const getData = async () => {
-            const resumeData = await getResumeData(resumeId, {useApi: useApi});
-            setResume(resumeData);
-        };
-        getData();
-    }, []);
+export function useGuestResume() {
+    const [resume, setResume] = useState(DEFAULT_RESUME);
+    const [ordering, setOrdering] = useState(
+        DEFAULT_RESUME.orderOfSections.map((item, index) => ({
+            title: item,
+            id: index.toString(),
+        })),
+    );
 
     const updateName = (name) => {
         setResume((prevResume) => ({
@@ -62,6 +43,7 @@ export default function useResumeData(resumeId, useApi) {
             },
         }));
     };
+
     const updateProjects = (projects) => {
         setResume((prevResume) => ({
             ...prevResume,
@@ -92,10 +74,8 @@ export default function useResumeData(resumeId, useApi) {
             },
         }));
     };
-    console.log('resume inside hook', resume);
     return {
         resume,
-        save,
         ordering,
         setOrdering,
         toggleSectionVisibility,
