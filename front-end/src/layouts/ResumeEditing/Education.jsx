@@ -26,7 +26,6 @@ const Education = ({updateEducation, education}) => {
                 <SectionTitle title="Education" />
                 {/* Combined Row for Institution, Location */}
                 <SectionEditing
-                    sectionName="education"
                     empty={educationIsEmpty(education)}
                     editingView={
                         <>

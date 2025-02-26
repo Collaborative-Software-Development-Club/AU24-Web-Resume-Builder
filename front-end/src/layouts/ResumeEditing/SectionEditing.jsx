@@ -1,6 +1,6 @@
 import {useState, useRef, useEffect} from 'react';
 
-export function SectionEditing({displayView, editingView, empty, sectionName}) {
+export function SectionEditing({displayView, editingView, empty}) {
     const [isEditing, setIsEditing] = useState(empty);
     return isEditing ? (
         <EditView
