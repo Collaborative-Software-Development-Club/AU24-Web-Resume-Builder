@@ -1,6 +1,6 @@
 import {useState, useRef, useEffect} from 'react';
 
-export function SectionEditing({displayView, editingView, empty}) {
+export function SectionEditing({displayView, editingView, empty, sectionName}) {
     const [isEditing, setIsEditing] = useState(empty);
     return isEditing ? (
         <EditView
@@ -11,6 +11,7 @@ export function SectionEditing({displayView, editingView, empty}) {
                     setIsEditing(false);
                 }
             }}
+            sectionName={sectionName}
         >
             {editingView}
         </EditView>
@@ -19,10 +20,10 @@ export function SectionEditing({displayView, editingView, empty}) {
     );
 }
 
-function EditView({children, closeEditing}) {
+function EditView({children, closeEditing, sectionName}) {
     const divRef = useRef(null);
     const handleClickOutside = (event) => {
-        if (divRef.current && !divRef.current.contains(event.target)) {
+        if (divRef.current && !divRef.current.contains(event.target) && !event.target.getAttribute('role') == 'option') {
             closeEditing();
         }
     };
