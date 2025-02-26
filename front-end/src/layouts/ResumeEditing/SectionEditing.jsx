@@ -1,8 +1,19 @@
 import {useState, useRef, useEffect} from 'react';
-export function SectionEditing({displayView, editingView, empty}) {
+
+export function SectionEditing({displayView, editingView, empty, sectionName}) {
     const [isEditing, setIsEditing] = useState(empty);
-    return isEditing || empty ? (
-        <EditView closeEditing={() => setIsEditing(false)}>{editingView}</EditView>
+    return isEditing ? (
+        <EditView
+            closeEditing={() => {
+                // this check if for the situation where the section is initially empty, then the user clicks outside the section, but since it is empty, we want to keep its isEditing status
+                // could also be written in another way, but I found this the most intuitive
+                if (!empty) {
+                    setIsEditing(false);
+                }
+            }}
+        >
+            {editingView}
+        </EditView>
     ) : (
         <div onClick={() => setIsEditing(true)}>{displayView}</div>
     );
