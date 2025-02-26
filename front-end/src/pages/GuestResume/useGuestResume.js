@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {DEFAULT_RESUME} from '@/services/DEFAULT_RESUME';
+import {DEFAULT_RESUME} from '@/lib/DEFAULT_RESUME';
 
 const LOCAL_STORAGE_KEY = 'guest-resume';
 

@@ -26,7 +26,6 @@ export default function ResumeEditing({
     // Helper function to check visibility
     const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
     // Map of components for easy rendering
-    console.log('resume in ResumeEditing', resume);
     const components = {
         EDUCATION: <Education updateEducation={updateEducation} education={resume.education} />,
         EXPERIENCE: <Experiences updateExperience={updateExperience} experiences={resume.experience.items} />,
