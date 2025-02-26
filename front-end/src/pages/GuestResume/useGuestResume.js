@@ -1,14 +1,23 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {DEFAULT_RESUME} from '@/services/DEFAULT_RESUME';
 
+const LOCAL_STORAGE_KEY = 'guest-resume';
+
 export function useGuestResume() {
-    const [resume, setResume] = useState(DEFAULT_RESUME);
+    const [resume, setResume] = useState(() => {
+        const savedResume = localStorage.getItem(LOCAL_STORAGE_KEY);
+        return savedResume ? JSON.parse(savedResume) : DEFAULT_RESUME;
+    });
     const [ordering, setOrdering] = useState(
         DEFAULT_RESUME.orderOfSections.map((item, index) => ({
             title: item,
             id: index.toString(),
         })),
     );
+
+    useEffect(() => {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(resume));
+    }, [resume]);
 
     const updateName = (name) => {
         setResume((prevResume) => ({
