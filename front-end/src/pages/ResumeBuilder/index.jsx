@@ -2,8 +2,9 @@ import useResumeData from './useResumeData';
 import {useParams} from 'react-router-dom';
 import ResumeEditing from '@/layouts/ResumeEditing';
 import {Button} from '@/components/ui/Button';
+import flags from '@/flags.json';
 
-const USE_API = false;
+const USE_API = flags.useApi;
 
 export default function ResumeBuilder() {
     const resumeId = useParams()?.resumeId;
