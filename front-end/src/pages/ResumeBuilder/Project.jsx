@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Input} from '@/components/ui/input';
 import Months from './Months';
+import AITextImprovementButton from '@/components/ui/AITextImprovementButton'
 
 const PLACEHOLDERS = {
     title: 'Enter project title',
@@ -56,21 +57,21 @@ export function Project({updateItems, project}) {
 
     return (
         <div className="flex w-full flex-col gap-2">
-            {/* Combined Row for Project T  itle and Date */}
+            {/* Combined Row for Project Title and Date */}
             <div className="grid grid-cols-6 gap-2">
                 <Input name="title" value={projectData.title} onChange={handleInputChange} placeholder={PLACEHOLDERS.title} className="text-md col-span-3 font-bold" />
                 <Input name="link" placeholder={PLACEHOLDERS.link} value={projectData.link} onChange={handleInputChange} className="col-span-1" />
                 <Months type="Start" value={projectData.startDate.month} handleSelectChange={handleSelectChange} className="col-span-1" />
                 <Input name="startYear" placeholder={PLACEHOLDERS.startYear} value={projectData.startYear} onChange={handleInputChange} className="col-span-1" />
             </div>
-            {/*  Organization and location*/}
+            {/* Organization and location*/}
             <div className="grid grid-cols-3 gap-2">
                 <Input name="role" placeholder={PLACEHOLDERS.organization} value={projectData.role} onChange={handleInputChange} className="col-span-2" />
                 <Input name="location" placeholder={PLACEHOLDERS.location} value={projectData.location} onChange={handleInputChange} className="col-span-1" />
             </div>
             {/* Project Description */}
             <div className="w-full">
-                <Input name="description" value={projectData.description} onChange={handleInputChange} placeholder={PLACEHOLDERS.description} className="" />
+                <AITextImprovementButton className="w-full" placeholder={PLACEHOLDERS.description} value={projectData.description} onChange={handleInputChange}/>
             </div>
             {/* Technologies */}
             <div className="sm:flex-grow">

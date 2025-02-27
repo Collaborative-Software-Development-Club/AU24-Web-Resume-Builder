@@ -1,47 +1,27 @@
 import React from 'react';
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { Wand2 } from 'lucide-react';
 
 const AITextImprovementButton = ({ placeholder }) => {
   return (
-    <div
-      style={{
-        position: 'relative',
-        display: 'inline-block', // stay inline
-        width: '250px', // default width
-      }}
-    >
-      {/* text input */}
-      <input
+    <div className="relative inline-block w-full">
+      {/* Shadcn input component */}
+      <Input
         type="text"
         placeholder={placeholder}
-        style={{
-          width: '100%',
-          padding: '10px 40px 10px 10px', // space for icon
-          borderRadius: '8px',
-          border: '1px solid #ccc',
-          boxSizing: 'border-box',
-        }}
+        className=""
       />
-      {/* icon button */}
-      <button
-        style={{
-          position: 'absolute',
-          right: '10px',
-          top: '50%',
-          transform: 'translateY(-50%)', // center vertically
-          backgroundColor: '#007bff',
-          border: 'none',
-          borderRadius: '50%',
-          width: '30px',
-          height: '30px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          cursor: 'pointer',
-        }}
+
+      {/* Shadcn button component with Tailwind classes */}
+      <Button
+        className="absolute right-2 top-1/2 -translate-y-1/2 h-7 w-7"
+        variant="default"
+        size="icon"
       >
-        <Wand2 size={16} color="white" />
-      </button>
+        {/* Lucide React icon */}
+        <Wand2 className="h-4 w-4"/>
+      </Button>
     </div>
   );
 };

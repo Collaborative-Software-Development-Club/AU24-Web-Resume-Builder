@@ -3,6 +3,7 @@ import {Input} from '@/components/ui/input';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import Months from './Months';
 import {BulletedInputBox} from '@/components/BulletedInputBox';
+import AITextImprovementButton from '@/components/ui/AITextImprovementButton';
 
 const PLACEHOLDERS = {
     position: 'Enter your position title',
@@ -80,7 +81,7 @@ export function Experience({updateItems, experience}) {
             {/* Experience Description */}
             <div className="w-full">
                 {/* <Input name="description" value={experienceData.description} placeholder={PLACEHOLDERS.description} className="" onChange={handleInputChange} /> */}
-                <BulletedInputBox placeholderText={PLACEHOLDERS.description} data={experienceData.description} />
+                <AITextImprovementButton value={experienceData.description} placeholder={PLACEHOLDERS.description} data={experienceData.description} />
             </div>
         </div>
     );
