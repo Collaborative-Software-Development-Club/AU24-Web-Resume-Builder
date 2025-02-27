@@ -16,7 +16,7 @@ export function SectionEditing({displayView, editingView, empty, sectionName}) {
             {editingView}
         </EditView>
     ) : (
-        <div onClick={() => setIsEditing(true)}>{displayView}</div>
+        <div onClick={() => setIsEditing(true)} className="w-full">{displayView}</div>
     );
 }
 

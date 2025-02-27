@@ -34,7 +34,7 @@ export default function ResumeEditing({
     };
     return (
         <div className="flex justify-center pb-20 sm:mx-10">
-            <div className="flex w-full max-w-6xl flex-col items-stretch justify-start self-stretch">
+            <div className="flex w-full max-w-6xl flex-col items-stretch justify-start self-stretch gap-2">
                 {/* Sidebar to control visibility and ordering */}
                 <Sidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility} />
 

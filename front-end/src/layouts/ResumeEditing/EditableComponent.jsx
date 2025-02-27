@@ -42,7 +42,7 @@ export default function EditableComponent({updateComponent, type, data}) {
     };
 
     return (
-        <div className="times flex flex-col gap-6">
+        <div className="times flex flex-col gap-4">
             <DragAndDropList
                 array={sanitizedData
                     ?.filter((item) => item.visible)
@@ -51,7 +51,7 @@ export default function EditableComponent({updateComponent, type, data}) {
                         content: (
                             <div
                                 key={item.id}
-                                className="group relative flex items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg"
+                                className="group relative w-full items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg"
                             >
                                 {isExperience ? (
                                     <Experience updateItems={editItems} experience={item} />
