@@ -1,33 +1,23 @@
-import {useEffect, useState} from 'react';
-import {getResumeData} from '@/services/getResumeData';
-import uploadResumeData from '@/services/uploadResumeData';
+import {useState, useEffect} from 'react';
+import {DEFAULT_RESUME} from '@/lib/DEFAULT_RESUME';
 
-export default function useResumeData(resumeId, useApi) {
-    const [resume, setResume] = useState(null);
-    const [ordering, setOrdering] = useState([]);
+const LOCAL_STORAGE_KEY = 'guest-resume';
 
-    //change to updateOrder
+export function useGuestResume() {
+    const [resume, setResume] = useState(() => {
+        const savedResume = localStorage.getItem(LOCAL_STORAGE_KEY);
+        return savedResume ? JSON.parse(savedResume) : DEFAULT_RESUME;
+    });
+    const [ordering, setOrdering] = useState(
+        DEFAULT_RESUME.orderOfSections.map((item, index) => ({
+            title: item,
+            id: index.toString(),
+        })),
+    );
+
     useEffect(() => {
-        if (resume) {
-            setOrdering(
-                resume.orderOfSections.map((item, index) => ({
-                    title: item,
-                    id: index.toString(),
-                })),
-            );
-        }
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(resume));
     }, [resume]);
-    const save = async () => {
-        const newResume = await uploadResumeData(resumeId, resume);
-        setResume(newResume);
-    };
-    useEffect(() => {
-        const getData = async () => {
-            const resumeData = await getResumeData(resumeId, {useApi: useApi});
-            setResume(resumeData);
-        };
-        getData();
-    }, []);
 
     const updateName = (name) => {
         setResume((prevResume) => ({
@@ -62,6 +52,7 @@ export default function useResumeData(resumeId, useApi) {
             },
         }));
     };
+
     const updateProjects = (projects) => {
         setResume((prevResume) => ({
             ...prevResume,
@@ -92,10 +83,8 @@ export default function useResumeData(resumeId, useApi) {
             },
         }));
     };
-    console.log('resume inside hook', resume);
     return {
         resume,
-        save,
         ordering,
         setOrdering,
         toggleSectionVisibility,
