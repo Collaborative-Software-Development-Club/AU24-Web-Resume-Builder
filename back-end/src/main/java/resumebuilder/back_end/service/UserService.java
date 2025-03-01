@@ -49,7 +49,6 @@ public class UserService {
         Optional<UserEntity> user = userRepository.findById(userId);
         if (user.isPresent()) {
             UserEntity userEntity = user.get();
-            userEntity.addResume(resumeId);
             userRepository.save(userEntity);
             return Optional.ofNullable(userMapper.mapToDto(userEntity));
         }
@@ -60,7 +59,6 @@ public class UserService {
         Optional<UserEntity> user = userRepository.findById(userId);
         if (user.isPresent()) {
             UserEntity userEntity = user.get();
-            userEntity.removeResume(resumeId);
             userRepository.save(userEntity);
             return Optional.ofNullable(userMapper.mapToDto(userEntity));
         }

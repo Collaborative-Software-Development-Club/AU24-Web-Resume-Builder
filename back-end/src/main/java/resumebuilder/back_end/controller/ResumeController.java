@@ -28,8 +28,8 @@ public class ResumeController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<ResumeDto>> getAllResumes() {
-        List<ResumeDto> resumes = resumeService.findAll();
+    public ResponseEntity<List<ResumeDto>> getAllResumes(@RequestParam(value = "userId") String userId) {
+        List<ResumeDto> resumes = resumeService.findByUserId(userId);
         if (resumes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -45,17 +45,18 @@ public class ResumeController {
         return new ResponseEntity<>(resume.get(), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ResumeDto> fullUpdateResume(
-            @PathVariable("id") String id,
-            @RequestBody ResumeDto resumeDto
-    ) {
-        if(!resumeService.exists(id)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        ResumeDto updatedResume = resumeService.save(resumeDto);
-        return new ResponseEntity<>(updatedResume, HttpStatus.OK);
-    }
+    // never used
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ResumeDto> fullUpdateResume(
+//            @PathVariable("id") String id,
+//            @RequestBody ResumeDto resumeDto
+//    ) {
+//        if(!resumeService.exists(id)) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        ResumeDto updatedResume = resumeService.save(resumeDto);
+//        return new ResponseEntity<>(updatedResume, HttpStatus.OK);
+//    }
 
     @PatchMapping("/{id}")
     public ResponseEntity<ResumeDto> partialUpdateResume(

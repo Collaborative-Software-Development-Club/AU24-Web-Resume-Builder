@@ -1,15 +1,15 @@
 package resumebuilder.back_end.domain.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
-@Builder
-public class EducationSection extends VisibleElement {
+@NoArgsConstructor
+public class Education {
     private String institution;
     private String location;
     private String degree;
