@@ -42,7 +42,7 @@ export default function EditableComponent({updateComponent, type, data}) {
     };
 
     return (
-        <div className="times flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
             <DragAndDropList
                 array={sanitizedData
                     ?.filter((item) => item.visible)
