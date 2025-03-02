@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import resumebuilder.back_end.domain.model.enums.Role;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class UserDto {
     private String username;
 
     private List<String> resumesId;
+    private Role role;
 
 
     public void addResume(String resumeId) {

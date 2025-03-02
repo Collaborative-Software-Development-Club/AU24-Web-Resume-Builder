@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import resumebuilder.back_end.domain.model.enums.Role;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,17 +17,21 @@ import java.util.List;
 @Document(collection = "users")
 public class UserEntity {
 
+    @NotBlank
     @Id
     private String id;
    
     private List<String> resumesId = new ArrayList<>();
 
-    @Indexed(unique = true)
     @NotBlank
+    @Indexed(unique = true)
     private String username;
 
     @NotBlank
     private String password;
+
+    @NotBlank
+    private Role role;
 
 
 

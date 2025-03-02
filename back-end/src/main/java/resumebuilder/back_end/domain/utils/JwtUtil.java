@@ -12,7 +12,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = Base64.getEncoder().encodeToString("placeholder_key".getBytes());
+    private static final String SECRET_KEY = Base64.getEncoder().encodeToString("placeholder_key_superlong_getmoreLength".getBytes());
 
     public String generateToken(String username) {
         return Jwts.builder()

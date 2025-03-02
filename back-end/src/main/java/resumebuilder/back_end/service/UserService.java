@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import resumebuilder.back_end.domain.dto.UserDto;
 import resumebuilder.back_end.domain.dto.UserRequestDto;
 import resumebuilder.back_end.domain.entities.UserEntity;
+import resumebuilder.back_end.domain.model.enums.Role;
 import resumebuilder.back_end.mappers.UserMapper;
 import resumebuilder.back_end.repository.UserRepository;
 
@@ -25,12 +26,13 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    @Autowired
+    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public boolean exists(String id) {
@@ -83,7 +85,8 @@ public class UserService implements UserDetailsService {
 
     public UserDto registerUser(UserRequestDto requestDto) {
         UserEntity user = userMapper.toEntity(requestDto);
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Hash password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
         user = userRepository.save(user);
         return userMapper.toResponseDto(user);
     }
@@ -96,7 +99,7 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))  // Default role for now
+                Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
         );
     }
 
