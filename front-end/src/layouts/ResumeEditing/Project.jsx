@@ -5,6 +5,7 @@ import {SectionEditing} from './SectionEditing';
 import {MONTHS} from '@/constants/months';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
 import {MonthDisplayView} from './MonthDisplayView';
+import { AutosizeTextarea } from '@/components/ui/autosize-textarea';
 
 const PLACEHOLDERS = {
     title: 'Enter project title',
@@ -112,12 +113,12 @@ export function Project({updateItems, project}) {
                         </div>
                         {/* Project Description */}
                         <div className="w-full">
-                            <Input
+                            <AutosizeTextarea
                                 name="description"
                                 value={projectData.description}
                                 onChange={handleInputChange}
                                 placeholder={PLACEHOLDERS.description}
-                                className=""
+                                className="resize-none"
                             />
                         </div>
                         {/* Technologies */}
