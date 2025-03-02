@@ -113,7 +113,7 @@ export function Project({updateItems, project}) {
                         {/* Project Description */}
                         <div className="w-full">
                             <AITextImprovementInput
-                                className="w-full"
+                                // className="w-full"
                                 placeholder={PLACEHOLDERS.description}
                                 value={projectData.description}
                                 onChange={handleInputChange}
