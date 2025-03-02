@@ -23,7 +23,12 @@ export function SectionEditing({displayView, editingView, empty, sectionName}) {
 function EditView({children, closeEditing, sectionName}) {
     const divRef = useRef(null);
     const handleClickOutside = (event) => {
-        if (divRef.current && !divRef.current.contains(event.target) && !event.target.getAttribute('role') == 'option') {
+        if (
+            divRef.current &&
+            !divRef.current.contains(event.target) &&
+            !(event.target.getAttribute('role') == 'option')
+        ) {
+            console.log('clicking outside');
             closeEditing();
         }
     };
