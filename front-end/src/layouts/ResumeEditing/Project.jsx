@@ -2,9 +2,9 @@ import {useState} from 'react';
 import {Input} from '@/components/ui/input';
 import Months from './Months';
 import {SectionEditing} from './SectionEditing';
-import {MONTHS} from '@/constants/months';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
 import {MonthDisplayView} from './MonthDisplayView';
+import {AITextImprovementInput} from '@/components/AITextImprovementInput';
 
 const PLACEHOLDERS = {
     title: 'Enter project title',
@@ -112,12 +112,11 @@ export function Project({updateItems, project}) {
                         </div>
                         {/* Project Description */}
                         <div className="w-full">
-                            <Input
-                                name="description"
+                            <AITextImprovementInput
+                                className="w-full"
+                                placeholder={PLACEHOLDERS.description}
                                 value={projectData.description}
                                 onChange={handleInputChange}
-                                placeholder={PLACEHOLDERS.description}
-                                className=""
                             />
                         </div>
                         {/* Technologies */}
