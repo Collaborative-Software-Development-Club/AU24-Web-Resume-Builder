@@ -9,6 +9,7 @@ import resumebuilder.back_end.domain.model.*;
 import resumebuilder.back_end.domain.model.enums.SectionNames;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class ResumeEntity {
     @Id
     private String id;
     private String userId;
-    private List<Skill> skills;
+    private Set<Skill> skills;
     private String professionalSummary;
 
     private List<SectionNames> orderOfSections = List.of(

@@ -23,8 +23,11 @@ public class ResumeController {
 
     @PostMapping("")
     public ResponseEntity<ResumeDto> createResume(@RequestBody ResumeDto resumeDto) {
-        ResumeDto createdResume = resumeService.save(resumeDto);
-        return new ResponseEntity<>(createdResume, HttpStatus.CREATED);
+        Optional<ResumeDto> createdResume = resumeService.save(resumeDto);
+        if(createdResume.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(createdResume.get(), HttpStatus.CREATED);
     }
 
     @GetMapping("")
@@ -45,26 +48,16 @@ public class ResumeController {
         return new ResponseEntity<>(resume.get(), HttpStatus.OK);
     }
 
-    // never used
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ResumeDto> fullUpdateResume(
-//            @PathVariable("id") String id,
-//            @RequestBody ResumeDto resumeDto
-//    ) {
-//        if(!resumeService.exists(id)) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        ResumeDto updatedResume = resumeService.save(resumeDto);
-//        return new ResponseEntity<>(updatedResume, HttpStatus.OK);
-//    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<ResumeDto> partialUpdateResume(
+    @PutMapping("/{id}")
+    public ResponseEntity<ResumeDto> updateResume(
             @PathVariable("id") String id,
             @RequestBody ResumeDto resumeDto
     ) {
-        ResumeDto updatedResume = resumeService.partialUpdate(id, resumeDto);
-        return new ResponseEntity<>(updatedResume, HttpStatus.OK);
+        Optional<ResumeDto> updatedResume = resumeService.update(id, resumeDto);
+        if(updatedResume.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(updatedResume.get(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

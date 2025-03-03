@@ -8,7 +8,7 @@ import resumebuilder.back_end.domain.model.enums.SectionNames;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+// @NoArgsConstructor
 public class Resume {
     // no longer used
 //    private String userId;

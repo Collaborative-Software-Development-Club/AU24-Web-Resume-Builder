@@ -7,6 +7,7 @@ import resumebuilder.back_end.domain.model.*;
 import resumebuilder.back_end.domain.model.enums.SectionNames;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +21,7 @@ public class ResumeDto {
     private Section<Education> educationSection;
     private Section<List<ExperienceItem>> experience;
     private Section<List<Project>> projects;
-    private Section<List<Skill>> skills;
+    private Section<Set<Skill>> skills;
     private Section<String> professionalSummary;
 
     private List<SectionNames> orderOfSections = List.of(
