@@ -18,7 +18,7 @@ public class ResumeDto {
     private String name;
     private List<String> contactMethods;
 
-    private Section<Education> educationSection;
+    private Section<Education> education;
     private Section<List<ExperienceItem>> experience;
     private Section<List<Project>> projects;
     private Section<Set<Skill>> skills;

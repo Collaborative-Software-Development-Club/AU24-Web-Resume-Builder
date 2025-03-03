@@ -50,7 +50,9 @@ public class ResumeService {
     }
 
     public Optional<ResumeDto> findOne(String id) {
+        System.out.println("in resume find one");
         Optional<ResumeEntity> resume = resumeRepository.findById(id);
+        System.out.println("found resume from repository" + resume);
         if(resume.isEmpty()) {
             return Optional.empty();
         }

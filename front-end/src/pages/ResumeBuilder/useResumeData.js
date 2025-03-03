@@ -48,7 +48,10 @@ export default function useResumeData(resumeId, useApi) {
             ...prevResume,
             education: {
                 ...prevResume.education,
-                ...updatedFields,
+                content: {
+                    ...prevResume.education.content,
+                    ...updatedFields,
+                },
             },
         }));
     };
@@ -58,7 +61,7 @@ export default function useResumeData(resumeId, useApi) {
             ...prevResume,
             experience: {
                 ...prevResume.experience,
-                items: [...experience],
+                content: [...experience],
             },
         }));
     };
@@ -67,7 +70,7 @@ export default function useResumeData(resumeId, useApi) {
             ...prevResume,
             projects: {
                 ...prevResume.projects,
-                items: [...projects],
+                content: [...projects],
             },
         }));
     };
@@ -77,7 +80,7 @@ export default function useResumeData(resumeId, useApi) {
             ...prevResume,
             skills: {
                 ...prevResume.skills,
-                items: skills,
+                content: skills,
             },
         }));
     };

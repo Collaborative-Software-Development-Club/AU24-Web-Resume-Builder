@@ -1,7 +1,7 @@
 import {Project} from './Project';
 import Experience from './Experience';
 import {Button} from '@/components/ui/button';
-import {Trash2, Plus} from 'lucide-react';
+import {X, Plus} from 'lucide-react';
 import DragAndDropList from './DragAndDropList';
 import {PopupSideButton} from '@/components/PopupSideButton';
 
@@ -42,7 +42,7 @@ export default function EditableComponent({updateComponent, type, data}) {
     };
 
     return (
-        <div className="times flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
             <DragAndDropList
                 array={sanitizedData
                     ?.filter((item) => item.visible)
@@ -61,8 +61,11 @@ export default function EditableComponent({updateComponent, type, data}) {
                                 <PopupSideButton
                                     onlyOnHover={true}
                                     onClick={() => removeItem(Number(item.id))}
+                                    variant="destructive"
+                                    className="rounded-full"
+                                    // size="icon" // i don't know why it doesnt align on the center with this
                                 >
-                                    <Trash2 />
+                                    <X />
                                 </PopupSideButton>
                             </div>
                         ),

@@ -32,7 +32,7 @@ public class ResumeMapper {
         resumeDto.setDescription(resumeEntity.getDescription());
 
         Section<Education> educationSection = new Section<>(true, userEntity.getEducation());
-        resumeDto.setEducationSection(educationSection);
+        resumeDto.setEducation(educationSection);
         Section<List<ExperienceItem>> experieneSection = new Section<>(true, mapToExperienceItemList(experienceEntities));
         resumeDto.setExperience(experieneSection);
         Section<List<Project>> projectSection = new Section<>(true, mapToProjectList(projectEntities));
@@ -56,7 +56,7 @@ public class ResumeMapper {
         resumeEntity.setProfessionalSummary(resumeDto.getProfessionalSummary().getContent());
         // set fields form ResumeDto that map to UserEntity
         userEntity.setContactMethods(resumeDto.getContactMethods());
-        userEntity.setEducation(resumeDto.getEducationSection().getContent());
+        userEntity.setEducation(resumeDto.getEducation().getContent());
         userEntity.setName(resumeDto.getName());
         userEntity.getSkills().addAll(resumeDto.getSkills().getContent());
         // create experience entities

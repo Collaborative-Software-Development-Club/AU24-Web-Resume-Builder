@@ -22,7 +22,11 @@ public class ResumeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResumeDto> createResume(@RequestBody ResumeDto resumeDto) {
+    public ResponseEntity<ResumeDto> createResume(@RequestParam(value = "userId") String userId, @RequestBody ResumeDto resumeDto) {
+        if(userId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        resumeDto.setUserId(userId);
         Optional<ResumeDto> createdResume = resumeService.save(resumeDto);
         if(createdResume.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -41,7 +45,9 @@ public class ResumeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResumeDto> getResume(@PathVariable("id") String id) {
+        System.out.println("GETTING RESUME");
         Optional<ResumeDto> resume = resumeService.findOne(id);
+        System.out.println("found resume" + resume);
         if (resume.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

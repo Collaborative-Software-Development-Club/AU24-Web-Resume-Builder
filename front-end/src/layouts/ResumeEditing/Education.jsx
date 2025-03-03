@@ -3,6 +3,7 @@ import {SectionTitle} from './SectionTitle';
 import Months from './Months';
 import {SectionEditing} from './SectionEditing';
 import {MonthDisplayView} from './MonthDisplayView';
+import {DEFAULT_RESUME} from '@/lib/DEFAULT_RESUME';
 
 const Education = ({updateEducation, education}) => {
     const handleInputChange = (e) => {
@@ -19,14 +20,14 @@ const Education = ({updateEducation, education}) => {
             },
         });
     };
-
     return (
         <div className="mt-4">
             <div className="w-full">
                 <SectionTitle title="Education" />
                 {/* Combined Row for Institution, Location */}
                 <SectionEditing
-                    empty={education == undefined || education.institution == ''}
+                    sectionName={'education'}
+                    empty={educationIsEmpty(education)}
                     editingView={
                         <>
                             <div className="mb-4 flex flex-col justify-between space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
@@ -67,6 +68,14 @@ const Education = ({updateEducation, education}) => {
                                         type="Graduation"
                                         value={education.graduationDate?.month || ''}
                                         updateComponent={(month) =>
+                                            updateEducation({
+                                                graduationDate: {
+                                                    ...education.graduationDate,
+                                                    month: month,
+                                                },
+                                            })
+                                        }
+                                        handleSelectChange={(month) =>
                                             updateEducation({
                                                 graduationDate: {
                                                     ...education.graduationDate,
@@ -132,7 +141,7 @@ const Education = ({updateEducation, education}) => {
                                 </div>
                                 <div className="flex space-x-4 md:w-1/3">
                                     <MonthDisplayView
-                                        monthNumber={education.graduationDate.month}
+                                        monthNumber={education.graduationDate?.month || ''}
                                     />
                                     <div>
                                         <p className="times">
@@ -163,3 +172,8 @@ const Education = ({updateEducation, education}) => {
 };
 
 export default Education;
+
+function educationIsEmpty(education) {
+    const isEmpty = JSON.stringify(education) === JSON.stringify(DEFAULT_RESUME.education);
+    return isEmpty;
+}

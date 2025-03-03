@@ -1,7 +1,7 @@
 import useResumeData from './useResumeData';
 import {useParams} from 'react-router-dom';
 import ResumeEditing from '@/layouts/ResumeEditing';
-import {Button} from '@/components/ui/Button';
+import {Button} from '@/components/ui/button';
 
 const USE_API = true;
 
@@ -24,10 +24,6 @@ export default function ResumeBuilder() {
         updateSkills,
     } = useResumeData(resumeId, USE_API);
     if (!resume) return <p>Loading...</p>;
-    console.log('Resume:');
-    console.log({property: 'value'});
-    console.log(resume);
-    console.log(resume.education);
 
     const saveButton = (
         <Button className="" onClick={save}>
