@@ -38,6 +38,7 @@ public class ResumeService {
 
     public Optional<ResumeDto> save(ResumeDto resumeDto) {
         ResumeEntity resumeEntity = this.createAndSaveEntities(resumeDto);
+        System.out.println("created entities");
         return this.createDto(resumeEntity);
     }
 
@@ -50,9 +51,7 @@ public class ResumeService {
     }
 
     public Optional<ResumeDto> findOne(String id) {
-        System.out.println("in resume find one");
         Optional<ResumeEntity> resume = resumeRepository.findById(id);
-        System.out.println("found resume from repository" + resume);
         if(resume.isEmpty()) {
             return Optional.empty();
         }

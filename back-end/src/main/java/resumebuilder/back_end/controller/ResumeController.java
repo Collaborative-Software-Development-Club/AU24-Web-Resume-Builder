@@ -28,6 +28,7 @@ public class ResumeController {
         }
         resumeDto.setUserId(userId);
         Optional<ResumeDto> createdResume = resumeService.save(resumeDto);
+        System.out.println("saved resume");
         if(createdResume.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -45,9 +46,7 @@ public class ResumeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResumeDto> getResume(@PathVariable("id") String id) {
-        System.out.println("GETTING RESUME");
         Optional<ResumeDto> resume = resumeService.findOne(id);
-        System.out.println("found resume" + resume);
         if (resume.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

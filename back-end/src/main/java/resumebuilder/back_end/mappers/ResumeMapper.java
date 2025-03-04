@@ -52,21 +52,33 @@ public class ResumeMapper {
         resumeEntity.setUserId(resumeDto.getUserId());
         resumeEntity.setOrderOfSections(resumeDto.getOrderOfSections());
         resumeEntity.setDescription(resumeDto.getDescription());
-        resumeEntity.setSkills(resumeDto.getSkills().getContent());
-        resumeEntity.setProfessionalSummary(resumeDto.getProfessionalSummary().getContent());
+        if(resumeDto.getSkills() != null){
+            resumeEntity.setSkills(resumeDto.getSkills().getContent());
+        }
+        if(resumeDto.getProfessionalSummary() != null) {
+            resumeEntity.setProfessionalSummary(resumeDto.getProfessionalSummary().getContent());
+        }
         // set fields form ResumeDto that map to UserEntity
         userEntity.setContactMethods(resumeDto.getContactMethods());
-        userEntity.setEducation(resumeDto.getEducation().getContent());
+        if(resumeDto.getEducation() != null) {
+            userEntity.setEducation(resumeDto.getEducation().getContent());
+        }
         userEntity.setName(resumeDto.getName());
-        userEntity.getSkills().addAll(resumeDto.getSkills().getContent());
+        if(resumeDto.getSkills() != null && resumeDto.getSkills().getContent() != null) {
+            userEntity.getSkills().addAll(resumeDto.getSkills().getContent());
+        }
         // create experience entities
-        experienceEntities.addAll(resumeDto.getExperience().getContent().stream()
-                .map(experienceItem -> modelMapper.map(experienceItem, ExperienceEntity.class))
-                .collect(Collectors.toList()));
+        if(resumeDto.getExperience() != null && resumeDto.getExperience().getContent() != null) {
+            experienceEntities.addAll(resumeDto.getExperience().getContent().stream()
+                    .map(experienceItem -> modelMapper.map(experienceItem, ExperienceEntity.class))
+                    .collect(Collectors.toList()));
+        }
         // create project entities
-        projectEntities.addAll(resumeDto.getProjects().getContent().stream()
-                .map(project -> modelMapper.map(project, ProjectEntity.class))
-                .collect(Collectors.toList()));
+        if(resumeDto.getProjects() != null && resumeDto.getProjects().getContent() != null) {
+            projectEntities.addAll(resumeDto.getProjects().getContent().stream()
+                    .map(project -> modelMapper.map(project, ProjectEntity.class))
+                    .collect(Collectors.toList()));
+        }
         return resumeEntity;
     }
 

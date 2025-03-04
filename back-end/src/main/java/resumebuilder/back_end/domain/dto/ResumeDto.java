@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import resumebuilder.back_end.domain.model.*;
 import resumebuilder.back_end.domain.model.enums.SectionNames;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,13 +17,13 @@ public class ResumeDto {
     private String id;
     private String userId;
     private String name;
-    private List<String> contactMethods;
+    private List<String> contactMethods = new ArrayList<>();
 
-    private Section<Education> education;
+    private Section<Education> education = new Section<Education>();
     private Section<List<ExperienceItem>> experience;
     private Section<List<Project>> projects;
     private Section<Set<Skill>> skills;
-    private Section<String> professionalSummary;
+    private Section<String> professionalSummary = new Section<String>(false, "");
 
     private List<SectionNames> orderOfSections = List.of(
             SectionNames.PROFESSIONAL_SUMMARY,
