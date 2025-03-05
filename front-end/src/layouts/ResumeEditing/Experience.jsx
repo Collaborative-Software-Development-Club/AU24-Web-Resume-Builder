@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import {Input} from '@/components/ui/input';
 import Months from './Months';
-import {BulletedInputBox} from '@/components/BulletedInputBox';
 import {SectionEditing} from './SectionEditing';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
 import {MonthDisplayView} from './MonthDisplayView';
+import {AITextImprovementInput} from '@/components/AITextImprovementInput';
 
 const PLACEHOLDERS = {
     position: 'Enter your position title',
@@ -121,12 +121,11 @@ export function Experience({updateItems, experience}) {
 
                         {/* Experience Description */}
                         <div className="w-full">
-                            <Input
+                            <AITextImprovementInput
                                 name="description"
                                 value={experienceData.description}
                                 onChange={handleInputChange}
                                 placeholder={PLACEHOLDERS.description}
-                                className=""
                             />
                         </div>
                     </>

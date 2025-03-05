@@ -5,9 +5,10 @@ import {Plus} from 'lucide-react';
 import ResumePreview from './ResumePreview';
 import {useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import {DEFAULT_RESUME} from '../../services/DEFAULT_RESUME';
+import {DEFAULT_RESUME} from '../../lib/DEFAULT_RESUME';
+import flags from '@/flags.json';
 
-const USE_API = true;
+const USE_API = flags.useApi;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
 
 const Account = () => {
