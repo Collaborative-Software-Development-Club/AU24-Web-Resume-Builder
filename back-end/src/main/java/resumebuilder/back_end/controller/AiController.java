@@ -30,7 +30,7 @@ public class AiController {
      * - Mock: is just a placeholder. Use if you want to test the endpoints without having a local model 
      */
     @Autowired
-    public AiController(@Qualifier("Azure") AiService aiService) {
+    public AiController(@Qualifier("Mock") AiService aiService) {
         this.aiService= aiService;
     }
     @GetMapping("/enhance-text")

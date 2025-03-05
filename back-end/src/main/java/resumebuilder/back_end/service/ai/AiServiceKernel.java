@@ -9,7 +9,7 @@ public abstract class AiServiceKernel implements AiService {
     protected abstract String callLLM(String prompt);
 
     private String createResumeBulletPointsPrompt(String initialText) {
-       return "You are an expert in helping create resumes for job applicants." + //
+        return "You are an expert in helping create resumes for job applicants." + //
                "You will take in a description of a position or project " + //
                "and output a revised version in bullet point considering the provided guidelines.\n" +
                "Guidelines:\n" +
@@ -18,7 +18,7 @@ public abstract class AiServiceKernel implements AiService {
                "Apply changes to the following description: " + initialText + "\n" + //
                "Return only the improved description and nothing more." + //
                "DO NOT OUTPUT ANYTHING APART FROM THE BULLET POINTS FOR THE RESUME." + //
-               "Do not add formatting to the bullet points. Just separate the with \\n.";
+               "Do not add formatting to the bullet points. Just separate them with \\n.";
     }
 
     private final String ACTION_VERBS = "LEADERSHIP\t\t\t\t\t\t\t\n" + //

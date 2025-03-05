@@ -1,44 +1,15 @@
 import useUserData from './useUserData';
 import createResume from '@/services/createResume';
 import uploadResumeToUser from '@/services/uploadResumeToUser';
-import { Plus } from 'lucide-react';
+import {Plus} from 'lucide-react';
 import ResumePreview from './ResumePreview';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {DEFAULT_RESUME} from '../../lib/DEFAULT_RESUME';
+import flags from '@/flags.json';
 
-const USE_API = true;
+const USE_API = flags.useApi;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
-const DEFAULT_RESUME = {
-    name: '',
-    contactMethods: [],
-    education: {
-        visible: true,
-        institution: '',
-        location: '',
-        degree: '',
-        graduationDate: {
-            month: null,
-            year: null,
-        },
-        specialization: '',
-        minor: '',
-        gpa: null,
-        honors: [],
-    },
-    experience: {
-        visible: true,
-        items: [],
-    },
-    projects: {
-        visible: true,
-        items: [],
-    },
-    skills: {
-        visible: true,
-        items: [],
-    },
-    orderOfSections: ['EDUCATION', 'EXPERIENCE', 'PROJECTS', 'SKILLS'],
-};
 
 const Account = () => {
     const fetchedUserData = useUserData(DEFAULT_USER_ID, USE_API);
@@ -74,19 +45,11 @@ const Account = () => {
         <div className="mx-72 flex w-full flex-col justify-start gap-10">
             <h2 className="text-xl font-medium">Your Resumes</h2>
             <div className="flex flex-row gap-7">
-                <button
-                    className="flex h-48 w-36 rounded-md border text-gray-700 transition-colors hover:bg-gray-300 hover:text-black hover:shadow-md"
-                    onClick={createNewResume}
-                >
+                <button className="flex h-48 w-36 rounded-md border text-gray-700 transition-colors hover:bg-gray-300 hover:text-black hover:shadow-md" onClick={createNewResume}>
                     <Plus className="m-auto" size="55" />
                 </button>
                 {resumeIds.map((resumeId) => (
-                    <ResumePreview
-                        key={resumeId}
-                        resumeId={resumeId}
-                        userId={DEFAULT_USER_ID}
-                        onDelete={handleDeleteResume}
-                    />
+                    <ResumePreview key={resumeId} resumeId={resumeId} userId={DEFAULT_USER_ID} onDelete={handleDeleteResume} />
                 ))}
             </div>
         </div>

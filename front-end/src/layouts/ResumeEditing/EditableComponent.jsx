@@ -1,26 +1,9 @@
 import {Project} from './Project';
 import Experience from './Experience';
 import {Button} from '@/components/ui/button';
-import {Trash2, Plus} from 'lucide-react';
+import {X, Plus} from 'lucide-react';
 import DragAndDropList from './DragAndDropList';
 import {PopupSideButton} from '@/components/PopupSideButton';
-
-// Helper function to create new items with a unique ID
-const createNewItem = (id, type) => {
-    const base = {
-        id: id,
-        startDate: {month: '', year: ''},
-        endDate: {month: '', year: ''},
-        location: '',
-        visible: true,
-    };
-
-    if (type === 'experience') {
-        return {...base, position: '', company: '', description: ''};
-    } else {
-        return {...base, title: '', description: '', technologies: '', link: ''};
-    }
-};
 
 export default function EditableComponent({updateComponent, type, data}) {
     const sanitizedData = data?.map((item) => ({...item, id: item.id.toString()})) || [];
@@ -59,17 +42,30 @@ export default function EditableComponent({updateComponent, type, data}) {
     };
 
     return (
-        <div className="times flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
             <DragAndDropList
                 array={sanitizedData
                     ?.filter((item) => item.visible)
                     .map((item) => ({
                         ...item,
                         content: (
-                            <div key={item.id} className="group relative flex items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg">
-                                {isExperience ? <Experience updateItems={editItems} experience={item} /> : <Project updateItems={editItems} project={item} />}
-                                <PopupSideButton onlyOnHover={true} onClick={() => removeItem(item.id)}>
-                                    <Trash2 />
+                            <div
+                                key={item.id}
+                                className="group relative flex items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg"
+                            >
+                                {isExperience ? (
+                                    <Experience updateItems={editItems} experience={item} />
+                                ) : (
+                                    <Project updateItems={editItems} project={item} />
+                                )}
+                                <PopupSideButton
+                                    onlyOnHover={true}
+                                    onClick={() => removeItem(Number(item.id))}
+                                    variant="destructive"
+                                    className="rounded-full"
+                                    // size="icon" // i don't know why it doesnt align on the center with this
+                                >
+                                    <X />
                                 </PopupSideButton>
                             </div>
                         ),
@@ -81,4 +77,21 @@ export default function EditableComponent({updateComponent, type, data}) {
             </Button>
         </div>
     );
+}
+
+// Helper function to create new items with a unique ID
+function createNewItem(id, type) {
+    const base = {
+        id: id,
+        startDate: {month: null, year: null},
+        endDate: {month: null, year: null},
+        location: '',
+        visible: true,
+    };
+
+    if (type === 'experience') {
+        return {...base, position: '', company: '', description: ''};
+    } else {
+        return {...base, title: '', description: '', technologies: '', link: ''};
+    }
 }
