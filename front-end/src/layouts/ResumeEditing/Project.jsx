@@ -5,6 +5,7 @@ import {SectionEditing} from './SectionEditing';
 import {MONTHS} from '@/constants/months';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
 import {MonthDisplayView} from './MonthDisplayView';
+import AITextImprovementButton from '@/components/ui/AITextImprovementButton';
 
 const PLACEHOLDERS = {
     title: 'Enter project title',
@@ -112,12 +113,11 @@ export function Project({updateItems, project}) {
                         </div>
                         {/* Project Description */}
                         <div className="w-full">
-                            <Input
-                                name="description"
-                                value={projectData.description}
+                            <AITextImprovementButton 
+                                className="w-full" 
+                                placeholder={PLACEHOLDERS.description} 
+                                value={projectData.description} 
                                 onChange={handleInputChange}
-                                placeholder={PLACEHOLDERS.description}
-                                className=""
                             />
                         </div>
                         {/* Technologies */}

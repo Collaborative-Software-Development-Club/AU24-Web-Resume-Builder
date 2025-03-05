@@ -42,36 +42,40 @@ export default function EditableComponent({updateComponent, type, data}) {
     };
 
     return (
-        <div className="times flex flex-col gap-6">
-            <DragAndDropList
-                array={sanitizedData
-                    ?.filter((item) => item.visible)
-                    .map((item) => ({
-                        ...item,
-                        content: (
-                            <div
-                                key={item.id}
-                                className="group relative flex items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg"
-                            >
-                                {isExperience ? (
+        <div className="times flex flex-col">
+            <div className="flex">
+                <div>
+                    <DragAndDropList
+                        array={sanitizedData.filter((item) => item.visible)
+                            .map((item) => ({
+                                ...item,
+                                content: (
+                                <div
+                                    key={item.id}
+                                    className="group relative flex items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg"
+                                >
+                                    {isExperience ? (
                                     <Experience updateItems={editItems} experience={item} />
                                 ) : (
                                     <Project updateItems={editItems} project={item} />
                                 )}
-                                <PopupSideButton
-                                    onlyOnHover={true}
-                                    onClick={() => removeItem(Number(item.id))}
-                                >
-                                    <Trash2 />
-                                </PopupSideButton>
-                            </div>
-                        ),
-                    }))}
-                setArray={setArrayWithVisibility}
-            />
-            <Button className="mx-auto" onClick={addItem}>
-                <Plus />
-            </Button>
+                                    <PopupSideButton
+                                        onlyOnHover={true}
+                                        onClick={() => removeItem(Number(item.id))}
+                                    >
+                                        <Trash2 />
+                                    </PopupSideButton>
+                                </div>
+                            ),
+                        }))}
+                    setArray={setArrayWithVisibility}
+                />
+                </div>
+                {/* plus button aligned to right */}
+                <Button onClick={addItem} className="mt-2">
+                    <Plus />
+                </Button>
+            </div>
         </div>
     );
 }
