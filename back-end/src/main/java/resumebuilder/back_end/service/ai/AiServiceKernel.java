@@ -1,17 +1,26 @@
 package resumebuilder.back_end.service.ai;
 
 public abstract class AiServiceKernel implements AiService {
+
     public String enhanceResumeBulletPoints(String initialText) {
         return this.callLLM(createResumeBulletPointsPrompt(initialText));
     }
-    protected abstract String callLLM(String prompt); 
+
+    protected abstract String callLLM(String prompt);
+
     private String createResumeBulletPointsPrompt(String initialText) {
-       return "You are an expert in helping create resumes for job applicants. You will take in a description of a position or project and output a revised version in bullet point considering the provided guidlines.\n" + //
-                "Guidelines: 1- Use the following action verbs at the start of the bullet points: " + ACTION_VERBS + "\n" + //
-                "2- Follow the instructions for the XYZ method: " + XYZ_METHOD + "\n" + //
-                "Apply changes to the follwing description: " + initialText + "\n" + //
-                "Return only the improved description and nothing more. DO NOT OUTPUT ANYTHIGN APART FROM THE BULLET POINTS FOR THE RESUME. Do not add formatting to the bullet points. Just separate the with \\n.";
+       return "You are an expert in helping create resumes for job applicants." + //
+               "You will take in a description of a position or project " + //
+               "and output a revised version in bullet point considering the provided guidelines.\n" +
+               "Guidelines:\n" +
+               "1- Use the following action verbs at the start of the bullet points: " + ACTION_VERBS + "\n" + //
+               "2- Follow the instructions for the XYZ method: " + XYZ_METHOD + "\n" + //
+               "Apply changes to the following description: " + initialText + "\n" + //
+               "Return only the improved description and nothing more." + //
+               "DO NOT OUTPUT ANYTHING APART FROM THE BULLET POINTS FOR THE RESUME." + //
+               "Do not add formatting to the bullet points. Just separate the with \\n.";
     }
+
     private final String ACTION_VERBS = "LEADERSHIP\t\t\t\t\t\t\t\n" + //
                 "Accomplished\tAchieved\tAdministered\tAnalyzed\tAssigned\tAttained\tChaired\tConsolidated\n" + //
                 "Contracted\tCoordinated\tDelegated\tDeveloped\tDirected\tEarned\tEvaluated\tExecuted\n" + //
@@ -57,6 +66,7 @@ public abstract class AiServiceKernel implements AiService {
                 "Operated\tOrganized\tPrepared\tProcessed\tPurchased\tRecorded\tReduced\tReinforced\n" + //
                 "Retrieved\tScreened\tSelected\tSimplified\tSold\tSpecified\tSteered\tStructured\n" + //
                 "Systematized\tTabulated\tUnified\tUpdated\tUtilized\tValidated\tVerified\t";
+
     private final String XYZ_METHOD = "This is the crux of the advice by Laszlo Bock, a former Google senior vice president of personnel operations. You want to adhere to the bullet-point format as we've discussed, and articulate your experience in this specific way.\n" + //
                 "\n" + //
                 "Google describes this as: \"Accomplished [X] as measured by [Y], by doing [Z].\" But just to make it easier to remember, let's shorten it to X-Y-Z.  \n" + //
