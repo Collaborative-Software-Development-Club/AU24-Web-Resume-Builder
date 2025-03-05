@@ -5,7 +5,11 @@ export function Experiences({updateExperience, experiences}) {
     return (
         <div className="grid">
             <SectionTitle title="Experience" />
-            <EditableComponent updateComponent={updateExperience} type="experience" data={experiences} />
+            <EditableComponent
+                updateComponent={updateExperience}
+                type="experience"
+                data={experiences}
+            />
         </div>
     );
 }
