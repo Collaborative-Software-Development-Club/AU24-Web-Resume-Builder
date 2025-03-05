@@ -37,17 +37,26 @@ public class ResumeService {
     }
 
     public Optional<ResumeDto> save(ResumeDto resumeDto) {
+        // System.out.println("resumeDto service>save");
+        // System.out.println(resumeDto);
         ResumeEntity resumeEntity = this.createAndSaveEntities(resumeDto);
-        System.out.println("created entities");
-        return this.createDto(resumeEntity);
+        Optional<ResumeDto> createdResumeDto = this.createDto(resumeEntity);
+        // System.out.println("createdResumeDto in service>save");
+        // System.out.println(createdResumeDto.get());
+        return createdResumeDto;
     }
 
     public Optional<ResumeDto> update(String resumeId, ResumeDto resumeDto) {
+        // System.out.println("resumeDto service>update");
+        // System.out.println(resumeDto);
         if(!resumeRepository.existsById(resumeId)) {
             return Optional.empty();
         }
         ResumeEntity resumeEntity = this.createAndSaveEntities(resumeDto);
-        return this.createDto(resumeEntity);
+        Optional<ResumeDto> createdResumeDto = this.createDto(resumeEntity);
+        // System.out.println("createdResumeDto in service>save");
+        // System.out.println(createdResumeDto.get());
+        return createdResumeDto;
     }
 
     public Optional<ResumeDto> findOne(String id) {
@@ -88,6 +97,7 @@ public class ResumeService {
     }
 
     private ResumeEntity createAndSaveEntities(ResumeDto resumeDto){
+        // TODO add resumeId from new resume to experience and project entities
         List<ExperienceEntity> experienceEntities = new ArrayList<>();
         List<ProjectEntity> projectEntities = new ArrayList<>();
         Optional<UserEntity> userEntity = userRepository.findById(resumeDto.getUserId()); 
@@ -98,6 +108,7 @@ public class ResumeService {
         resumeRepository.save(resumeEntity);
         experienceRepository.saveAll(experienceEntities);
         projectRepository.saveAll(projectEntities);
+        userRepository.save(userEntity.get());
         return resumeEntity;
     }
 }

@@ -58,6 +58,7 @@ public class ResumeController {
             @PathVariable("id") String id,
             @RequestBody ResumeDto resumeDto
     ) {
+        System.out.println("PUT /resume");
         Optional<ResumeDto> updatedResume = resumeService.update(id, resumeDto);
         if(updatedResume.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

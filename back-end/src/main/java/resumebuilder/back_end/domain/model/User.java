@@ -14,5 +14,5 @@ public class User {
     private String name;
     private Education education;
     private List<String> contactMethods;
-    private List<Skill> skills;
+    private Set<Skill> skills;
 }

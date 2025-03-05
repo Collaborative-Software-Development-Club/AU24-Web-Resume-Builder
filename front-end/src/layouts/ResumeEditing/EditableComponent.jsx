@@ -6,61 +6,77 @@ import DragAndDropList from './DragAndDropList';
 import {PopupSideButton} from '@/components/PopupSideButton';
 
 export default function EditableComponent({updateComponent, type, data}) {
-    const sanitizedData = data?.map((item) => ({...item, id: item.id.toString()})) || [];
+    console.log('data in EditableComponent', data);
+    // we have to create the orderId property for each item in the array
+    const sanitizedData = data?.map((item, index) => ({...item, orderId: index.toString()})) || [];
     const isExperience = type === 'experience';
 
     //Ensure that the IDs are integers when updating resume
     const revertIdsToInt = (array) => {
-        return array.map((item) => ({...item, id: Number(item.id)}));
+        return array.map((item) => ({...item, orderId: Number(item.orderId)}));
     };
 
     // Add a new item to the list
     const addItem = () => {
         const newItem = createNewItem(data?.length, type);
         const updatedArray = [...data, newItem];
+        console.log('updatedArray in addItem', updatedArray);
         updateComponent(updatedArray);
     };
 
     // Remove an item by its ID
     const removeItem = (id) => {
-        const updatedArray = data?.filter((item) => item.id !== id);
+        console.log('id in removeItem', id);
+        const updatedArray = sanitizedData.filter((item) => Number(item.orderId) !== Number(id));
+        console.log('sanitizedData in removeItem', sanitizedData);
+        console.log('updatedArray in removeItem', updatedArray);
         updateComponent(updatedArray);
     };
 
     // Passed in setter for array, preserving items marked as invisible
     const setArrayWithVisibility = (newArray) => {
-        const invisibleItems = data?.filter((item) => !item.visible);
+        // const invisibleItems = data?.filter((item) => !item.visible);
         const updatedArray = [...newArray, ...invisibleItems];
         updateComponent(revertIdsToInt(updatedArray));
     };
 
     // Update an item in the array
     const editItems = (updatedItem) => {
-        console.log(updatedItem);
-        const updatedArray = data.map((item) => (item.id === updatedItem.id ? updatedItem : item));
+        console.log('updatedItem in editItems', updatedItem);
+        // console.log('in editItems');
+        const updatedArray = sanitizedData.map((item) => {
+            // console.log('editItems: item.id', item.id);
+            // console.log('editItems: updatedItem.id', updatedItem.id);
+            return item.orderId == updatedItem.orderId ? updatedItem : item;
+        });
+        console.log('data in editItems', data);
+        console.log('updatedArray in editItems', updatedArray);
         updateComponent(revertIdsToInt(updatedArray));
     };
-
+    //TODO fix this stuff with adding content to the item
     return (
         <div className="flex flex-col gap-6">
             <DragAndDropList
                 array={sanitizedData
-                    ?.filter((item) => item.visible)
+                    // ?.filter((item) => item.visible)
                     .map((item) => ({
                         ...item,
                         content: (
                             <div
-                                key={item.id}
+                                key={item.orderid}
                                 className="group relative flex items-center px-4 transition duration-300 hover:bg-gray-200 hover:shadow-lg"
                             >
                                 {isExperience ? (
-                                    <Experience updateItems={editItems} experience={item} />
+                                    <Experience
+                                        updateItems={editItems}
+                                        experience={{...item, content: null}}
+                                    />
                                 ) : (
                                     <Project updateItems={editItems} project={item} />
                                 )}
                                 <PopupSideButton
                                     onlyOnHover={true}
-                                    onClick={() => removeItem(Number(item.id))}
+                                    onClick={() => removeItem(Number(item.orderId))}
                                     variant="destructive"
                                     className="rounded-full"
                                     // size="icon" // i don't know why it doesnt align on the center with this
@@ -81,12 +97,12 @@ export default function EditableComponent({updateComponent, type, data}) {
 
 // Helper function to create new items with a unique ID
 function createNewItem(id, type) {
+    console.log('creating new item');
     const base = {
-        id: id,
-        startDate: {month: null, year: null},
-        endDate: {month: null, year: null},
+        orderId: id,
+        startDate: {month: 0, year: 0},
+        endDate: {month: 0, year: 0},
         location: '',
-        visible: true,
     };
 
     if (type === 'experience') {

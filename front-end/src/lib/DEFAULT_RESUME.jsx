@@ -3,21 +3,23 @@ export const DEFAULT_RESUME = {
     contactMethods: [],
     education: {
         visible: true,
-        institution: '',
-        location: '',
-        degree: '',
-        graduationDate: {
-            month: null,
-            year: null,
+        content: {
+            institution: '',
+            location: '',
+            degree: '',
+            graduationDate: {
+                month: 0,
+                year: 0,
+            },
+            specialization: '',
+            minor: '',
+            gpa: 0,
+            honors: [],
         },
-        specialization: '',
-        minor: '',
-        gpa: null,
-        honors: [],
     },
     experience: {
         visible: true,
-        items: [
+        content: [
             {
                 id: 0,
                 visible: true,
@@ -32,7 +34,7 @@ export const DEFAULT_RESUME = {
     },
     projects: {
         visible: true,
-        items: [
+        content: [
             {
                 id: 0,
                 visible: true,
@@ -47,7 +49,7 @@ export const DEFAULT_RESUME = {
     },
     skills: {
         visible: true,
-        items: [],
+        content: [],
     },
     orderOfSections: ['EDUCATION', 'EXPERIENCE', 'PROJECTS', 'SKILLS'],
 };

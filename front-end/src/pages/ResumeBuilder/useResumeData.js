@@ -18,8 +18,12 @@ export default function useResumeData(resumeId, useApi) {
         }
     }, [resume]);
     const save = async () => {
-        const newResume = await uploadResumeData(resumeId, resume);
-        setResume(newResume);
+        try {
+            const newResume = await uploadResumeData(resumeId, resume);
+            setResume(newResume);
+        } catch (e) {
+            console.error(e);
+        }
     };
     useEffect(() => {
         const getData = async () => {
@@ -64,6 +68,19 @@ export default function useResumeData(resumeId, useApi) {
                 content: [...experience],
             },
         }));
+        // setResume((prevResume) => {
+        //     const index = prevResume.experience.content.findIndex(
+        //         (item) => item.id === experienceItem.id,
+        //     );
+        //     if (index < 0) {
+        //         prevResume.experience.content.push(experienceItem);
+        //     } else {
+        //         prevResume.experience.content[index] = experienceItem;
+        //     }
+        //     return {
+        //         ...prevResume,
+        //     };
+        // });
     };
     const updateProjects = (projects) => {
         setResume((prevResume) => ({
@@ -95,7 +112,7 @@ export default function useResumeData(resumeId, useApi) {
             },
         }));
     };
-    console.log('resume inside hook', resume);
+    // console.log('resume inside hook', resume);
     return {
         resume,
         save,

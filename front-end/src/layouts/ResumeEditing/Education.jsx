@@ -75,14 +75,16 @@ const Education = ({updateEducation, education}) => {
                                                 },
                                             })
                                         }
-                                        handleSelectChange={(month) =>
+                                        handleSelectChange={(month) => {
+                                            console.log('changing month');
+                                            console.log('the new value of month is: ' + month);
                                             updateEducation({
                                                 graduationDate: {
                                                     ...education.graduationDate,
                                                     month: month,
                                                 },
-                                            })
-                                        }
+                                            });
+                                        }}
                                     />
 
                                     <div>
@@ -174,6 +176,8 @@ const Education = ({updateEducation, education}) => {
 export default Education;
 
 function educationIsEmpty(education) {
-    const isEmpty = JSON.stringify(education) === JSON.stringify(DEFAULT_RESUME.education);
+    // console.log(JSON.stringify(education));
+    // console.log(JSON.stringify(DEFAULT_RESUME.education.content));
+    const isEmpty = JSON.stringify(education) === JSON.stringify(DEFAULT_RESUME.education.content);
     return isEmpty;
 }

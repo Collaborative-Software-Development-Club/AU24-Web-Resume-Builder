@@ -7,6 +7,7 @@ import resumebuilder.back_end.domain.model.*;
 import resumebuilder.back_end.domain.model.enums.SectionNames;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,13 +17,13 @@ import java.util.Set;
 public class ResumeDto {
     private String id;
     private String userId;
-    private String name;
+    private String name = "";
     private List<String> contactMethods = new ArrayList<>();
 
-    private Section<Education> education = new Section<Education>();
-    private Section<List<ExperienceItem>> experience;
-    private Section<List<Project>> projects;
-    private Section<Set<Skill>> skills;
+    private Section<Education> education = new Section<Education>(true, new Education());
+    private Section<List<ExperienceItem>> experience = new Section<>(true, new ArrayList<>());
+    private Section<List<Project>> projects = new Section<>(true, new ArrayList<>());
+    private Section<Set<Skill>> skills = new Section<>(true, new HashSet<>());
     private Section<String> professionalSummary = new Section<String>(false, "");
 
     private List<SectionNames> orderOfSections = List.of(
@@ -35,5 +36,5 @@ public class ResumeDto {
             SectionNames.CERTIFICATIONS,
             SectionNames.VOLUNTEER_EXPERIENCE
     );
-    private String description;
+    private String description = "";
 }
