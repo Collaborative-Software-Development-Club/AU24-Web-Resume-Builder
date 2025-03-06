@@ -35,8 +35,9 @@ public class AiController {
     }
     @GetMapping("/enhance-text")
     public Map<String,String> generate(@RequestParam(value = "message") String message) throws UnsupportedEncodingException{
-        String decodedMessage = URLDecoder.decode(message, "UTF-8");  
-        return Map.of("generation", aiService.enhanceResumeBulletPoints(decodedMessage));
+        String decodedMessage = URLDecoder.decode(message, "UTF-8");
+        decodedMessage = aiService.enhanceResumeBulletPoints(decodedMessage);
+        return Map.of("generation", decodedMessage);
     }
 
 }
