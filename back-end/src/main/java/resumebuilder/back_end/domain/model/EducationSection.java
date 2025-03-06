@@ -18,4 +18,5 @@ public class EducationSection extends VisibleElement {
     private String minor;
     private double gpa;
     private List<Honor> honors;
+    private List<String> relevantCourses;
 }
