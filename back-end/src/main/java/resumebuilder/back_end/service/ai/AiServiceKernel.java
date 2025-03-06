@@ -3,13 +3,23 @@ package resumebuilder.back_end.service.ai;
 public abstract class AiServiceKernel implements AiService {
 
     public String enhanceResumeBulletPoints(String initialText) {
-        return this.callLLM(createResumeBulletPointsPrompt(initialText));
+        String llmResponse = this.callLLM(createResumeBulletPointsPrompt(initialText));
+        System.out.println("LLM Response: " + llmResponse);
+        String parsedText = llmResponse.replaceAll("\n- ","\n");
+        parsedText = parsedText.replaceAll("- ","");
+        parsedText = parsedText.replaceAll("-","");
+        parsedText = parsedText.replaceAll("\n•","\n");
+        parsedText = parsedText.replaceAll("• ","");
+        parsedText = parsedText.replaceAll("•"," ");
+        System.out.println("Parsed Text: " + parsedText);
+        return parsedText;
     }
 
     protected abstract String callLLM(String prompt);
 
     private String createResumeBulletPointsPrompt(String initialText) {
         return "You are an expert in helping create resumes for job applicants." + //
+                "You are an AI endpoint in a resume builder application. You will receive a description of a project or experience and enhance it." + //
                "You will take in a description of a position or project " + //
                "and output a revised version in bullet point considering the provided guidelines.\n" +
                "Guidelines:\n" +
@@ -17,8 +27,8 @@ public abstract class AiServiceKernel implements AiService {
                "2- Follow the instructions for the XYZ method: " + XYZ_METHOD + "\n" + //
                "Apply changes to the following description: " + initialText + "\n" + //
                "Return only the improved description and nothing more." + //
-               "DO NOT OUTPUT ANYTHING APART FROM THE BULLET POINTS FOR THE RESUME." + //
-               "Do not add formatting to the bullet points. Just separate them with \\n.";
+               "Please return only the final text without any other stuff." + //
+               "Do not add formatting to the bullet points. Just separate them with a new line.";
     }
 
     private final String ACTION_VERBS = "LEADERSHIP\t\t\t\t\t\t\t\n" + //
