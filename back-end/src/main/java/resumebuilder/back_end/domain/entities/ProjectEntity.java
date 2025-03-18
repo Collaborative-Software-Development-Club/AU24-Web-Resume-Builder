@@ -10,7 +10,7 @@ import resumebuilder.back_end.domain.model.Project;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
+@Document(collection = "project1")
 public class ProjectEntity extends Project {
     @Id
     private String id;

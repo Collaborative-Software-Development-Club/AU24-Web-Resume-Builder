@@ -10,7 +10,7 @@ import resumebuilder.back_end.domain.model.ExperienceItem;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
+@Document(collection = "experience1")
 public class ExperienceEntity extends ExperienceItem {
     @Id
     private String id;

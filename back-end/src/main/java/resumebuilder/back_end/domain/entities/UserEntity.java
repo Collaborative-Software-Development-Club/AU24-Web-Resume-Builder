@@ -9,7 +9,7 @@ import resumebuilder.back_end.domain.model.User;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document
+@Document(collection = "user1")
 public class UserEntity extends User {
     @Id
     private String id;
