@@ -7,7 +7,9 @@ import resumebuilder.back_end.domain.model.Project;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProjectMapper {
     private ModelMapper modelMapper;
 
