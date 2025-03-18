@@ -37,7 +37,6 @@ public class AiController {
     public Map<String,String> generate(@RequestParam(value = "message") String message) throws UnsupportedEncodingException{
         String decodedMessage = URLDecoder.decode(message, "UTF-8");
         decodedMessage = aiService.enhanceResumeBulletPoints(decodedMessage);
-        decodedMessage = decodedMessage.replaceAll("\n- ","\n");
         return Map.of("generation", decodedMessage);
     }
 
