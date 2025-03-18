@@ -126,9 +126,8 @@ public class ResumeService {
     }
 
     private Optional<ResumeDto> createDto(ResumeEntity resumeEntity) {
-        String resumeId = resumeEntity.getId();
-        List<ExperienceEntity> experienceEntities = experienceRepository.findByResumeIdsContaining(resumeId);
-        List<ProjectEntity> projectEntities = projectRepository.findByResumeIdsContaining(resumeId);
+        List<ExperienceEntity> experienceEntities = experienceRepository.findAllById(resumeEntity.getExperienceIds());
+        List<ProjectEntity> projectEntities = projectRepository.findAllById(resumeEntity.getProjectIds());
         Optional<UserEntity> userEntity = userRepository.findById(resumeEntity.getUserId());
         if (userEntity.isEmpty()) {
             return Optional.empty();

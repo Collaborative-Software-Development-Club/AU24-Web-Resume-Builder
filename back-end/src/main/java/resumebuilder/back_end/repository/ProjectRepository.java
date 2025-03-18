@@ -6,5 +6,4 @@ import resumebuilder.back_end.domain.entities.ProjectEntity;
 import java.util.List;
 
 public interface ProjectRepository extends MongoRepository<ProjectEntity, String> {
-    List<ProjectEntity> findByResumeIdsContaining(String resumeId);
 }

@@ -6,5 +6,4 @@ import resumebuilder.back_end.domain.entities.ExperienceEntity;
 import java.util.List;
 
 public interface ExperienceRepository extends MongoRepository<ExperienceEntity, String> {
-    List<ExperienceEntity> findByResumeIdsContaining(String resumeId);
 }
