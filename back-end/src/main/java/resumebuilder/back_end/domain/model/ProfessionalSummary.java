@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class ProfessionalSummary extends VisibleElement {
+public class ProfessionalSummary {
     private String summary;
 }

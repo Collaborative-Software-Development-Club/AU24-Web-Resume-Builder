@@ -106,25 +106,25 @@ function formatSections(resumeData) {
             case 'EDUCATION':
                 if (resumeData.education.visible) {
                     sections.push(formatSectionHeader('Education'));
-                    sections.push(...formatEducation(resumeData.education));
+                    sections.push(...formatEducation(resumeData.education.content));
                 }
                 break;
             case 'EXPERIENCE':
                 if (resumeData.experience.visible) {
                     sections.push(formatSectionHeader('Professional & Leadership Experience'));
-                    sections.push(...formatExperience(resumeData.experience));
+                    sections.push(...formatExperience(resumeData.experience.content));
                 }
                 break;
             case 'PROJECTS':
                 if (resumeData.projects.visible) {
                     sections.push(formatSectionHeader('Projects'));
-                    sections.push(...formatProjects(resumeData.projects));
+                    sections.push(...formatProjects(resumeData.projects.content));
                 }
                 break;
             case 'SKILLS':
                 if (resumeData.skills.visible) {
                     sections.push(formatSectionHeader('Skills'));
-                    sections.push(...formatSkills(resumeData.skills));
+                    sections.push(...formatSkills(resumeData.skills.content));
                 }
                 break;
         }
@@ -241,10 +241,7 @@ function formatEducation(education) {
 }
 
 function formatExperience(experience) {
-    return experience.items
-        .filter((item) => item.visible)
-        .map((item) => formatExperienceItem(item))
-        .flat();
+    return experience.map((item) => formatExperienceItem(item)).flat();
 }
 
 function formatExperienceItem(item) {
@@ -315,10 +312,7 @@ function formatExperienceItem(item) {
 }
 
 function formatProjects(projects) {
-    return projects.items
-        .filter((item) => item.visible)
-        .map((item) => formatProjectItem(item))
-        .flat();
+    return projects.map((item) => formatProjectItem(item)).flat();
 }
 
 function formatProjectItem(item) {
@@ -397,11 +391,11 @@ function formatSkills(skills) {
     const skillGroups = {};
 
     // Group skills by category
-    skills.items.forEach((skill) => {
+    skills.forEach((skill) => {
         if (!skillGroups[skill.category]) {
             skillGroups[skill.category] = [];
         }
-        skillGroups[skill.category].push(skill.skillName);
+        skillGroups[skill.category].push(skill);
     });
 
     const elements = [];
@@ -427,7 +421,7 @@ function formatSkills(skills) {
             new Paragraph({
                 children: [
                     new TextRun({
-                        text: `• ${skills.items.map((skill) => skill.skillName).join(', ')}`,
+                        text: `• ${skills.items.map((skill) => skill).join(', ')}`,
                         color: TEXT_COLOR,
                         size: BULLET_SIZE,
                     }),

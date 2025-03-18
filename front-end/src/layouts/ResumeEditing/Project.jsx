@@ -20,8 +20,7 @@ const PLACEHOLDERS = {
 
 export function Project({updateItems, project}) {
     const [projectData, setProjectData] = useState({
-        id: project?.id,
-        visible: project?.visible,
+        orderId: project?.orderId,
         title: project?.title || '',
         description: project?.description || '',
         technologies: project?.technologies,
@@ -33,16 +32,18 @@ export function Project({updateItems, project}) {
             year: project?.startDate?.year || '',
         },
     });
+    console.log('projectData in Project', projectData);
 
     // Handle input changes for text fields
     const handleInputChange = (e) => {
         const {name, value} = e.target;
-        const newExperienceData = {
+        const newProjectData = {
             ...projectData,
             [name]: value,
         };
-        setProjectData(newExperienceData);
-        updateItems(newExperienceData);
+        console.log('newProjectData', newProjectData);
+        setProjectData(newProjectData);
+        updateItems(newProjectData);
     };
 
     // Handle selection changes for month
@@ -114,6 +115,7 @@ export function Project({updateItems, project}) {
                         <div className="w-full">
                             <AITextImprovementInput
                                 // className="w-full"
+                                name="description"
                                 placeholder={PLACEHOLDERS.description}
                                 value={projectData.description}
                                 onChange={handleInputChange}
