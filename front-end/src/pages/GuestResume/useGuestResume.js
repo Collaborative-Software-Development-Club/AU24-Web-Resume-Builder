@@ -38,7 +38,10 @@ export function useGuestResume() {
             ...prevResume,
             education: {
                 ...prevResume.education,
-                ...updatedFields,
+                content: {
+                    ...prevResume.education.content,
+                    ...updatedFields,
+                },
             },
         }));
     };
@@ -48,7 +51,7 @@ export function useGuestResume() {
             ...prevResume,
             experience: {
                 ...prevResume.experience,
-                items: [...experience],
+                content: [...experience],
             },
         }));
     };
@@ -58,7 +61,7 @@ export function useGuestResume() {
             ...prevResume,
             projects: {
                 ...prevResume.projects,
-                items: [...projects],
+                content: [...projects],
             },
         }));
     };
@@ -68,7 +71,7 @@ export function useGuestResume() {
             ...prevResume,
             skills: {
                 ...prevResume.skills,
-                items: skills,
+                content: skills,
             },
         }));
     };

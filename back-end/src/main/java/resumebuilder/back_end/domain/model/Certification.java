@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class Certification extends VisibleElement {
+public class Certification {
     private int id;
     private String certificationName;
     private String certifyingAgency;

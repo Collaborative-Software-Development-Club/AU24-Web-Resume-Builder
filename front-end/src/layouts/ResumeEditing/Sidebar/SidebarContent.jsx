@@ -3,10 +3,10 @@ import SidebarItem from './SidebarItem';
 import DragAndDropList from '../DragAndDropList';
 
 export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisibility}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const toggleSidebar = () => {
-        setIsOpen(!isOpen);
-    };
+    // const [isOpen, setIsOpen] = useState(false);
+    // const toggleSidebar = () => {
+    //     setIsOpen(!isOpen);
+    // };
 
     const updatedOrder = ordering?.map((item) => {
         let content;
@@ -19,16 +19,45 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
 
         switch (item.title) {
             case 'EDUCATION':
-                content = <SidebarItem key={item.id} section={resume.education} name="Education" elements={['GPA', 'Honors']} handleVisibilityChange={handleVisibilityChange} />;
+                content = (
+                    <SidebarItem
+                        key={item.id}
+                        section={resume.education}
+                        name="Education"
+                        elements={['GPA', 'Honors']}
+                        handleVisibilityChange={handleVisibilityChange}
+                    />
+                );
                 break;
             case 'EXPERIENCE':
-                content = <SidebarItem key={item.id} section={resume.experience} name="Experience" handleVisibilityChange={handleVisibilityChange} />;
+                content = (
+                    <SidebarItem
+                        key={item.id}
+                        section={resume.experience}
+                        name="Experience"
+                        handleVisibilityChange={handleVisibilityChange}
+                    />
+                );
                 break;
             case 'PROJECTS':
-                content = <SidebarItem key={item.id} section={resume.projects} name="Projects" handleVisibilityChange={handleVisibilityChange} />;
+                content = (
+                    <SidebarItem
+                        key={item.id}
+                        section={resume.projects}
+                        name="Projects"
+                        handleVisibilityChange={handleVisibilityChange}
+                    />
+                );
                 break;
             case 'SKILLS':
-                content = <SidebarItem key={item.id} section={resume.skills} name="Skills" handleVisibilityChange={handleVisibilityChange} />;
+                content = (
+                    <SidebarItem
+                        key={item.id}
+                        section={resume.skills}
+                        name="Skills"
+                        handleVisibilityChange={handleVisibilityChange}
+                    />
+                );
                 break;
             default:
                 content = null;
@@ -46,13 +75,17 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
             return item.title;
         });
     };
-
+    // console.log('updatedOrder', updatedOrder);
     return (
         <div className="Sidebar flex w-full flex-col">
             <p className="text-lg 2xl:pt-5">Set Visibility & Ordering</p>
             <div className="sidebar-content">
                 <ul className="cursor-pointer list-none">
-                    <DragAndDropList resume={resume} array={updatedOrder} setArray={setResumeOrdering} />
+                    <DragAndDropList
+                        resume={resume}
+                        array={updatedOrder}
+                        setArray={setResumeOrdering}
+                    />
                 </ul>
             </div>
         </div>
