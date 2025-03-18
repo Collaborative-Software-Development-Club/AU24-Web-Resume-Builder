@@ -7,8 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import resumebuilder.back_end.domain.model.Project;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

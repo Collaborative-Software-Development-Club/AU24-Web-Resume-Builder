@@ -1,17 +1,13 @@
 package resumebuilder.back_end.mappers;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import resumebuilder.back_end.domain.dto.ResumeDto;
-import resumebuilder.back_end.domain.entities.ExperienceEntity;
-import resumebuilder.back_end.domain.entities.ProjectEntity;
 import resumebuilder.back_end.domain.entities.ResumeEntity;
 import resumebuilder.back_end.domain.entities.UserEntity;
 import resumebuilder.back_end.domain.model.*;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 //TODO unassign experiences/projects from a resume if they aren't present. Could be better to keep the list in resumeentity in the end
 
