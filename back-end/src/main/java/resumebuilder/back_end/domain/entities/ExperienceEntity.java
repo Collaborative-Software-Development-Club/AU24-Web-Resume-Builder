@@ -17,5 +17,4 @@ public class ExperienceEntity extends ExperienceItem {
     @Id
     private String id;
     String userId;
-    List<String> resumeIds;
 }

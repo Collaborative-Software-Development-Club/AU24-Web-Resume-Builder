@@ -14,7 +14,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 //TODO unassign experiences/projects from a resume if they aren't present. Could be better to keep the list in resumeentity in the end
-//TODO projects are being duplicated idk why
 
 @Component
 public class ResumeMapper {
@@ -25,7 +24,8 @@ public class ResumeMapper {
         this.modelMapper = modelMapper;
     }
 
-    public ResumeDto mapToDto(ResumeEntity resumeEntity, List<ExperienceEntity> experienceEntities, List<ProjectEntity> projectEntities, UserEntity userEntity) {
+    public ResumeDto mapToDto(ResumeEntity resumeEntity, List<ExperienceEntity> experienceEntities,
+            List<ProjectEntity> projectEntities, UserEntity userEntity) {
         ResumeDto resumeDto = new ResumeDto();
         resumeDto.setId(resumeEntity.getId());
         resumeDto.setUserId(resumeEntity.getUserId());
@@ -57,7 +57,8 @@ public class ResumeMapper {
         return resumeDto;
     }
 
-    public ResumeEntity mapToEntity(ResumeDto resumeDto, List<ExperienceEntity> experienceEntities, List<ProjectEntity> projectEntities, UserEntity userEntity) {
+    public ResumeEntity mapToEntity(ResumeDto resumeDto, List<ExperienceEntity> experienceEntities,
+            List<ProjectEntity> projectEntities, UserEntity userEntity) {
         ResumeEntity resumeEntity = new ResumeEntity();
         // set fields from ResumeDto that map to ResumeEntity
         resumeEntity.setId(resumeDto.getId());
@@ -70,49 +71,36 @@ public class ResumeMapper {
         userEntity.setContactMethods(resumeDto.getContactMethods());
         userEntity.setEducation(resumeDto.getEducation().getContent());
         userEntity.setName(resumeDto.getName());
-        if(userEntity.getSkills() == null) {
+        if (userEntity.getSkills() == null) {
             userEntity.setSkills(resumeDto.getSkills().getContent());
         } else {
-            if(resumeDto.getSkills().getContent() == null) {
-                System.out.println("skills content is null");
+            if (resumeDto.getSkills().getContent() == null) {
             } else {
                 userEntity.getSkills().addAll(resumeDto.getSkills().getContent());
             }
         }
         // create experience entities
         experienceEntities.addAll(resumeDto.getExperience().getContent().stream()
-                .map(experienceItem -> modelMapper.map(experienceItem, ExperienceEntity.class)).map(experienceEntity -> {
-                    if(experienceEntity.getResumeIds() == null) {
-                        experienceEntity.setResumeIds(List.of(resumeDto.getId()));
-                    } else {
-                        experienceEntity.getResumeIds().add(resumeDto.getId());
-                    }
-                    return experienceEntity;
-                })
+                .map(experienceItem -> modelMapper.map(experienceItem, ExperienceEntity.class))
                 .collect(Collectors.toList()));
         // create project entities
         projectEntities.addAll(resumeDto.getProjects().getContent().stream()
-                .map(project -> modelMapper.map(project, ProjectEntity.class)).map(projectEntity -> {
-                    if(projectEntity.getResumeIds() == null) {
-                        projectEntity.setResumeIds(List.of(resumeDto.getId()));
-                    } else {
-                        projectEntity.getResumeIds().add(resumeDto.getId());
-                    }
-                    return projectEntity;
-                })
-                .collect(Collectors.toList()));
+                .map(project -> modelMapper.map(project, ProjectEntity.class)).collect(Collectors.toList()));
         return resumeEntity;
     }
 
     private List<ExperienceItem> mapToExperienceItemList(List<ExperienceEntity> experienceEntities) {
         return experienceEntities.stream()
-                .map(entity ->  new ExperienceItem(entity.getId(), entity.getCompany(), entity.getLocation(), entity.getPosition(), entity.getStartDate(), entity.getEndDate(), entity.getDescription()))
+                .map(entity -> new ExperienceItem(entity.getId(), entity.getCompany(), entity.getLocation(),
+                        entity.getPosition(), entity.getStartDate(), entity.getEndDate(), entity.getDescription()))
                 .collect(Collectors.toList());
     }
 
     private List<Project> mapToProjectList(List<ProjectEntity> projectEntities) {
         return projectEntities.stream()
-                .map(entity -> new Project(entity.getTitle(), entity.getOrganization(), entity.getLocation(), entity.getStartDate(), entity.getEndDate(), entity.getDescription()))
+                .map(entity -> new Project(entity.getId(), entity.getTitle(), entity.getOrganization(),
+                        entity.getLocation(),
+                        entity.getStartDate(), entity.getEndDate(), entity.getDescription()))
                 .collect(Collectors.toList());
     }
 }

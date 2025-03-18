@@ -22,6 +22,9 @@ public class ResumeEntity {
     private Set<Skill> skills;
     private String professionalSummary;
 
+    private List<String> experienceIds;
+    private List<String> projectIds;
+
     private List<SectionNames> orderOfSections = List.of(
             SectionNames.PROFESSIONAL_SUMMARY,
             SectionNames.EDUCATION,
@@ -30,8 +33,7 @@ public class ResumeEntity {
             SectionNames.SKILLS,
             SectionNames.HONORS,
             SectionNames.CERTIFICATIONS,
-            SectionNames.VOLUNTEER_EXPERIENCE
-    );
+            SectionNames.VOLUNTEER_EXPERIENCE);
 
     private String description;
 }

@@ -17,5 +17,4 @@ public class ProjectEntity extends Project {
     @Id
     private String id;
     private String userId;
-    List<String> resumeIds;
 }

@@ -10,6 +10,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Project {
+    private String id;
     private String title;
     private String organization;
     private String location;
