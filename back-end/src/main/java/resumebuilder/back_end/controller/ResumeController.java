@@ -23,27 +23,27 @@ public class ResumeController {
     @PostMapping("")
     public ResponseEntity<ResumeDto> createResume(@RequestParam(value = "userId") String userId,
             @RequestBody ResumeDto resumeDto) {
-        System.out.println("Creating resume");
+        // System.out.println("Creating resume");
         if (userId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         resumeDto.setUserId(userId);
         Optional<ResumeDto> createdResume = resumeService.save(resumeDto);
         if (createdResume.isEmpty()) {
-            System.out.println("Error in createResume");
+            // System.out.println("Error in createResume");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        System.out.println("saved resume");
+        // System.out.println("saved resume");
         return new ResponseEntity<>(createdResume.get(), HttpStatus.CREATED);
     }
 
     @GetMapping("")
     public ResponseEntity<List<ResumeDto>> getAllResumes(@RequestParam(value = "userId") String userId) {
-        System.out.println("In getAllResumes");
+        // System.out.println("In getAllResumes");
         // TODO add a different response for when the userId is invalid
         List<ResumeDto> resumes = resumeService.findByUserId(userId);
         if (resumes.isEmpty()) {
-            System.out.println("No resumes found or error");
+            // System.out.println("No resumes found or error");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(resumes, HttpStatus.OK);
@@ -62,7 +62,7 @@ public class ResumeController {
     public ResponseEntity<ResumeDto> updateResume(
             @PathVariable("id") String id,
             @RequestBody ResumeDto resumeDto) {
-        System.out.println("PUT /resume");
+        // System.out.println("PUT /resume");
         Optional<ResumeDto> updatedResume = resumeService.update(id, resumeDto);
         if (updatedResume.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

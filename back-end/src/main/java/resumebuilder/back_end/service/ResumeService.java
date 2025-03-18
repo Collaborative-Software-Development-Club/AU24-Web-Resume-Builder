@@ -46,7 +46,7 @@ public class ResumeService {
     }
 
     public Optional<ResumeDto> save(ResumeDto resumeDto) {
-        System.out.println("resumeDto service>save");
+        // System.out.println("resumeDto service>save");
         // System.out.println(resumeDto);
         Optional<ResumeEntity> saved = this.createAndSaveEntities(resumeDto);
         if (saved.isEmpty()) {
@@ -100,10 +100,10 @@ public class ResumeService {
     }
 
     private Optional<ResumeEntity> createAndSaveEntities(ResumeDto resumeDto) {
-        System.out.println("In createAndSaveEntities");
+        // System.out.println("In createAndSaveEntities");
         Optional<UserEntity> userEntity = userRepository.findById(resumeDto.getUserId());
         if (userEntity.isEmpty()) {
-            System.out.println("Invalid user id passed to ResumeService.save");
+            // System.out.println("Invalid user id passed to ResumeService.save");
             return Optional.empty();
         }
         // extract experiences and projects from resumeDto as entities
@@ -123,7 +123,7 @@ public class ResumeService {
         // extract user information from resumeDto
         userMapper.addResumeDtoContent(userEntity.get(), resumeDto);
         userRepository.save(userEntity.get());
-        System.out.println("Finished createAndSaveEntities");
+        // System.out.println("Finished createAndSaveEntities");
         return Optional.of(savedResume);
     }
 

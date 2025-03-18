@@ -42,11 +42,11 @@ public class ResumeMapper {
         // System.out.println(experienceItems);
         Section<List<ExperienceItem>> experienceSection = new Section<>(true, experienceItems);
         resumeDto.setExperience(experienceSection);
-        System.out.println("projectEntities");
-        System.out.println(projectEntities);
+        // System.out.println("projectEntities");
+        // System.out.println(projectEntities);
         List<Project> projects = mapToProjectList(projectEntities);
-        System.out.println("projects");
-        System.out.println(projects);
+        // System.out.println("projects");
+        // System.out.println(projects);
         Section<List<Project>> projectSection = new Section<>(true, projects);
         resumeDto.setProjects(projectSection);
         Section<Set<Skill>> skills = new Section<>(true, resumeEntity.getSkills());
