@@ -16,7 +16,7 @@ public class MockAiService implements AiService {
 
     @Override
     public String enhanceResumeBulletPoints(String initialText) {
-        return "Enhanced: " + initialText;
+        return "Mock Ai Service: " + initialText;
     }
 
 }
