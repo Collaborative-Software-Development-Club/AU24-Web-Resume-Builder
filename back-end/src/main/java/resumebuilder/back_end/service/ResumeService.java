@@ -5,7 +5,7 @@ import resumebuilder.back_end.domain.dto.ResumeDto;
 import resumebuilder.back_end.domain.entities.*;
 import resumebuilder.back_end.mappers.ExperienceMapper;
 import resumebuilder.back_end.mappers.ProjectMapper;
-import resumebuilder.back_end.mappers.ResumeMapper2;
+import resumebuilder.back_end.mappers.ResumeMapper;
 import resumebuilder.back_end.mappers.UserMapper;
 import resumebuilder.back_end.repository.ExperienceRepository;
 import resumebuilder.back_end.repository.ProjectRepository;
@@ -23,13 +23,13 @@ public class ResumeService {
     private final ExperienceRepository experienceRepository;
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
-    private final ResumeMapper2 resumeMapper;
+    private final ResumeMapper resumeMapper;
     private final ExperienceMapper experienceMapper;
     private final ProjectMapper projectMapper;
     private final UserMapper userMapper;
 
     public ResumeService(ResumeRepository resumeRepository, ExperienceRepository experienceRepository,
-            ProjectRepository projectRepository, UserRepository userRepository, ResumeMapper2 resumeMapper,
+            ProjectRepository projectRepository, UserRepository userRepository, ResumeMapper resumeMapper,
             ExperienceMapper experienceMapper, ProjectMapper projectMapper, UserMapper userMapper) {
         this.resumeRepository = resumeRepository;
         this.experienceRepository = experienceRepository;
