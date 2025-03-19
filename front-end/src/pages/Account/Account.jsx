@@ -1,10 +1,8 @@
 import {useUserResumes} from './useUserResumes';
 import createResume from '@/services/createResume';
-import uploadResumeToUser from '@/services/uploadResumeToUser';
 import {Plus} from 'lucide-react';
 import ResumePreview from './ResumePreview';
 import {useNavigate} from 'react-router-dom';
-import {DEFAULT_RESUME} from '../../lib/DEFAULT_RESUME';
 import flags from '@/flags.json';
 
 const USE_API = flags.useApi;
