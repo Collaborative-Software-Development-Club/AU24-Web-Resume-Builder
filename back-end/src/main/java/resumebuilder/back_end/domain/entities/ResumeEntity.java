@@ -14,13 +14,16 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
+@Document(collection = "resume1")
 public class ResumeEntity {
     @Id
     private String id;
     private String userId;
     private Set<Skill> skills;
     private String professionalSummary;
+
+    private List<String> experienceIds;
+    private List<String> projectIds;
 
     private List<SectionNames> orderOfSections = List.of(
             SectionNames.PROFESSIONAL_SUMMARY,
@@ -30,8 +33,7 @@ public class ResumeEntity {
             SectionNames.SKILLS,
             SectionNames.HONORS,
             SectionNames.CERTIFICATIONS,
-            SectionNames.VOLUNTEER_EXPERIENCE
-    );
+            SectionNames.VOLUNTEER_EXPERIENCE);
 
     private String description;
 }

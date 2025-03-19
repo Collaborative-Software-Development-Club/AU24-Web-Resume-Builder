@@ -7,15 +7,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import resumebuilder.back_end.domain.model.Project;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
+@Document(collection = "project1")
 public class ProjectEntity extends Project {
     @Id
     private String id;
     private String userId;
-    List<String> resumeIds;
 }
