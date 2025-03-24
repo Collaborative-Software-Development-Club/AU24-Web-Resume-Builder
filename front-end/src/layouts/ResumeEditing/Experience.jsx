@@ -135,17 +135,21 @@ export function Experience({updateItems, experience}) {
                 }
                 displayView={
                     <>
-                        <div className="grid grid-cols-6 gap-2">
+                        {/*Job Title, Location, Company*/}
+                        <div className="grid grid-cols-2 grid-rows-2">
                             <p className="times font-bold">{experienceData.position ?? ''}</p>
-                            <p className="times">{experienceData.location ?? ''}</p>
+                            <p className="flex times justify-end">{experienceData.location ?? ''}</p>
                             <p className="times">{experienceData.company ?? ''}</p>
+                            {/*Job Start and End Dates*/}
+                            <div className="flex flex-wrap justify-end space-x-1">
+                                <MonthDisplayView monthNumber={experienceData.startDate.month} />
+                                <p className="times">{experienceData.startDate.year ?? ''}</p>
+                                {(experienceData.endDate.month || experienceData.endDate.year) && <span className="times">-</span>}
+                                <MonthDisplayView monthNumber={experienceData.endDate.month} />
+                                <p className="times">{experienceData.endDate.year ?? ''}</p>
+                            </div>
                         </div>
-                        <div className="grid grid-cols-6 gap-2">
-                            <MonthDisplayView monthNumber={experienceData.startDate.month} />
-                            <p className="times">{experienceData.startDate.year ?? ''}</p>
-                            <MonthDisplayView monthNumber={experienceData.endDate.month} />
-                            <p className="times">{experienceData.endDate.year ?? ''}</p>
-                        </div>
+                        {/*Job Description Bullet Points*/}
                         <BulletPointDisplayView text={experienceData.description} />
                     </>
                 }
