@@ -61,7 +61,7 @@ export function Project({updateItems, project}) {
 
     return (
         <div className="flex w-full flex-col gap-2">
-            {/* Combined Row for Project T  itle and Date */}
+            {/* Combined Row for Project Title and Date */}
             <SectionEditing
                 empty={projectData == undefined || projectData.title == ''}
                 editingView={
@@ -134,16 +134,20 @@ export function Project({updateItems, project}) {
                     </>
                 }
                 displayView={
-                    <>
-                        <div className="grid grid-cols-6 gap-2">
+                    <>  
+                        {/*Project Title, Link, Location*/}
+                        <div className="grid grid-cols-3">
                             <p className="times font-bold">{projectData.title ?? ''}</p>
                             <p className="times">{projectData.link ?? ''}</p>
-                            <MonthDisplayView monthNumber={projectData.startDate.month} />
-                            <p className="times">{projectData.startYear}</p>
+                            <p className="flex times justify-end">{projectData.location ?? ''}</p>
                         </div>
-                        <div className="grid grid-cols-3 gap-2">
+                        {/*Organization, Dates*/}
+                        <div className="grid grid-cols-2">
                             <p className="times">{projectData.role ?? ''}</p>
-                            <p className="times">{projectData.location ?? ''}</p>
+                            <div className="flex flex-wrap justify-end space-x-1">
+                                <MonthDisplayView monthNumber={projectData.startDate.month} />
+                                <p className="times">{projectData.startYear}</p>
+                            </div>
                         </div>
                         <BulletPointDisplayView text={projectData.description} />
                         {/* Technologies */}
