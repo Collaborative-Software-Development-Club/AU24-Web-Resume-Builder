@@ -55,7 +55,12 @@ export function Name({name, updateName}) {
                     </form>
                 </Form>
             }
-            displayView={<h1 className="times text-center text-2xl">{name}</h1>}
+            displayView={   
+                <>
+                    {/*Displays Name*/}
+                    <h1 className="times text-center text-2xl">{name}</h1>
+                </>
+            }
         />
     );
 }

@@ -7,7 +7,7 @@ export function ContactMethods({contactMethods, updateContactMethods}) {
             list={contactMethods}
             RenderList={({list}) => {
                 return (
-                    <div className="flex flex-row gap-2 self-center">
+                    <div className="flex flex-row gap-2 justify-center">
                         {list.map((element) => (
                             <p className="times underline" key={element}>
                                 {element}

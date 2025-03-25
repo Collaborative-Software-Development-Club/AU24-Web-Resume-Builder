@@ -138,7 +138,7 @@ export function Project({updateItems, project}) {
                         {/*Project Title, Link, Location*/}
                         <div className="grid grid-cols-3">
                             <p className="times font-bold">{projectData.title ?? ''}</p>
-                            <p className="times">{projectData.link ?? ''}</p>
+                            <p className="times font-bold">{projectData.link ?? ''}</p>
                             <p className="flex times justify-end">{projectData.location ?? ''}</p>
                         </div>
                         {/*Organization, Dates*/}
@@ -151,8 +151,9 @@ export function Project({updateItems, project}) {
                         </div>
                         <BulletPointDisplayView text={projectData.description} />
                         {/* Technologies */}
-                        <div className="sm:flex-grow">
-                            <p className="times">{projectData.technologies ?? ''}</p>
+                        <div className="flex sm:flex-grow justify-start space-x-1">
+                        {(projectData.technologies) && <span className="times">Skills: </span>}
+                        <p className="times">{projectData.technologies ?? ''}</p>
                         </div>
                     </>
                 }
