@@ -4,6 +4,7 @@ import Months from './Months';
 import {SectionEditing} from './SectionEditing';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
 import {MonthDisplayView} from './MonthDisplayView';
+import {AITextImprovementInput} from '@/components/AITextImprovementInput';
 
 const PLACEHOLDERS = {
     title: 'Enter project title',
@@ -22,10 +23,9 @@ const DISPLAY_FORMAT_TITLE =
 
 export function Project({updateItems, project}) {
     const [projectData, setProjectData] = useState({
-        id: project?.id,
-        visible: project?.visible,
-        title: project?.title,
-        description: project?.description,
+        orderId: project?.orderId,
+        title: project?.title || '',
+        description: project?.description || '',
         technologies: project?.technologies,
         role: project?.organization,
         link: project?.link,
@@ -35,16 +35,18 @@ export function Project({updateItems, project}) {
             year: project?.startDate?.year,
         },
     });
+    console.log('projectData in Project', projectData);
 
     // Handle input changes for text fields
     const handleInputChange = (e) => {
         const {name, value} = e.target;
-        const newExperienceData = {
+        const newProjectData = {
             ...projectData,
             [name]: value,
         };
-        setProjectData(newExperienceData);
-        updateItems(newExperienceData);
+        console.log('newProjectData', newProjectData);
+        setProjectData(newProjectData);
+        updateItems(newProjectData);
     };
 
     // Handle selection changes for month
@@ -114,12 +116,12 @@ export function Project({updateItems, project}) {
                         </div>
                         {/* Project Description */}
                         <div className="w-full">
-                            <Input
+                            <AITextImprovementInput
+                                // className="w-full"
                                 name="description"
+                                placeholder={PLACEHOLDERS.description}
                                 value={projectData.description}
                                 onChange={handleInputChange}
-                                placeholder={PLACEHOLDERS.description}
-                                className=""
                             />
                         </div>
                         {/* Technologies */}

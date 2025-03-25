@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Honor extends VisibleElement {
+public class Honor {
     private String name;
     private String description;
     private CustomDate dateReceived;

@@ -77,14 +77,16 @@ const Education = ({updateEducation, education}) => {
                                                 },
                                             })
                                         }
-                                        handleSelectChange={(month) =>
+                                        handleSelectChange={(month) => {
+                                            console.log('changing month');
+                                            console.log('the new value of month is: ' + month);
                                             updateEducation({
                                                 graduationDate: {
                                                     ...education.graduationDate,
                                                     month: month,
                                                 },
-                                            })
-                                        }
+                                            });
+                                        }}
                                     />
 
                                     <div>
@@ -143,10 +145,10 @@ const Education = ({updateEducation, education}) => {
                                 </div>
                                 <div className="flex space-x-4 md:w-1/3">
                                     <MonthDisplayView
-                                        monthNumber={education.graduationDate.month}
+                                        monthNumber={education.graduationDate?.month || ''}
                                     />
-                                    <div className={DISPLAY_FORMAT}>
-                                        <p className="times min-w-[148px]">
+                                    <div>
+                                        <p className="times">
                                             {education.graduationDate?.year || ''}
                                         </p>
                                     </div>
@@ -161,7 +163,7 @@ const Education = ({updateEducation, education}) => {
                             </div>
 
                             <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-                                <div className={DISPLAY_FORMAT}>
+                                <div className="w-full">
                                     {/* <p className="times">{education?.honors || ''}</p> */}
                                 </div>
                             </div>
@@ -176,6 +178,8 @@ const Education = ({updateEducation, education}) => {
 export default Education;
 
 function educationIsEmpty(education) {
-    const isEmpty = JSON.stringify(education) === JSON.stringify(DEFAULT_RESUME.education);
+    // console.log(JSON.stringify(education));
+    // console.log(JSON.stringify(DEFAULT_RESUME.education.content));
+    const isEmpty = JSON.stringify(education) === JSON.stringify(DEFAULT_RESUME.education.content);
     return isEmpty;
 }

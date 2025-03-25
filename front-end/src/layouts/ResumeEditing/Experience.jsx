@@ -1,10 +1,11 @@
 import {useState} from 'react';
+import {DEFAULT_RESUME} from '@/lib/DEFAULT_RESUME';
 import {Input} from '@/components/ui/input';
 import Months from './Months';
-import {BulletedInputBox} from '@/components/BulletedInputBox';
 import {SectionEditing} from './SectionEditing';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
 import {MonthDisplayView} from './MonthDisplayView';
+import {AITextImprovementInput} from '@/components/AITextImprovementInput';
 
 const PLACEHOLDERS = {
     position: 'Enter your position title',
@@ -24,12 +25,11 @@ const DISPLAY_FORMAT_POSITION =
 //Remove the usestate, update handle functions, and add Month component
 export function Experience({updateItems, experience}) {
     const [experienceData, setExperienceData] = useState({
-        visible: experience?.visible,
-        id: experience?.id,
-        position: experience?.position,
-        company: experience?.company,
-        description: experience?.description ,
-        location: experience?.location,
+        orderId: experience?.orderId,
+        position: experience?.position || '',
+        company: experience?.company || '',
+        description: experience?.description || '',
+        location: experience?.location || '',
         startDate: {
             month: experience?.startDate?.month,
             year: experience?.startDate?.year,
@@ -39,6 +39,7 @@ export function Experience({updateItems, experience}) {
             year: experience?.endDate?.year,
         },
     });
+    // console.log(`experienceData`, experienceData);
 
     // Handle input changes for text fields
     const handleInputChange = (e) => {
@@ -47,6 +48,7 @@ export function Experience({updateItems, experience}) {
             ...experienceData,
             [name]: value,
         };
+        console.log('newExperienceData', newExperienceData);
         setExperienceData(newExperienceData);
         updateItems(newExperienceData);
     };
@@ -63,34 +65,40 @@ export function Experience({updateItems, experience}) {
         setExperienceData(updatedData);
         updateItems(updatedData);
     };
+    // console.log(JSON.stringify(education));
+    // console.log(JSON.stringify(DEFAULT_RESUME.education.content));
+    const isEmpty =
+        experience.position === '' && experience.company === '' && experience.description === '';
     return (
-        <SectionEditing
-            empty={experience == undefined || experienceData.position == ''}
-            editingView={
-                <div className="flex w-full flex-col gap-2">
-                    <div className="grid grid-cols-6 gap-2">
-                        <Input
-                            name="position"
-                            value={experienceData.position}
-                            placeholder={PLACEHOLDERS.position}
-                            className="text-md col-span-2 font-bold"
-                            onChange={handleInputChange}
-                        />
-                        <Input
-                            name="location"
-                            value={experienceData.location}
-                            placeholder={PLACEHOLDERS.location}
-                            className="col-span-2"
-                            onChange={handleInputChange}
-                        />
-                        <Input
-                            name="company"
-                            value={experienceData.company}
-                            placeholder={PLACEHOLDERS.company}
-                            className="col-span-2"
-                            onChange={handleInputChange}
-                        />
-                    </div>
+        <div className="flex w-full flex-col gap-2">
+            <SectionEditing
+                sectionName="experience"
+                empty={isEmpty}
+                editingView={
+                    <>
+                        <div className="times grid grid-cols-6 gap-2">
+                            <Input
+                                name="position"
+                                value={experienceData.position}
+                                placeholder={PLACEHOLDERS.position}
+                                className="text-md col-span-2 font-bold"
+                                onChange={handleInputChange}
+                            />
+                            <Input
+                                name="location"
+                                value={experienceData.location}
+                                placeholder={PLACEHOLDERS.location}
+                                className="col-span-2"
+                                onChange={handleInputChange}
+                            />
+                            <Input
+                                name="company"
+                                value={experienceData.company}
+                                placeholder={PLACEHOLDERS.company}
+                                className="col-span-2"
+                                onChange={handleInputChange}
+                            />
+                        </div>
 
                     {/* Start Date (Month and Year) */}
                     <div className="grid grid-cols-6 gap-2">
@@ -120,47 +128,35 @@ export function Experience({updateItems, experience}) {
                         />
                     </div>
 
-                    {/* Experience Description */}
-                    <div className="w-full">
-                        <Input
-                            name="description"
-                            value={experienceData.description}
-                            onChange={handleInputChange}
-                            placeholder={PLACEHOLDERS.description}
-                            className=""
-                        />
-                    </div>
-                </div>
-            }
-            displayView={
-                <div className="flex w-full flex-col gap-2">
-                    <div className="grid grid-cols-6 gap-2">
-                        <div className={'times col-span-2' + DISPLAY_FORMAT_POSITION}>
-                        <p>
-                            {experienceData.position ?? PLACEHOLDERS.position}
-                        </p>
+                        {/* Experience Description */}
+                        <div className="w-full">
+                            <AITextImprovementInput
+                                name="description"
+                                value={experienceData.description}
+                                onChange={handleInputChange}
+                                placeholder={PLACEHOLDERS.description}
+                            />
                         </div>
-                        <p className={'times col-span-2' + DISPLAY_FORMAT}>
-                            {experienceData.location ?? PLACEHOLDERS.location}
-                        </p>
-                        <p className={'times col-span-2' + DISPLAY_FORMAT}>
-                            {experienceData.company ?? PLACEHOLDERS.company}
-                        </p>
-                    </div>
-                    <div className="grid grid-cols-6 gap-2">
-                        <MonthDisplayView monthNumber={experienceData.startDate.month} placeHolder={PLACEHOLDERS.startMonth} />
-                        <p className={'times' + DISPLAY_FORMAT}>
-                            {experienceData.startDate.year ?? PLACEHOLDERS.startYear}
-                        </p>
-                        <MonthDisplayView monthNumber={experienceData.endDate.month} placeHolder={PLACEHOLDERS.endMonth}/>
-                        <p className={'times' + DISPLAY_FORMAT}>
-                            {experienceData.endDate.year ?? PLACEHOLDERS.endYear}
-                        </p>
-                    </div>
-                    <BulletPointDisplayView text={experienceData.description} placeHolder={PLACEHOLDERS.description}/>
-                </div>
-            }
-        />
+                    </>
+                }
+                displayView={
+                    <>
+                        <div className="grid grid-cols-6 gap-2">
+                            <p className="times font-bold">{experienceData.position ?? ''}</p>
+                            <p className="times">{experienceData.location ?? ''}</p>
+                            <p className="times">{experienceData.company ?? ''}</p>
+                        </div>
+                        <div className="grid grid-cols-6 gap-2">
+                            <MonthDisplayView monthNumber={experienceData.startDate.month} />
+                            <p className="times">{experienceData.startDate.year ?? ''}</p>
+                            <MonthDisplayView monthNumber={experienceData.endDate.month} />
+                            <p className="times">{experienceData.endDate.year ?? ''}</p>
+                        </div>
+                        <BulletPointDisplayView text={experienceData.description} />
+                    </>
+                }
+            />
+        </div>
     );
 }
 

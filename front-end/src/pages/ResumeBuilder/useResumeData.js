@@ -18,8 +18,12 @@ export default function useResumeData(resumeId, useApi) {
         }
     }, [resume]);
     const save = async () => {
-        const newResume = await uploadResumeData(resumeId, resume);
-        setResume(newResume);
+        try {
+            const newResume = await uploadResumeData(resumeId, resume);
+            setResume(newResume);
+        } catch (e) {
+            console.error(e);
+        }
     };
     useEffect(() => {
         const getData = async () => {
@@ -48,7 +52,10 @@ export default function useResumeData(resumeId, useApi) {
             ...prevResume,
             education: {
                 ...prevResume.education,
-                ...updatedFields,
+                content: {
+                    ...prevResume.education.content,
+                    ...updatedFields,
+                },
             },
         }));
     };
@@ -58,16 +65,29 @@ export default function useResumeData(resumeId, useApi) {
             ...prevResume,
             experience: {
                 ...prevResume.experience,
-                items: [...experience],
+                content: [...experience],
             },
         }));
+        // setResume((prevResume) => {
+        //     const index = prevResume.experience.content.findIndex(
+        //         (item) => item.id === experienceItem.id,
+        //     );
+        //     if (index < 0) {
+        //         prevResume.experience.content.push(experienceItem);
+        //     } else {
+        //         prevResume.experience.content[index] = experienceItem;
+        //     }
+        //     return {
+        //         ...prevResume,
+        //     };
+        // });
     };
     const updateProjects = (projects) => {
         setResume((prevResume) => ({
             ...prevResume,
             projects: {
                 ...prevResume.projects,
-                items: [...projects],
+                content: [...projects],
             },
         }));
     };
@@ -77,7 +97,7 @@ export default function useResumeData(resumeId, useApi) {
             ...prevResume,
             skills: {
                 ...prevResume.skills,
-                items: skills,
+                content: skills,
             },
         }));
     };
@@ -92,7 +112,7 @@ export default function useResumeData(resumeId, useApi) {
             },
         }));
     };
-    console.log('resume inside hook', resume);
+    // console.log('resume inside hook', resume);
     return {
         resume,
         save,

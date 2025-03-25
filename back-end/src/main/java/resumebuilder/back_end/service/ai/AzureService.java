@@ -1,4 +1,5 @@
 package resumebuilder.back_end.service.ai;
+
 import org.springframework.ai.azure.openai.AzureOpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +18,7 @@ public class AzureService extends AiServiceKernel {
 
     @Override
     public String callLLM(String prompt) {
-        System.out.println("calling azure");
+        // System.out.println("calling azure");
         String generatedText = this.chatModel.call(prompt);
         return generatedText;
     }
