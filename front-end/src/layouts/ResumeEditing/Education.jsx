@@ -56,35 +56,40 @@ const Education = ({updateEducation, education}) => {
                                     className="col-span-6 italic"
                                 />
 
-                                <Months
-                                    type="Graduation"
-                                    value={education.graduationDate?.month || ''}
-                                    updateComponent={(month) =>
-                                        updateEducation({
-                                            graduationDate: {
-                                                ...education.graduationDate,
-                                                month: month,
-                                            },
-                                        })
-                                    }
-                                    handleSelectChange={(month) => {
-                                        console.log('changing month');
-                                        console.log('the new value of month is: ' + month);
-                                        updateEducation({
-                                            graduationDate: {
-                                                ...education.graduationDate,
-                                                month: month,
-                                            },
-                                        });
-                                    }}
-                                />
-                                <Input
-                                    name="year"
-                                    placeholder="Year"
-                                    value={education.graduationDate?.year || ''}
-                                    onChange={handleYearInputChange}
-                                    className=""
-                                />
+                                <div className="flex space-x-4 md:w-1/3">
+                                    <Months
+                                        type="Graduation"
+                                        value={education.graduationDate?.month || ''}
+                                        updateComponent={(month) =>
+                                            updateEducation({
+                                                graduationDate: {
+                                                    ...education.graduationDate,
+                                                    month: month,
+                                                },
+                                            })
+                                        }
+                                        handleSelectChange={(month) => {
+                                            // console.log('changing month');
+                                            // console.log('the new value of month is: ' + month);
+                                            updateEducation({
+                                                graduationDate: {
+                                                    ...education.graduationDate,
+                                                    month: month,
+                                                },
+                                            });
+                                        }}
+                                    />
+
+                                    <div>
+                                        <Input
+                                            name="year"
+                                            placeholder="Year"
+                                            value={education.graduationDate?.year || ''}
+                                            onChange={handleYearInputChange}
+                                            className="times"
+                                        />
+                                    </div>
+                                </div>
                             </div>
 
                             {/* GPA and Honors */}
@@ -120,7 +125,7 @@ const Education = ({updateEducation, education}) => {
                                 <p>{education?.location || ''}</p>
                             </div>
 
-                            <div className="flex italic flex-row items-center justify-between">
+                            <div className="flex flex-row items-center justify-between italic">
                                 <p>{education?.degree || ''}</p>
                                 <div className="flex items-center">
                                     <MonthDisplayView
