@@ -1,5 +1,4 @@
-import React from 'react';
-// import {Input} from '@/components/ui/input';
+import { enhanceText } from '@/services/aiService';
 import {AutosizeTextarea} from '@/components/ui/autosize-textarea';
 import {Button} from '@/components/ui/button';
 import {Wand2} from 'lucide-react';
@@ -14,7 +13,6 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
                 placeholder={placeholder}
                 className="times"
             />
-
             <Button
                 className="absolute bottom-2 right-2 gap-2 rounded-full p-4 text-lg"
                 variant="default"
