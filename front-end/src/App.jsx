@@ -4,7 +4,7 @@ import About from '@/pages/About';
 import Account from '@/pages/Account/Account';
 import ResumeBuilder from '@/pages/ResumeBuilder';
 import GuestResume from '@/pages/GuestResume';
-import {NavBar} from '@/components/Navbar';
+import {NavBar} from '@/components/navbar';
 
 function App() {
     return (

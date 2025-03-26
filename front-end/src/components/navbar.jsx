@@ -1,36 +1,74 @@
 'use client';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
     NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     navigationMenuTriggerStyle,
-    NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
+import { cn } from '@/lib/utils';
 
 export function NavBar() {
-    const defaultResumeId = '67352f2265e5d74b8503ce90';  // Hardcoded resume ID for demonstration
+    const defaultResumeId = '67352f2265e5d74b8503ce90';
+    const location = useLocation();
+
+    const getActiveLocation = () => {
+        if (location.pathname.includes('/resume')) return 'resume';
+        if (location.pathname.includes('/about')) return 'about';
+        if (location.pathname.includes('/account')) return 'account';
+        return '';
+    }
+
+    const activeLocation = getActiveLocation();
 
     return (
         <div className="flex flex-row justify-end rounded-xl pt-6 pr-5 shadow-sm">
             <NavigationMenu>
-                <NavigationMenuList>
+                <NavigationMenuList className="gap-1">
                     <NavigationMenuItem>
                         <Link to={`/resume/${defaultResumeId}`}>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>Resume</NavigationMenuLink>
+                            <NavigationMenuLink 
+                                className={cn(
+                                    navigationMenuTriggerStyle(),
+                                    "transition-colors hover:bg-accent/70", // Lighter hover state
+                                    activeLocation === 'resume' 
+                                        ? "border border-primary bg-accent/50" // Active state
+                                        : "bg-transparent" // Default transparent
+                                )}
+                            >
+                                Resume
+                            </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                         <Link to="/about">
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>About</NavigationMenuLink>
+                            <NavigationMenuLink 
+                                className={cn(
+                                    navigationMenuTriggerStyle(),
+                                    "transition-colors hover:bg-accent/70",
+                                    activeLocation === 'about' 
+                                        ? "border border-primary bg-accent/50" 
+                                        : "bg-transparent"
+                                )}
+                            >
+                                About
+                            </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                         <Link to="/account">
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>Account</NavigationMenuLink>
+                            <NavigationMenuLink 
+                                className={cn(
+                                    navigationMenuTriggerStyle(),
+                                    "transition-colors hover:bg-accent/70",
+                                    activeLocation === 'account' 
+                                        ? "border border-primary bg-accent/50" 
+                                        : "bg-transparent"
+                                )}
+                            >
+                                Account
+                            </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
                 </NavigationMenuList>
