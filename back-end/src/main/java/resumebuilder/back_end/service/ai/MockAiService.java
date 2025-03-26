@@ -19,4 +19,6 @@ public class MockAiService implements AiService {
         return "Mock Ai Service: " + initialText;
     }
 
+    @Override
+    public String scanResumeToJSON(String resume) { return "Mock Ai Service: " + resume; }
 }
