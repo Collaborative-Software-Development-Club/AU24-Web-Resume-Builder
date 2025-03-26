@@ -8,14 +8,9 @@ export function useGuestResume() {
         const savedResume = localStorage.getItem(LOCAL_STORAGE_KEY);
         return savedResume ? JSON.parse(savedResume) : DEFAULT_RESUME;
     });
-    const [ordering, setOrdering] = useState(
-        DEFAULT_RESUME.orderOfSections.map((item, index) => ({
-            title: item,
-            id: index.toString(),
-        })),
-    );
 
     useEffect(() => {
+        // console.log('resume in useGuestResume>useEffect', resume);
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(resume));
     }, [resume]);
 
@@ -76,6 +71,13 @@ export function useGuestResume() {
         }));
     };
 
+    const updateOrderOfSections = (newOrder) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            orderOfSections: newOrder,
+        }));
+    };
+
     // function to toggle visibility
     const toggleSectionVisibility = (sectionName, isVisible) => {
         setResume((prevResume) => ({
@@ -86,10 +88,10 @@ export function useGuestResume() {
             },
         }));
     };
+
     return {
         resume,
-        ordering,
-        setOrdering,
+        updateOrderOfSections,
         toggleSectionVisibility,
         updateName,
         updateContactMethods,

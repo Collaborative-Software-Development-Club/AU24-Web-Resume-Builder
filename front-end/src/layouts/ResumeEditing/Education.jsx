@@ -76,8 +76,8 @@ const Education = ({updateEducation, education}) => {
                                             })
                                         }
                                         handleSelectChange={(month) => {
-                                            console.log('changing month');
-                                            console.log('the new value of month is: ' + month);
+                                            // console.log('changing month');
+                                            // console.log('the new value of month is: ' + month);
                                             updateEducation({
                                                 graduationDate: {
                                                     ...education.graduationDate,
