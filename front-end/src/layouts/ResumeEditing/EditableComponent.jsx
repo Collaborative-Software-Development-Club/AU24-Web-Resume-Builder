@@ -100,14 +100,14 @@ function createNewItem(id, type) {
     console.log('creating new item');
     const base = {
         orderId: id,
-        startDate: {month: 0, year: 0},
-        endDate: {month: 0, year: 0},
+        startDate: {month: null, year: null},
+        endDate: {month: null, year: null},
         location: '',
     };
 
     if (type === 'experience') {
         return {...base, position: '', company: '', description: ''};
     } else {
-        return {...base, title: '', description: '', technologies: '', link: ''};
+        return {...base, title: '', description: '', technologies: '', link: '', organization: ''};
     }
 }

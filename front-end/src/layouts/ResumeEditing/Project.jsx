@@ -10,16 +10,12 @@ const PLACEHOLDERS = {
     title: 'Enter project title',
     description: 'Project description',
     technologies: 'Technologies used (e.g., JavaScript, React)',
-    role: 'Your role in the project',
     link: 'Link to project',
     location: 'Location (e.g., City, State)',
     organization: 'Organization (e.g., Company, University)',
     startMonth: 'Start Month',
     startYear: 'Start Year',
 };
-const DISPLAY_FORMAT = ' flex h-9 rounded-md border text-sm shadow-sm items-center px-3 py-1';
-const DISPLAY_FORMAT_TITLE =
-    ' flex h-9 rounded-md border text-md font-bold shadow-sm items-center px-3 py-1';
 
 export function Project({updateItems, project}) {
     const [projectData, setProjectData] = useState({
@@ -27,7 +23,7 @@ export function Project({updateItems, project}) {
         title: project?.title || '',
         description: project?.description || '',
         technologies: project?.technologies,
-        role: project?.organization,
+        organization: project?.organization,
         link: project?.link,
         location: project?.location,
         startDate: {
@@ -100,9 +96,9 @@ export function Project({updateItems, project}) {
                         </div>
                         <div className="grid grid-cols-3 gap-2">
                             <Input
-                                name="role"
+                                name="organization"
                                 placeholder={PLACEHOLDERS.organization}
-                                value={projectData.role}
+                                value={projectData.organization}
                                 onChange={handleInputChange}
                                 className="col-span-2"
                             />
@@ -137,38 +133,42 @@ export function Project({updateItems, project}) {
                     </div>
                 }
                 displayView={
-                    <div className="flex w-full flex-col gap-2">
-                        <div className="grid grid-cols-6 gap-2">
-                            <p className={'times col-span-3' + DISPLAY_FORMAT_TITLE}>
-                                {projectData.title ?? PLACEHOLDERS.title}
+                    <div className="times flex w-full flex-col gap-2">
+                        <div className="flex items-center justify-between gap-2">
+                            <p className="col-span-3 font-bold">
+                                {projectData.title == '' ? PLACEHOLDERS.title : projectData.title}
                             </p>
-                            <p className={'times' + DISPLAY_FORMAT}>
-                                {projectData.link ?? PLACEHOLDERS.link}
-                            </p>
-                            <MonthDisplayView
-                                monthNumber={projectData.startDate.month}
-                                placeholder={PLACEHOLDERS.startMonth}
-                            />
-                            <p className={'times' + DISPLAY_FORMAT}>
-                                {projectData.startYear ?? PLACEHOLDERS.startYear}
-                            </p>
+                            <p>{projectData.link == '' ? PLACEHOLDERS.link : projectData.link}</p>
+                            <div className="flex items-center justify-between italic">
+                                <MonthDisplayView
+                                    monthNumber={projectData.startDate.month}
+                                    placeholder={PLACEHOLDERS.startMonth}
+                                />
+                                <p>{projectData.startYear ?? PLACEHOLDERS.startYear}</p>
+                            </div>
                         </div>
-                        <div className="grid grid-cols-3 gap-2">
-                            <p className={'times col-span-2' + DISPLAY_FORMAT}>
-                                {projectData.role ?? PLACEHOLDERS.role}
+                        <div className="flex flex-row items-center justify-between gap-2">
+                            <p>
+                                {projectData.organization == ''
+                                    ? PLACEHOLDERS.organization
+                                    : projectData.organization}
                             </p>
-                            <p className={'times' + DISPLAY_FORMAT}>
-                                {projectData.location ?? PLACEHOLDERS.location}
+                            <p>
+                                {projectData.location == ''
+                                    ? PLACEHOLDERS.location
+                                    : projectData.location}
                             </p>
                         </div>
                         <BulletPointDisplayView
                             text={projectData.description}
-                            placeholder={PLACEHOLDERS.description}
+                            placeHolder={PLACEHOLDERS.description}
                         />
                         {/* Technologies */}
                         <div className="sm:flex-grow">
-                            <p className={'times' + DISPLAY_FORMAT}>
-                                {projectData.technologies ?? PLACEHOLDERS.technologies}
+                            <p>
+                                {projectData.technologies == ''
+                                    ? PLACEHOLDERS.technologies
+                                    : projectData.technologies}
                             </p>
                         </div>
                     </div>

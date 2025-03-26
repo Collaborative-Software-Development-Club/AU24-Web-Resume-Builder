@@ -17,10 +17,6 @@ const PLACEHOLDERS = {
     endYear: 'End Year',
     location: 'Location (e.g., City, State)',
 };
-const DISPLAY_FORMAT =
-    ' flex h-9 rounded-md border text-sm shadow-sm items-center px-3 py-1';
-const DISPLAY_FORMAT_POSITION =
-    ' flex h-9 rounded-md border text-md font-bold shadow-sm items-center px-3 py-1';
 
 //Remove the usestate, update handle functions, and add Month component
 export function Experience({updateItems, experience}) {
@@ -70,27 +66,13 @@ export function Experience({updateItems, experience}) {
     const isEmpty =
         experience.position === '' && experience.company === '' && experience.description === '';
     return (
-        <div className="flex w-full flex-col gap-2">
+        <>
             <SectionEditing
                 sectionName="experience"
                 empty={isEmpty}
                 editingView={
-                    <>
-                        <div className="times grid grid-cols-6 gap-2">
-                            <Input
-                                name="position"
-                                value={experienceData.position}
-                                placeholder={PLACEHOLDERS.position}
-                                className="text-md col-span-2 font-bold"
-                                onChange={handleInputChange}
-                            />
-                            <Input
-                                name="location"
-                                value={experienceData.location}
-                                placeholder={PLACEHOLDERS.location}
-                                className="col-span-2"
-                                onChange={handleInputChange}
-                            />
+                    <div className="times flex w-full flex-col gap-2">
+                        <div className="text-md grid grid-cols-3 justify-between gap-2 font-bold">
                             <Input
                                 name="company"
                                 value={experienceData.company}
@@ -98,35 +80,50 @@ export function Experience({updateItems, experience}) {
                                 className="col-span-2"
                                 onChange={handleInputChange}
                             />
+                            <Input
+                                name="location"
+                                value={experienceData.location}
+                                placeholder={PLACEHOLDERS.location}
+                                className="col-span-1 text-right"
+                                onChange={handleInputChange}
+                            />
                         </div>
-
-                    {/* Start Date (Month and Year) */}
-                    <div className="grid grid-cols-6 gap-2">
-                        <Months
-                            type="Start"
-                            handleSelectChange={handleSelectChange}
-                            value={experienceData.startDate.month}
-                        />
-                        <Input
-                            name="startYear"
-                            placeholder="Start Year"
-                            value={experienceData.startDate.year}
-                            onChange={(e) =>
-                                handleSelectChange('startDate', 'year', e.target.value)
-                            }
-                        />
-                        <Months
-                            type="End"
-                            handleSelectChange={handleSelectChange}
-                            value={experienceData.endDate.month}
-                        />
-                        <Input
-                            name="endYear"
-                            placeholder="End Year"
-                            value={experienceData.endDate.year}
-                            onChange={(e) => handleSelectChange('endDate', 'year', e.target.value)}
-                        />
-                    </div>
+                        <div className="times grid grid-cols-8 gap-2">
+                            <Input
+                                name="position"
+                                value={experienceData.position}
+                                placeholder={PLACEHOLDERS.position}
+                                className="col-span-4"
+                                onChange={handleInputChange}
+                            />
+                            {/* Start Date (Month and Year) */}
+                            <Months
+                                type="Start"
+                                handleSelectChange={handleSelectChange}
+                                value={experienceData.startDate.month}
+                            />
+                            <Input
+                                name="startYear"
+                                placeholder="Start Year"
+                                value={experienceData.startDate.year}
+                                onChange={(e) =>
+                                    handleSelectChange('startDate', 'year', e.target.value)
+                                }
+                            />
+                            <Months
+                                type="End"
+                                handleSelectChange={handleSelectChange}
+                                value={experienceData.endDate.month}
+                            />
+                            <Input
+                                name="endYear"
+                                placeholder="End Year"
+                                value={experienceData.endDate.year}
+                                onChange={(e) =>
+                                    handleSelectChange('endDate', 'year', e.target.value)
+                                }
+                            />
+                        </div>
 
                         {/* Experience Description */}
                         <div className="w-full">
@@ -137,26 +134,58 @@ export function Experience({updateItems, experience}) {
                                 placeholder={PLACEHOLDERS.description}
                             />
                         </div>
-                    </>
+                    </div>
                 }
                 displayView={
-                    <>
-                        <div className="grid grid-cols-6 gap-2">
-                            <p className="times font-bold">{experienceData.position ?? ''}</p>
-                            <p className="times">{experienceData.location ?? ''}</p>
-                            <p className="times">{experienceData.company ?? ''}</p>
+                    <div className="times flex w-full flex-col">
+                        <div className="flex flex-row justify-between gap-2 font-bold">
+                            <p>
+                                {experienceData.company == ''
+                                    ? PLACEHOLDERS.company
+                                    : experienceData.company}
+                            </p>
+                            <p>
+                                {experienceData.location == ''
+                                    ? PLACEHOLDERS.location
+                                    : experienceData.location}
+                            </p>
                         </div>
-                        <div className="grid grid-cols-6 gap-2">
-                            <MonthDisplayView monthNumber={experienceData.startDate.month} />
-                            <p className="times">{experienceData.startDate.year ?? ''}</p>
-                            <MonthDisplayView monthNumber={experienceData.endDate.month} />
-                            <p className="times">{experienceData.endDate.year ?? ''}</p>
+                        <div className="flex items-center justify-between">
+                            <p>
+                                {experienceData.position == ''
+                                    ? PLACEHOLDERS.position
+                                    : experienceData.position}
+                            </p>
+                            <div className="flew-col flex items-center italic">
+                                <div className="flew-col flex items-center">
+                                    <MonthDisplayView
+                                        monthNumber={experienceData.startDate.month}
+                                        placeHolder={PLACEHOLDERS.startMonth}
+                                    />
+                                    <p className="times">
+                                        {experienceData.startDate.year ?? PLACEHOLDERS.startYear}
+                                    </p>
+                                </div>
+                                <p className="px-2">-</p>
+                                <div className="flew-col flex items-center">
+                                    <MonthDisplayView
+                                        monthNumber={experienceData.endDate.month}
+                                        placeHolder={PLACEHOLDERS.endMonth}
+                                    />
+                                    <p className="">
+                                        {experienceData.endDate.year ?? PLACEHOLDERS.endYear}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <BulletPointDisplayView text={experienceData.description} />
-                    </>
+                        <BulletPointDisplayView
+                            text={experienceData.description}
+                            placeHolder={PLACEHOLDERS.description}
+                        />
+                    </div>
                 }
             />
-        </div>
+        </>
     );
 }
 
