@@ -31,10 +31,10 @@ export function NavBar() {
                             <NavigationMenuLink 
                                 className={cn(
                                     navigationMenuTriggerStyle(),
-                                    "transition-colors hover:bg-accent/70", // Lighter hover state
+                                    "transition-colors hover:bg-accent/70", // hover
                                     activeLocation === 'resume' 
-                                        ? "border border-primary bg-accent/50" // Active state
-                                        : "bg-transparent" // Default transparent
+                                        ? "border border-primary bg-accent/50" // active tab
+                                        : "bg-transparent" // default transparent
                                 )}
                             >
                                 Resume
