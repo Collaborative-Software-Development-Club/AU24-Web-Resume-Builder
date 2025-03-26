@@ -2,6 +2,7 @@ import {MONTHS} from '@/constants/months';
 
 export function MonthDisplayView({monthNumber, placeHolder}) {
     const monthName = MONTHS.find((monthInfo) => monthInfo.value == monthNumber);
+    console.log(monthName, placeHolder)
     return (
         <div className="flex h-9 items-center justify-between whitespace-nowrap px-1">
             <p>{monthName?.name  ??  placeHolder}</p>

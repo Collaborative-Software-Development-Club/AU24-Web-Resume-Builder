@@ -1,4 +1,3 @@
-import React from 'react';
 import {EditableList} from '@/components/EditableList';
 
 export function ContactMethods({contactMethods, updateContactMethods}) {

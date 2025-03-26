@@ -100,8 +100,8 @@ function createNewItem(id, type) {
     console.log('creating new item');
     const base = {
         orderId: id,
-        startDate: {month: null, year: null},
-        endDate: {month: null, year: null},
+        startDate: {month: 0, year: null},
+        endDate: {month: 0, year: null},
         location: '',
     };
 
