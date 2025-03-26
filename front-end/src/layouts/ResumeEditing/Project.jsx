@@ -32,7 +32,7 @@ export function Project({updateItems, project}) {
             year: project?.startDate?.year || '',
         },
     });
-    console.log('projectData in Project', projectData);
+    // console.log('projectData in Project', projectData);
 
     // Handle input changes for text fields
     const handleInputChange = (e) => {
@@ -41,7 +41,7 @@ export function Project({updateItems, project}) {
             ...projectData,
             [name]: value,
         };
-        console.log('newProjectData', newProjectData);
+        // console.log('newProjectData', newProjectData);
         setProjectData(newProjectData);
         updateItems(newProjectData);
     };

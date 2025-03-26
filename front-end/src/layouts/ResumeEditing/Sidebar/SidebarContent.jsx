@@ -7,85 +7,85 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
     // const toggleSidebar = () => {
     //     setIsOpen(!isOpen);
     // };
+    // console.log('ordering in sidebar content', ordering);
+    const updatedOrder = ordering
+        .map((sectionId) => {
+            let content;
 
-    const updatedOrder = ordering?.map((item) => {
-        let content;
+            const sectionName = sectionId.toLowerCase();
 
-        const sectionName = item.title.toLowerCase();
+            const handleVisibilityChange = (isVisible) => {
+                toggleSectionVisibility(sectionName, isVisible);
+            };
 
-        const handleVisibilityChange = (isVisible) => {
-            toggleSectionVisibility(sectionName, isVisible);
-        };
-
-        switch (item.title) {
-            case 'EDUCATION':
-                content = (
-                    <SidebarItem
-                        key={item.id}
-                        section={resume.education}
-                        name="Education"
-                        elements={['GPA', 'Honors']}
-                        handleVisibilityChange={handleVisibilityChange}
-                    />
-                );
-                break;
-            case 'EXPERIENCE':
-                content = (
-                    <SidebarItem
-                        key={item.id}
-                        section={resume.experience}
-                        name="Experience"
-                        handleVisibilityChange={handleVisibilityChange}
-                    />
-                );
-                break;
-            case 'PROJECTS':
-                content = (
-                    <SidebarItem
-                        key={item.id}
-                        section={resume.projects}
-                        name="Projects"
-                        handleVisibilityChange={handleVisibilityChange}
-                    />
-                );
-                break;
-            case 'SKILLS':
-                content = (
-                    <SidebarItem
-                        key={item.id}
-                        section={resume.skills}
-                        name="Skills"
-                        handleVisibilityChange={handleVisibilityChange}
-                    />
-                );
-                break;
-            default:
-                content = null;
-        }
-        return {
-            ...item,
-            content,
-        };
-    });
+            switch (sectionId) {
+                case 'EDUCATION':
+                    content = (
+                        <SidebarItem
+                            key={sectionId}
+                            section={resume.education}
+                            name="Education"
+                            elements={['GPA', 'Honors']}
+                            handleVisibilityChange={handleVisibilityChange}
+                        />
+                    );
+                    break;
+                case 'EXPERIENCE':
+                    content = (
+                        <SidebarItem
+                            key={sectionId}
+                            section={resume.experience}
+                            name="Experience"
+                            handleVisibilityChange={handleVisibilityChange}
+                        />
+                    );
+                    break;
+                case 'PROJECTS':
+                    content = (
+                        <SidebarItem
+                            key={sectionId}
+                            section={resume.projects}
+                            name="Projects"
+                            handleVisibilityChange={handleVisibilityChange}
+                        />
+                    );
+                    break;
+                case 'SKILLS':
+                    content = (
+                        <SidebarItem
+                            key={sectionId}
+                            section={resume.skills}
+                            name="Skills"
+                            handleVisibilityChange={handleVisibilityChange}
+                        />
+                    );
+                    break;
+                default:
+                    // throw new Error('Unexpected value for sectionId in SidebarContent');
+                    // TODO order of sections includes sections not handled in the front-end, like PROFESSIONAL_SUMMARY and VOLUNTEER_EXPERIENCE
+                    content = null;
+            }
+            return {
+                orderId: sectionId,
+                sectionId,
+                content,
+            };
+        })
+        .filter((item) => item.content != null);
 
     // Passed in setter for array
     const setResumeOrdering = (newArray) => {
-        setOrdering(newArray);
-        resume.orderOfSections = newArray.map((item) => {
-            return item.title;
-        });
+        // console.log('setting resume order on SidebarContent');
+        // console.log('newArray in SidebarContent > setResumeOrdering ');
+        setOrdering(newArray.map((item) => item.sectionId));
     };
-    // console.log('updatedOrder', updatedOrder);
+    // console.log('updatedOrder in sidebar content', updatedOrder);
     return (
         <div className="Sidebar flex w-full flex-col">
             <p className="text-lg 2xl:pt-5">Set Visibility & Ordering</p>
             <div className="sidebar-content">
                 <ul className="cursor-pointer list-none">
-                    <DragAndDropList
-                        resume={resume}
-                        array={updatedOrder}
-                        setArray={setResumeOrdering}
-                    />
+                    <DragAndDropList items={updatedOrder} setItems={setResumeOrdering} />
                 </ul>
             </div>
         </div>

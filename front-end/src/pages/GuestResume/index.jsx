@@ -4,7 +4,17 @@ import {GuestSaveDialog} from '@/components/GuestSaveDialog';
 import {useGuestResume} from './useGuestResume';
 
 export default function ResumeBuilder() {
-    const {resume, ordering, setOrdering, toggleSectionVisibility, updateName, updateContactMethods, updateEducation, updateExperience, updateProjects, updateSkills} = useGuestResume();
+    const {
+        resume,
+        updateOrderOfSections,
+        toggleSectionVisibility,
+        updateName,
+        updateContactMethods,
+        updateEducation,
+        updateExperience,
+        updateProjects,
+        updateSkills,
+    } = useGuestResume();
     //to be passed into GuestSaveDialog
     const handleSave = async () => {
         try {
@@ -16,8 +26,7 @@ export default function ResumeBuilder() {
     return (
         <ResumeEditing
             resume={resume}
-            ordering={ordering}
-            setOrdering={setOrdering}
+            updateOrderOfSections={updateOrderOfSections}
             toggleSectionVisibility={toggleSectionVisibility}
             saveButton={<GuestSaveDialog />}
             updateName={updateName}

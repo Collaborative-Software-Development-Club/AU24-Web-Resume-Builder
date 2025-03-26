@@ -44,7 +44,7 @@ export function Experience({updateItems, experience}) {
             ...experienceData,
             [name]: value,
         };
-        console.log('newExperienceData', newExperienceData);
+        // console.log('newExperienceData', newExperienceData);
         setExperienceData(newExperienceData);
         updateItems(newExperienceData);
     };
