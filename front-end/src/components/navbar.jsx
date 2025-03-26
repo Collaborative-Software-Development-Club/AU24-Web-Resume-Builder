@@ -23,7 +23,7 @@ export function NavBar() {
     const activeLocation = getActiveLocation();
 
     return (
-        <div className="flex flex-row justify-end rounded-xl pt-6 pr-5 shadow-sm">
+        <div className="flex flex-row justify-end rounded-xl pr-5 pt-6 shadow-sm">
             <NavigationMenu>
                 <NavigationMenuList className="gap-1">
                     <NavigationMenuItem>

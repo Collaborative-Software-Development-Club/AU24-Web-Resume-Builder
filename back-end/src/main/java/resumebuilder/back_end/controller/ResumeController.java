@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import resumebuilder.back_end.domain.dto.ResumeDto;
 import resumebuilder.back_end.service.ResumeService;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -22,15 +21,29 @@ public class ResumeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResumeDto> createResume(@RequestBody ResumeDto resumeDto) {
-        ResumeDto createdResume = resumeService.save(resumeDto);
-        return new ResponseEntity<>(createdResume, HttpStatus.CREATED);
+    public ResponseEntity<ResumeDto> createResume(@RequestParam(value = "userId") String userId,
+            @RequestBody ResumeDto resumeDto) {
+        // System.out.println("Creating resume");
+        if (userId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        resumeDto.setUserId(userId);
+        Optional<ResumeDto> createdResume = resumeService.save(resumeDto);
+        if (createdResume.isEmpty()) {
+            // System.out.println("Error in createResume");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        // System.out.println("saved resume");
+        return new ResponseEntity<>(createdResume.get(), HttpStatus.CREATED);
     }
 
     @GetMapping("")
-    public ResponseEntity<List<ResumeDto>> getAllResumes() {
-        List<ResumeDto> resumes = resumeService.findAll();
+    public ResponseEntity<List<ResumeDto>> getAllResumes(@RequestParam(value = "userId") String userId) {
+        // System.out.println("In getAllResumes");
+        // TODO add a different response for when the userId is invalid
+        List<ResumeDto> resumes = resumeService.findByUserId(userId);
         if (resumes.isEmpty()) {
+            // System.out.println("No resumes found or error");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(resumes, HttpStatus.OK);
@@ -46,24 +59,15 @@ public class ResumeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResumeDto> fullUpdateResume(
+    public ResponseEntity<ResumeDto> updateResume(
             @PathVariable("id") String id,
-            @RequestBody ResumeDto resumeDto
-    ) {
-        if(!resumeService.exists(id)) {
+            @RequestBody ResumeDto resumeDto) {
+        // System.out.println("PUT /resume");
+        Optional<ResumeDto> updatedResume = resumeService.update(id, resumeDto);
+        if (updatedResume.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        ResumeDto updatedResume = resumeService.save(resumeDto);
-        return new ResponseEntity<>(updatedResume, HttpStatus.OK);
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<ResumeDto> partialUpdateResume(
-            @PathVariable("id") String id,
-            @RequestBody ResumeDto resumeDto
-    ) {
-        ResumeDto updatedResume = resumeService.partialUpdate(id, resumeDto);
-        return new ResponseEntity<>(updatedResume, HttpStatus.OK);
+        return new ResponseEntity<>(updatedResume.get(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

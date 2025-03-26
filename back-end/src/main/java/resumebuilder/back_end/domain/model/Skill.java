@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Skill extends VisibleElement {
+public class Skill {
     private String skillName;
 }

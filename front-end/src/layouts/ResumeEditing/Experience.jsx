@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {DEFAULT_RESUME} from '@/lib/DEFAULT_RESUME';
 import {Input} from '@/components/ui/input';
 import Months from './Months';
 import {SectionEditing} from './SectionEditing';
@@ -20,8 +21,7 @@ const PLACEHOLDERS = {
 //Remove the usestate, update handle functions, and add Month component
 export function Experience({updateItems, experience}) {
     const [experienceData, setExperienceData] = useState({
-        visible: experience?.visible,
-        id: experience?.id,
+        orderId: experience?.orderId,
         position: experience?.position || '',
         company: experience?.company || '',
         description: experience?.description || '',
@@ -35,6 +35,7 @@ export function Experience({updateItems, experience}) {
             year: experience?.endDate?.year || '',
         },
     });
+    // console.log(`experienceData`, experienceData);
 
     // Handle input changes for text fields
     const handleInputChange = (e) => {
@@ -43,6 +44,7 @@ export function Experience({updateItems, experience}) {
             ...experienceData,
             [name]: value,
         };
+        console.log('newExperienceData', newExperienceData);
         setExperienceData(newExperienceData);
         updateItems(newExperienceData);
     };
@@ -59,13 +61,18 @@ export function Experience({updateItems, experience}) {
         setExperienceData(updatedData);
         updateItems(updatedData);
     };
+    // console.log(JSON.stringify(education));
+    // console.log(JSON.stringify(DEFAULT_RESUME.education.content));
+    const isEmpty =
+        experience.position === '' && experience.company === '' && experience.description === '';
     return (
         <div className="flex w-full flex-col gap-2">
             <SectionEditing
-                empty={experience == undefined || experienceData.position == ''}
+                sectionName="experience"
+                empty={isEmpty}
                 editingView={
                     <>
-                        <div className="grid grid-cols-6 gap-2">
+                        <div className="times grid grid-cols-6 gap-2">
                             <Input
                                 name="position"
                                 value={experienceData.position}

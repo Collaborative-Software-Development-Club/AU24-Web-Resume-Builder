@@ -6,7 +6,6 @@ import resumebuilder.back_end.domain.entities.UserEntity;
 import resumebuilder.back_end.mappers.UserMapper;
 import resumebuilder.back_end.repository.UserRepository;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +48,6 @@ public class UserService {
         Optional<UserEntity> user = userRepository.findById(userId);
         if (user.isPresent()) {
             UserEntity userEntity = user.get();
-            userEntity.addResume(resumeId);
             userRepository.save(userEntity);
             return Optional.ofNullable(userMapper.mapToDto(userEntity));
         }
@@ -60,7 +58,6 @@ public class UserService {
         Optional<UserEntity> user = userRepository.findById(userId);
         if (user.isPresent()) {
             UserEntity userEntity = user.get();
-            userEntity.removeResume(resumeId);
             userRepository.save(userEntity);
             return Optional.ofNullable(userMapper.mapToDto(userEntity));
         }
