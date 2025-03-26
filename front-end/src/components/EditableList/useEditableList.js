@@ -20,7 +20,6 @@ export function useEditableList(list, updateList) {
             }
             return element;
         });
-        console.log(newList);
         setEditableList(newList);
         updateList(newList.map((item) => item.value));
     }

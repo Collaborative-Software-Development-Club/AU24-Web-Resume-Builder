@@ -2,8 +2,9 @@ import useResumeData from './useResumeData';
 import {useParams} from 'react-router-dom';
 import ResumeEditing from '@/layouts/ResumeEditing';
 import {Button} from '@/components/ui/button';
+import flags from '@/flags.json';
 
-const USE_API = true;
+const USE_API = flags.useApi;
 
 export default function ResumeBuilder() {
     const resumeId = useParams()?.resumeId;
@@ -13,9 +14,8 @@ export default function ResumeBuilder() {
     const {
         resume,
         save,
-        ordering,
-        setOrdering,
         toggleSectionVisibility,
+        updateOrderOfSections,
         updateName,
         updateContactMethods,
         updateEducation,
@@ -34,8 +34,7 @@ export default function ResumeBuilder() {
     return (
         <ResumeEditing
             resume={resume}
-            ordering={ordering}
-            setOrdering={setOrdering}
+            updateOrderOfSections={updateOrderOfSections}
             toggleSectionVisibility={toggleSectionVisibility}
             saveButton={saveButton}
             updateName={updateName}

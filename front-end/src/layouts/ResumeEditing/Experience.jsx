@@ -1,5 +1,3 @@
-import {useState} from 'react';
-import {DEFAULT_RESUME} from '@/lib/DEFAULT_RESUME';
 import {Input} from '@/components/ui/input';
 import Months from './Months';
 import {SectionEditing} from './SectionEditing';
@@ -13,100 +11,75 @@ const PLACEHOLDERS = {
     description: 'Brief description of responsibilities',
     startMonth: 'Start Month',
     startYear: 'Start Year',
-    endMonth: 'End Month (or present)',
+    endMonth: 'End Month',
     endYear: 'End Year',
     location: 'Location (e.g., City, State)',
 };
 
-//Remove the usestate, update handle functions, and add Month component
 export function Experience({updateItems, experience}) {
-    const [experienceData, setExperienceData] = useState({
-        orderId: experience?.orderId,
-        position: experience?.position || '',
-        company: experience?.company || '',
-        description: experience?.description || '',
-        location: experience?.location || '',
-        startDate: {
-            month: experience?.startDate?.month || '',
-            year: experience?.startDate?.year || '',
-        },
-        endDate: {
-            month: experience?.endDate?.month || '',
-            year: experience?.endDate?.year || '',
-        },
-    });
-    // console.log(`experienceData`, experienceData);
-
     // Handle input changes for text fields
     const handleInputChange = (e) => {
         const {name, value} = e.target;
-        const newExperienceData = {
-            ...experienceData,
+        updateItems({
+            ...experience,
             [name]: value,
-        };
-        console.log('newExperienceData', newExperienceData);
-        setExperienceData(newExperienceData);
-        updateItems(newExperienceData);
+        });
     };
 
     // Handle selection changes for month
     const handleSelectChange = (dateType, field, value) => {
-        const updatedData = {
-            ...experienceData,
+        updateItems({
+            ...experience,
             [dateType]: {
-                ...experienceData[dateType],
+                ...experience[dateType],
                 [field]: value,
             },
-        };
-        setExperienceData(updatedData);
-        updateItems(updatedData);
+        });
     };
-    // console.log(JSON.stringify(education));
-    // console.log(JSON.stringify(DEFAULT_RESUME.education.content));
+
     const isEmpty =
         experience.position === '' && experience.company === '' && experience.description === '';
     return (
-        <div className="flex w-full flex-col gap-2">
+        <>
             <SectionEditing
                 sectionName="experience"
                 empty={isEmpty}
                 editingView={
-                    <>
-                        <div className="times grid grid-cols-6 gap-2">
-                            <Input
-                                name="position"
-                                value={experienceData.position}
-                                placeholder={PLACEHOLDERS.position}
-                                className="text-md col-span-2 font-bold"
-                                onChange={handleInputChange}
-                            />
-                            <Input
-                                name="location"
-                                value={experienceData.location}
-                                placeholder={PLACEHOLDERS.location}
-                                className="col-span-2"
-                                onChange={handleInputChange}
-                            />
+                    <div className="times flex w-full flex-col gap-2">
+                        <div className="text-md grid grid-cols-3 justify-between gap-2 font-bold">
                             <Input
                                 name="company"
-                                value={experienceData.company}
+                                value={experience.company}
                                 placeholder={PLACEHOLDERS.company}
                                 className="col-span-2"
                                 onChange={handleInputChange}
                             />
+                            <Input
+                                name="location"
+                                value={experience.location}
+                                placeholder={PLACEHOLDERS.location}
+                                className="col-span-1 text-right"
+                                onChange={handleInputChange}
+                            />
                         </div>
-
-                        {/* Start Date (Month and Year) */}
-                        <div className="grid grid-cols-6 gap-2">
+                        <div className="times grid grid-cols-8 gap-2">
+                            <Input
+                                name="position"
+                                value={experience.position}
+                                placeholder={PLACEHOLDERS.position}
+                                className="col-span-4"
+                                onChange={handleInputChange}
+                            />
+                            {/* Start Date (Month and Year) */}
                             <Months
                                 type="Start"
                                 handleSelectChange={handleSelectChange}
-                                value={experienceData.startDate.month}
+                                value={experience.startDate.month}
                             />
                             <Input
                                 name="startYear"
                                 placeholder="Start Year"
-                                value={experienceData.startDate.year}
+                                value={experience.startDate.year}
                                 onChange={(e) =>
                                     handleSelectChange('startDate', 'year', e.target.value)
                                 }
@@ -114,12 +87,12 @@ export function Experience({updateItems, experience}) {
                             <Months
                                 type="End"
                                 handleSelectChange={handleSelectChange}
-                                value={experienceData.endDate.month}
+                                value={experience.endDate.month}
                             />
                             <Input
                                 name="endYear"
                                 placeholder="End Year"
-                                value={experienceData.endDate.year}
+                                value={experience.endDate.year}
                                 onChange={(e) =>
                                     handleSelectChange('endDate', 'year', e.target.value)
                                 }
@@ -130,32 +103,64 @@ export function Experience({updateItems, experience}) {
                         <div className="w-full">
                             <Input
                                 name="description"
-                                value={experienceData.description}
+                                value={experience.description}
                                 onChange={handleInputChange}
                                 placeholder={PLACEHOLDERS.description}
                                 className=""
                             />
                         </div>
-                    </>
+                    </div>
                 }
                 displayView={
-                    <>
-                        <div className="grid grid-cols-6 gap-2">
-                            <p className="times font-bold">{experienceData.position ?? ''}</p>
-                            <p className="times">{experienceData.location ?? ''}</p>
-                            <p className="times">{experienceData.company ?? ''}</p>
+                    <div className="times flex w-full flex-col">
+                        <div className="flex flex-row justify-between gap-2 font-bold">
+                            <p>
+                                {experience.company == ''
+                                    ? PLACEHOLDERS.company
+                                    : experience.company}
+                            </p>
+                            <p>
+                                {experience.location == ''
+                                    ? PLACEHOLDERS.location
+                                    : experience.location}
+                            </p>
                         </div>
-                        <div className="grid grid-cols-6 gap-2">
-                            <MonthDisplayView monthNumber={experienceData.startDate.month} />
-                            <p className="times">{experienceData.startDate.year ?? ''}</p>
-                            <MonthDisplayView monthNumber={experienceData.endDate.month} />
-                            <p className="times">{experienceData.endDate.year ?? ''}</p>
+                        <div className="flex items-center justify-between">
+                            <p>
+                                {experience.position == ''
+                                    ? PLACEHOLDERS.position
+                                    : experience.position}
+                            </p>
+                            <div className="flew-col flex items-center italic">
+                                <div className="flew-col flex items-center">
+                                    <MonthDisplayView
+                                        monthNumber={experience.startDate.month}
+                                        placeHolder={PLACEHOLDERS.startMonth}
+                                    />
+                                    <p className="times">
+                                        {experience.startDate.year ?? PLACEHOLDERS.startYear}
+                                    </p>
+                                </div>
+                                <p className="px-2">-</p>
+                                <div className="flew-col flex items-center">
+                                    <MonthDisplayView
+                                        monthNumber={experience.endDate.month}
+                                        placeHolder={PLACEHOLDERS.endMonth}
+                                    />
+                                    <p className="">
+                                        {experience.endDate.year ?? PLACEHOLDERS.endYear}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <BulletPointDisplayView text={experienceData.description} />
-                    </>
+                        <BulletPointDisplayView
+                            text={experience.description}
+                            placeHolder={PLACEHOLDERS.description}
+                        />
+                    </div>
                 }
             />
-        </div>
+        </>
     );
 }
 

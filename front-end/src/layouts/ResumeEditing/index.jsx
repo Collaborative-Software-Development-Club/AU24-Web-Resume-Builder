@@ -11,10 +11,9 @@ import {Fragment} from 'react';
 
 export default function ResumeEditing({
     resume,
-    ordering,
-    setOrdering,
     toggleSectionVisibility,
     saveButton,
+    updateOrderOfSections,
     updateName,
     updateContactMethods,
     updateEducation,
@@ -25,10 +24,12 @@ export default function ResumeEditing({
     const download = () => {
         downloadResume(resume);
     };
-    console.log('resume in resumeEditing', resume);
-    console.log('ordering', ordering);
     // Helper function to check visibility
-    const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
+    const isVisible = (title) => {
+        const section = resume[title.toLowerCase()];
+        // TODO this currently does not handle sections where the value of the enum resume.orderOfSections isn't the same spelling as the section name in the resume object
+        return section?.visible;
+    };
     // Map of components for easy rendering
     const sections = {
         EDUCATION: (
@@ -45,12 +46,12 @@ export default function ResumeEditing({
     };
     return (
         <div className="flex justify-center pb-20 sm:mx-10">
-            <div className="flex w-full max-w-6xl flex-col items-stretch justify-start self-stretch">
+            <div className="flex w-full max-w-5xl flex-col items-stretch justify-start self-stretch gap-2">
                 {/* Sidebar to control visibility and ordering */}
                 <Sidebar
                     resume={resume}
-                    ordering={ordering}
-                    setOrdering={setOrdering}
+                    ordering={resume.orderOfSections}
+                    setOrdering={updateOrderOfSections}
                     toggleSectionVisibility={toggleSectionVisibility}
                 />
 
@@ -68,10 +69,10 @@ export default function ResumeEditing({
                 />
 
                 {/* Render ordered components conditionally */}
-                {ordering?.map(
-                    (item) =>
-                        isVisible(item.title) && (
-                            <Fragment key={item.title}>{sections[item.title]}</Fragment>
+                {resume.orderOfSections?.map(
+                    (sectionId) =>
+                        isVisible(sectionId) && (
+                            <Fragment key={sectionId}>{sections[sectionId]}</Fragment>
                         ),
                 )}
             </div>

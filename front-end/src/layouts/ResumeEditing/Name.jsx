@@ -55,7 +55,7 @@ export function Name({name, updateName}) {
                     </form>
                 </Form>
             }
-            displayView={<h1 className="times text-center text-2xl">{name}</h1>}
+            displayView={<h1 className="times text-center text-2xl h-9 rounded-md border shadow-smpx-3 py-1">{name}</h1>}
         />
     );
 }

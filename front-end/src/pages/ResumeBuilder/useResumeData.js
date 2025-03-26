@@ -4,19 +4,6 @@ import uploadResumeData from '@/services/uploadResumeData';
 
 export default function useResumeData(resumeId, useApi) {
     const [resume, setResume] = useState(null);
-    const [ordering, setOrdering] = useState([]);
-
-    //change to updateOrder
-    useEffect(() => {
-        if (resume) {
-            setOrdering(
-                resume.orderOfSections.map((item, index) => ({
-                    title: item,
-                    id: index.toString(),
-                })),
-            );
-        }
-    }, [resume]);
     const save = async () => {
         try {
             const newResume = await uploadResumeData(resumeId, resume);
@@ -102,6 +89,13 @@ export default function useResumeData(resumeId, useApi) {
         }));
     };
 
+    const updateOrderOfSections = (newOrder) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            orderOfSections: newOrder,
+        }));
+    };
+
     // function to toggle visibility
     const toggleSectionVisibility = (sectionName, isVisible) => {
         setResume((prevResume) => ({
@@ -116,9 +110,8 @@ export default function useResumeData(resumeId, useApi) {
     return {
         resume,
         save,
-        ordering,
-        setOrdering,
         toggleSectionVisibility,
+        updateOrderOfSections,
         updateName,
         updateContactMethods,
         updateEducation,
