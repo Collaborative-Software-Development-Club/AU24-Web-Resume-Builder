@@ -90,14 +90,14 @@ export default function EditableComponent({updateComponent, type, data}) {
 function createNewItem(id, type) {
     const base = {
         orderId: id,
-        startDate: {month: 0, year: 0},
-        endDate: {month: 0, year: 0},
+        startDate: {month: 0, year: null},
+        endDate: {month: 0, year: null},
         location: '',
     };
 
     if (type === 'experience') {
         return {...base, position: '', company: '', description: ''};
     } else {
-        return {...base, title: '', description: '', technologies: '', link: ''};
+        return {...base, title: '', description: '', technologies: '', link: '', organization: ''};
     }
 }
