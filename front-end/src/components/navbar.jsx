@@ -14,7 +14,6 @@ export function NavBar() {
     const location = useLocation();
 
     const getActiveLocation = () => {
-        if (location.pathname.includes('/resume')) return 'resume';
         if (location.pathname.includes('/about')) return 'about';
         if (location.pathname.includes('/account')) return 'account';
         return '';
@@ -27,29 +26,14 @@ export function NavBar() {
             <NavigationMenu>
                 <NavigationMenuList className="gap-1">
                     <NavigationMenuItem>
-                        <Link to={`/resume/${defaultResumeId}`}>
-                            <NavigationMenuLink 
-                                className={cn(
-                                    navigationMenuTriggerStyle(),
-                                    "transition-colors hover:bg-accent/70", // hover
-                                    activeLocation === 'resume' 
-                                        ? "border border-primary bg-accent/50" // active tab
-                                        : "bg-transparent" // default transparent
-                                )}
-                            >
-                                Resume
-                            </NavigationMenuLink>
-                        </Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
                         <Link to="/about">
                             <NavigationMenuLink 
                                 className={cn(
                                     navigationMenuTriggerStyle(),
-                                    "transition-colors hover:bg-accent/70",
+                                    "transition-colors hover:bg-accent/70", // hover
                                     activeLocation === 'about' 
-                                        ? "border border-primary bg-accent/50" 
-                                        : "bg-transparent"
+                                        ? "border border-primary bg-accent/50" // active tab
+                                        : "bg-transparent" // default transparent
                                 )}
                             >
                                 About

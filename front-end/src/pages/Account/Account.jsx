@@ -33,9 +33,9 @@ export function Account() {
     };
 
     return (
-        <div className="mx-72 flex w-full flex-col justify-start gap-10">
+        <div className="mx-auto max-w-6xl px-4 flex w-full flex-col justify-start gap-10">
             <h2 className="text-xl font-medium">Your Resumes</h2>
-            <div className="flex flex-row gap-7">
+            <div className="grid grid-cols-6 gap-6">
                 <button
                     className="flex h-48 w-36 rounded-md border text-gray-700 transition-colors hover:bg-gray-300 hover:text-black hover:shadow-md"
                     onClick={createNewResume}
