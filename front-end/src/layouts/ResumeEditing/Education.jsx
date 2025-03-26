@@ -116,9 +116,10 @@ const Education = ({updateEducation, education}) => {
                     }
                     displayView={
                         <>
-                            <div className="mb-4 flex flex-col justify-between space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
+                            {/* Institution and Location */}
+                            <div className="grid grid-cols-3 justify-between space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
                                 <div className="sm:flex-grow">
-                                    <p className="times">{education?.institution || ''}</p>
+                                    <p className="times font-bold">{education?.institution || ''}</p>
                                 </div>
                                 <div>
                                     <p className="times">{education?.location || ''}</p>

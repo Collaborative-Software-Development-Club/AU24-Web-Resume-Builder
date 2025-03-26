@@ -21,7 +21,7 @@ export default function DragAndDropList({array, setArray}) {
                         {array.map((item, index) => (
                             <Draggable key={item.id} draggableId={item.id} index={index}>
                                 {(provided) => (
-                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="rounded-lg p-2 shadow">
+                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="rounded-lg p-2">
                                         {item.content}
                                     </div>
                                 )}

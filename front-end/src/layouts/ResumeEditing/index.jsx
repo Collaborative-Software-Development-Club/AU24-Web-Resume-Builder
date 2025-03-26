@@ -46,11 +46,14 @@ export default function ResumeEditing({
                     </Button>
                     {saveButton}
                 </div>
-                <Name name={resume.name} updateName={updateName} />
-                <ContactMethods contactMethods={resume.contactMethods} updateContactMethods={updateContactMethods} />
+                <div className="shadow p-5">
+                    <Name name={resume.name} updateName={updateName} />
+                    <ContactMethods contactMethods={resume.contactMethods} updateContactMethods={updateContactMethods} />
 
-                {/* Render ordered components conditionally */}
-                {ordering?.map((item) => isVisible(item.title) && <div key={item.id}>{components[item.title]}</div>)}
+                    {/* Render ordered components conditionally */}
+                    {ordering?.map((item) => isVisible(item.title) && <div key={item.id}>{components[item.title]}</div>)}
+                </div>
+                
             </div>
         </div>
     );
