@@ -7,6 +7,8 @@ import Skills from './Skills';
 import Sidebar from './Sidebar';
 import {Projects} from './Projects';
 import {Experiences} from './Experiences';
+import {Fragment} from 'react';
+
 export default function ResumeEditing({
     resume,
     ordering,
@@ -24,10 +26,11 @@ export default function ResumeEditing({
         downloadResume(resume);
     };
     console.log('resume in resumeEditing', resume);
+    console.log('ordering', ordering);
     // Helper function to check visibility
     const isVisible = (title) => resume?.[title.toLowerCase()]?.visible;
     // Map of components for easy rendering
-    const components = {
+    const sections = {
         EDUCATION: (
             <Education updateEducation={updateEducation} education={resume.education.content} />
         ),
@@ -67,7 +70,9 @@ export default function ResumeEditing({
                 {/* Render ordered components conditionally */}
                 {ordering?.map(
                     (item) =>
-                        isVisible(item.title) && <div key={item.id}>{components[item.title]}</div>,
+                        isVisible(item.title) && (
+                            <Fragment key={item.title}>{sections[item.title]}</Fragment>
+                        ),
                 )}
             </div>
         </div>
