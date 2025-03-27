@@ -1,6 +1,6 @@
 import {useState, useRef, useEffect, useCallback} from 'react';
 
-export function SectionEditing({displayView, editingView, empty, sectionName}) {
+export function EditOnClick({displayView, editingView, empty, sectionName}) {
     const [isEditing, setIsEditing] = useState(empty);
     // console.log(`isEditing for ${sectionName} is ${isEditing}`);
     // console.log(`empty for ${sectionName} is ${empty}`);
@@ -10,7 +10,9 @@ export function SectionEditing({displayView, editingView, empty, sectionName}) {
             {editingView}
         </EditView>
     ) : (
-        <div onClick={() => setIsEditing(true)} className="w-full">{displayView}</div>
+        <div onClick={() => setIsEditing(true)} className="w-full">
+            {displayView}
+        </div>
     );
 }
 

@@ -1,6 +1,6 @@
 import {Input} from '@/components/ui/input';
 import Months from './Months';
-import {SectionEditing} from './SectionEditing';
+import {EditOnClick} from '../../components/EditOnClick';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
 import {MonthDisplayView} from './MonthDisplayView';
 import {AITextImprovementInput} from '@/components/AITextImprovementInput';
@@ -41,7 +41,7 @@ export function Experience({updateItems, experience}) {
         experience.position === '' && experience.company === '' && experience.description === '';
     return (
         <>
-            <SectionEditing
+            <EditOnClick
                 sectionName="experience"
                 empty={isEmpty}
                 editingView={

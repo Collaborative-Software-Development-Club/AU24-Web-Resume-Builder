@@ -4,7 +4,7 @@ import {Form, FormControl, FormField, FormItem, FormMessage} from '@/components/
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
-import {SectionEditing} from './SectionEditing';
+import {EditOnClick} from '../../components/EditOnClick';
 
 const FormSchema = z.object({
     username: z.string().max(30, {
@@ -24,7 +24,7 @@ export function Name({name, updateName}) {
     }, []);
 
     return (
-        <SectionEditing
+        <EditOnClick
             empty={!name}
             editingView={
                 <Form {...form}>
@@ -55,7 +55,11 @@ export function Name({name, updateName}) {
                     </form>
                 </Form>
             }
-            displayView={<h1 className="times text-center text-2xl h-9 rounded-md border shadow-smpx-3 py-1">{name}</h1>}
+            displayView={
+                <h1 className="times shadow-smpx-3 h-9 rounded-md border py-1 text-center text-2xl">
+                    {name}
+                </h1>
+            }
         />
     );
 }
