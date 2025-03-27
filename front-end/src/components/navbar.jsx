@@ -1,5 +1,5 @@
 'use client';
-import { Link, useLocation } from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {
     NavigationMenu,
     NavigationMenuItem,
@@ -7,7 +7,7 @@ import {
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { cn } from '@/lib/utils';
+import {cn} from '@/lib/utils';
 
 export function NavBar() {
     const defaultResumeId = '67352f2265e5d74b8503ce90';
@@ -17,7 +17,7 @@ export function NavBar() {
         if (location.pathname.includes('/about')) return 'about';
         if (location.pathname.includes('/account')) return 'account';
         return '';
-    }
+    };
 
     const activeLocation = getActiveLocation();
 
@@ -27,14 +27,9 @@ export function NavBar() {
                 <NavigationMenuList className="gap-1">
                     <NavigationMenuItem>
                         <Link to="/about">
-                            <NavigationMenuLink 
-                                className={cn(
-                                    navigationMenuTriggerStyle(),
-                                    "transition-colors hover:bg-accent/70", // hover
-                                    activeLocation === 'about' 
-                                        ? "border border-primary bg-accent/50" // active tab
-                                        : "bg-transparent" // default transparent
-                                )}
+                            <NavigationMenuLink
+                                className={navigationMenuTriggerStyle()}
+                                active={activeLocation == 'about'}
                             >
                                 About
                             </NavigationMenuLink>
@@ -42,14 +37,9 @@ export function NavBar() {
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                         <Link to="/account">
-                            <NavigationMenuLink 
-                                className={cn(
-                                    navigationMenuTriggerStyle(),
-                                    "transition-colors hover:bg-accent/70",
-                                    activeLocation === 'account' 
-                                        ? "border border-primary bg-accent/50" 
-                                        : "bg-transparent"
-                                )}
+                            <NavigationMenuLink
+                                active={activeLocation == 'account'}
+                                className={navigationMenuTriggerStyle()}
                             >
                                 Account
                             </NavigationMenuLink>
