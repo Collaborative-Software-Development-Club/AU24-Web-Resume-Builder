@@ -101,11 +101,12 @@ export function Experience({updateItems, experience}) {
 
                         {/* Experience Description */}
                         <div className="w-full">
-                            <AITextImprovementInput
+                            <Input
                                 name="description"
                                 value={experience.description}
                                 onChange={handleInputChange}
                                 placeholder={PLACEHOLDERS.description}
+                                className=""
                             />
                         </div>
                     </div>
