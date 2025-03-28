@@ -12,4 +12,5 @@ import java.util.List;
 @NoArgsConstructor
 public class ProjectDto extends Project {
     private String id;
+    private String userId; // Think this is necessary
 }
