@@ -1,6 +1,6 @@
 export default async function deleteResumeData(resumeId) {
     console.log('deleting resume data');
-    
+
     const response = await fetch(`http://localhost:8080/resume/${resumeId}`, {
         method: 'DELETE',
         headers: {

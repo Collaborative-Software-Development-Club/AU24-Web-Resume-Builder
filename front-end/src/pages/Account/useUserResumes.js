@@ -6,7 +6,7 @@ export function useUserResumes(userId, USE_API) {
     useEffect(() => {
         const getData = async () => {
             const resumes = await getUserResumes(userId, {useApi: USE_API});
-            console.log(resumes);
+            // console.log(resumes);
             setResumes(resumes);
         };
         getData();

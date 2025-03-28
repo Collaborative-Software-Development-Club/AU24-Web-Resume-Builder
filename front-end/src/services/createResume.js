@@ -6,9 +6,9 @@ export default async function createResume(userId, resumeData = {}) {
         },
         body: JSON.stringify(resumeData),
     });
-    console.log('response', response);
+    // console.log('response', response);
     const data = await response.json();
-    console.log('data', data.details);
+    // console.log('data', data.details);
     if (!response.ok) {
         throw new Error(`Failed to create resume: ${response.status} ${response.statusText}`);
     }
