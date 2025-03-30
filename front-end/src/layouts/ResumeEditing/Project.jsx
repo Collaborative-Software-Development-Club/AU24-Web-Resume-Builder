@@ -20,8 +20,6 @@ const PLACEHOLDERS = {
 };
 
 export function Project({updateItems, project}) {
-    console.log('project in Project', project);
-
     // Handle input changes for text fields
     const handleInputChange = (e) => {
         const {name, value} = e.target;
