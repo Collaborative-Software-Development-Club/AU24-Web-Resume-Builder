@@ -12,6 +12,7 @@ import resumebuilder.back_end.repository.ProjectRepository;
 import resumebuilder.back_end.repository.ResumeRepository;
 import resumebuilder.back_end.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -121,6 +122,7 @@ public class ResumeService {
         List<String> experienceIds = savedExperiences.stream().map(exp -> exp.getId()).toList();
         List<String> projectIds = savedProjects.stream().map(proj -> proj.getId()).toList();
         ResumeEntity resumeEntity = resumeMapper.mapToEntity(resumeDto, experienceIds, projectIds);
+        resumeEntity.setLastModified(LocalDateTime.now());
         ResumeEntity savedResume = resumeRepository.save(resumeEntity);
         // extract user information from resumeDto
         userMapper.addResumeDtoContent(userEntity.get(), resumeDto);
@@ -141,6 +143,15 @@ public class ResumeService {
                 experienceMapper.mapToExperienceItem(experienceEntities),
                 projectMapper.mapToProject(projectEntities),
                 userEntity.get());
+        // this is here for resumes that didn't yet have the lastModified field before
+        if (resumeDto.getLastModified() == null) {
+            resumeDto.setLastModified(LocalDateTime.now());
+        }
+        // this is for the resumes in the database that had an empty description instead
+        // of untitled
+        if (resumeDto.getDescription() == null || resumeDto.getDescription() == "") {
+            resumeDto.setDescription("Untitled");
+        }
         return Optional.ofNullable(resumeDto); // should never be null; if it is that means mapper messed up
     }
 }

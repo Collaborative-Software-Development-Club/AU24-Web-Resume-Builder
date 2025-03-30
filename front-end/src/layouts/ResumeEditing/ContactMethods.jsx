@@ -1,7 +1,6 @@
 import {EditableList} from '@/components/EditableList';
 
 export function ContactMethods({contactMethods, updateContactMethods}) {
-    console.log('contact methods: ', contactMethods);
     return (
         <EditableList
             list={contactMethods}

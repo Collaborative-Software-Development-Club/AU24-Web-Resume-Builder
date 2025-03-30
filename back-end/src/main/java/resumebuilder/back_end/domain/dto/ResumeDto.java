@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import resumebuilder.back_end.domain.model.*;
 import resumebuilder.back_end.domain.model.enums.SectionNames;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,15 +18,16 @@ import java.util.Set;
 public class ResumeDto {
     private String id;
     private String userId;
+
     private String name = "";
     private List<String> contactMethods = new ArrayList<>();
-
     private Section<Education> education = new Section<Education>(true, new Education());
+
     private Section<List<ExperienceItem>> experience = new Section<>(true, new ArrayList<>());
     private Section<List<Project>> projects = new Section<>(true, new ArrayList<>());
-    private Section<Set<Skill>> skills = new Section<>(true, new HashSet<>());
-    private Section<String> professionalSummary = new Section<String>(false, "");
 
+    private Section<String> professionalSummary = new Section<String>(false, "");
+    private Section<Set<Skill>> skills = new Section<>(true, new HashSet<>());
     private List<SectionNames> orderOfSections = List.of(
             SectionNames.PROFESSIONAL_SUMMARY,
             SectionNames.EDUCATION,
@@ -34,7 +36,8 @@ public class ResumeDto {
             SectionNames.SKILLS,
             SectionNames.HONORS,
             SectionNames.CERTIFICATIONS,
-            SectionNames.VOLUNTEER_EXPERIENCE
-    );
-    private String description = "";
+            SectionNames.VOLUNTEER_EXPERIENCE);
+    private String description = "Untitled";
+    // can't have a default value
+    private LocalDateTime lastModified;
 }
