@@ -25,7 +25,8 @@ export function Name({name, updateName}) {
 
     return (
         <EditOnClick
-            empty={!name}
+            empty={name == ''}
+            sectionName="name"
             editingView={
                 <Form {...form}>
                     <form className="self-center">
@@ -55,11 +56,7 @@ export function Name({name, updateName}) {
                     </form>
                 </Form>
             }
-            displayView={
-                <h1 className="times shadow-smpx-3 h-9 rounded-md border py-1 text-center text-2xl">
-                    {name}
-                </h1>
-            }
+            displayView={<h1 className="times text-center text-2xl">{name}</h1>}
         />
     );
 }

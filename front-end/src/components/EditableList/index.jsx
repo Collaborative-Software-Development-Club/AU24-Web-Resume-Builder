@@ -12,17 +12,37 @@ import {PopupSideButton} from '../PopupSideButton';
  * @param {Array<string>} props.list - The initial list of items to be displayed and edited.
  * @param {React.ComponentType<{list: Array<string>}>} props.RenderList - A component that renders the list of items.
  *        This component should accept a `list` prop of type Array<string>.
+ * @param {string} [props.buttonText="Edit"] - The text to display on the button that triggers the edit modal.
  */
-export function EditableList({list, RenderList, title, description, updateList}) {
+export function EditableList({
+    list,
+    RenderList,
+    title,
+    description,
+    updateList,
+    buttonText = 'Edit',
+}) {
     const {editableList, handleChange, addNew, remove} = useEditableList(list, updateList);
     return (
         <div className="group relative">
             <RenderList list={editableList.map((element) => element.value)} />
             <Dialog>
                 <DialogTrigger asChild>
-                    <PopupSideButton onlyOnHover={true}>Edit</PopupSideButton>
+                    <PopupSideButton
+                        onlyOnHover={list.length == 0 ? false : true}
+                        variant="secondary"
+                    >
+                        {buttonText}
+                    </PopupSideButton>
                 </DialogTrigger>
-                <EditModal elements={editableList} handleChange={handleChange} addNew={addNew} remove={remove} title={title} description={description} />
+                <EditModal
+                    elements={editableList}
+                    handleChange={handleChange}
+                    addNew={addNew}
+                    remove={remove}
+                    title={title}
+                    description={description}
+                />
             </Dialog>
         </div>
     );

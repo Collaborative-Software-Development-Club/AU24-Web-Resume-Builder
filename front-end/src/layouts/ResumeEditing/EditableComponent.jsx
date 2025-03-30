@@ -51,7 +51,7 @@ export default function EditableComponent({updateComponent, type, data}) {
             <PopupSideButton
                 onlyOnHover={false}
                 onClick={addItem}
-                variant="default"
+                variant="secondary"
                 className="rounded-full"
             >
                 <Plus />
