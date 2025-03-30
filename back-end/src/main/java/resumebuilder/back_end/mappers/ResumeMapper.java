@@ -6,6 +6,7 @@ import resumebuilder.back_end.domain.entities.ResumeEntity;
 import resumebuilder.back_end.domain.entities.UserEntity;
 import resumebuilder.back_end.domain.model.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -25,10 +26,21 @@ public class ResumeMapper {
         ResumeDto resumeDto = new ResumeDto();
         resumeDto.setId(resumeEntity.getId());
         resumeDto.setUserId(resumeEntity.getUserId());
+        resumeDto.setLastModified(resumeEntity.getLastModified());
+        resumeDto.setDescription(resumeEntity.getDescription());
+        // this is here for resumes that didn't yet have the lastModified field before
+        if (resumeDto.getLastModified() == null) {
+            resumeDto.setLastModified(LocalDateTime.now());
+        }
+        // this is for the resumes in the database that had an empty description instead
+        // of untitled
+        if (resumeDto.getDescription() == null || resumeDto.getDescription().isEmpty()) {
+            resumeDto.setDescription("Untitled");
+        }
+
         resumeDto.setName(userEntity.getName());
         resumeDto.setContactMethods(userEntity.getContactMethods());
         resumeDto.setOrderOfSections(resumeEntity.getOrderOfSections());
-        resumeDto.setDescription(resumeEntity.getDescription());
         Section<Education> educationSection = new Section<>(true, userEntity.getEducation());
         resumeDto.setEducation(educationSection);
         // System.out.println("experienceEntities");
@@ -54,6 +66,7 @@ public class ResumeMapper {
         // set fields from ResumeDto that map to ResumeEntity
         resumeEntity.setId(resumeDto.getId());
         resumeEntity.setUserId(resumeDto.getUserId());
+        resumeEntity.setLastModified(resumeDto.getLastModified());
         resumeEntity.setOrderOfSections(resumeDto.getOrderOfSections());
         resumeEntity.setDescription(resumeDto.getDescription());
         resumeEntity.setSkills(resumeDto.getSkills().getContent());

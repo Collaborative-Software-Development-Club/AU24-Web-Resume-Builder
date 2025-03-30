@@ -143,15 +143,6 @@ public class ResumeService {
                 experienceMapper.mapToExperienceItem(experienceEntities),
                 projectMapper.mapToProject(projectEntities),
                 userEntity.get());
-        // this is here for resumes that didn't yet have the lastModified field before
-        if (resumeDto.getLastModified() == null) {
-            resumeDto.setLastModified(LocalDateTime.now());
-        }
-        // this is for the resumes in the database that had an empty description instead
-        // of untitled
-        if (resumeDto.getDescription() == null || resumeDto.getDescription() == "") {
-            resumeDto.setDescription("Untitled");
-        }
         return Optional.ofNullable(resumeDto); // should never be null; if it is that means mapper messed up
     }
 }
