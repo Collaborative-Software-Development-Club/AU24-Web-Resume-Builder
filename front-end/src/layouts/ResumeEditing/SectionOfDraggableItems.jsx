@@ -3,6 +3,20 @@ import DragAndDropList from './DragAndDropList';
 import {X} from 'lucide-react';
 import {Plus} from 'lucide-react';
 
+/**
+ * SectionOfDraggableItems is a React component that renders a list of draggable items
+ * with the ability to add, update, and remove items. It also provides a button to add
+ * new items and integrates with a drag-and-drop list for reordering.
+ *
+ * @param {Object} props - The props object.
+ * @param {Function} props.renderItem - A function to render each item. It receives the item data
+ * and a callback to update the item as arguments.
+ * @param {Array} props.itemData - An array of data representing the items to be displayed.
+ * @param {Function} props.setItemData - A function to update the state of the item data array.
+ * @param {Function} props.createNewItem - A function that generates a new item to be added to the list.
+ *
+ * @returns {JSX.Element} A component that displays a list of draggable items with add, update, and remove functionality.
+ */
 export function SectionOfDraggableItems({renderItem, itemData, setItemData, createNewItem}) {
     const addItem = () => {
         const updatedArray = [...itemData, createNewItem()];
