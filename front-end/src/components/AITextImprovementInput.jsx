@@ -1,9 +1,74 @@
-import { enhanceText } from '@/services/aiService';
+import {Button} from './ui/button';
+import {enhanceText} from '@/services/aiService';
 import {AutosizeTextarea} from '@/components/ui/autosize-textarea';
-import {Button} from '@/components/ui/button';
-import {Wand2} from 'lucide-react';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
+import {Wand2, Loader2} from 'lucide-react';
+import {useEffect, useState} from 'react';
+import {BulletPointDisplayView} from '@/layouts/ResumeEditing/BulletPointDisplayView';
+import {useToast} from '@/hooks/use-toast';
 
 export function AITextImprovementInput({placeholder, onChange, name, value}) {
+    const [aiImprovement, setAIImprovement] = useState('');
+    const [ready, setReady] = useState(false);
+    const [dialogReady, setDialogReady] = useState(false);
+    const {toast} = useToast();
+
+    useEffect(() => {
+        setReady(value.length >= 30);
+    }, [value]);
+
+    const handleButtonClick = async (e) => {
+        e.preventDefault();
+        if (!ready) {
+            toast({
+                title: 'Text is not ready for enhancement',
+                description: 'Text must be at least 30 characters long to use AI enhancement.',
+                variant: 'destructive',
+            });
+            return;
+        }
+
+        toast({
+            title: (
+                <div className="flex flex-row gap-2">
+                    Enhancing your text...
+                    <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+                </div>
+            ),
+            description: 'Our AI is working on improving your content...',
+        });
+
+        try {
+            // //  Add a delay of 4 seconds
+             await new Promise((resolve) => setTimeout(resolve, 2000));
+
+            const response = await enhanceText(value);
+            setAIImprovement(response);
+
+            setDialogReady(true);
+
+            toast({
+                title: 'Enhancement ready ✅',
+                description: 'Your AI-enhanced text is now available.',
+            });
+        } catch (err) {
+            console.error(err);
+            toast({
+                title: 'Enhancement failed',
+                description: 'There was an error enhancing your text. Please try again.',
+                variant: 'destructive',
+            });
+        }
+    };
+
     return (
         <div className="relative">
             <AutosizeTextarea
@@ -13,13 +78,73 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
                 placeholder={placeholder}
                 className="times"
             />
-            <Button
-                className="absolute bottom-2 right-2 gap-2 rounded-full p-4 text-lg"
-                variant="default"
+
+            <Dialog
+                open={dialogReady}
+                onOpenChange={(open) => {
+                    if (open) return;
+                    setDialogReady(false)
+                }}
             >
-                <Wand2 className="" />
-                AI
-            </Button>
+                <DialogTrigger asChild>
+                    <Button
+                        className={
+                            'absolute bottom-1 right-1 gap-2 rounded-full p-4 text-lg' +
+                            (!ready ? ' cursor-not-allowed opacity-50' : '')
+                        }
+                        onClick={handleButtonClick}
+                    >
+                        <Wand2 />
+                        AI
+                    </Button>
+                </DialogTrigger>
+
+                <DialogContent
+                    onPointerDownOutside={(e) => {
+                        console.log(e);
+                        e.preventDefault();
+                    }}
+                >
+                    <DialogHeader>
+                        <div className="flex flex-col gap-3 pb-5">
+                            <DialogTitle>Original Text</DialogTitle>
+                            <div className="rounded-md border border-gray-600 p-2">
+                                <BulletPointDisplayView text={value} />
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-3 pb-3">
+                            <DialogTitle>AI Enhanced Text</DialogTitle>
+                            <div className="rounded-md border border-gray-600 p-2">
+                                <BulletPointDisplayView text={aiImprovement} />
+                            </div>
+                        </div>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <div className="flex flex-row justify-end gap-3">
+                            <Button
+                                className="text-md border-none bg-red-500"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setDialogReady(false);
+                                }}
+                            >
+                                Decline
+                            </Button>
+                            <Button
+                                className="text-md border-none bg-green-500"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onChange({target: {name, value: aiImprovement}});
+                                    setDialogReady(false);
+                                }}
+                            >
+                                Accept
+                            </Button>
+                        </div>
+                    </DialogFooter>
+                </DialogContent>
+                <DialogDescription />
+            </Dialog>
         </div>
     );
 }

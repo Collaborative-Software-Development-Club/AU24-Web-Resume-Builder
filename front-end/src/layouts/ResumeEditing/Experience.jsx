@@ -19,6 +19,7 @@ const PLACEHOLDERS = {
 export function Experience({updateItems, experience}) {
     // Handle input changes for text fields
     const handleInputChange = (e) => {
+        console.log(e);
         const {name, value} = e.target;
         updateItems({
             ...experience,
