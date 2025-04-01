@@ -2,6 +2,7 @@ package resumebuilder.back_end.mappers;
 
 import java.util.List;
 
+import resumebuilder.back_end.domain.dto.ProjectDto;
 import resumebuilder.back_end.domain.entities.ProjectEntity;
 import resumebuilder.back_end.domain.model.Project;
 import java.util.stream.Collectors;
@@ -30,4 +31,13 @@ public class ProjectMapper {
                         entity.getStartDate(), entity.getEndDate(), entity.getDescription()))
                 .collect(Collectors.toList());
     }
+
+    public ProjectEntity mapToEntity(ProjectDto projectDto) {
+        return modelMapper.map(projectDto, ProjectEntity.class);
+    }
+
+    public ProjectDto mapToDto(ProjectEntity projectEntity) {
+        return modelMapper.map(projectEntity, ProjectDto.class);
+    }
+
 }

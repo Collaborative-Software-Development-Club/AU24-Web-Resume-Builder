@@ -29,6 +29,8 @@ public class UserMapper {
         userEntity.setContactMethods(resumeDto.getContactMethods());
         userEntity.setEducation(resumeDto.getEducation().getContent());
         userEntity.setName(resumeDto.getName());
+
+        // Looks sus; need to clarify functionality
         if (userEntity.getSkills() == null) {
             userEntity.setSkills(resumeDto.getSkills().getContent());
         } else {
