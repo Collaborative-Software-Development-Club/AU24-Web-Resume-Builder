@@ -19,7 +19,7 @@ public class ExperienceMapper {
 
     public List<ExperienceEntity> mapToEntity(List<ExperienceItem> experiencesFromDto) {
         List<ExperienceEntity> entities = experiencesFromDto.stream()
-                .map(project -> modelMapper.map(project, ExperienceEntity.class)).collect(Collectors.toList());
+                .map(experience -> modelMapper.map(experience, ExperienceEntity.class)).collect(Collectors.toList());
         return entities;
     }
 
