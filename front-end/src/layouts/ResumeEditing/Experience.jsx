@@ -46,8 +46,8 @@ export function Experience({updateItems, experience}) {
                 sectionName="experience"
                 empty={isEmpty}
                 editingView={
-                    <div className="times flex w-full flex-col gap-2">
-                        <div className="text-md grid grid-cols-3 justify-between gap-2 font-bold">
+                    <div className="flex w-full flex-col gap-2">
+                        <div className="times text-md grid grid-cols-3 justify-between gap-2 font-bold">
                             <Input
                                 name="company"
                                 value={experience.company}
@@ -102,12 +102,11 @@ export function Experience({updateItems, experience}) {
 
                         {/* Experience Description */}
                         <div className="w-full">
-                            <Input
+                            <AITextImprovementInput
                                 name="description"
                                 value={experience.description}
                                 onChange={handleInputChange}
                                 placeholder={PLACEHOLDERS.description}
-                                className=""
                             />
                         </div>
                     </div>

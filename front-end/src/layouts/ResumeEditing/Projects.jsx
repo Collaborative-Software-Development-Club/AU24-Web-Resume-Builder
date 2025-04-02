@@ -3,7 +3,7 @@ import EditableComponent from './EditableComponent';
 
 export function Projects({updateProjects, projects}) {
     return (
-        <div className="times">
+        <div>
             <SectionTitle title="Projects" />
             <EditableComponent updateComponent={updateProjects} type="projects" data={projects} />
         </div>

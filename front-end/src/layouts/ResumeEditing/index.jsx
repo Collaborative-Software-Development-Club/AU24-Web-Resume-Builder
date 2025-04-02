@@ -63,7 +63,7 @@ export default function ResumeEditing({
                     </Button>
                     {saveButton}
                 </div>
-                <Name name={resume.name} updateName={updateName} />
+                <Name name={resume.name} updateName={updateName}/>
                 <ContactMethods
                     contactMethods={resume.contactMethods ?? []}
                     updateContactMethods={updateContactMethods}

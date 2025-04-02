@@ -22,7 +22,7 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
     const {toast} = useToast();
 
     useEffect(() => {
-        setReady(value.length >= 30);
+        setReady(value?.length >= 30);
     }, [value]);
 
     const handleButtonClick = async (e) => {
