@@ -1,17 +1,18 @@
-import {useUserResumes} from './useUserResumes';
+import { useUserResumes } from './useUserResumes';
 import createResume from '@/services/createResume';
-import {Plus} from 'lucide-react';
+import { Plus } from 'lucide-react';
 import ResumePreview from './ResumePreview';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import flags from '@/flags.json';
+import { Button } from '@/components/ui/button';
+import { GuestSaveDialog } from '@/components/GuestSaveDialog'; // Import the dialog component
 
 const USE_API = flags.useApi;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
 
 export function Account() {
-    // const fetchedUserData = useUserData(DEFAULT_USER_ID, USE_API);
     const navigate = useNavigate();
-    const {resumes} = useUserResumes(DEFAULT_USER_ID, USE_API);
+    const { resumes } = useUserResumes(DEFAULT_USER_ID, USE_API);
 
     if (!resumes) return <p>Loading...</p>;
 
@@ -19,7 +20,6 @@ export function Account() {
         try {
             const createdResume = await createResume(DEFAULT_USER_ID);
             if (createdResume.id) {
-                // setResumeIds((prevIds) => [...prevIds, createdResume.id]); // Add the new resume ID to the list
                 navigate(`/resume/${createdResume.id}`);
             }
         } catch (error) {
@@ -28,13 +28,15 @@ export function Account() {
     };
 
     const handleDeleteResume = (deletedResumeId) => {
-        setResumeIds((prevIds) => prevIds.filter((id) => id !== deletedResumeId));
         // TODO: Delete the resume from the server
     };
 
     return (
         <div className="mx-auto max-w-6xl px-4 flex w-full flex-col justify-start gap-10">
-            <h2 className="text-xl font-medium">Your Resumes</h2>
+            <div className="flex justify-between items-center">
+                <h2 className="text-xl font-medium">Your Resumes</h2>
+                <GuestSaveDialog text="Log In"/>
+            </div>
             <div className="grid grid-cols-6 gap-6">
                 <button
                     className="flex h-48 w-36 rounded-md border text-gray-700 transition-colors hover:bg-gray-300 hover:text-black hover:shadow-md"
