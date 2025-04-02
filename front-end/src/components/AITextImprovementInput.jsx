@@ -47,9 +47,6 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
         });
 
         try {
-            // //  Add a delay of 4 seconds
-             await new Promise((resolve) => setTimeout(resolve, 2000));
-
             const response = await enhanceText(value);
             setAIImprovement(response);
 
@@ -79,13 +76,7 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
                 className="times"
             />
 
-            <Dialog
-                open={dialogReady}
-                onOpenChange={(open) => {
-                    if (open) return;
-                    setDialogReady(false)
-                }}
-            >
+            <Dialog open={dialogReady} onOpenChange={setDialogReady}>
                 <DialogTrigger asChild>
                     <Button
                         className={
@@ -98,13 +89,7 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
                         AI
                     </Button>
                 </DialogTrigger>
-
-                <DialogContent
-                    onPointerDownOutside={(e) => {
-                        console.log(e);
-                        e.preventDefault();
-                    }}
-                >
+                <DialogContent>
                     <DialogHeader>
                         <div className="flex flex-col gap-3 pb-5">
                             <DialogTitle>Original Text</DialogTitle>
@@ -133,6 +118,7 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
                             <Button
                                 className="text-md border-none bg-green-500"
                                 onClick={(e) => {
+                                    console.log(e);
                                     e.stopPropagation();
                                     onChange({target: {name, value: aiImprovement}});
                                     setDialogReady(false);
