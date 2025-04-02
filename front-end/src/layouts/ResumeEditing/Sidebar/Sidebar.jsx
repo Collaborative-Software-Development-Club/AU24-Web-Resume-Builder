@@ -1,4 +1,3 @@
-import {MobileSidebar} from './MobileSidebar';
 import {DesktopSidebar} from './DesktopSidebar';
 
 const Sidebar = ({resume, ordering, setOrdering, toggleSectionVisibility, children}) => {
