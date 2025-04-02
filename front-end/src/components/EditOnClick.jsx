@@ -39,21 +39,34 @@ export function EditOnClick({displayView, editingView, empty, sectionName}) {
 
 function EditView({children, closeEditing, sectionName}) {
     const divRef = useRef(null);
-    const handleClickOutside = (event) => {
-        if (
-            divRef.current &&
-            !divRef.current.contains(event.target) &&
-            !(event.target.getAttribute('role') == 'option')
-        ) {
-            // console.log('clicking outside');
-            closeEditing();
-        }
-    };
+
+    const handleClickOutside = useCallback(
+        (event) => {
+            const target = event.target;
+
+            // Check if click originated from a dialog or toast
+            const isDialogClick = target.closest('[role="dialog"]') !== null;
+            const isToastClick = target.closest('[role="status"]') !== null;
+
+            if (
+                divRef.current &&
+                !divRef.current.contains(target) &&
+                !(target.getAttribute('role') == 'option') &&
+                !isDialogClick &&
+                !isToastClick
+            ) {
+                closeEditing();
+            }
+        },
+        [closeEditing],
+    );
+
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [closeEditing]);
+    }, [handleClickOutside]);
+
     return <div ref={divRef}>{children}</div>;
 }

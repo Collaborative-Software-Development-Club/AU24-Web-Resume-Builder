@@ -49,7 +49,7 @@ export function Project({updateItems, project}) {
                 empty={project == undefined || project.title == ''}
                 editingView={
                     <div className="flex w-full flex-col gap-2">
-                        <div className="grid grid-cols-6 gap-2">
+                        <div className="times grid grid-cols-6 gap-2">
                             <Input
                                 name="title"
                                 value={project.title}
@@ -78,7 +78,7 @@ export function Project({updateItems, project}) {
                                 className="col-span-1"
                             />
                         </div>
-                        <div className="grid grid-cols-3 gap-2">
+                        <div className="times grid grid-cols-3 gap-2">
                             <Input
                                 name="organization"
                                 placeholder={PLACEHOLDERS.organization}
@@ -106,12 +106,11 @@ export function Project({updateItems, project}) {
                         </div>
                         {/* Technologies */}
                         <div className="sm:flex-grow">
-                            <Input
+                            <AITextImprovementInput
                                 name="technologies"
                                 placeholder={PLACEHOLDERS.technologies}
                                 value={project.technologies}
                                 onChange={handleInputChange}
-                                className=""
                             />
                         </div>
                     </div>

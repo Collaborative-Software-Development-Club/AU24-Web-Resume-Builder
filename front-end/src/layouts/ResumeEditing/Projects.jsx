@@ -4,7 +4,7 @@ import {SectionOfDraggableItems} from './SectionOfDraggableItems';
 
 export function Projects({updateProjects, projects}) {
     return (
-        <div className="times">
+        <div>
             <SectionTitle title="Projects" />
             {/* <EditableComponent updateComponent={updateProjects} type="projects" data={projects} /> */}
             <SectionOfDraggableItems
