@@ -16,18 +16,18 @@ import {BulletPointDisplayView} from '@/layouts/ResumeEditing/BulletPointDisplay
 import {useToast} from '@/hooks/use-toast';
 
 export function AITextImprovementInput({placeholder, onChange, name, value}) {
-    const [aiImprovement, setAIImprovement] = useState('');
-    const [ready, setReady] = useState(false);
+    const [aiImprovedText, setAiImprovedText] = useState('');
+    const [allowImprovementRequest, setAllowImprovementRequest] = useState(false);
     const [dialogReady, setDialogReady] = useState(false);
     const {toast} = useToast();
 
     useEffect(() => {
-        setReady(value?.length >= 30);
+        setAllowImprovementRequest(value?.length >= 30);
     }, [value]);
 
     const handleButtonClick = async (e) => {
         e.preventDefault();
-        if (!ready) {
+        if (!allowImprovementRequest) {
             toast({
                 title: 'Text is not ready for enhancement',
                 description: 'Text must be at least 30 characters long to use AI enhancement.',
@@ -48,14 +48,12 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
 
         try {
             const response = await enhanceText(value);
-            setAIImprovement(response);
-
+            setAiImprovedText(response);
             setDialogReady(true);
-
-            toast({
-                title: 'Enhancement ready ✅',
-                description: 'Your AI-enhanced text is now available.',
-            });
+            // toast({
+            //     title: 'Enhancement ready ✅',
+            //     description: 'Your AI-enhanced text is now available.',
+            // });
         } catch (err) {
             console.error(err);
             toast({
@@ -81,7 +79,7 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
                     <Button
                         className={
                             'absolute bottom-1 right-1 gap-2 rounded-full p-4 text-lg' +
-                            (!ready ? ' cursor-not-allowed opacity-50' : '')
+                            (!allowImprovementRequest ? ' cursor-not-allowed opacity-50' : '')
                         }
                         onClick={handleButtonClick}
                     >
@@ -93,34 +91,32 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
                     <DialogHeader>
                         <div className="flex flex-col gap-3 pb-5">
                             <DialogTitle>Original Text</DialogTitle>
-                            <div className="rounded-md border border-gray-600 p-2">
-                                <BulletPointDisplayView text={value} />
-                            </div>
+                            <BulletPointDisplayView text={value} />
                         </div>
                         <div className="flex flex-col gap-3 pb-3">
                             <DialogTitle>AI Enhanced Text</DialogTitle>
-                            <div className="rounded-md border border-gray-600 p-2">
-                                <BulletPointDisplayView text={aiImprovement} />
-                            </div>
+                            <BulletPointDisplayView text={aiImprovedText} />
                         </div>
                     </DialogHeader>
                     <DialogFooter>
                         <div className="flex flex-row justify-end gap-3">
                             <Button
-                                className="text-md border-none bg-red-500"
+                                variant="destructive"
+                                className=""
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setDialogReady(false);
                                 }}
                             >
-                                Decline
+                                Discard
                             </Button>
                             <Button
-                                className="text-md border-none bg-green-500"
+                                className=""
+                                variant="default"
                                 onClick={(e) => {
                                     console.log(e);
                                     e.stopPropagation();
-                                    onChange({target: {name, value: aiImprovement}});
+                                    onChange({target: {name, value: aiImprovedText}});
                                     setDialogReady(false);
                                 }}
                             >
