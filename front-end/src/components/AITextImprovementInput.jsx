@@ -1,5 +1,5 @@
 import {Button} from './ui/button';
-import {enhanceText} from '@/services/aiService';
+import {enhanceText} from '@/services/enhanceText';
 import {AutosizeTextarea} from '@/components/ui/autosize-textarea';
 import {
     Dialog,
