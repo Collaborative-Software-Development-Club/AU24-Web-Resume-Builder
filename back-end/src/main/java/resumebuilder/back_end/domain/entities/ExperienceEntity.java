@@ -5,14 +5,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import resumebuilder.back_end.domain.model.CustomDate;
 import resumebuilder.back_end.domain.model.ExperienceItem;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "experience1")
-public class ExperienceEntity extends ExperienceItem {
+public class ExperienceEntity {
     @Id
     private String id;
-    String userId;
+    private String userId;
+    private String company;
+    private String location;
+    private String position;
+    private CustomDate startDate;
+    private CustomDate endDate;
+    private String description;
 }
