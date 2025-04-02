@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import {Input} from '@/components/ui/input';
 import Months from './Months';
-import {SectionEditing} from './SectionEditing';
+import {EditOnClick} from '../../components/EditOnClick';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
 import {MonthDisplayView} from './MonthDisplayView';
 import {AITextImprovementInput} from '@/components/AITextImprovementInput';
@@ -20,8 +20,6 @@ const PLACEHOLDERS = {
 };
 
 export function Project({updateItems, project}) {
-    console.log('project in Project', project);
-
     // Handle input changes for text fields
     const handleInputChange = (e) => {
         const {name, value} = e.target;
@@ -47,7 +45,7 @@ export function Project({updateItems, project}) {
     return (
         <div className="flex w-full flex-col gap-2">
             {/* Combined Row for Project T  itle and Date */}
-            <SectionEditing
+            <EditOnClick
                 empty={project == undefined || project.title == ''}
                 editingView={
                     <div className="flex w-full flex-col gap-2">

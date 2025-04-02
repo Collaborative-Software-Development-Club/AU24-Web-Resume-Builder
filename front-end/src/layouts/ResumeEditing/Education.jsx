@@ -1,7 +1,7 @@
 import {Input} from '@/components/ui/input';
 import {SectionTitle} from './SectionTitle';
 import Months from './Months';
-import {SectionEditing} from './SectionEditing';
+import {EditOnClick} from '../../components/EditOnClick';
 import {MonthDisplayView} from './MonthDisplayView';
 import {DEFAULT_RESUME} from '@/lib/DEFAULT_RESUME';
 
@@ -25,7 +25,7 @@ const Education = ({updateEducation, education}) => {
             <div className="w-full">
                 <SectionTitle title="Education" />
                 {/* Combined Row for Institution, Location */}
-                <SectionEditing
+                <EditOnClick
                     sectionName={'education'}
                     empty={educationIsEmpty(education)}
                     editingView={

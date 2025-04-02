@@ -12,6 +12,7 @@ import resumebuilder.back_end.repository.ProjectRepository;
 import resumebuilder.back_end.repository.ResumeRepository;
 import resumebuilder.back_end.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -121,6 +122,7 @@ public class ResumeService {
         List<String> experienceIds = savedExperiences.stream().map(exp -> exp.getId()).toList();
         List<String> projectIds = savedProjects.stream().map(proj -> proj.getId()).toList();
         ResumeEntity resumeEntity = resumeMapper.mapToEntity(resumeDto, experienceIds, projectIds);
+        resumeEntity.setLastModified(LocalDateTime.now());
         ResumeEntity savedResume = resumeRepository.save(resumeEntity);
         // extract user information from resumeDto
         userMapper.addResumeDtoContent(userEntity.get(), resumeDto);

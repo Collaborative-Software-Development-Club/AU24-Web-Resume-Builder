@@ -21,6 +21,7 @@ export default function ResumeEditing({
     updateProjects,
     updateSkills,
 }) {
+    console.log('resume in ResumeEditing: ', resume);
     const download = () => {
         downloadResume(resume);
     };
@@ -46,7 +47,7 @@ export default function ResumeEditing({
     };
     return (
         <div className="flex justify-center pb-20 sm:mx-10">
-            <div className="flex w-full max-w-5xl flex-col items-stretch justify-start self-stretch gap-2">
+            <div className="flex w-full max-w-5xl flex-col items-stretch justify-start gap-2 self-stretch">
                 {/* Sidebar to control visibility and ordering */}
                 <Sidebar
                     resume={resume}

@@ -1,6 +1,5 @@
 import {Project} from './Project';
 import Experience from './Experience';
-import {Button} from '@/components/ui/button';
 import {X, Plus} from 'lucide-react';
 import DragAndDropList from './DragAndDropList';
 import {PopupSideButton} from '@/components/PopupSideButton';
@@ -48,7 +47,15 @@ export default function EditableComponent({updateComponent, type, data}) {
     };
     //TODO fix this stuff with adding content to the item
     return (
-        <div className="flex flex-col gap-6">
+        <div className="relative flex flex-col gap-6">
+            <PopupSideButton
+                onlyOnHover={false}
+                onClick={addItem}
+                variant="secondary"
+                className="rounded-full"
+            >
+                <Plus />
+            </PopupSideButton>
             <DragAndDropList
                 items={sanitizedData.map((item) => ({
                     ...item,
@@ -79,9 +86,6 @@ export default function EditableComponent({updateComponent, type, data}) {
                 }))}
                 setItems={setArray}
             />
-            <Button className="mx-auto" onClick={addItem}>
-                <Plus />
-            </Button>
         </div>
     );
 }

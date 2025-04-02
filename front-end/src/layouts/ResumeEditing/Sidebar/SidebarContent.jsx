@@ -3,11 +3,6 @@ import SidebarItem from './SidebarItem';
 import DragAndDropList from '../DragAndDropList';
 
 export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisibility}) => {
-    // const [isOpen, setIsOpen] = useState(false);
-    // const toggleSidebar = () => {
-    //     setIsOpen(!isOpen);
-    // };
-    // console.log('ordering in sidebar content', ordering);
     const updatedOrder = ordering
         .map((sectionId) => {
             let content;
@@ -25,7 +20,6 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
                             key={sectionId}
                             section={resume.education}
                             name="Education"
-                            elements={['GPA', 'Honors']}
                             handleVisibilityChange={handleVisibilityChange}
                         />
                     );
