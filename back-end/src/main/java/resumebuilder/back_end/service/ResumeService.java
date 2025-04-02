@@ -107,8 +107,6 @@ public class ResumeService {
             // System.out.println("Invalid user id passed to ResumeService.save");
             return Optional.empty();
         }
-        // TODO check if the userId is properly set in experiences and projects
-        // TODO actually, check if I can remove it from experience and project entity
         // extract experiences and projects from resumeDto as entities
         List<ExperienceEntity> experienceEntities = experienceMapper
                 .mapToEntity(resumeDto.getExperience().getContent(), userEntity.get().getId());
