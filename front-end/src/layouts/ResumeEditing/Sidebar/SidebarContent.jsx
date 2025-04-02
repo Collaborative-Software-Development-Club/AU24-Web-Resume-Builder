@@ -76,7 +76,7 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
     // console.log('updatedOrder in sidebar content', updatedOrder);
     return (
         <div className="Sidebar flex w-full flex-col">
-            <p className="text-lg 2xl:pt-5">Set Visibility & Ordering</p>
+            <p className="text-lg 2xl:pt-5 text-center">Set Visibility & Ordering</p>
             <div className="sidebar-content">
                 <ul className="cursor-pointer list-none">
                     <DragAndDropList items={updatedOrder} setItems={setResumeOrdering} />
