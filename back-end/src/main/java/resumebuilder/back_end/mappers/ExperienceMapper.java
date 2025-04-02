@@ -17,9 +17,10 @@ public class ExperienceMapper {
         this.modelMapper = modelMapper;
     }
 
-    public List<ExperienceEntity> mapToEntity(List<ExperienceItem> experiencesFromDto) {
+    public List<ExperienceEntity> mapToEntity(List<ExperienceItem> experiencesFromDto, String userId) {
         List<ExperienceEntity> entities = experiencesFromDto.stream()
-                .map(experience -> modelMapper.map(experience, ExperienceEntity.class)).collect(Collectors.toList());
+                .map(experience -> modelMapper.map(experience, ExperienceEntity.class)).toList();
+        entities.forEach(exp -> exp.setUserId(userId));
         return entities;
     }
 

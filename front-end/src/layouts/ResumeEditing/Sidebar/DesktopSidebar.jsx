@@ -1,11 +1,41 @@
-import {SidebarContent} from './SidebarContent';
+import {
+    Sidebar,
+    SidebarContent,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarProvider,
+    SidebarTrigger,
+} from '@/components/ui/sidebar';
+import {SidebarContent as OurSidebarContent} from './SidebarContent';
 
-export const DesktopSidebar = ({resume, ordering, setOrdering, toggleSectionVisibility}) => {
+export const DesktopSidebar = ({
+    resume,
+    ordering,
+    setOrdering,
+    toggleSectionVisibility,
+    children,
+}) => {
     return (
-        <aside className={`sm:xl fixed top-5 hidden h-full w-[270px] bg-white px-6 py-10 2xl:left-0 2xl:block`}>
-            <p className="text-lg font-semibold text-center">Resume Settings</p>
-            <hr />
-            <SidebarContent resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility}/>
-        </aside>
+        <SidebarProvider>
+            <Sidebar>
+                <SidebarContent>
+                    <SidebarGroup>
+                        <SidebarGroupLabel>Resume Settings</SidebarGroupLabel>
+                        <SidebarGroupContent>
+                            <hr />
+                            <OurSidebarContent
+                                resume={resume}
+                                ordering={ordering}
+                                setOrdering={setOrdering}
+                                toggleSectionVisibility={toggleSectionVisibility}
+                            />
+                        </SidebarGroupContent>
+                    </SidebarGroup>
+                </SidebarContent>
+            </Sidebar>
+            <SidebarTrigger />
+            {children}
+        </SidebarProvider>
     );
 };

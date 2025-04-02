@@ -40,7 +40,8 @@ public class ResumeController {
     @GetMapping("")
     public ResponseEntity<List<ResumeDto>> getAllResumes(@RequestParam(value = "userId") String userId) {
         // System.out.println("In getAllResumes");
-        // TODO add a different response for when the userId is invalid
+        // TODO add a different response for when the userId is invalid (requires proper
+        // throwing of errors inside the methods)
         List<ResumeDto> resumes = resumeService.findByUserId(userId);
         if (resumes.isEmpty()) {
             // System.out.println("No resumes found or error");
