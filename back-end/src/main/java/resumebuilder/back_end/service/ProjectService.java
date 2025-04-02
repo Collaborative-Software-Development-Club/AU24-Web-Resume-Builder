@@ -20,13 +20,16 @@ public class ProjectService {
     private final UserRepository userRepository;
     private final ProjectMapper projectMapper;
 
-    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, ProjectMapper projectMapper) {
+    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository,
+            ProjectMapper projectMapper) {
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
         this.projectMapper = projectMapper;
     }
 
-    public boolean exists(String id) { return projectRepository.existsById(id); }
+    public boolean exists(String id) {
+        return projectRepository.existsById(id);
+    }
 
     public ProjectDto save(ProjectDto projectDto) {
         ProjectEntity projectEntity = projectMapper.mapToEntity(projectDto);
@@ -55,6 +58,8 @@ public class ProjectService {
         return project.map(entity -> projectMapper.mapToDto(entity));
     }
 
-    public void delete(String id) { projectRepository.deleteById(id); }
+    public void delete(String id) {
+        projectRepository.deleteById(id);
+    }
 
 }

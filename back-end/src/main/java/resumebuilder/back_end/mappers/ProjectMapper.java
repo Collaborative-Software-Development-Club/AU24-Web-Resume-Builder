@@ -18,9 +18,10 @@ public class ProjectMapper {
         this.modelMapper = modelMapper;
     }
 
-    public List<ProjectEntity> mapToEntity(List<Project> projectsFromDto) {
+    public List<ProjectEntity> mapToEntity(List<Project> projectsFromDto, String userId) {
         List<ProjectEntity> entities = projectsFromDto.stream()
-                .map(project -> modelMapper.map(project, ProjectEntity.class)).collect(Collectors.toList());
+                .map(project -> modelMapper.map(project, ProjectEntity.class)).toList();
+        entities.forEach(pe -> pe.setUserId(userId));
         return entities;
     }
 

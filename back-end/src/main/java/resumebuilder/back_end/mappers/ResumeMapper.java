@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-//TODO unassign experiences/projects from a resume if they aren't present. Could be better to keep the list in resumeentity in the end
-
 @Component
 public class ResumeMapper {
 
@@ -20,7 +18,7 @@ public class ResumeMapper {
 
     public ResumeDto mapToDto(ResumeEntity resumeEntity, List<ExperienceItem> experienceItems,
             List<Project> projects, UserEntity userEntity) {
-        // TODO maybe userEntity shouldn't be passed here since experience/projects are
+        // ? maybe userEntity shouldn't be passed here since experience/projects are
         // prepared for the DTO
 
         ResumeDto resumeDto = new ResumeDto();

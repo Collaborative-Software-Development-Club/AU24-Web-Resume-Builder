@@ -111,8 +111,9 @@ public class ResumeService {
         // TODO actually, check if I can remove it from experience and project entity
         // extract experiences and projects from resumeDto as entities
         List<ExperienceEntity> experienceEntities = experienceMapper
-                .mapToEntity(resumeDto.getExperience().getContent());
-        List<ProjectEntity> projectEntities = projectMapper.mapToEntity(resumeDto.getProjects().getContent());
+                .mapToEntity(resumeDto.getExperience().getContent(), userEntity.get().getId());
+        List<ProjectEntity> projectEntities = projectMapper.mapToEntity(resumeDto.getProjects().getContent(),
+                userEntity.get().getId());
         // save experiences and projects to the database
         List<ExperienceEntity> savedExperiences = experienceRepository.saveAll(experienceEntities);
         List<ProjectEntity> savedProjects = projectRepository.saveAll(projectEntities);
