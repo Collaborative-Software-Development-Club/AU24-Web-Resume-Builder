@@ -164,7 +164,7 @@ export function Project({updateItems, project}) {
 Project.propTypes = {
     updateItems: PropTypes.func.isRequired,
     project: PropTypes.shape({
-        orderId: PropTypes.number,
+        // orderId: PropTypes.number,
         title: PropTypes.string,
         description: PropTypes.string,
         technologies: PropTypes.string,
