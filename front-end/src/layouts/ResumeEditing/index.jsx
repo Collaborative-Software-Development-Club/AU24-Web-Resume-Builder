@@ -54,27 +54,29 @@ export default function ResumeEditing({
                 setOrdering={updateOrderOfSections}
                 toggleSectionVisibility={toggleSectionVisibility}
             >
-                <div className="flex w-full max-w-5xl flex-col items-stretch justify-start gap-2 self-stretch">
-                    {/* Static components */}
-                    <div className="flex flex-row justify-end gap-4">
-                        <Button className="" variant="secondary" onClick={() => download()}>
-                            Download
-                        </Button>
-                        {saveButton}
-                    </div>
-                    <Name name={resume.name} updateName={updateName} />
-                    <ContactMethods
-                        contactMethods={resume.contactMethods ?? []}
-                        updateContactMethods={updateContactMethods}
-                    />
+                <div className="flex w-full flex-col items-center">
+                    <div className="w-full max-w-5xl">
+                        {/* Static components */}
+                        <div className="flex flex-row justify-end gap-4">
+                            <Button className="" variant="secondary" onClick={() => download()}>
+                                Download
+                            </Button>
+                            {saveButton}
+                        </div>
+                        <Name name={resume.name} updateName={updateName} />
+                        <ContactMethods
+                            contactMethods={resume.contactMethods ?? []}
+                            updateContactMethods={updateContactMethods}
+                        />
 
-                    {/* Render ordered components conditionally */}
-                    {resume.orderOfSections?.map(
-                        (sectionId) =>
-                            isVisible(sectionId) && (
-                                <Fragment key={sectionId}>{sections[sectionId]}</Fragment>
-                            ),
-                    )}
+                        {/* Render ordered components conditionally */}
+                        {resume.orderOfSections?.map(
+                            (sectionId) =>
+                                isVisible(sectionId) && (
+                                    <Fragment key={sectionId}>{sections[sectionId]}</Fragment>
+                                ),
+                        )}
+                    </div>
                 </div>
             </Sidebar>
         </div>
