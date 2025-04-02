@@ -1,12 +1,16 @@
 import {MobileSidebar} from './MobileSidebar';
 import {DesktopSidebar} from './DesktopSidebar';
 
-const Sidebar = ({resume, ordering, setOrdering, toggleSectionVisibility}) => {
+const Sidebar = ({resume, ordering, setOrdering, toggleSectionVisibility, children}) => {
     return (
-        <div>
-            <MobileSidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility}/>
-            <DesktopSidebar resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility}/>
-        </div>
+        <DesktopSidebar
+            resume={resume}
+            ordering={ordering}
+            setOrdering={setOrdering}
+            toggleSectionVisibility={toggleSectionVisibility}
+        >
+            {children}
+        </DesktopSidebar>
     );
 };
 

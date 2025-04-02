@@ -55,7 +55,7 @@ export default function SidebarItem({name, section, elements, handleVisibilityCh
                         checked={checkbox}
                         onCheckedChange={handleChange}
                     />
-                    <label htmlFor={name} className="grid text-lg">
+                    <label htmlFor={name} className="text-md font-semibold">
                         {name}
                     </label>
                 </div>
