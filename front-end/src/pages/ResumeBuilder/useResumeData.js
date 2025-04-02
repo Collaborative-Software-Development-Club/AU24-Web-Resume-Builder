@@ -1,19 +1,32 @@
-import {useEffect, useState} from 'react';
-import {getResumeData} from '@/services';
+import {useEffect} from 'react';
+import {getResumeData} from '@/services/getResumeData';
 import uploadResumeData from '@/services/uploadResumeData';
+import {useResumeBase} from '@/hooks/useResumeBase';
 
-export default function useResumeData(resumeId, USE_API) {
-    const [resume, setResume] = useState(null);
+export default function useResumeData(resumeId, useApi) {
+    const baseHook = useResumeBase(null);
+    const {resume, setResume, ...rest} = baseHook;
+
     const save = async () => {
-        const newResume = await uploadResumeData(resumeId, resume);
-        setResume(newResume);
+        try {
+            const newResume = await uploadResumeData(resumeId, resume);
+            setResume(newResume);
+        } catch (e) {
+            console.error(e);
+        }
     };
+
     useEffect(() => {
         const getData = async () => {
-            const resumeData = await getResumeData(resumeId, {useApi: USE_API});
+            const resumeData = await getResumeData(resumeId, {useApi});
             setResume(resumeData);
         };
         getData();
     }, []);
-    return {resume: resume, save: save, setResume: setResume};
+
+    return {
+        resume,
+        save,
+        ...rest,
+    };
 }

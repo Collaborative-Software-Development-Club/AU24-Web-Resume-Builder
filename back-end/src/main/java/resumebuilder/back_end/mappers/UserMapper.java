@@ -2,6 +2,8 @@ package resumebuilder.back_end.mappers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+
+import resumebuilder.back_end.domain.dto.ResumeDto;
 import resumebuilder.back_end.domain.dto.UserDto;
 import resumebuilder.back_end.domain.dto.UserRequestDto;
 import resumebuilder.back_end.domain.entities.UserEntity;
@@ -37,4 +39,20 @@ public class UserMapper {
         return dto;
     }
 
+    public void addResumeDtoContent(UserEntity userEntity, ResumeDto resumeDto) {
+        // TODO maybe this shouldn't be in the mapper?
+        userEntity.setContactMethods(resumeDto.getContactMethods());
+        userEntity.setEducation(resumeDto.getEducation().getContent());
+        userEntity.setName(resumeDto.getName());
+
+        // Looks sus; need to clarify functionality
+        if (userEntity.getSkills() == null) {
+            userEntity.setSkills(resumeDto.getSkills().getContent());
+        } else {
+            if (resumeDto.getSkills().getContent() == null) {
+            } else {
+                userEntity.getSkills().addAll(resumeDto.getSkills().getContent());
+            }
+        }
+    }
 }

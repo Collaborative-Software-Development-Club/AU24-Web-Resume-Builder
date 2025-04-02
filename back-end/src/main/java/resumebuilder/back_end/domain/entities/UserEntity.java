@@ -9,13 +9,14 @@ import resumebuilder.back_end.domain.model.enums.Role;
 
 import java.util.ArrayList;
 import java.util.List;
+import resumebuilder.back_end.domain.model.User;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Document(collection = "users")
-public class UserEntity {
+public class UserEntity extends User {
 
     @NotBlank
     @Id
@@ -44,11 +45,3 @@ public class UserEntity {
     }
 
 }
-
-
-// id
-// resumes: list of resumes
-// UserController (/users)
-// GET
-// POST
-// UserService

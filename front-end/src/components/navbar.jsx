@@ -1,36 +1,48 @@
 'use client';
-import { Link } from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {
     NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     navigationMenuTriggerStyle,
-    NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
+import {cn} from '@/lib/utils';
 
 export function NavBar() {
-    const userId = "123";  // Hardcoded user ID for demonstration
+    const defaultResumeId = '67352f2265e5d74b8503ce90';
+    const location = useLocation();
+
+    const getActiveLocation = () => {
+        if (location.pathname.includes('/about')) return 'about';
+        if (location.pathname.includes('/account')) return 'account';
+        return '';
+    };
+
+    const activeLocation = getActiveLocation();
 
     return (
-        <div className="flex flex-row justify-end rounded-xl">
+        <div className="flex flex-row justify-end rounded-xl pr-5 pt-6 shadow-sm">
             <NavigationMenu>
-                <NavigationMenuList>
-                    <NavigationMenuItem>
-                        <Link to={`/resume/${userId}`}>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>Resume</NavigationMenuLink>
-                        </Link>
-                    </NavigationMenuItem>
+                <NavigationMenuList className="gap-1">
                     <NavigationMenuItem>
                         <Link to="/about">
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>About</NavigationMenuLink>
+                            <NavigationMenuLink
+                                className={navigationMenuTriggerStyle()}
+                                active={activeLocation == 'about'}
+                            >
+                                About
+                            </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                         <Link to="/account">
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>Account</NavigationMenuLink>
+                            <NavigationMenuLink
+                                active={activeLocation == 'account'}
+                                className={navigationMenuTriggerStyle()}
+                            >
+                                Account
+                            </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
                 </NavigationMenuList>

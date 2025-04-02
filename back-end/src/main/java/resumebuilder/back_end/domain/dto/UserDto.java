@@ -8,13 +8,12 @@ import resumebuilder.back_end.domain.model.enums.Role;
 
 import java.util.ArrayList;
 import java.util.List;
+import resumebuilder.back_end.domain.model.User;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class UserDto {
-
+public class UserDto extends User {
     private String id;
     private String username;
 

@@ -14,7 +14,6 @@ import resumebuilder.back_end.domain.model.enums.Role;
 import resumebuilder.back_end.mappers.UserMapper;
 import resumebuilder.back_end.repository.UserRepository;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,7 +60,6 @@ public class UserService implements UserDetailsService {
         Optional<UserEntity> user = userRepository.findById(userId);
         if (user.isPresent()) {
             UserEntity userEntity = user.get();
-            userEntity.addResume(resumeId);
             userRepository.save(userEntity);
             return Optional.ofNullable(userMapper.mapToDto(userEntity));
         }
@@ -72,7 +70,6 @@ public class UserService implements UserDetailsService {
         Optional<UserEntity> user = userRepository.findById(userId);
         if (user.isPresent()) {
             UserEntity userEntity = user.get();
-            userEntity.removeResume(resumeId);
             userRepository.save(userEntity);
             return Optional.ofNullable(userMapper.mapToDto(userEntity));
         }

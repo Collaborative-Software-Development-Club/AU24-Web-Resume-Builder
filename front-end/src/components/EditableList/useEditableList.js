@@ -2,7 +2,7 @@ import {useState} from 'react';
 
 const EMPTY_STRING = '';
 
-export function useEditableList(list) {
+export function useEditableList(list, updateList) {
     const [editableList, setEditableList] = useState(
         list.map((element, index) => ({
             value: element,
@@ -20,8 +20,8 @@ export function useEditableList(list) {
             }
             return element;
         });
-        console.log(newList);
         setEditableList(newList);
+        updateList(newList.map((item) => item.value));
     }
     function addNew() {
         setEditableList([...editableList, {value: EMPTY_STRING, id: count}]);
