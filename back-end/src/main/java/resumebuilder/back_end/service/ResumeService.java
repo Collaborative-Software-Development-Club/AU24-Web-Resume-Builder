@@ -5,8 +5,6 @@ import resumebuilder.back_end.domain.dto.ResumeDto;
 import resumebuilder.back_end.domain.entities.*;
 import resumebuilder.back_end.mappers.ExperienceMapper;
 import resumebuilder.back_end.mappers.ProjectMapper;
-import resumebuilder.back_end.error_handling.exceptions.ResumeNotFoundException;
-import resumebuilder.back_end.error_handling.exceptions.ResumeNotFoundException;
 import resumebuilder.back_end.mappers.ResumeMapper;
 import resumebuilder.back_end.mappers.UserMapper;
 import resumebuilder.back_end.repository.ExperienceRepository;
