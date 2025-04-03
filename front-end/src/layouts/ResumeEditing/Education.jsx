@@ -47,16 +47,14 @@ const Education = ({updateEducation, education}) => {
                                 />
                             </div>
 
-                            <div className="grid grid-cols-8 space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+                            <div className="italic grid grid-cols-8 gap-2">
                                 <Input
                                     name="degree"
                                     placeholder="Enter Degree"
                                     value={education?.degree || ''}
                                     onChange={handleInputChange}
-                                    className="col-span-6 italic"
+                                    className="col-span-6"
                                 />
-
-                                <div className="flex space-x-4 md:w-1/3">
                                     <Months
                                         type="Graduation"
                                         value={education.graduationDate?.month || ''}
@@ -78,18 +76,15 @@ const Education = ({updateEducation, education}) => {
                                                 },
                                             });
                                         }}
+                                        className="col-span-1"
                                     />
-
-                                    <div>
-                                        <Input
-                                            name="year"
-                                            placeholder="Year"
-                                            value={education.graduationDate?.year || ''}
-                                            onChange={handleYearInputChange}
-                                            className="times"
-                                        />
-                                    </div>
-                                </div>
+                                    <Input
+                                        name="year"
+                                        placeholder="Year"
+                                        value={education.graduationDate?.year || ''}
+                                        onChange={handleYearInputChange}
+                                        className="col-span-1"
+                                    />
                             </div>
 
                             {/* GPA and Honors */}
