@@ -133,7 +133,7 @@ const Education = ({updateEducation, education}) => {
                             {/* GPA and Honors */}
                             <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                                 <div className={'w-24'}>
-                                    <p className="font-bold">GPA: {education?.gpa || ''}</p>
+                                    <p className="font-bold">{education?.gpa == 0 ? '' : "GPA: " + education?.gpa}</p>
                                 </div>
                             </div>
 
