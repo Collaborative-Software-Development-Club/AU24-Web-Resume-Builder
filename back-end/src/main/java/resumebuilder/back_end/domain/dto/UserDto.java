@@ -1,32 +1,25 @@
 package resumebuilder.back_end.domain.dto;
 
+import java.util.List;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import resumebuilder.back_end.domain.model.enums.Role;
-
-import java.util.ArrayList;
-import java.util.List;
-import resumebuilder.back_end.domain.model.User;
+import resumebuilder.back_end.domain.model.Education;
+import resumebuilder.back_end.domain.model.Skill;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto extends User {
+public class UserDto {
     private String id;
     private String username;
-
-    private List<String> resumesId;
     private Role role;
 
-
-    public void addResume(String resumeId) {
-        this.resumesId.add(resumeId);
-    }
-
-    public void removeResume(String resumeId) {
-        this.resumesId.remove(resumeId);
-    }
-
+    private String name;
+    private Education education;
+    private List<String> contactMethods;
+    private Set<Skill> skills;
 }

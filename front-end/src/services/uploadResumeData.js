@@ -7,13 +7,6 @@ export default async function uploadResumeData(resumeId, resumeData) {
         },
         body: JSON.stringify(resumeData),
     });
-<<<<<<< HEAD
-    console.log('response: ', response);
-    const data = await response.json();
-    console.log('data returned: ');
-    console.log(data);
-    return data;
-=======
     // console.log('response: ', response);
     const data = await response.json();
     // console.log('data returned: ');
@@ -25,5 +18,4 @@ export default async function uploadResumeData(resumeId, resumeData) {
             `Failed to update resume: ${response.status} ${response.statusText} ${JSON.stringify(data)}`,
         );
     }
->>>>>>> dev
 }
