@@ -21,8 +21,8 @@ const Education = ({updateEducation, education}) => {
         });
     };
     const isEmpty = JSON.stringify(education) === JSON.stringify(DEFAULT_RESUME.education.content);
-    console.log('education is empty', isEmpty);
-    console.log(JSON.stringify(education), JSON.stringify(DEFAULT_RESUME.education.content));
+    // console.log('education is empty', isEmpty);
+    // console.log(JSON.stringify(education), JSON.stringify(DEFAULT_RESUME.education.content));
     return (
         <div className="mt-4">
             <div className="w-full">

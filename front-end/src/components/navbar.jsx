@@ -26,24 +26,22 @@ export function NavBar() {
             <NavigationMenu>
                 <NavigationMenuList className="gap-1">
                     <NavigationMenuItem>
-                        <Link to="/about">
-                            <NavigationMenuLink
-                                className={navigationMenuTriggerStyle()}
-                                active={activeLocation == 'about'}
-                            >
-                                About
-                            </NavigationMenuLink>
-                        </Link>
+                        <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                            active={activeLocation == 'about'}
+                            asChild
+                        >
+                            <Link to="/about">About</Link>
+                        </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <Link to="/account">
-                            <NavigationMenuLink
-                                active={activeLocation == 'account'}
-                                className={navigationMenuTriggerStyle()}
-                            >
-                                Account
-                            </NavigationMenuLink>
-                        </Link>
+                        <NavigationMenuLink
+                            active={activeLocation == 'account'}
+                            className={navigationMenuTriggerStyle()}
+                            asChild
+                        >
+                            <Link to="/account">Account</Link>
+                        </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>

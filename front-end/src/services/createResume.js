@@ -10,7 +10,9 @@ export default async function createResume(userId, resumeData = {}) {
     const data = await response.json();
     // console.log('data', data.details);
     if (!response.ok) {
-        throw new Error(`Failed to create resume: ${response.status} ${response.statusText}`);
+        throw new Error(
+            `Failed to create resume: ${response.status} ${response.statusText}\n${data.details}`,
+        );
     }
     return data;
 }
