@@ -6,7 +6,6 @@ import resumebuilder.back_end.domain.entities.ResumeEntity;
 import resumebuilder.back_end.domain.entities.UserEntity;
 import resumebuilder.back_end.domain.model.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +14,9 @@ public class ResumeMapper {
 
     public ResumeMapper() {
     }
+
+    // in this class, we use the all args constructors so that we con't forget to
+    // set any fields
 
     public ResumeDto mapToDto(ResumeEntity resumeEntity, List<ExperienceItem> experienceItems,
             List<Project> projects, UserEntity userEntity) {
@@ -44,19 +46,16 @@ public class ResumeMapper {
     }
 
     public ResumeEntity mapToEntity(ResumeDto resumeDto, List<String> experienceIds, List<String> projectIds) {
-        ResumeEntity resumeEntity = new ResumeEntity();
-        // set fields from ResumeDto that map to ResumeEntity
-        resumeEntity.setId(resumeDto.getId());
-        resumeEntity.setUserId(resumeDto.getUserId());
-        resumeEntity.setLastModified(resumeDto.getLastModified());
-        resumeEntity.setOrderOfSections(resumeDto.getOrderOfSections());
-        resumeEntity.setDescription(
-                resumeDto.getDescription().isEmpty() ? "Untitled" : resumeDto.getDescription());
-        resumeEntity.setSkills(resumeDto.getSkills().getContent());
-        resumeEntity.setProfessionalSummary(resumeDto.getProfessionalSummary().getContent());
-        resumeEntity.setExperienceIds(experienceIds);
-        resumeEntity.setProjectIds(projectIds);
-        return resumeEntity;
+        return new ResumeEntity(
+                resumeDto.getId(),
+                resumeDto.getUserId(),
+                experienceIds,
+                projectIds,
+                resumeDto.getSkills().getContent(),
+                resumeDto.getProfessionalSummary().getContent(),
+                resumeDto.getOrderOfSections(),
+                resumeDto.getDescription().isEmpty() ? "Untitled" : resumeDto.getDescription(),
+                resumeDto.getLastModified());
     }
 
 }
