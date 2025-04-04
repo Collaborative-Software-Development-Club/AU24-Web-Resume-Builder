@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomDate {
-    private int month;
-    private int year;
+    private Integer month = null;
+    private Integer year = null;
 }

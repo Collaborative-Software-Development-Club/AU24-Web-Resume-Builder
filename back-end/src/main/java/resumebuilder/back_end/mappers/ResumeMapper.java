@@ -21,40 +21,24 @@ public class ResumeMapper {
         // ? maybe userEntity shouldn't be passed here since experience/projects are
         // prepared for the DTO
 
-        ResumeDto resumeDto = new ResumeDto();
-        resumeDto.setId(resumeEntity.getId());
-        resumeDto.setUserId(resumeEntity.getUserId());
-        resumeDto.setLastModified(resumeEntity.getLastModified());
-        resumeDto.setDescription(resumeEntity.getDescription());
-        // this is here for resumes that didn't yet have the lastModified field before
-        if (resumeDto.getLastModified() == null) {
-            resumeDto.setLastModified(LocalDateTime.now());
-        }
-        // this is for the resumes in the database that had an empty description instead
-        // of untitled
-        if (resumeDto.getDescription() == null || resumeDto.getDescription().isEmpty()) {
-            resumeDto.setDescription("Untitled");
-        }
-
-        resumeDto.setName(userEntity.getName());
-        resumeDto.setContactMethods(userEntity.getContactMethods());
-        resumeDto.setOrderOfSections(resumeEntity.getOrderOfSections());
-        Section<Education> educationSection = new Section<>(true, userEntity.getEducation());
-        resumeDto.setEducation(educationSection);
+        Section<Education> educationSection = new Section<>(true,
+                userEntity.getEducation() != null ? userEntity.getEducation() : new Education());
         // System.out.println("experienceEntities");
         // System.out.println(experienceEntities);
         // System.out.println("experienceItems");
         // System.out.println(experienceItems);
         Section<List<ExperienceItem>> experienceSection = new Section<>(true, experienceItems);
-        resumeDto.setExperience(experienceSection);
         // System.out.println("projectEntities");
         // System.out.println("projects");
         Section<List<Project>> projectSection = new Section<>(true, projects);
-        resumeDto.setProjects(projectSection);
         Section<Set<Skill>> skills = new Section<>(true, resumeEntity.getSkills());
-        resumeDto.setSkills(skills);
         Section<String> professionalSummary = new Section<>(true, resumeEntity.getProfessionalSummary());
-        resumeDto.setProfessionalSummary(professionalSummary);
+
+        ResumeDto resumeDto = new ResumeDto(resumeEntity.getId(), resumeEntity.getUserId(), userEntity.getName(),
+                userEntity.getContactMethods(), educationSection, experienceSection, projectSection,
+                professionalSummary, skills, resumeEntity.getOrderOfSections(),
+                resumeEntity.getDescription().isBlank() ? "Untitled" : resumeEntity.getDescription(),
+                resumeEntity.getLastModified());
 
         return resumeDto;
     }
@@ -66,7 +50,8 @@ public class ResumeMapper {
         resumeEntity.setUserId(resumeDto.getUserId());
         resumeEntity.setLastModified(resumeDto.getLastModified());
         resumeEntity.setOrderOfSections(resumeDto.getOrderOfSections());
-        resumeEntity.setDescription(resumeDto.getDescription());
+        resumeEntity.setDescription(
+                resumeDto.getDescription().isEmpty() ? "Untitled" : resumeDto.getDescription());
         resumeEntity.setSkills(resumeDto.getSkills().getContent());
         resumeEntity.setProfessionalSummary(resumeDto.getProfessionalSummary().getContent());
         resumeEntity.setExperienceIds(experienceIds);

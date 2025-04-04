@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.mongodb.lang.NonNull;
+
 import resumebuilder.back_end.domain.model.*;
 import resumebuilder.back_end.domain.model.enums.SectionNames;
 
@@ -18,13 +21,19 @@ import java.util.Set;
 @Document(collection = "resume1")
 public class ResumeEntity {
     @Id
+    @NonNull
     private String id;
+    @NonNull
     private String userId;
+    @NonNull
     private List<String> experienceIds;
+    @NonNull
     private List<String> projectIds;
 
+    @NonNull
     private Set<Skill> skills;
     private String professionalSummary;
+    @NonNull
     private List<SectionNames> orderOfSections = List.of(
             SectionNames.PROFESSIONAL_SUMMARY,
             SectionNames.EDUCATION,
@@ -34,6 +43,7 @@ public class ResumeEntity {
             SectionNames.HONORS,
             SectionNames.CERTIFICATIONS,
             SectionNames.VOLUNTEER_EXPERIENCE);
-    private String description;
-    private LocalDateTime lastModified;
+    @NonNull
+    private String description = "Untitled";
+    private LocalDateTime lastModified = LocalDateTime.now();
 }

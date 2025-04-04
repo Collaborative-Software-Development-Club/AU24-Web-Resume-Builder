@@ -11,8 +11,7 @@ const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
 export function Account() {
     // const fetchedUserData = useUserData(DEFAULT_USER_ID, USE_API);
     const navigate = useNavigate();
-    const {resumes} = useUserResumes(DEFAULT_USER_ID, USE_API);
-    resumes.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
+    const {resumes, deleteResume} = useUserResumes(DEFAULT_USER_ID, USE_API);
     console.log(resumes);
 
     if (!resumes) return <p>Loading...</p>;
@@ -26,10 +25,6 @@ export function Account() {
         } catch (error) {
             console.error('Failed to create a new resume:', error);
         }
-    };
-
-    const handleDeleteResume = (deletedResumeId) => {
-        setResumeIds((prevIds) => prevIds.filter((id) => id !== deletedResumeId));
     };
 
     return (
@@ -46,7 +41,7 @@ export function Account() {
                     <ResumePreview
                         key={resume.id}
                         resumeId={resume.id}
-                        onDelete={handleDeleteResume}
+                        onDelete={deleteResume}
                         {...resume}
                     />
                 ))}

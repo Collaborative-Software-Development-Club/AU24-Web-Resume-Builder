@@ -1,8 +1,6 @@
 package resumebuilder.back_end.domain.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import resumebuilder.back_end.domain.model.*;
 import resumebuilder.back_end.domain.model.enums.SectionNames;
 
@@ -12,9 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.util.Assert;
+
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ResumeDto {
     private String id;
     private String userId;
@@ -39,5 +37,49 @@ public class ResumeDto {
             SectionNames.VOLUNTEER_EXPERIENCE);
     private String description = "Untitled";
     // can't have a default value
-    private LocalDateTime lastModified;
+    private LocalDateTime lastModified = LocalDateTime.now();
+
+    public ResumeDto(String id, String userId, String name, List<String> contactMethods, Section<Education> education,
+            Section<List<ExperienceItem>> experience, Section<List<Project>> projects,
+            Section<String> professionalSummary, Section<Set<Skill>> skills, List<SectionNames> orderOfSections,
+            String description, LocalDateTime lastModified) {
+
+        Assert.notNull(id, "id must not be null");
+        this.id = id;
+
+        Assert.notNull(userId, "userId must not be null");
+        this.userId = userId;
+
+        Assert.notNull(name, "name must not be null");
+        this.name = name;
+
+        Assert.notNull(contactMethods, "contactMethods must not be null");
+        this.contactMethods = contactMethods;
+
+        if (education != null) {
+            this.education = education;
+        }
+
+        Assert.notNull(experience, "experience must not be null");
+        this.experience = experience;
+
+        Assert.notNull(projects, "projects must not be null");
+        this.projects = projects;
+
+        Assert.notNull(professionalSummary, "professionalSummary must not be null");
+        this.professionalSummary = professionalSummary;
+
+        Assert.notNull(skills, "skills must not be null");
+        this.skills = skills;
+
+        Assert.notNull(orderOfSections, "orderOfSections must not be null");
+        this.orderOfSections = orderOfSections;
+
+        Assert.notNull(description, "description must not be null");
+        Assert.hasText(description, "description must not be empty");
+        this.description = description;
+
+        Assert.notNull(lastModified, "lastModified must not be null");
+        this.lastModified = lastModified;
+    }
 }

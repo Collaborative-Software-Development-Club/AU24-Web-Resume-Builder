@@ -2,8 +2,6 @@ import {Link} from 'react-router-dom';
 import {FileText, Download, Pencil, Clock} from 'lucide-react';
 import Delete from '@/components/Delete';
 import {Button, buttonVariants} from '@/components/ui/button';
-import deleteResumeData from '@/services/deleteResumeData';
-import deleteResumeFromUser from '@/services/deleteResumeFromUser';
 import {Card, CardDescription, CardFooter, CardTitle} from '@/components/ui/card';
 import {formatDistanceToNow} from 'date-fns';
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@/components/ui/tooltip';
@@ -13,7 +11,6 @@ export default function ResumePreview({resumeId, onDelete, description, lastModi
 
     const deleteResume = async () => {
         try {
-            await deleteResumeData(resumeId);
             onDelete(resumeId); // Call the onDelete function with the deleted resume ID
         } catch (error) {
             console.error('Failed to delete resume:', error);
