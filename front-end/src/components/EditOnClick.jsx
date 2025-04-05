@@ -1,20 +1,6 @@
 import {useState, useRef, useEffect, useCallback} from 'react';
+import PropTypes from 'prop-types';
 
-/**
- * A React component that toggles between a display view and an editing view
- * when clicked. It allows users to edit content inline and handles closing
- * the editing view when clicking outside of it.
- *
- * @param {Object} props - The props object.
- * @param {React.ReactNode} props.displayView - The content to display when not in editing mode.
- * @param {React.ReactNode} props.editingView - The content to display when in editing mode.
- * @param {boolean} props.empty - A flag indicating whether the section is empty.
- * @param {string} props.sectionName - The name of the section being edited (used for debugging/logging).
- *
- * @throws {Error} Throws an error if `displayView` or `editingView` props are not provided.
- *
- * @returns {JSX.Element} The rendered component.
- */
 export function EditOnClick({displayView, editingView, empty, sectionName}) {
     if (displayView == undefined) {
         throw new Error('displayView prop not provided to EditOnClick');
@@ -22,20 +8,33 @@ export function EditOnClick({displayView, editingView, empty, sectionName}) {
     if (editingView == undefined) {
         throw new Error('editingView prop not provided to EditOnClick');
     }
+
     const [isEditing, setIsEditing] = useState(empty);
-    // console.log(`isEditing for ${sectionName} is ${isEditing}`);
-    // console.log(`empty for ${sectionName} is ${empty}`);
-    const closeEditing = empty ? () => {} : () => setIsEditing(false);
+
+    // Sync `isEditing` with `empty` prop changes
+    useEffect(() => {
+        if (empty) setIsEditing(true);
+    }, [empty]);
+
+    const closeEditing = () => setIsEditing(false);
+
     return isEditing ? (
         <EditView closeEditing={closeEditing} sectionName={sectionName}>
             {editingView}
         </EditView>
     ) : (
-        <div onClick={() => setIsEditing(true)} className="w-full">
+        <div onClick={() => setIsEditing(true)} role="button" tabIndex={0} className="w-full">
             {displayView}
         </div>
     );
 }
+
+EditOnClick.propTypes = {
+    displayView: PropTypes.node.isRequired,
+    editingView: PropTypes.node.isRequired,
+    empty: PropTypes.bool,
+    sectionName: PropTypes.string,
+};
 
 function EditView({children, closeEditing, sectionName}) {
     const divRef = useRef(null);
@@ -44,17 +43,18 @@ function EditView({children, closeEditing, sectionName}) {
         (event) => {
             const target = event.target;
 
-            // Check if click originated from a dialog or toast
-            const isDialogClick = target.closest('[role="dialog"]') !== null;
-            const isToastClick = target.closest('[role="status"]') !== null;
+            const isRadixSelect = target.closest('[data-radix-popper-content-wrapper]');
+            const isDialog = target.closest('[role="dialog"]');
+            const isToast = target.closest('[role="status"]');
 
             if (
                 divRef.current &&
                 !divRef.current.contains(target) &&
-                !(target.getAttribute('role') == 'option') &&
-                !isDialogClick &&
-                !isToastClick
+                !isRadixSelect &&
+                !isDialog &&
+                !isToast
             ) {
+                console.log('closing');
                 closeEditing();
             }
         },

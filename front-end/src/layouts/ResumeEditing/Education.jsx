@@ -60,7 +60,7 @@ const Education = ({updateEducation, education}) => {
                                 <Months
                                     type="Graduation"
                                     value={education.graduationDate?.month || ''}
-                                    handleSelectChange={handleSelectChange}
+                                    handleSelectChange={(value) => handleSelectChange('graduationDate', 'month', value)}
                                     className="col-span-1"
                                 />
                                 <Input

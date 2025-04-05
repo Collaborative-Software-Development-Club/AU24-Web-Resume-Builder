@@ -67,7 +67,7 @@ export function Project({updateItems, project}) {
                             <Months
                                 type="Start"
                                 value={project.startDate.month}
-                                handleSelectChange={handleSelectChange}
+                                handleSelectChange={(value) => handleSelectChange('startDate', 'month', value)}
                                 className="col-span-1"
                             />
                             <Input

@@ -73,7 +73,9 @@ export function Experience({updateItems, experience}) {
                             {/* Start Date (Month and Year) */}
                             <Months
                                 type="Start"
-                                handleSelectChange={handleSelectChange}
+                                handleSelectChange={(value) =>
+                                    handleSelectChange('startDate', 'month', value)
+                                }
                                 value={experience.startDate.month}
                             />
                             <Input
@@ -86,7 +88,9 @@ export function Experience({updateItems, experience}) {
                             />
                             <Months
                                 type="End"
-                                handleSelectChange={handleSelectChange}
+                                handleSelectChange={(value) =>
+                                    handleSelectChange('endDate', 'month', value)
+                                }
                                 value={experience.endDate.month}
                             />
                             <Input
