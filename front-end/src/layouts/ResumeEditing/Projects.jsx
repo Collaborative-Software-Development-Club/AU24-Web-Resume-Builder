@@ -3,6 +3,15 @@ import {Project} from './Project';
 import {SectionOfDraggableItems} from './SectionOfDraggableItems';
 
 export function Projects({updateProjects, projects}) {
+
+    //set function for DragAndDropList
+    const setDragData = (reorderedList) => {
+        console.log(reorderedList)
+        updateProjects(reorderedList.map((item) => {
+           return (item.content.props.children[0].props.project);
+        }))
+    }
+
     return (
         <div>
             <SectionTitle title="Projects" />
@@ -12,6 +21,7 @@ export function Projects({updateProjects, projects}) {
                 itemData={projects}
                 createNewItem={createNewItem}
                 setItemData={updateProjects}
+                setDragData={setDragData}
             />
         </div>
     );

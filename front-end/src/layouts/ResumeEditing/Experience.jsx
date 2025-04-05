@@ -19,7 +19,6 @@ const PLACEHOLDERS = {
 export function Experience({updateItems, experience}) {
     // Handle input changes for text fields
     const handleInputChange = (e) => {
-        console.log(e);
         const {name, value} = e.target;
         updateItems({
             ...experience,
@@ -27,7 +26,7 @@ export function Experience({updateItems, experience}) {
         });
     };
 
-    // Handle selection changes for month
+    // Handle selection changes for dates
     const handleSelectChange = (dateType, field, value) => {
         updateItems({
             ...experience,
@@ -74,7 +73,9 @@ export function Experience({updateItems, experience}) {
                             {/* Start Date (Month and Year) */}
                             <Months
                                 type="Start"
-                                handleSelectChange={handleSelectChange}
+                                handleSelectChange={(value) =>
+                                    handleSelectChange('startDate', 'month', value)
+                                }
                                 value={experience.startDate.month}
                             />
                             <Input
@@ -82,12 +83,14 @@ export function Experience({updateItems, experience}) {
                                 placeholder="Start Year"
                                 value={experience.startDate.year}
                                 onChange={(e) =>
-                                    handleSelectChange('startDate', 'year', e.target.value)
+                                    handleSelectChange('startDate', 'year', Number(e.target.value))
                                 }
                             />
                             <Months
                                 type="End"
-                                handleSelectChange={handleSelectChange}
+                                handleSelectChange={(value) =>
+                                    handleSelectChange('endDate', 'month', value)
+                                }
                                 value={experience.endDate.month}
                             />
                             <Input
@@ -95,7 +98,7 @@ export function Experience({updateItems, experience}) {
                                 placeholder="End Year"
                                 value={experience.endDate.year}
                                 onChange={(e) =>
-                                    handleSelectChange('endDate', 'year', e.target.value)
+                                    handleSelectChange('endDate', 'year', Number(e.target.value))
                                 }
                             />
                         </div>
@@ -114,49 +117,28 @@ export function Experience({updateItems, experience}) {
                 displayView={
                     <div className="times flex w-full flex-col">
                         <div className="flex flex-row justify-between gap-2 font-bold">
-                            <p>
-                                {experience.company == ''
-                                    ? PLACEHOLDERS.company
-                                    : experience.company}
-                            </p>
-                            <p>
-                                {experience.location == ''
-                                    ? PLACEHOLDERS.location
-                                    : experience.location}
-                            </p>
+                            <p>{experience.company}</p>
+                            <p>{experience.location}</p>
                         </div>
                         <div className="flex items-center justify-between">
-                            <p>
-                                {experience.position == ''
-                                    ? PLACEHOLDERS.position
-                                    : experience.position}
-                            </p>
+                            <p>{experience.position}</p>
                             <div className="flew-col flex items-center italic">
                                 <div className="flew-col flex items-center">
-                                    <MonthDisplayView
-                                        monthNumber={experience.startDate.month}
-                                        placeHolder={PLACEHOLDERS.startMonth}
-                                    />
-                                    <p className="times">
-                                        {experience.startDate.year ?? PLACEHOLDERS.startYear}
-                                    </p>
+                                    <MonthDisplayView monthNumber={experience.startDate.month} />
+                                    <p className="times">{experience.startDate.year || ''}</p>
                                 </div>
-                                <p className="px-2">-</p>
+                                <p className="px-2">
+                                    {experience.startDate.year && experience.endDate.year
+                                        ? '-'
+                                        : ''}
+                                </p>
                                 <div className="flew-col flex items-center">
-                                    <MonthDisplayView
-                                        monthNumber={experience.endDate.month}
-                                        placeHolder={PLACEHOLDERS.endMonth}
-                                    />
-                                    <p className="">
-                                        {experience.endDate.year ?? PLACEHOLDERS.endYear}
-                                    </p>
+                                    <MonthDisplayView monthNumber={experience.endDate.month} />
+                                    <p className="">{experience.endDate.year || ''}</p>
                                 </div>
                             </div>
                         </div>
-                        <BulletPointDisplayView
-                            text={experience.description}
-                            placeHolder={PLACEHOLDERS.description}
-                        />
+                        <BulletPointDisplayView text={experience.description} />
                     </div>
                 }
             />
