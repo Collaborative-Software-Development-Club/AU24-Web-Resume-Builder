@@ -16,7 +16,7 @@ export function EditOnClick({displayView, editingView, empty, sectionName}) {
         if (empty) setIsEditing(true);
     }, [empty]);
 
-    const closeEditing = () => setIsEditing(false);
+    const closeEditing = empty ? () => {} : () => setIsEditing(false);
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter' || event.key === 'Escape') {
