@@ -74,12 +74,14 @@ export function Project({updateItems, project}) {
                             />
                             <Input
                                 name="startYear"
+                                type="number"
+                                inputMode="numeric"
                                 placeholder={PLACEHOLDERS.startYear}
                                 value={project.startDate.year}
                                 onChange={(e) =>
                                     handleSelectChange('startDate', 'year', Number(e.target.value))
                                 }
-                                className="col-span-1"
+                                className="col-span-1 [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                             />
                         </div>
                         <div className="times grid grid-cols-3 gap-2">

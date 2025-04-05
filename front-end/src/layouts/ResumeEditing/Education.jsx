@@ -62,15 +62,25 @@ const Education = ({updateEducation, education}) => {
                                 <Months
                                     type="Graduation"
                                     value={education.graduationDate?.month || ''}
-                                    handleSelectChange={(value) => handleSelectChange('graduationDate', 'month', value)}
+                                    handleSelectChange={(value) =>
+                                        handleSelectChange('graduationDate', 'month', value)
+                                    }
                                     className="col-span-1"
                                 />
                                 <Input
                                     name="year"
+                                    type="number"
+                                    inputMode="numeric"
                                     placeholder="Year"
                                     value={education.graduationDate?.year || ''}
-                                    onChange={(e) => handleSelectChange('graduationDate', 'year', Number(e.target.value))}
-                                    className="col-span-1"
+                                    onChange={(e) =>
+                                        handleSelectChange(
+                                            'graduationDate',
+                                            'year',
+                                            Number(e.target.value),
+                                        )
+                                    }
+                                    className="col-span-1 [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                                 />
                             </div>
 
@@ -79,10 +89,12 @@ const Education = ({updateEducation, education}) => {
                                 <div className="w-24">
                                     <Input
                                         name="gpa"
+                                        type="number"
+                                        inputMode="numeric"
                                         placeholder="Enter GPA"
                                         value={education?.gpa || ''}
                                         onChange={handleInputChange}
-                                        className=""
+                                        className="[-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                                     />
                                 </div>
                             </div>

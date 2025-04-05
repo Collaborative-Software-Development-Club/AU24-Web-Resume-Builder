@@ -9,9 +9,7 @@ const PLACEHOLDERS = {
     position: 'Enter your position title',
     company: 'Company or Organization',
     description: 'Brief description of responsibilities',
-    startMonth: 'Start Month',
     startYear: 'Start Year',
-    endMonth: 'End Month',
     endYear: 'End Year',
     location: 'Location (e.g., City, State)',
 };
@@ -80,11 +78,14 @@ export function Experience({updateItems, experience}) {
                             />
                             <Input
                                 name="startYear"
-                                placeholder="Start Year"
+                                type="number"
+                                inputMode="numeric"
+                                placeholder={PLACEHOLDERS.startYear}
                                 value={experience.startDate.year}
                                 onChange={(e) =>
                                     handleSelectChange('startDate', 'year', Number(e.target.value))
                                 }
+                                className="[-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                             />
                             <Months
                                 type="End"
@@ -95,11 +96,14 @@ export function Experience({updateItems, experience}) {
                             />
                             <Input
                                 name="endYear"
-                                placeholder="End Year"
+                                type="number"
+                                inputMode="numeric"
+                                placeholder={PLACEHOLDERS.endYear}
                                 value={experience.endDate.year}
                                 onChange={(e) =>
                                     handleSelectChange('endDate', 'year', Number(e.target.value))
                                 }
+                                className="[-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                             />
                         </div>
 
