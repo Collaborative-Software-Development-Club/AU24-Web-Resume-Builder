@@ -117,49 +117,28 @@ export function Experience({updateItems, experience}) {
                 displayView={
                     <div className="times flex w-full flex-col">
                         <div className="flex flex-row justify-between gap-2 font-bold">
-                            <p>
-                                {experience.company == ''
-                                    ? PLACEHOLDERS.company
-                                    : experience.company}
-                            </p>
-                            <p>
-                                {experience.location == ''
-                                    ? PLACEHOLDERS.location
-                                    : experience.location}
-                            </p>
+                            <p>{experience.company}</p>
+                            <p>{experience.location}</p>
                         </div>
                         <div className="flex items-center justify-between">
-                            <p>
-                                {experience.position == ''
-                                    ? PLACEHOLDERS.position
-                                    : experience.position}
-                            </p>
+                            <p>{experience.position}</p>
                             <div className="flew-col flex items-center italic">
                                 <div className="flew-col flex items-center">
-                                    <MonthDisplayView
-                                        monthNumber={experience.startDate.month}
-                                        placeHolder={PLACEHOLDERS.startMonth}
-                                    />
-                                    <p className="times">
-                                        {experience.startDate.year ?? PLACEHOLDERS.startYear}
-                                    </p>
+                                    <MonthDisplayView monthNumber={experience.startDate.month} />
+                                    <p className="times">{experience.startDate.year || ''}</p>
                                 </div>
-                                <p className="px-2">-</p>
+                                <p className="px-2">
+                                    {experience.startDate.year && experience.endDate.year
+                                        ? '-'
+                                        : ''}
+                                </p>
                                 <div className="flew-col flex items-center">
-                                    <MonthDisplayView
-                                        monthNumber={experience.endDate.month}
-                                        placeHolder={PLACEHOLDERS.endMonth}
-                                    />
-                                    <p className="">
-                                        {experience.endDate.year ?? PLACEHOLDERS.endYear}
-                                    </p>
+                                    <MonthDisplayView monthNumber={experience.endDate.month} />
+                                    <p className="">{experience.endDate.year || ''}</p>
                                 </div>
                             </div>
                         </div>
-                        <BulletPointDisplayView
-                            text={experience.description}
-                            placeHolder={PLACEHOLDERS.description}
-                        />
+                        <BulletPointDisplayView text={experience.description} />
                     </div>
                 }
             />
