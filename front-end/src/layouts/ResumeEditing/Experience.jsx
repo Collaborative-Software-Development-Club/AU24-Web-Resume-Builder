@@ -26,7 +26,7 @@ export function Experience({updateItems, experience}) {
         });
     };
 
-    // Handle selection changes for month
+    // Handle selection changes for dates
     const handleSelectChange = (dateType, field, value) => {
         updateItems({
             ...experience,
@@ -81,7 +81,7 @@ export function Experience({updateItems, experience}) {
                                 placeholder="Start Year"
                                 value={experience.startDate.year}
                                 onChange={(e) =>
-                                    handleSelectChange('startDate', 'year', e.target.value)
+                                    handleSelectChange('startDate', 'year', Number(e.target.value))
                                 }
                             />
                             <Months
@@ -94,7 +94,7 @@ export function Experience({updateItems, experience}) {
                                 placeholder="End Year"
                                 value={experience.endDate.year}
                                 onChange={(e) =>
-                                    handleSelectChange('endDate', 'year', e.target.value)
+                                    handleSelectChange('endDate', 'year', Number(e.target.value))
                                 }
                             />
                         </div>

@@ -30,13 +30,13 @@ export function Project({updateItems, project}) {
         updateItems(updatedProject);
     };
 
-    // Handle selection changes for month
+    // Handle selection changes for dates
     const handleSelectChange = (dateType, field, value) => {
         const updatedProject = {
             ...project,
-            startDate: {
-                ...project.startDate,
-                month: value,
+            [dateType]: {
+                ...project[dateType],
+                [field]: value,
             },
         };
         updateItems(updatedProject);
@@ -73,8 +73,8 @@ export function Project({updateItems, project}) {
                             <Input
                                 name="startYear"
                                 placeholder={PLACEHOLDERS.startYear}
-                                value={project.startYear}
-                                onChange={handleInputChange}
+                                value={project.startDate.year}
+                                onChange={(e) => handleSelectChange('startDate', 'year', Number(e.target.value))}
                                 className="col-span-1"
                             />
                         </div>

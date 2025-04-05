@@ -11,15 +11,17 @@ const Education = ({updateEducation, education}) => {
         updateEducation({[name]: value});
     };
 
-    const handleYearInputChange = (e) => {
-        const {value} = e.target;
+    // Handle selection changes for dates
+    const handleSelectChange = (dateType, field, value) => {
         updateEducation({
-            graduationDate: {
-                ...education.graduationDate,
-                year: value,
+            ...education,
+            [dateType]: {
+                ...education[dateType],
+                [field]: value,
             },
         });
     };
+
     return (
         <div className="mt-4">
             <div className="w-full">
@@ -47,7 +49,7 @@ const Education = ({updateEducation, education}) => {
                                 />
                             </div>
 
-                            <div className="italic grid grid-cols-8 gap-2">
+                            <div className="grid grid-cols-8 gap-2 italic">
                                 <Input
                                     name="degree"
                                     placeholder="Enter Degree"
@@ -55,36 +57,19 @@ const Education = ({updateEducation, education}) => {
                                     onChange={handleInputChange}
                                     className="col-span-6"
                                 />
-                                    <Months
-                                        type="Graduation"
-                                        value={education.graduationDate?.month || ''}
-                                        updateComponent={(month) =>
-                                            updateEducation({
-                                                graduationDate: {
-                                                    ...education.graduationDate,
-                                                    month: month,
-                                                },
-                                            })
-                                        }
-                                        handleSelectChange={(month) => {
-                                            // console.log('changing month');
-                                            // console.log('the new value of month is: ' + month);
-                                            updateEducation({
-                                                graduationDate: {
-                                                    ...education.graduationDate,
-                                                    month: month,
-                                                },
-                                            });
-                                        }}
-                                        className="col-span-1"
-                                    />
-                                    <Input
-                                        name="year"
-                                        placeholder="Year"
-                                        value={education.graduationDate?.year || ''}
-                                        onChange={handleYearInputChange}
-                                        className="col-span-1"
-                                    />
+                                <Months
+                                    type="Graduation"
+                                    value={education.graduationDate?.month || ''}
+                                    handleSelectChange={handleSelectChange}
+                                    className="col-span-1"
+                                />
+                                <Input
+                                    name="year"
+                                    placeholder="Year"
+                                    value={education.graduationDate?.year || ''}
+                                    onChange={(e) => handleSelectChange('graduationDate', 'year', Number(e.target.value))}
+                                    className="col-span-1"
+                                />
                             </div>
 
                             {/* GPA and Honors */}
@@ -133,7 +118,9 @@ const Education = ({updateEducation, education}) => {
                             {/* GPA and Honors */}
                             <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                                 <div className={'w-24'}>
-                                    <p className="font-bold">{education?.gpa == 0 ? '' : "GPA: " + education?.gpa}</p>
+                                    <p className="font-bold">
+                                        {education?.gpa == 0 ? '' : 'GPA: ' + education?.gpa}
+                                    </p>
                                 </div>
                             </div>
 

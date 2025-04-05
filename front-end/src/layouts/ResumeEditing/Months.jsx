@@ -10,7 +10,7 @@ import {MONTHS} from '@/constants/months';
 export default function Months({type, handleSelectChange, value}) {
     const newHandleSelectChange = (month) => {
         const monthValue = MONTHS.find((m) => m.name === month);
-        handleSelectChange(Number(monthValue.value));
+        handleSelectChange(type.toLowerCase() + 'Date', 'month', Number(monthValue.value));
     };
 
     return (
