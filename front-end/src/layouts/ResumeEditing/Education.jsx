@@ -21,7 +21,9 @@ const Education = ({updateEducation, education}) => {
             },
         });
     };
-
+    const isEmpty = JSON.stringify(education) === JSON.stringify(DEFAULT_RESUME.education.content);
+    // console.log('education is empty', isEmpty);
+    // console.log(JSON.stringify(education), JSON.stringify(DEFAULT_RESUME.education.content));
     return (
         <div className="mt-4">
             <div className="w-full">
@@ -29,7 +31,7 @@ const Education = ({updateEducation, education}) => {
                 {/* Combined Row for Institution, Location */}
                 <EditOnClick
                     sectionName={'education'}
-                    empty={educationIsEmpty(education)}
+                    empty={isEmpty}
                     editingView={
                         <div className="times flex w-full flex-col gap-2">
                             <div className="text-md grid grid-cols-3 justify-between gap-2 font-bold">
@@ -138,10 +140,3 @@ const Education = ({updateEducation, education}) => {
 };
 
 export default Education;
-
-function educationIsEmpty(education) {
-    // console.log(JSON.stringify(education));
-    // console.log(JSON.stringify(DEFAULT_RESUME.education.content));
-    const isEmpty = JSON.stringify(education) === JSON.stringify(DEFAULT_RESUME.education.content);
-    return isEmpty;
-}

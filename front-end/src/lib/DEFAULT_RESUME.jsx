@@ -8,7 +8,7 @@ export const DEFAULT_RESUME = {
             location: '',
             degree: '',
             graduationDate: {
-                month: 0,
+                month: null,
                 year: null,
             },
             specialization: '',
