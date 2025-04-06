@@ -113,36 +113,26 @@ const Education = ({updateEducation, education}) => {
                         </div>
                     }
                     displayView={
-                        <div className="times">
+                        <div className="times flex flex-col gap-0">
                             <div className="text-md mt-3 flex flex-row justify-between font-bold">
                                 <p>{education?.institution || ''}</p>
                                 <p>{education?.location || ''}</p>
                             </div>
-
                             <div className="flex flex-row items-center justify-between italic">
                                 <p>{education?.degree || ''}</p>
                                 <div className="flex items-center">
                                     <MonthDisplayView
                                         monthNumber={education.graduationDate?.month || ''}
                                     />
-                                    <p className="times">{education.graduationDate?.year || ''}</p>
+                                    <p>{education.graduationDate?.year || ''}</p>
                                 </div>
                             </div>
 
                             {/* GPA and Honors */}
-                            <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-                                <div className={'w-24'}>
-                                    <p className="font-bold">
-                                        {education?.gpa == 0 ? '' : 'GPA: ' + education?.gpa}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-                                <div className="w-full">
-                                    {/* <p className="times">{education?.honors || ''}</p> */}
-                                </div>
-                            </div>
+                            <p className="font-bold">
+                                {education?.gpa == 0 ? '' : 'GPA: ' + education?.gpa}
+                            </p>
+                            <p className="times">{education?.honors || ''}</p>
                         </div>
                     }
                 />
