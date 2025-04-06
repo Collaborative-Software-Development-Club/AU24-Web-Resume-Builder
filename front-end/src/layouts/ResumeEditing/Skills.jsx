@@ -2,12 +2,13 @@ import {EditableList} from '@/components/EditableList';
 import {SectionTitle} from './SectionTitle';
 
 const Skills = ({skills, updateSkills}) => {
+    console.log('skills', skills);
     return (
         <div>
             <SectionTitle title="Skills" />
             <EditableList
-                list={skills.map((skill) => skill.skillName)}
-                RenderList={({list}) => {
+                list={skills}
+                renderList={(list) => {
                     return (
                         <div>
                             <p
