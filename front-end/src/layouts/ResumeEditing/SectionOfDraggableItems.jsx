@@ -53,7 +53,7 @@ export function SectionOfDraggableItems({renderItem, itemData, setItemData, crea
                 items={itemData.map((item, index) => ({
                     orderId: index.toString(),
                     content: (
-                        <div className="group relative transition duration-300 hover:bg-gray-200 hover:shadow-lg">
+                        <div className="group relative rounded-md transition duration-300 hover:bg-gray-200 hover:shadow-lg">
                             {renderItem(item, (newData) => updateItem(newData, index))}
                             <PopupSideButton
                                 onlyOnHover={true}

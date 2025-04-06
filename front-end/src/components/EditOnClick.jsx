@@ -31,7 +31,7 @@ export function EditOnClick({displayView, editingView, empty, sectionName}) {
             {editingView}
         </EditView>
     ) : (
-        <div onClick={() => setIsEditing(true)} role="button" tabIndex={0} className="w-full">
+        <div onClick={() => setIsEditing(true)} tabIndex={0} className="w-full">
             {displayView}
         </div>
     );

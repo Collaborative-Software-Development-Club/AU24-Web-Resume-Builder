@@ -131,15 +131,17 @@ export function Experience({updateItems, experience}) {
                                     <MonthDisplayView monthNumber={experience.startDate.month} />
                                     <p className="times">{experience.startDate.year || ''}</p>
                                 </div>
-                                <p className="px-2">
-                                    {experience.startDate.year && experience.endDate.year
-                                        ? '-'
-                                        : ''}
-                                </p>
-                                <div className="flew-col flex items-center">
-                                    <MonthDisplayView monthNumber={experience.endDate.month} />
-                                    <p className="">{experience.endDate.year || ''}</p>
-                                </div>
+                                <p className="px-2">{experience.startDate.year ? '-' : ''}</p>
+                                {experience.startDate.year &&
+                                !experience.endDate.year &&
+                                !experience.endDate.month ? (
+                                    <p>Present</p>
+                                ) : (
+                                    <div className="flew-col flex items-center">
+                                        <MonthDisplayView monthNumber={experience.endDate.month} />
+                                        <p className="">{experience.endDate.year || ''}</p>
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <BulletPointDisplayView text={experience.description} />
