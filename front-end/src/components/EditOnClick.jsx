@@ -26,18 +26,10 @@ export function EditOnClick({displayView, editingView, empty, sectionName}) {
 
     const closeEditing = empty ? () => {} : () => setIsEditing(false);
 
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter' || event.key === 'Escape') {
-            console.log('closing');
-            closeEditing();
-        }
-    };
     return isEditing ? (
-        <div onKeyDown={handleKeyPress}>
-            <EditView closeEditing={closeEditing} sectionName={sectionName}>
-                {editingView}
-            </EditView>
-        </div>
+        <EditView closeEditing={closeEditing} sectionName={sectionName}>
+            {editingView}
+        </EditView>
     ) : (
         <div onClick={() => setIsEditing(true)} role="button" tabIndex={0} className="w-full">
             {displayView}
@@ -69,10 +61,19 @@ function EditView({children, closeEditing, sectionName}) {
         [closeEditing],
     );
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter' || event.key === 'Escape') {
+            console.log('closing');
+            closeEditing();
+        }
+    };
+
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleKeyPress);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleKeyPress);
         };
     }, [handleClickOutside]);
 
