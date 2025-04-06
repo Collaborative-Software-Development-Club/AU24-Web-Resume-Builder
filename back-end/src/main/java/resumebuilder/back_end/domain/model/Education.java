@@ -19,4 +19,5 @@ public class Education {
     private String minor = "";
     private double gpa;
     private List<Honor> honors = new ArrayList<>();
+    private List<String> courses = new ArrayList<>();
 }
