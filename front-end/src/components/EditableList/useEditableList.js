@@ -1,39 +1,37 @@
-import {useState} from 'react';
-
 const EMPTY_STRING = '';
 
-export function useEditableList(list, updateList) {
-    const [editableList, setEditableList] = useState(
-        list.map((element, index) => ({
-            value: element,
-            id: index,
-        })),
-    );
-    const count = editableList.length;
+export function useEditableList(list, setList) {
+    const editableList = list.map((element, index) => ({
+        value: element,
+        id: index,
+    }));
     function handleChange(value, id) {
         const newList = editableList.map((element) => {
             if (element.id === id) {
-                return {
-                    value: value,
-                    id: id,
-                };
+                return value;
             }
-            return element;
+            return element.value;
         });
-        console.log(newList);
-        setEditableList(newList);
+        setList(newList);
         updateList(newList.map((item) => item.value));
     }
     function addNew() {
-        setEditableList([...editableList, {value: EMPTY_STRING, id: count}]);
+        setList([...list, EMPTY_STRING]);
     }
     function remove(id) {
-        setEditableList(editableList.filter((element) => element.id !== id));
+        setList(
+            editableList.filter((element) => element.id !== id).map((element) => element.value),
+        );
+    }
+    function removeEmpty() {
+        const newList = list.filter((element) => element.value !== EMPTY_STRING);
+        setList(newList);
     }
     return {
         handleChange,
         addNew,
         editableList,
         remove,
+        removeEmpty,
     };
 }

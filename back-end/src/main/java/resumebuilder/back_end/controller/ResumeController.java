@@ -21,14 +21,13 @@ public class ResumeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResumeDto> createResume(@RequestParam(value = "userId") String userId,
-            @RequestBody ResumeDto resumeDto) {
+    public ResponseEntity<ResumeDto> createResume(@RequestParam(value = "userId") String userId) {
         // System.out.println("Creating resume");
         if (userId == null) {
+            System.out.println("User ID is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        resumeDto.setUserId(userId);
-        Optional<ResumeDto> createdResume = resumeService.save(resumeDto);
+        Optional<ResumeDto> createdResume = resumeService.create(userId);
         if (createdResume.isEmpty()) {
             // System.out.println("Error in createResume");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -40,7 +39,8 @@ public class ResumeController {
     @GetMapping("")
     public ResponseEntity<List<ResumeDto>> getAllResumes(@RequestParam(value = "userId") String userId) {
         // System.out.println("In getAllResumes");
-        // TODO add a different response for when the userId is invalid
+        // TODO add a different response for when the userId is invalid (requires proper
+        // throwing of errors inside the methods)
         List<ResumeDto> resumes = resumeService.findByUserId(userId);
         if (resumes.isEmpty()) {
             // System.out.println("No resumes found or error");

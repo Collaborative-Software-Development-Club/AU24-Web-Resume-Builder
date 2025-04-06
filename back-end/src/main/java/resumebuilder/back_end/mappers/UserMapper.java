@@ -25,10 +25,12 @@ public class UserMapper {
     }
 
     public void addResumeDtoContent(UserEntity userEntity, ResumeDto resumeDto) {
-        // TODO maybe this shouldn't be in the mapper?
+        // ? maybe this shouldn't be in the mapper?
         userEntity.setContactMethods(resumeDto.getContactMethods());
         userEntity.setEducation(resumeDto.getEducation().getContent());
         userEntity.setName(resumeDto.getName());
+
+        // Looks sus; need to clarify functionality
         if (userEntity.getSkills() == null) {
             userEntity.setSkills(resumeDto.getSkills().getContent());
         } else {
