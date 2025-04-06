@@ -17,7 +17,7 @@ import {Plus} from 'lucide-react';
  *
  * @returns {JSX.Element} A component that displays a list of draggable items with add, update, and remove functionality.
  */
-export function SectionOfDraggableItems({renderItem, itemData, setItemData, setDragData, createNewItem}) {
+export function SectionOfDraggableItems({renderItem, itemData, setItemData, createNewItem}) {
     const addItem = () => {
         const updatedArray = [...itemData, createNewItem()];
         setItemData(updatedArray);
@@ -32,6 +32,11 @@ export function SectionOfDraggableItems({renderItem, itemData, setItemData, setD
     const updateItem = (newData, index) => {
         itemData[index] = newData;
         setItemData([...itemData]);
+    };
+
+    const setDraggedItems = (reorderedItems) => {
+        const newArray = reorderedItems.map((item) => itemData[Number(item.orderId)]);
+        setItemData(newArray);
     };
 
     return (
@@ -62,7 +67,7 @@ export function SectionOfDraggableItems({renderItem, itemData, setItemData, setD
                         </div>
                     ),
                 }))}
-                setItems={setDragData}
+                setItems={setDraggedItems}
             />
         </div>
     );
