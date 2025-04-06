@@ -11,19 +11,26 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog';
 import {Wand2, Loader2} from 'lucide-react';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {BulletPointDisplayView} from '@/layouts/ResumeEditing/BulletPointDisplayView';
 import {useToast} from '@/hooks/use-toast';
 
 export function AITextImprovementInput({placeholder, onChange, name, value}) {
     const [aiImprovedText, setAiImprovedText] = useState('');
-    const [allowImprovementRequest, setAllowImprovementRequest] = useState(false);
     const [dialogReady, setDialogReady] = useState(false);
     const {toast} = useToast();
 
-    useEffect(() => {
-        setAllowImprovementRequest(value?.length >= 30);
-    }, [value]);
+    const allowImprovementRequest = value?.length >= 30;
+
+    const onChangeAdapter = (e) => {
+        // remove bullet points from the text if they are pasted with bullets from antoher place
+        e.target.value = e.target.value
+            .replaceAll('• ', '')
+            .replaceAll('•', '')
+            .replaceAll('- ', '')
+            .replaceAll('-', '');
+        onChange(e);
+    };
 
     const handleButtonClick = async (e) => {
         e.preventDefault();
@@ -69,7 +76,7 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
             <AutosizeTextarea
                 name={name}
                 value={value}
-                onChange={onChange}
+                onChange={onChangeAdapter}
                 placeholder={placeholder}
                 className="times"
             />
