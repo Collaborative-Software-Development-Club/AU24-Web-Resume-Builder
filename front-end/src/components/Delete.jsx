@@ -32,7 +32,9 @@ export default function Delete({action, onOpenChange}) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={action}>Delete</AlertDialogAction>
+                    <AlertDialogAction onClick={action} variant="destructive">
+                        Delete
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

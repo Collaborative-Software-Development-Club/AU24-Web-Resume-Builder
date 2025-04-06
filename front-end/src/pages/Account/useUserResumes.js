@@ -14,8 +14,12 @@ export function useUserResumes(userId, USE_API) {
         getData();
     }, []);
     const deleteResume = (id) => {
-        setResumes((prevResumes) => prevResumes.filter((res) => res.id != id));
-        deleteResumeData(id);
+        try {
+            deleteResumeData(id);
+            setResumes((prevResumes) => prevResumes.filter((res) => res.id != id));
+        } catch (e) {
+            console.error(e);
+        }
     };
     return {resumes, deleteResume};
 }
