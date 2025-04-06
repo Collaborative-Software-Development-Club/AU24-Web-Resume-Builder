@@ -4,6 +4,7 @@ import {EditOnClick} from '../../components/EditOnClick';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
 import {MonthDisplayView} from './MonthDisplayView';
 import {AITextImprovementInput} from '@/components/AITextImprovementInput';
+import {ItemDateDisplayView} from './ItemDateDisplayView';
 
 const PLACEHOLDERS = {
     position: 'Enter your position title',
@@ -126,23 +127,10 @@ export function Experience({updateItems, experience}) {
                         </div>
                         <div className="flex items-center justify-between">
                             <p>{experience.position}</p>
-                            <div className="flew-col flex items-center italic">
-                                <div className="flew-col flex items-center">
-                                    <MonthDisplayView monthNumber={experience.startDate.month} />
-                                    <p className="times">{experience.startDate.year || ''}</p>
-                                </div>
-                                <p className="px-2">{experience.startDate.year ? '-' : ''}</p>
-                                {experience.startDate.year &&
-                                !experience.endDate.year &&
-                                !experience.endDate.month ? (
-                                    <p>Present</p>
-                                ) : (
-                                    <div className="flew-col flex items-center">
-                                        <MonthDisplayView monthNumber={experience.endDate.month} />
-                                        <p className="">{experience.endDate.year || ''}</p>
-                                    </div>
-                                )}
-                            </div>
+                            <ItemDateDisplayView
+                                startDate={experience.startDate}
+                                endDate={experience.endDate}
+                            />
                         </div>
                         <BulletPointDisplayView text={experience.description} />
                     </div>

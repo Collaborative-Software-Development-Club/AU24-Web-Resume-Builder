@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
 import {Input} from '@/components/ui/input';
 import Months from './Months';
 import {EditOnClick} from '../../components/EditOnClick';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
-import {MonthDisplayView} from './MonthDisplayView';
 import {AITextImprovementInput} from '@/components/AITextImprovementInput';
+import {ItemDateDisplayView} from './ItemDateDisplayView';
 
 const PLACEHOLDERS = {
     title: 'Enter project title',
@@ -49,20 +48,20 @@ export function Project({updateItems, project}) {
                 empty={project == undefined || project.title == ''}
                 editingView={
                     <div className="flex w-full flex-col gap-2">
-                        <div className="times grid grid-cols-6 gap-2">
+                        <div className="times grid grid-cols-8 gap-2">
                             <Input
                                 name="title"
                                 value={project.title}
                                 onChange={handleInputChange}
                                 placeholder={PLACEHOLDERS.title}
-                                className="text-md col-span-3 font-bold"
+                                className="text-md col-span-2 font-bold"
                             />
                             <Input
                                 name="link"
                                 placeholder={PLACEHOLDERS.link}
                                 value={project.link}
                                 onChange={handleInputChange}
-                                className="col-span-1"
+                                className="col-span-2"
                             />
                             <Months
                                 type="Start"
@@ -80,6 +79,25 @@ export function Project({updateItems, project}) {
                                 value={project.startDate.year}
                                 onChange={(e) =>
                                     handleSelectChange('startDate', 'year', Number(e.target.value))
+                                }
+                                className="col-span-1 [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                            />
+                            <Months
+                                type="end"
+                                value={project.endDate.month}
+                                handleSelectChange={(value) =>
+                                    handleSelectChange('endDate', 'month', value)
+                                }
+                                className="col-span-1"
+                            />
+                            <Input
+                                name="endYear"
+                                type="number"
+                                inputMode="numeric"
+                                placeholder={PLACEHOLDERS.startYear}
+                                value={project.endDate.year}
+                                onChange={(e) =>
+                                    handleSelectChange('endDate', 'year', Number(e.target.value))
                                 }
                                 className="col-span-1 [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                             />
@@ -112,7 +130,7 @@ export function Project({updateItems, project}) {
                         </div>
                         {/* Technologies */}
                         <div className="sm:flex-grow">
-                            <AITextImprovementInput
+                            <Input
                                 name="technologies"
                                 placeholder={PLACEHOLDERS.technologies}
                                 value={project.technologies}
@@ -126,10 +144,10 @@ export function Project({updateItems, project}) {
                         <div className="flex items-center justify-between gap-2">
                             <p className="col-span-3 font-bold">{project.title}</p>
                             <p>{project.link}</p>
-                            <div className="flex items-center justify-between italic">
-                                <MonthDisplayView monthNumber={project.startDate.month} />
-                                <p>{project.startDate?.year ?? ''}</p>
-                            </div>
+                            <ItemDateDisplayView
+                                startDate={project.startDate}
+                                endDate={project.endDate}
+                            />
                         </div>
                         <div className="flex flex-row items-center justify-between gap-2">
                             <p>{project.organization}</p>
@@ -146,25 +164,3 @@ export function Project({updateItems, project}) {
         </div>
     );
 }
-
-// Add PropTypes validation
-Project.propTypes = {
-    updateItems: PropTypes.func.isRequired,
-    project: PropTypes.shape({
-        // orderId: PropTypes.number,
-        title: PropTypes.string,
-        description: PropTypes.string,
-        technologies: PropTypes.string,
-        organization: PropTypes.string,
-        link: PropTypes.string,
-        location: PropTypes.string,
-        startDate: PropTypes.shape({
-            month: PropTypes.number,
-            year: PropTypes.number,
-        }),
-        endDate: PropTypes.shape({
-            month: PropTypes.number,
-            year: PropTypes.number,
-        }),
-    }),
-};
