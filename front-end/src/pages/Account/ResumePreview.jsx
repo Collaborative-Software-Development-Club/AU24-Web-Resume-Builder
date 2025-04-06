@@ -1,17 +1,21 @@
+import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {FileText, Download, Pencil, Clock} from 'lucide-react';
 import Delete from '@/components/Delete';
 import {Button, buttonVariants} from '@/components/ui/button';
-import {Card, CardDescription, CardFooter, CardTitle} from '@/components/ui/card';
+import {Card, CardDescription, CardTitle} from '@/components/ui/card';
 import {formatDistanceToNow} from 'date-fns';
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@/components/ui/tooltip';
 
 export default function ResumePreview({resumeId, onDelete, description, lastModified}) {
+    const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
     const downloadResume = () => {};
 
     const deleteResume = async () => {
         try {
-            onDelete(resumeId); // Call the onDelete function with the deleted resume ID
+            onDelete(resumeId);
         } catch (error) {
             console.error('Failed to delete resume:', error);
         }
@@ -19,7 +23,7 @@ export default function ResumePreview({resumeId, onDelete, description, lastModi
 
     return (
         <TooltipProvider delayDuration={50}>
-            <Tooltip>
+            <Tooltip open={isTooltipOpen || isDeleteDialogOpen} onOpenChange={setIsTooltipOpen}>
                 <TooltipTrigger asChild>
                     <Card className="flex h-48 w-40 flex-col gap-4 p-4 hover:opacity-50">
                         <FileText className="h-full w-full text-gray-700" />
@@ -49,7 +53,12 @@ export default function ResumePreview({resumeId, onDelete, description, lastModi
                     <Button variant="outline" onClick={downloadResume}>
                         <Download className="text-accent-foreground" />
                     </Button>
-                    <Delete action={deleteResume} />
+                    <Delete
+                        action={deleteResume}
+                        onOpenChange={(open) => {
+                            setIsDeleteDialogOpen(open);
+                        }}
+                    />
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>

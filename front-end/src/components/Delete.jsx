@@ -12,9 +12,9 @@ import {
 import {Trash2} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 
-export default function Delete({action}) {
+export default function Delete({action, onOpenChange}) {
     return (
-        <AlertDialog>
+        <AlertDialog onOpenChange={onOpenChange}>
             <AlertDialogTrigger asChild>
                 <Button variant="destructive">
                     <Trash2 />
@@ -32,7 +32,9 @@ export default function Delete({action}) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={action}>Delete</AlertDialogAction>
+                    <AlertDialogAction onClick={action} variant="destructive">
+                        Delete
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

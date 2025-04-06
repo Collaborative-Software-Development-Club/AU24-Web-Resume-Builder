@@ -23,15 +23,15 @@ export function EditOnClick({displayView, editingView, empty, sectionName}) {
         throw new Error('editingView prop not provided to EditOnClick');
     }
     const [isEditing, setIsEditing] = useState(empty);
-    // console.log(`isEditing for ${sectionName} is ${isEditing}`);
-    // console.log(`empty for ${sectionName} is ${empty}`);
+
     const closeEditing = empty ? () => {} : () => setIsEditing(false);
+
     return isEditing ? (
         <EditView closeEditing={closeEditing} sectionName={sectionName}>
             {editingView}
         </EditView>
     ) : (
-        <div onClick={() => setIsEditing(true)} className="w-full">
+        <div onClick={() => setIsEditing(true)} role="button" tabIndex={0} className="w-full">
             {displayView}
         </div>
     );
@@ -44,16 +44,16 @@ function EditView({children, closeEditing, sectionName}) {
         (event) => {
             const target = event.target;
 
-            // Check if click originated from a dialog or toast
-            const isDialogClick = target.closest('[role="dialog"]') !== null;
-            const isToastClick = target.closest('[role="status"]') !== null;
+            const isRadixSelect = target.closest('[data-radix-popper-content-wrapper]');
+            const isDialog = target.closest('[role="dialog"]');
+            const isToast = target.closest('[role="status"]');
 
             if (
                 divRef.current &&
                 !divRef.current.contains(target) &&
-                !(target.getAttribute('role') == 'option') &&
-                !isDialogClick &&
-                !isToastClick
+                !isRadixSelect &&
+                !isDialog &&
+                !isToast
             ) {
                 closeEditing();
             }
@@ -61,10 +61,19 @@ function EditView({children, closeEditing, sectionName}) {
         [closeEditing],
     );
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter' || event.key === 'Escape') {
+            console.log('closing');
+            closeEditing();
+        }
+    };
+
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleKeyPress);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleKeyPress);
         };
     }, [handleClickOutside]);
 

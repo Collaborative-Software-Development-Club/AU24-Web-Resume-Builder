@@ -30,13 +30,13 @@ export function Project({updateItems, project}) {
         updateItems(updatedProject);
     };
 
-    // Handle selection changes for month
+    // Handle selection changes for dates
     const handleSelectChange = (dateType, field, value) => {
         const updatedProject = {
             ...project,
-            startDate: {
-                ...project.startDate,
-                month: value,
+            [dateType]: {
+                ...project[dateType],
+                [field]: value,
             },
         };
         updateItems(updatedProject);
@@ -67,15 +67,21 @@ export function Project({updateItems, project}) {
                             <Months
                                 type="Start"
                                 value={project.startDate.month}
-                                handleSelectChange={handleSelectChange}
+                                handleSelectChange={(value) =>
+                                    handleSelectChange('startDate', 'month', value)
+                                }
                                 className="col-span-1"
                             />
                             <Input
                                 name="startYear"
+                                type="number"
+                                inputMode="numeric"
                                 placeholder={PLACEHOLDERS.startYear}
-                                value={project.startYear}
-                                onChange={handleInputChange}
-                                className="col-span-1"
+                                value={project.startDate.year}
+                                onChange={(e) =>
+                                    handleSelectChange('startDate', 'year', Number(e.target.value))
+                                }
+                                className="col-span-1 [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                             />
                         </div>
                         <div className="times grid grid-cols-3 gap-2">
@@ -118,39 +124,21 @@ export function Project({updateItems, project}) {
                 displayView={
                     <div className="times flex w-full flex-col gap-2">
                         <div className="flex items-center justify-between gap-2">
-                            <p className="col-span-3 font-bold">
-                                {project.title == '' ? PLACEHOLDERS.title : project.title}
-                            </p>
-                            <p>{project.link == '' ? PLACEHOLDERS.link : project.link}</p>
+                            <p className="col-span-3 font-bold">{project.title}</p>
+                            <p>{project.link}</p>
                             <div className="flex items-center justify-between italic">
-                                <MonthDisplayView
-                                    monthNumber={project.startDate.month}
-                                    placeHolder={PLACEHOLDERS.startMonth}
-                                />
-                                <p>{project.startDate?.year ?? PLACEHOLDERS.startYear}</p>
+                                <MonthDisplayView monthNumber={project.startDate.month} />
+                                <p>{project.startDate?.year ?? ''}</p>
                             </div>
                         </div>
                         <div className="flex flex-row items-center justify-between gap-2">
-                            <p>
-                                {project.organization == ''
-                                    ? PLACEHOLDERS.organization
-                                    : project.organization}
-                            </p>
-                            <p>
-                                {project.location == '' ? PLACEHOLDERS.location : project.location}
-                            </p>
+                            <p>{project.organization}</p>
+                            <p>{project.location}</p>
                         </div>
-                        <BulletPointDisplayView
-                            text={project.description}
-                            placeHolder={PLACEHOLDERS.description}
-                        />
+                        <BulletPointDisplayView text={project.description} />
                         {/* Technologies */}
                         <div className="sm:flex-grow">
-                            <p>
-                                {project.technologies == ''
-                                    ? PLACEHOLDERS.technologies
-                                    : project.technologies}
-                            </p>
+                            <p>{project.technologies}</p>
                         </div>
                     </div>
                 }
