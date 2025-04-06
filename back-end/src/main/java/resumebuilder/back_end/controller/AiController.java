@@ -40,24 +40,24 @@ public class AiController {
      * having a local model
      */
     @Autowired
-    public AiController(@Qualifier("Azure") AiService aiService) {
+    public AiController(@Qualifier("Mock") AiService aiService) {
         this.aiService = aiService;
     }
 
     @GetMapping("/enhance-text")
-    public Map<String, String> generate(@RequestParam(value = "message") String message)
+    public ResponseEntity<Map<String, String>> generate(@RequestParam(value = "message") String message)
             throws UnsupportedEncodingException {
         String decodedMessage = URLDecoder.decode(message, "UTF-8");
-        return Map.of("generation", aiService.enhanceResumeBulletPoints(decodedMessage));
+        return new ResponseEntity<>(Map.of("generation", aiService.enhanceResumeBulletPoints(decodedMessage)),
+                HttpStatus.OK);
     }
 
     @GetMapping("/scan-resume")
-    public Map<String, Object> generateResumeJSON(@RequestParam(value = "message") String message)
+    public ResponseEntity<Map<String, Object>> generateResumeJSON(@RequestParam(value = "message") String message)
             throws UnsupportedEncodingException, JsonProcessingException {
         String decodedMessage = URLDecoder.decode(message, "UTF-8");
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> map = objectMapper.readValue(aiService.scanResumeToJSON(decodedMessage), new TypeReference<Map<String, Object>>(){});
-        return map;
+        Map<String, Object> map = aiService.scanResumeToJSON(decodedMessage);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
 }
