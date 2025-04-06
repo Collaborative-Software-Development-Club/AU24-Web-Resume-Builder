@@ -140,18 +140,24 @@ export function Project({updateItems, project}) {
                     </div>
                 }
                 displayView={
-                    <div className="times flex w-full flex-col gap-2">
+                    <div className="times flex w-full flex-col gap-0">
                         <div className="flex items-center justify-between gap-2">
-                            <p className="col-span-3 font-bold">{project.title}</p>
-                            <p>{project.link}</p>
+                            <div className="flex flex-row gap-2">
+                                <p className="font-bold">{project.title}</p>
+                                <p className="underline">{project.link}</p>
+                            </div>
                             <ItemDateDisplayView
                                 startDate={project.startDate}
                                 endDate={project.endDate}
                             />
                         </div>
                         <div className="flex flex-row items-center justify-between gap-2">
-                            <p>{project.organization}</p>
-                            <p>{project.location}</p>
+                            {project.organization && project.location && (
+                                <>
+                                    <p>{project.organization}</p>
+                                    <p>{project.location}</p>
+                                </>
+                            )}
                         </div>
                         <BulletPointDisplayView text={project.description} />
                         {/* Technologies */}
