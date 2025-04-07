@@ -4,12 +4,17 @@ import deleteResumeData from '@/services/deleteResumeData';
 
 export function useUserResumes(userId, USE_API) {
     const [resumes, setResumes] = useState([]);
+    const [error, setError] = useState(null);
     resumes.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
     useEffect(() => {
         const getData = async () => {
-            const resumes = await getUserResumes(userId, {useApi: USE_API});
-            // console.log(resumes);
-            setResumes(resumes);
+            try {
+                const resumes = await getUserResumes(userId, {useApi: USE_API});
+                setResumes(resumes);
+            } catch (e) {
+                console.error(e);
+                setError(e.toString());
+            }
         };
         getData();
     }, []);
@@ -21,5 +26,5 @@ export function useUserResumes(userId, USE_API) {
             console.error(e);
         }
     };
-    return {resumes, deleteResume};
+    return {resumes, deleteResume, error};
 }

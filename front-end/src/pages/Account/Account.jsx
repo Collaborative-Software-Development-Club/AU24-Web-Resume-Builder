@@ -11,9 +11,10 @@ const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
 export function Account() {
     // const fetchedUserData = useUserData(DEFAULT_USER_ID, USE_API);
     const navigate = useNavigate();
-    const {resumes, deleteResume} = useUserResumes(DEFAULT_USER_ID, USE_API);
+    const {resumes, deleteResume, error} = useUserResumes(DEFAULT_USER_ID, USE_API);
     console.log(resumes);
 
+    if (error) return <p>{error}</p>;
     if (!resumes) return <p>Loading...</p>;
 
     const createNewResume = async () => {

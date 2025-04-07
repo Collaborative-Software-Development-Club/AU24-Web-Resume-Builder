@@ -4,8 +4,7 @@ import uploadResumeData from '@/services/uploadResumeData';
 import {useResumeBase} from '@/hooks/useResumeBase';
 
 export default function useResumeData(resumeId, useApi) {
-    const baseHook = useResumeBase(null);
-    const {resume, setResume, ...rest} = baseHook;
+    const {resume, setResume, ...rest} = useResumeBase(null);
 
     const save = async () => {
         try {
