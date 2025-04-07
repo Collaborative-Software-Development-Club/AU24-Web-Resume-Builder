@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import resumebuilder.back_end.domain.dto.ResumeDto;
 import resumebuilder.back_end.domain.dto.UserDto;
+import resumebuilder.back_end.domain.dto.UserRequestDto;
 import resumebuilder.back_end.domain.entities.UserEntity;
 import resumebuilder.back_end.domain.model.Skill;
 
@@ -26,6 +27,20 @@ public class UserMapper {
 
     public UserEntity mapToEntity(UserDto userDto) {
         return modelMapper.map(userDto, UserEntity.class);
+    }
+
+    public UserEntity toEntity(UserRequestDto dto) {
+        UserEntity user = new UserEntity();
+        user.setUsername(dto.getUsername());
+        user.setPassword(dto.getPassword());
+        return user;
+    }
+
+    public UserDto toResponseDto(UserEntity user) {
+        UserDto dto = new UserDto();
+        dto.setId(user.getId());
+        dto.setUsername(user.getUsername());
+        return dto;
     }
 
     public void addResumeDtoContent(UserEntity userEntity, ResumeDto resumeDto) {

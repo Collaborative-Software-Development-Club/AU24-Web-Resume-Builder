@@ -3,12 +3,10 @@ package resumebuilder.back_end.service;
 import org.springframework.stereotype.Service;
 import resumebuilder.back_end.domain.dto.ProjectDto;
 import resumebuilder.back_end.domain.entities.ProjectEntity;
-import resumebuilder.back_end.domain.entities.UserEntity;
 import resumebuilder.back_end.mappers.ProjectMapper;
 import resumebuilder.back_end.repository.ProjectRepository;
 import resumebuilder.back_end.repository.UserRepository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
