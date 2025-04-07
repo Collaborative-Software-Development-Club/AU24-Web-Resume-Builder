@@ -8,7 +8,8 @@ import {
     SidebarTrigger,
 } from '@/components/ui/sidebar';
 import {SidebarContent as OurSidebarContent} from './SidebarContent';
-import { EditOnClick } from '../../../components/EditOnClick.jsx';
+import ResumeDescription from './ResumeDescription';
+
 
 export const DesktopSidebar = ({
     resume,
@@ -25,22 +26,7 @@ export const DesktopSidebar = ({
                         <SidebarGroupLabel>Resume Description</SidebarGroupLabel>
                         <SidebarGroupContent>
                             <hr />
-                            <div className="flex justify-center p-3">
-                                <EditOnClick 
-                                    sectionName="resumeDescription"
-                                    displayView={
-                                    <p className="text-lg text-gray-800 bg-transparent">
-                                        {resume.description || "Click here to add your resume description"}
-
-                                    </p>
-                                    }
-                                    editingView={<textarea 
-                                        className="w-full border-2 rounded bg-transparent"
-                                        defaultValue={resume.description}
-                                        />}
-                                    empty={!resume.description}
-                                />
-                            </div>
+                            <ResumeDescription initialDescription={resume.description} />
                         </SidebarGroupContent>
                     </SidebarGroup>
                     <SidebarGroup>
