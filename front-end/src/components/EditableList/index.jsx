@@ -16,16 +16,18 @@ import {PopupSideButton} from '../PopupSideButton';
  */
 export function EditableList({
     list,
-    RenderList,
+    renderList,
     title,
     description,
     updateList,
     buttonText = 'Edit',
 }) {
     const {editableList, handleChange, addNew, remove} = useEditableList(list, updateList);
+    console.log('editableList', editableList);
+
     return (
         <div className="group relative">
-            <RenderList list={editableList.map((element) => element.value)} />
+            {renderList(editableList.map((element) => element.value))}
             <Dialog>
                 <DialogTrigger asChild>
                     <PopupSideButton

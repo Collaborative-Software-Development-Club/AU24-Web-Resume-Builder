@@ -3,10 +3,8 @@ import {SectionOfDraggableItems} from './SectionOfDraggableItems';
 import {SectionTitle} from './SectionTitle';
 
 export function Experiences({updateExperience, experiences}) {
-    // some experiences may not have ids from the database
-    // const experienceWithIds = experiences.map((item, index) => ({experienceId: index, ...item}));
     return (
-        <div className="grid">
+        <>
             <SectionTitle title="Experience" />
             <SectionOfDraggableItems
                 renderItem={(experienceData, update) => (
@@ -16,7 +14,7 @@ export function Experiences({updateExperience, experiences}) {
                 createNewItem={createNewItem}
                 setItemData={updateExperience}
             />
-        </div>
+        </>
     );
 }
 

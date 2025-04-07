@@ -4,7 +4,7 @@ export function ContactMethods({contactMethods, updateContactMethods}) {
     return (
         <EditableList
             list={contactMethods}
-            RenderList={({list}) => {
+            renderList={(list) => {
                 return (
                     <div className="flex flex-row justify-center gap-2">
                         {list.map((element) => (

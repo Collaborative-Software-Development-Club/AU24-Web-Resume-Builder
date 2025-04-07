@@ -53,10 +53,11 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // .requestMatchers("/auth/**").permitAll()
-                        // .requestMatchers("/admin/**").hasRole("ADMIN")
-                        // .anyRequest().authenticated())
-                        .anyRequest().permitAll())
+                        .anyRequest().permitAll()
+                // .requestMatchers("/auth/**").permitAll()
+                // .requestMatchers("/admin/**").hasRole("ADMIN")
+                // .anyRequest().authenticated())
+                )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

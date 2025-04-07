@@ -57,7 +57,7 @@ export default function DragAndDropList({items, setItems}) {
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
-                                            className="rounded-lg p-2 shadow"
+                                            className="cursor-grab"
                                         >
                                             {item.content}
                                         </div>
