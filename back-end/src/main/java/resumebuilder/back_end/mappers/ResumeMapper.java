@@ -8,6 +8,7 @@ import resumebuilder.back_end.domain.model.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class ResumeMapper {
@@ -33,7 +34,8 @@ public class ResumeMapper {
         // System.out.println("projectEntities");
         // System.out.println("projects");
         Section<List<Project>> projectSection = new Section<>(true, projects);
-        Section<Set<Skill>> skills = new Section<>(true, resumeEntity.getSkills());
+        Section<Set<String>> skills = new Section<Set<String>>(true,
+                resumeEntity.getSkills().stream().map(skill -> skill.getSkillName()).collect(Collectors.toSet()));
         Section<String> professionalSummary = new Section<>(true, resumeEntity.getProfessionalSummary());
 
         ResumeDto resumeDto = new ResumeDto(resumeEntity.getId(), resumeEntity.getUserId(), userEntity.getName(),
@@ -51,7 +53,8 @@ public class ResumeMapper {
                 resumeDto.getUserId(),
                 experienceIds,
                 projectIds,
-                resumeDto.getSkills().getContent(),
+                resumeDto.getSkills().getContent().stream().map(skillName -> new Skill(skillName))
+                        .collect(Collectors.toSet()),
                 resumeDto.getProfessionalSummary().getContent(),
                 resumeDto.getOrderOfSections(),
                 resumeDto.getDescription().isEmpty() ? "Untitled" : resumeDto.getDescription(),

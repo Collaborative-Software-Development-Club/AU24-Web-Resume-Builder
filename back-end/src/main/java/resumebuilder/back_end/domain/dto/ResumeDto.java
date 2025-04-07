@@ -25,7 +25,7 @@ public class ResumeDto {
     private Section<List<Project>> projects = new Section<>(true, new ArrayList<>());
 
     private Section<String> professionalSummary = new Section<String>(false, "");
-    private Section<Set<Skill>> skills = new Section<>(true, new HashSet<>());
+    private Section<Set<String>> skills = new Section<>(true, new HashSet<>());
     private List<SectionNames> orderOfSections = List.of(
             SectionNames.PROFESSIONAL_SUMMARY,
             SectionNames.EDUCATION,
@@ -41,7 +41,7 @@ public class ResumeDto {
 
     public ResumeDto(String id, String userId, String name, List<String> contactMethods, Section<Education> education,
             Section<List<ExperienceItem>> experience, Section<List<Project>> projects,
-            Section<String> professionalSummary, Section<Set<Skill>> skills, List<SectionNames> orderOfSections,
+            Section<String> professionalSummary, Section<Set<String>> skills, List<SectionNames> orderOfSections,
             String description, LocalDateTime lastModified) {
 
         this.id = id;
