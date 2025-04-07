@@ -10,14 +10,15 @@ import {
 import {SidebarContent as OurSidebarContent} from './SidebarContent';
 import ResumeDescription from './ResumeDescription';
 
-
 export const DesktopSidebar = ({
     resume,
     ordering,
     setOrdering,
+    setDescription,
     toggleSectionVisibility,
     children,
 }) => {
+    console.log('DesktopSidebar', setDescription);
     return (
         <SidebarProvider>
             <Sidebar>
@@ -26,7 +27,10 @@ export const DesktopSidebar = ({
                         <SidebarGroupLabel>Resume Description</SidebarGroupLabel>
                         <SidebarGroupContent>
                             <hr />
-                            <ResumeDescription initialDescription={resume.description} />
+                            <ResumeDescription
+                                description={resume.description}
+                                setDescription={setDescription}
+                            />
                         </SidebarGroupContent>
                     </SidebarGroup>
                     <SidebarGroup>
