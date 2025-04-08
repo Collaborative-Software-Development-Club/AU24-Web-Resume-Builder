@@ -1,13 +1,11 @@
 package resumebuilder.back_end.controller;
 
-import com.azure.core.annotation.Get;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import resumebuilder.back_end.domain.dto.ExperienceDto;
 import resumebuilder.back_end.service.ExperienceService;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +19,8 @@ public class ExperienceController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ExperienceDto> createExperience(@RequestParam(value = "userId") String userId, @RequestBody ExperienceDto experienceDto) {
+    public ResponseEntity<ExperienceDto> createExperience(@RequestParam(value = "userId") String userId,
+            @RequestBody ExperienceDto experienceDto) {
         if (userId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -43,8 +42,8 @@ public class ExperienceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExperienceDto> getExperience(@PathVariable("id") String id, @RequestParam(value = "userId") String userId) {
-        Optional<ExperienceDto> experience = experienceService.findExperienceForUser(userId, id);
+    public ResponseEntity<ExperienceDto> getExperience(@PathVariable("id") String id) {
+        Optional<ExperienceDto> experience = experienceService.findOne(id);
         if (experience.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -52,9 +51,9 @@ public class ExperienceController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExperienceDto> updateExperience(@PathVariable("id") String id, @RequestParam("userId") String userId, @RequestBody ExperienceDto experienceDto
-    ) {
-        Optional<ExperienceDto> updatedExperience = experienceService.updateExperienceForUser(userId, id, experienceDto);
+    public ResponseEntity<ExperienceDto> updateExperience(@PathVariable("id") String id,
+            @RequestBody ExperienceDto experienceDto) {
+        Optional<ExperienceDto> updatedExperience = experienceService.update(id, experienceDto);
         if (updatedExperience.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -62,8 +61,9 @@ public class ExperienceController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ExperienceDto> deleteExperience(@PathVariable("id") String id, @RequestParam("userId") String userId) {
-        experienceService.deleteExperienceForUser(userId, id);
+    public ResponseEntity<ExperienceDto> deleteExperience(@PathVariable("id") String id,
+            @RequestParam("userId") String userId) {
+        experienceService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
