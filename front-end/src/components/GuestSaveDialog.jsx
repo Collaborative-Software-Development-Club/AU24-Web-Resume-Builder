@@ -12,7 +12,7 @@ import {Input} from '@/components/ui/input';
 import {Link} from 'react-router-dom';
 
 export function GuestSaveDialog({ text = "Save" }) {
-    //Log in and Sign up feature to be added
+    //log in and sign up feature
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -34,7 +34,7 @@ export function GuestSaveDialog({ text = "Save" }) {
                     <hr size="10" />
                     <DialogFooter className="row flex items-center !justify-center text-sm text-muted-foreground">
                         Don't have an account?
-                        <Link className={buttonVariants({variant: 'link'})}>Sign In</Link>
+                        <Link to="/signup" className={buttonVariants({variant: 'link'})}>Sign Up</Link>
                     </DialogFooter>
                 </div>
             </DialogContent>

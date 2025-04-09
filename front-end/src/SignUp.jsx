@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export function Signup() {
   const [formData, setFormData] = useState({
@@ -8,7 +11,6 @@ export function Signup() {
     confirmPassword: ''
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -22,10 +24,6 @@ export function Signup() {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  };
-
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const handleSubmit = async (e) => {
@@ -66,26 +64,27 @@ export function Signup() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            <Label htmlFor="username" className="block text-sm font-medium text-gray-700">
               Username
-            </label>
-            <input
+            </Label>
+            <Input
               type="text"
               id="username"
               name="username"
               value={formData.username}
               onChange={handleChange}
               required
+              placeholder="Enter your username"
               className="w-full p-2 mt-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <Label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
-            </label>
+            </Label>
             <div className="relative mt-1">
-              <input
+              <Input
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
@@ -93,43 +92,47 @@ export function Signup() {
                 onChange={handleChange}
                 required
                 minLength="6"
+                placeholder="Enter your password"
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
               />
-              <button
+              <Button
                 type="button"
+                variant="ghost"
+                size="sm"
                 onClick={togglePasswordVisibility}
                 className="absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-600"
               >
                 {showPassword ? 'Hide' : 'Show'}
-              </button>
+              </Button>
             </div>
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+            <Label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
               Confirm Password
-            </label>
+            </Label>
             <div className="relative mt-1">
-              <input
-                type={showConfirmPassword ? "text" : "password"}
+              <Input
+                type="password"
                 id="confirmPassword"
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
                 minLength="6"
+                placeholder="Enter your password again"
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
           </div>
 
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
             className={`w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
             {isSubmitting ? 'Signing up...' : 'Sign Up'}
-          </button>
+          </Button>
         </form>
 
         <div className="text-sm text-center text-gray-600">
