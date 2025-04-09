@@ -3,6 +3,13 @@ import {useState} from 'react';
 export function useResumeBase(initialResume) {
     const [resume, setResume] = useState(initialResume);
 
+    const updateDescription = (description) => {
+        setResume((prevResume) => ({
+            ...prevResume,
+            description: description,
+        }));
+    };
+
     const updateName = (name) => {
         setResume((prevResume) => ({
             ...prevResume,
@@ -87,6 +94,7 @@ export function useResumeBase(initialResume) {
         updateProjects,
         updateSkills,
         updateOrderOfSections,
+        updateDescription,
         toggleSectionVisibility,
     };
 }

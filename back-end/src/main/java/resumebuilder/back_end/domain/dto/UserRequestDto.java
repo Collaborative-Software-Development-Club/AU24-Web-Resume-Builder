@@ -1,14 +1,16 @@
 package resumebuilder.back_end.domain.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import resumebuilder.back_end.domain.model.Project;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectDto extends Project {
+@Builder
+public class UserRequestDto {
     private String id;
-    private String userId; // Think this is necessary
+    private String username;
+    private String password;
 }

@@ -1,19 +1,27 @@
+import {useState} from 'react';
 import {useUserResumes} from './useUserResumes';
 import createResume from '@/services/createResume';
 import ResumePreview from './ResumePreview';
 import {CreateResume} from './CreateResume';
 import {useNavigate} from 'react-router-dom';
 import flags from '@/flags.json';
-import uploadResumeData from '@/services/uploadResumeData';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input'; // Add this import
+import {GuestSaveDialog} from '@/components/GuestSaveDialog';
+
 const USE_API = flags.useApi;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
+// const DEFAULT_USER_ID = undefined;
 
 export function Account() {
-    // const fetchedUserData = useUserData(DEFAULT_USER_ID, USE_API);
     const navigate = useNavigate();
-    const {resumes, deleteResume} = useUserResumes(DEFAULT_USER_ID, USE_API);
-    console.log(resumes);
+    const {resumes, deleteResume, error} = useUserResumes(DEFAULT_USER_ID, USE_API);
 
+    // Temporary testing state
+    const [mockLoggedIn, setMockLoggedIn] = useState(false);
+    const [mockUsername, setMockUsername] = useState('test_user');
+
+    if (error) return <p>{error}</p>;
     if (!resumes) return <p>Loading...</p>;
 
     const createNewResume = async (data) => {
@@ -50,3 +58,5 @@ export function Account() {
         </div>
     );
 }
+
+export default Account;

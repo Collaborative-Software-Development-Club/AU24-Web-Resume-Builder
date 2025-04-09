@@ -2,6 +2,7 @@ package resumebuilder.back_end.mappers;
 
 import java.util.List;
 
+import resumebuilder.back_end.domain.dto.ExperienceDto;
 import resumebuilder.back_end.domain.entities.ExperienceEntity;
 import resumebuilder.back_end.domain.model.ExperienceItem;
 import java.util.stream.Collectors;
@@ -30,4 +31,13 @@ public class ExperienceMapper {
                         entity.getPosition(), entity.getStartDate(), entity.getEndDate(), entity.getDescription()))
                 .collect(Collectors.toList());
     }
+
+    public ExperienceDto mapToDto(ExperienceEntity experienceEntity) {
+        return modelMapper.map(experienceEntity, ExperienceDto.class);
+    }
+
+    public ExperienceEntity mapToEntity(ExperienceDto experienceDto) {
+        return modelMapper.map(experienceDto, ExperienceEntity.class);
+    }
+
 }

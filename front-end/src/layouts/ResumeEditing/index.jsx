@@ -20,6 +20,7 @@ export default function ResumeEditing({
     updateExperience,
     updateProjects,
     updateSkills,
+    updateDescription,
 }) {
     console.log('resume in ResumeEditing: ', resume);
     const download = () => {
@@ -45,6 +46,7 @@ export default function ResumeEditing({
         PROJECTS: <Projects updateProjects={updateProjects} projects={resume.projects.content} />,
         SKILLS: <Skills updateSkills={updateSkills} skills={resume.skills.content ?? []} />,
     };
+    console.log('resume editing updateDescription: ', updateDescription);
     return (
         <div className="flex justify-center pb-20 sm:mx-10">
             {/* Sidebar to control visibility and ordering */}
@@ -52,6 +54,7 @@ export default function ResumeEditing({
                 resume={resume}
                 ordering={resume.orderOfSections}
                 setOrdering={updateOrderOfSections}
+                setDescription={updateDescription}
                 toggleSectionVisibility={toggleSectionVisibility}
             >
                 <div className="flex w-full flex-col items-center">

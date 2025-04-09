@@ -1,5 +1,8 @@
 package resumebuilder.back_end.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,10 +36,19 @@ public class AiController {
     }
 
     @GetMapping("/enhance-text")
-    public Map<String, String> generate(@RequestParam(value = "message") String message)
+    public ResponseEntity<Map<String, String>> generate(@RequestParam(value = "message") String message)
             throws UnsupportedEncodingException {
         String decodedMessage = URLDecoder.decode(message, "UTF-8");
-        return Map.of("generation", aiService.enhanceResumeBulletPoints(decodedMessage));
+        return new ResponseEntity<>(Map.of("generation", aiService.enhanceResumeBulletPoints(decodedMessage)),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/scan-resume")
+    public ResponseEntity<Map<String, Object>> generateResumeJSON(@RequestParam(value = "message") String message)
+            throws UnsupportedEncodingException, JsonProcessingException {
+        String decodedMessage = URLDecoder.decode(message, "UTF-8");
+        Map<String, Object> map = aiService.scanResumeToJSON(decodedMessage);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
 }
