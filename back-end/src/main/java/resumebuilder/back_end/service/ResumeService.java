@@ -12,6 +12,7 @@ import resumebuilder.back_end.repository.ProjectRepository;
 import resumebuilder.back_end.repository.ResumeRepository;
 import resumebuilder.back_end.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,14 +46,16 @@ public class ResumeService {
         return resumeRepository.existsById(id);
     }
 
-    public Optional<ResumeDto> save(ResumeDto resumeDto) {
+    public Optional<ResumeDto> create(String userId) {
         // System.out.println("resumeDto service>save");
         // System.out.println(resumeDto);
-        Optional<ResumeEntity> saved = this.createAndSaveEntities(resumeDto);
-        if (saved.isEmpty()) {
+        if (!userRepository.existsById(userId)) {
+            System.out.println("Invalid user id passed to ResumeService.save");
             return Optional.empty();
         }
-        Optional<ResumeDto> createdResumeDto = this.createDto(saved.get());
+        ResumeEntity emptyResume = new ResumeEntity(userId);
+        resumeRepository.save(emptyResume);
+        Optional<ResumeDto> createdResumeDto = this.createDto(emptyResume);
         // System.out.println("createdResumeDto in service>save");
         // System.out.println(createdResumeDto.get());
         return createdResumeDto;
@@ -103,13 +106,14 @@ public class ResumeService {
         // System.out.println("In createAndSaveEntities");
         Optional<UserEntity> userEntity = userRepository.findById(resumeDto.getUserId());
         if (userEntity.isEmpty()) {
-            // System.out.println("Invalid user id passed to ResumeService.save");
+            System.out.println("Invalid user id passed to ResumeService.save");
             return Optional.empty();
         }
         // extract experiences and projects from resumeDto as entities
         List<ExperienceEntity> experienceEntities = experienceMapper
-                .mapToEntity(resumeDto.getExperience().getContent());
-        List<ProjectEntity> projectEntities = projectMapper.mapToEntity(resumeDto.getProjects().getContent());
+                .mapToEntity(resumeDto.getExperience().getContent(), userEntity.get().getId());
+        List<ProjectEntity> projectEntities = projectMapper.mapToEntity(resumeDto.getProjects().getContent(),
+                userEntity.get().getId());
         // save experiences and projects to the database
         List<ExperienceEntity> savedExperiences = experienceRepository.saveAll(experienceEntities);
         List<ProjectEntity> savedProjects = projectRepository.saveAll(projectEntities);
@@ -119,6 +123,7 @@ public class ResumeService {
         List<String> experienceIds = savedExperiences.stream().map(exp -> exp.getId()).toList();
         List<String> projectIds = savedProjects.stream().map(proj -> proj.getId()).toList();
         ResumeEntity resumeEntity = resumeMapper.mapToEntity(resumeDto, experienceIds, projectIds);
+        resumeEntity.setLastModified(LocalDateTime.now());
         ResumeEntity savedResume = resumeRepository.save(resumeEntity);
         // extract user information from resumeDto
         userMapper.addResumeDtoContent(userEntity.get(), resumeDto);

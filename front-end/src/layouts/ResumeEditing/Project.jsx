@@ -1,112 +1,119 @@
-import {useState} from 'react';
 import {Input} from '@/components/ui/input';
 import Months from './Months';
-import {SectionEditing} from './SectionEditing';
+import {EditOnClick} from '../../components/EditOnClick';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
-import {MonthDisplayView} from './MonthDisplayView';
 import {AITextImprovementInput} from '@/components/AITextImprovementInput';
+import {ItemDateDisplayView} from './ItemDateDisplayView';
 
 const PLACEHOLDERS = {
     title: 'Enter project title',
     description: 'Project description',
     technologies: 'Technologies used (e.g., JavaScript, React)',
-    role: 'Your role in the project',
-    link: 'Link to project (e.g., GitHub, live site)',
+    link: 'Link to project',
     location: 'Location (e.g., City, State)',
     organization: 'Organization (e.g., Company, University)',
     startMonth: 'Start Month',
     startYear: 'Start Year',
+    endMonth: 'End Month',
+    endYear: 'End Year',
 };
 
 export function Project({updateItems, project}) {
-    const [projectData, setProjectData] = useState({
-        orderId: project?.orderId,
-        title: project?.title || '',
-        description: project?.description || '',
-        technologies: project?.technologies,
-        role: project?.organization || '',
-        link: project?.link,
-        location: project?.location || '',
-        startDate: {
-            month: project?.startDate?.month || '',
-            year: project?.startDate?.year || '',
-        },
-    });
-    console.log('projectData in Project', projectData);
-
     // Handle input changes for text fields
     const handleInputChange = (e) => {
         const {name, value} = e.target;
-        const newProjectData = {
-            ...projectData,
+        const updatedProject = {
+            ...project,
             [name]: value,
         };
-        console.log('newProjectData', newProjectData);
-        setProjectData(newProjectData);
-        updateItems(newProjectData);
+        updateItems(updatedProject);
     };
 
-    // Handle selection changes for month
+    // Handle selection changes for dates
     const handleSelectChange = (dateType, field, value) => {
-        const updatedData = {
-            ...projectData,
-            startDate: {
-                ...projectData.startDate,
-                month: value,
+        const updatedProject = {
+            ...project,
+            [dateType]: {
+                ...project[dateType],
+                [field]: value,
             },
         };
-        setProjectData(updatedData);
-        updateItems(updatedData);
+        updateItems(updatedProject);
     };
 
     return (
         <div className="flex w-full flex-col gap-2">
             {/* Combined Row for Project T  itle and Date */}
-            <SectionEditing
-                empty={projectData == undefined || projectData.title == ''}
+            <EditOnClick
+                empty={project == undefined || project.title == ''}
                 editingView={
-                    <>
-                        <div className="grid grid-cols-6 gap-2">
+                    <div className="flex w-full flex-col gap-2">
+                        <div className="times grid grid-cols-8 gap-2">
                             <Input
                                 name="title"
-                                value={projectData.title}
+                                value={project.title}
                                 onChange={handleInputChange}
                                 placeholder={PLACEHOLDERS.title}
-                                className="text-md col-span-3 font-bold"
+                                className="text-md col-span-2 font-bold"
                             />
                             <Input
                                 name="link"
                                 placeholder={PLACEHOLDERS.link}
-                                value={projectData.link}
+                                value={project.link}
                                 onChange={handleInputChange}
-                                className="col-span-1"
+                                className="col-span-2"
                             />
                             <Months
                                 type="Start"
-                                value={projectData.startDate.month}
-                                handleSelectChange={handleSelectChange}
+                                value={project.startDate.month}
+                                handleSelectChange={(value) =>
+                                    handleSelectChange('startDate', 'month', value)
+                                }
                                 className="col-span-1"
                             />
                             <Input
                                 name="startYear"
+                                type="number"
+                                inputMode="numeric"
                                 placeholder={PLACEHOLDERS.startYear}
-                                value={projectData.startYear}
-                                onChange={handleInputChange}
+                                value={project.startDate.year}
+                                onChange={(e) =>
+                                    handleSelectChange('startDate', 'year', Number(e.target.value))
+                                }
+                                className="col-span-1 [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                            />
+                            <Months
+                                type="end"
+                                value={project.endDate.month}
+                                handleSelectChange={(value) =>
+                                    handleSelectChange('endDate', 'month', value)
+                                }
                                 className="col-span-1"
                             />
-                        </div>
-                        <div className="grid grid-cols-3 gap-2">
                             <Input
-                                name="role"
+                                name="endYear"
+                                type="number"
+                                inputMode="numeric"
+                                placeholder={PLACEHOLDERS.startYear}
+                                value={project.endDate.year}
+                                onChange={(e) =>
+                                    handleSelectChange('endDate', 'year', Number(e.target.value))
+                                }
+                                className="col-span-1 [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                            />
+                        </div>
+                        <div className="times grid grid-cols-3 gap-2">
+                            <Input
+                                name="organization"
                                 placeholder={PLACEHOLDERS.organization}
-                                value={projectData.role}
+                                value={project.organization}
                                 onChange={handleInputChange}
                                 className="col-span-2"
                             />
                             <Input
                                 name="location"
                                 placeholder={PLACEHOLDERS.location}
-                                value={projectData.location}
+                                value={project.location}
                                 onChange={handleInputChange}
                                 className="col-span-1"
                             />
@@ -117,7 +124,7 @@ export function Project({updateItems, project}) {
                                 // className="w-full"
                                 name="description"
                                 placeholder={PLACEHOLDERS.description}
-                                value={projectData.description}
+                                value={project.description}
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -126,31 +133,38 @@ export function Project({updateItems, project}) {
                             <Input
                                 name="technologies"
                                 placeholder={PLACEHOLDERS.technologies}
-                                value={projectData.technologies}
+                                value={project.technologies}
                                 onChange={handleInputChange}
-                                className=""
                             />
                         </div>
-                    </>
+                    </div>
                 }
                 displayView={
-                    <>
-                        <div className="grid grid-cols-6 gap-2">
-                            <p className="times font-bold">{projectData.title ?? ''}</p>
-                            <p className="times">{projectData.link ?? ''}</p>
-                            <MonthDisplayView monthNumber={projectData.startDate.month} />
-                            <p className="times">{projectData.startYear}</p>
+                    <div className="times flex w-full flex-col gap-0">
+                        <div className="flex items-center justify-between gap-2">
+                            <div className="flex flex-row gap-2">
+                                <p className="font-bold">{project.title}</p>
+                                <p className="underline">{project.link}</p>
+                            </div>
+                            <ItemDateDisplayView
+                                startDate={project.startDate}
+                                endDate={project.endDate}
+                            />
                         </div>
-                        <div className="grid grid-cols-3 gap-2">
-                            <p className="times">{projectData.role ?? ''}</p>
-                            <p className="times">{projectData.location ?? ''}</p>
+                        <div className="flex flex-row items-center justify-between gap-2">
+                            {project.organization && project.location && (
+                                <>
+                                    <p>{project.organization}</p>
+                                    <p>{project.location}</p>
+                                </>
+                            )}
                         </div>
-                        <BulletPointDisplayView text={projectData.description} />
+                        <BulletPointDisplayView text={project.description} />
                         {/* Technologies */}
                         <div className="sm:flex-grow">
-                            <p className="times">{projectData.technologies ?? ''}</p>
+                            <p>{project.technologies}</p>
                         </div>
-                    </>
+                    </div>
                 }
             />
         </div>

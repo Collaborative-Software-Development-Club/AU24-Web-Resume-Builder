@@ -8,8 +8,7 @@ import resumebuilder.back_end.domain.model.*;
 
 import java.util.List;
 import java.util.Set;
-
-//TODO unassign experiences/projects from a resume if they aren't present. Could be better to keep the list in resumeentity in the end
+import java.util.stream.Collectors;
 
 @Component
 public class ResumeMapper {
@@ -17,50 +16,49 @@ public class ResumeMapper {
     public ResumeMapper() {
     }
 
+    // in this class, we use the all args constructors so that we con't forget to
+    // set any fields
+
     public ResumeDto mapToDto(ResumeEntity resumeEntity, List<ExperienceItem> experienceItems,
             List<Project> projects, UserEntity userEntity) {
-        // TODO maybe userEntity shouldn't be passed here since experience/projects are
+        // ? maybe userEntity shouldn't be passed here since experience/projects are
         // prepared for the DTO
 
-        ResumeDto resumeDto = new ResumeDto();
-        resumeDto.setId(resumeEntity.getId());
-        resumeDto.setUserId(resumeEntity.getUserId());
-        resumeDto.setName(userEntity.getName());
-        resumeDto.setContactMethods(userEntity.getContactMethods());
-        resumeDto.setOrderOfSections(resumeEntity.getOrderOfSections());
-        resumeDto.setDescription(resumeEntity.getDescription());
-        Section<Education> educationSection = new Section<>(true, userEntity.getEducation());
-        resumeDto.setEducation(educationSection);
+        Section<Education> educationSection = new Section<>(true,
+                userEntity.getEducation() != null ? userEntity.getEducation() : new Education());
         // System.out.println("experienceEntities");
         // System.out.println(experienceEntities);
         // System.out.println("experienceItems");
         // System.out.println(experienceItems);
         Section<List<ExperienceItem>> experienceSection = new Section<>(true, experienceItems);
-        resumeDto.setExperience(experienceSection);
         // System.out.println("projectEntities");
         // System.out.println("projects");
         Section<List<Project>> projectSection = new Section<>(true, projects);
-        resumeDto.setProjects(projectSection);
-        Section<Set<Skill>> skills = new Section<>(true, resumeEntity.getSkills());
-        resumeDto.setSkills(skills);
+        Section<Set<String>> skills = new Section<Set<String>>(true,
+                resumeEntity.getSkills().stream().map(skill -> skill.getSkillName()).collect(Collectors.toSet()));
         Section<String> professionalSummary = new Section<>(true, resumeEntity.getProfessionalSummary());
-        resumeDto.setProfessionalSummary(professionalSummary);
+
+        ResumeDto resumeDto = new ResumeDto(resumeEntity.getId(), resumeEntity.getUserId(), userEntity.getName(),
+                userEntity.getContactMethods(), educationSection, experienceSection, projectSection,
+                professionalSummary, skills, resumeEntity.getOrderOfSections(),
+                resumeEntity.getDescription().isBlank() ? "Untitled" : resumeEntity.getDescription(),
+                resumeEntity.getLastModified());
 
         return resumeDto;
     }
 
     public ResumeEntity mapToEntity(ResumeDto resumeDto, List<String> experienceIds, List<String> projectIds) {
-        ResumeEntity resumeEntity = new ResumeEntity();
-        // set fields from ResumeDto that map to ResumeEntity
-        resumeEntity.setId(resumeDto.getId());
-        resumeEntity.setUserId(resumeDto.getUserId());
-        resumeEntity.setOrderOfSections(resumeDto.getOrderOfSections());
-        resumeEntity.setDescription(resumeDto.getDescription());
-        resumeEntity.setSkills(resumeDto.getSkills().getContent());
-        resumeEntity.setProfessionalSummary(resumeDto.getProfessionalSummary().getContent());
-        resumeEntity.setExperienceIds(experienceIds);
-        resumeEntity.setProjectIds(projectIds);
-        return resumeEntity;
+        return new ResumeEntity(
+                resumeDto.getId(),
+                resumeDto.getUserId(),
+                experienceIds,
+                projectIds,
+                resumeDto.getSkills().getContent().stream().map(skillName -> new Skill(skillName))
+                        .collect(Collectors.toSet()),
+                resumeDto.getProfessionalSummary().getContent(),
+                resumeDto.getOrderOfSections(),
+                resumeDto.getDescription().isEmpty() ? "Untitled" : resumeDto.getDescription(),
+                resumeDto.getLastModified());
     }
 
 }

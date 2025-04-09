@@ -4,7 +4,7 @@ import {Form, FormControl, FormField, FormItem, FormMessage} from '@/components/
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
-import {SectionEditing} from './SectionEditing';
+import {EditOnClick} from '../../components/EditOnClick';
 
 const FormSchema = z.object({
     username: z.string().max(30, {
@@ -24,8 +24,9 @@ export function Name({name, updateName}) {
     }, []);
 
     return (
-        <SectionEditing
-            empty={!name}
+        <EditOnClick
+            empty={name == ''}
+            sectionName="name"
             editingView={
                 <Form {...form}>
                     <form className="self-center">

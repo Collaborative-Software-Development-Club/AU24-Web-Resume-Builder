@@ -1,11 +1,54 @@
-import {SidebarContent} from './SidebarContent';
+import {
+    Sidebar,
+    SidebarContent,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarProvider,
+    SidebarTrigger,
+} from '@/components/ui/sidebar';
+import {SidebarContent as OurSidebarContent} from './SidebarContent';
+import ResumeDescription from './ResumeDescription';
 
-export const DesktopSidebar = ({resume, ordering, setOrdering, toggleSectionVisibility}) => {
+export const DesktopSidebar = ({
+    resume,
+    ordering,
+    setOrdering,
+    setDescription,
+    toggleSectionVisibility,
+    children,
+}) => {
+    console.log('DesktopSidebar', setDescription);
     return (
-        <aside className={`sm:xl fixed top-5 hidden h-full w-[250px] bg-white px-6 py-10 2xl:left-0 2xl:block`}>
-            <p className="text-lg font-semibold">Resume Settings</p>
-            <hr />
-            <SidebarContent resume={resume} ordering={ordering} setOrdering={setOrdering} toggleSectionVisibility={toggleSectionVisibility}/>
-        </aside>
+        <SidebarProvider>
+            <Sidebar>
+                <SidebarContent>
+                    <SidebarGroup>
+                        <SidebarGroupLabel>Resume Description</SidebarGroupLabel>
+                        <SidebarGroupContent>
+                            <hr />
+                            <ResumeDescription
+                                description={resume.description}
+                                setDescription={setDescription}
+                            />
+                        </SidebarGroupContent>
+                    </SidebarGroup>
+                    <SidebarGroup>
+                        <SidebarGroupLabel>Resume Settings</SidebarGroupLabel>
+                        <SidebarGroupContent>
+                            <hr />
+                            <OurSidebarContent
+                                resume={resume}
+                                ordering={ordering}
+                                setOrdering={setOrdering}
+                                toggleSectionVisibility={toggleSectionVisibility}
+                            />
+                        </SidebarGroupContent>
+                    </SidebarGroup>
+                </SidebarContent>
+            </Sidebar>
+            <SidebarTrigger />
+            {children}
+        </SidebarProvider>
     );
 };
