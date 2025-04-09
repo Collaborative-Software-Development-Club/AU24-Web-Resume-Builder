@@ -1,7 +1,15 @@
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Link } from 'react-router-dom';
+import {Button, buttonVariants} from '@/components/ui/button';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
+import {Input} from '@/components/ui/input';
+import {Link} from 'react-router-dom';
 
 export function GuestSaveDialog({ text = "Save" }) {
     //Log in and Sign up feature to be added
@@ -19,21 +27,15 @@ export function GuestSaveDialog({ text = "Save" }) {
                     <Input id="name" placeholder="Username" className="col-span-3" />
                     <Input id="username" placeholder="Password" className="col-span-3" />
                 </div>
-                <div className="flex flex-col justify-center gap-4">
-                    <Button type="submit" className="mx-auto bg-blue-600">
+                <div className="flex flex-col justify-stretch gap-4">
+                    <Button type="submit" className="">
                         Log In
                     </Button>
                     <hr size="10" />
-                    <div className="flex flex-row items-center text-gray-500">
-                        <p>Don't have an account?</p>
-                        <div className="justify-cente mx-auto flex">
-                            <Link to="/signup">
-                                <Button type="button" className="bg-blue-600">
-                                    Sign up
-                                </Button>
-                            </Link>
-                        </div>
-                    </div>
+                    <DialogFooter className="row flex items-center !justify-center text-sm text-muted-foreground">
+                        Don't have an account?
+                        <Link className={buttonVariants({variant: 'link'})}>Sign In</Link>
+                    </DialogFooter>
                 </div>
             </DialogContent>
         </Dialog>

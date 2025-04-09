@@ -3,11 +3,6 @@ import SidebarItem from './SidebarItem';
 import DragAndDropList from '../DragAndDropList';
 
 export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisibility}) => {
-    // const [isOpen, setIsOpen] = useState(false);
-    // const toggleSidebar = () => {
-    //     setIsOpen(!isOpen);
-    // };
-    // console.log('ordering in sidebar content', ordering);
     const updatedOrder = ordering
         .map((sectionId) => {
             let content;
@@ -25,7 +20,6 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
                             key={sectionId}
                             section={resume.education}
                             name="Education"
-                            elements={['GPA', 'Honors']}
                             handleVisibilityChange={handleVisibilityChange}
                         />
                     );
@@ -81,8 +75,8 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
     };
     // console.log('updatedOrder in sidebar content', updatedOrder);
     return (
-        <div className="Sidebar flex w-full flex-col">
-            <p className="text-lg 2xl:pt-5">Set Visibility & Ordering</p>
+        <div className="flex w-full flex-col p-4">
+            <p className="text-lg font-bold">Set Visibility & Ordering</p>
             <div className="sidebar-content">
                 <ul className="cursor-pointer list-none">
                     <DragAndDropList items={updatedOrder} setItems={setResumeOrdering} />

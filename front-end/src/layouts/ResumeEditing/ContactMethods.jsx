@@ -4,9 +4,9 @@ export function ContactMethods({contactMethods, updateContactMethods}) {
     return (
         <EditableList
             list={contactMethods}
-            RenderList={({list}) => {
+            renderList={(list) => {
                 return (
-                    <div className="flex flex-row gap-2 self-center">
+                    <div className="flex flex-row justify-center gap-2">
                         {list.map((element) => (
                             <p className="times underline" key={element}>
                                 {element}
@@ -18,6 +18,7 @@ export function ContactMethods({contactMethods, updateContactMethods}) {
             title="Conctact Methods"
             description="Edit contact methods"
             updateList={updateContactMethods}
+            buttonText={contactMethods.length == 0 ? 'Add Contact Methods' : 'Edit'}
         />
     );
 }

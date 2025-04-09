@@ -20,7 +20,9 @@ export default function ResumeEditing({
     updateExperience,
     updateProjects,
     updateSkills,
+    updateDescription,
 }) {
+    console.log('resume in ResumeEditing: ', resume);
     const download = () => {
         downloadResume(resume);
     };
@@ -44,38 +46,42 @@ export default function ResumeEditing({
         PROJECTS: <Projects updateProjects={updateProjects} projects={resume.projects.content} />,
         SKILLS: <Skills updateSkills={updateSkills} skills={resume.skills.content ?? []} />,
     };
+    console.log('resume editing updateDescription: ', updateDescription);
     return (
         <div className="flex justify-center pb-20 sm:mx-10">
-            <div className="flex w-full max-w-5xl flex-col items-stretch justify-start self-stretch gap-2">
-                {/* Sidebar to control visibility and ordering */}
-                <Sidebar
-                    resume={resume}
-                    ordering={resume.orderOfSections}
-                    setOrdering={updateOrderOfSections}
-                    toggleSectionVisibility={toggleSectionVisibility}
-                />
+            {/* Sidebar to control visibility and ordering */}
+            <Sidebar
+                resume={resume}
+                ordering={resume.orderOfSections}
+                setOrdering={updateOrderOfSections}
+                setDescription={updateDescription}
+                toggleSectionVisibility={toggleSectionVisibility}
+            >
+                <div className="flex w-full flex-col items-center">
+                    <div className="w-full max-w-5xl">
+                        {/* Static components */}
+                        <div className="flex flex-row justify-end gap-4">
+                            <Button className="" variant="secondary" onClick={() => download()}>
+                                Download
+                            </Button>
+                            {saveButton}
+                        </div>
+                        <Name name={resume.name} updateName={updateName} />
+                        <ContactMethods
+                            contactMethods={resume.contactMethods ?? []}
+                            updateContactMethods={updateContactMethods}
+                        />
 
-                {/* Static components */}
-                <div className="flex flex-row justify-end gap-4">
-                    <Button className="" variant="secondary" onClick={() => download()}>
-                        Download
-                    </Button>
-                    {saveButton}
+                        {/* Render ordered components conditionally */}
+                        {resume.orderOfSections?.map(
+                            (sectionId) =>
+                                isVisible(sectionId) && (
+                                    <Fragment key={sectionId}>{sections[sectionId]}</Fragment>
+                                ),
+                        )}
+                    </div>
                 </div>
-                <Name name={resume.name} updateName={updateName} />
-                <ContactMethods
-                    contactMethods={resume.contactMethods ?? []}
-                    updateContactMethods={updateContactMethods}
-                />
-
-                {/* Render ordered components conditionally */}
-                {resume.orderOfSections?.map(
-                    (sectionId) =>
-                        isVisible(sectionId) && (
-                            <Fragment key={sectionId}>{sections[sectionId]}</Fragment>
-                        ),
-                )}
-            </div>
+            </Sidebar>
         </div>
     );
 }

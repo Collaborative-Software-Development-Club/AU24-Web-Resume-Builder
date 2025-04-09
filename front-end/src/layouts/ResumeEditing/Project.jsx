@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
 import {Input} from '@/components/ui/input';
 import Months from './Months';
-import {SectionEditing} from './SectionEditing';
+import {EditOnClick} from '../../components/EditOnClick';
 import {BulletPointDisplayView} from './BulletPointDisplayView';
-import {MonthDisplayView} from './MonthDisplayView';
 import {AITextImprovementInput} from '@/components/AITextImprovementInput';
+import {ItemDateDisplayView} from './ItemDateDisplayView';
 
 const PLACEHOLDERS = {
     title: 'Enter project title',
@@ -20,8 +19,6 @@ const PLACEHOLDERS = {
 };
 
 export function Project({updateItems, project}) {
-    console.log('project in Project', project);
-
     // Handle input changes for text fields
     const handleInputChange = (e) => {
         const {name, value} = e.target;
@@ -32,13 +29,13 @@ export function Project({updateItems, project}) {
         updateItems(updatedProject);
     };
 
-    // Handle selection changes for month
+    // Handle selection changes for dates
     const handleSelectChange = (dateType, field, value) => {
         const updatedProject = {
             ...project,
-            startDate: {
-                ...project.startDate,
-                month: value,
+            [dateType]: {
+                ...project[dateType],
+                [field]: value,
             },
         };
         updateItems(updatedProject);
@@ -47,40 +44,65 @@ export function Project({updateItems, project}) {
     return (
         <div className="flex w-full flex-col gap-2">
             {/* Combined Row for Project T  itle and Date */}
-            <SectionEditing
+            <EditOnClick
                 empty={project == undefined || project.title == ''}
                 editingView={
                     <div className="flex w-full flex-col gap-2">
-                        <div className="grid grid-cols-6 gap-2">
+                        <div className="times grid grid-cols-8 gap-2">
                             <Input
                                 name="title"
                                 value={project.title}
                                 onChange={handleInputChange}
                                 placeholder={PLACEHOLDERS.title}
-                                className="text-md col-span-3 font-bold"
+                                className="text-md col-span-2 font-bold"
                             />
                             <Input
                                 name="link"
                                 placeholder={PLACEHOLDERS.link}
                                 value={project.link}
                                 onChange={handleInputChange}
-                                className="col-span-1"
+                                className="col-span-2"
                             />
                             <Months
                                 type="Start"
                                 value={project.startDate.month}
-                                handleSelectChange={handleSelectChange}
+                                handleSelectChange={(value) =>
+                                    handleSelectChange('startDate', 'month', value)
+                                }
                                 className="col-span-1"
                             />
                             <Input
                                 name="startYear"
+                                type="number"
+                                inputMode="numeric"
                                 placeholder={PLACEHOLDERS.startYear}
-                                value={project.startYear}
-                                onChange={handleInputChange}
+                                value={project.startDate.year}
+                                onChange={(e) =>
+                                    handleSelectChange('startDate', 'year', Number(e.target.value))
+                                }
+                                className="col-span-1 [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                            />
+                            <Months
+                                type="end"
+                                value={project.endDate.month}
+                                handleSelectChange={(value) =>
+                                    handleSelectChange('endDate', 'month', value)
+                                }
                                 className="col-span-1"
                             />
+                            <Input
+                                name="endYear"
+                                type="number"
+                                inputMode="numeric"
+                                placeholder={PLACEHOLDERS.startYear}
+                                value={project.endDate.year}
+                                onChange={(e) =>
+                                    handleSelectChange('endDate', 'year', Number(e.target.value))
+                                }
+                                className="col-span-1 [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                            />
                         </div>
-                        <div className="grid grid-cols-3 gap-2">
+                        <div className="times grid grid-cols-3 gap-2">
                             <Input
                                 name="organization"
                                 placeholder={PLACEHOLDERS.organization}
@@ -113,47 +135,34 @@ export function Project({updateItems, project}) {
                                 placeholder={PLACEHOLDERS.technologies}
                                 value={project.technologies}
                                 onChange={handleInputChange}
-                                className=""
                             />
                         </div>
                     </div>
                 }
                 displayView={
-                    <div className="times flex w-full flex-col gap-2">
+                    <div className="times flex w-full flex-col gap-0">
                         <div className="flex items-center justify-between gap-2">
-                            <p className="col-span-3 font-bold">
-                                {project.title == '' ? PLACEHOLDERS.title : project.title}
-                            </p>
-                            <p>{project.link == '' ? PLACEHOLDERS.link : project.link}</p>
-                            <div className="flex items-center justify-between italic">
-                                <MonthDisplayView
-                                    monthNumber={project.startDate.month}
-                                    placeHolder={PLACEHOLDERS.startMonth}
-                                />
-                                <p>{project.startDate?.year ?? PLACEHOLDERS.startYear}</p>
+                            <div className="flex flex-row gap-2">
+                                <p className="font-bold">{project.title}</p>
+                                <p className="underline">{project.link}</p>
                             </div>
+                            <ItemDateDisplayView
+                                startDate={project.startDate}
+                                endDate={project.endDate}
+                            />
                         </div>
                         <div className="flex flex-row items-center justify-between gap-2">
-                            <p>
-                                {project.organization == ''
-                                    ? PLACEHOLDERS.organization
-                                    : project.organization}
-                            </p>
-                            <p>
-                                {project.location == '' ? PLACEHOLDERS.location : project.location}
-                            </p>
+                            {project.organization && project.location && (
+                                <>
+                                    <p>{project.organization}</p>
+                                    <p>{project.location}</p>
+                                </>
+                            )}
                         </div>
-                        <BulletPointDisplayView
-                            text={project.description}
-                            placeHolder={PLACEHOLDERS.description}
-                        />
+                        <BulletPointDisplayView text={project.description} />
                         {/* Technologies */}
                         <div className="sm:flex-grow">
-                            <p>
-                                {project.technologies == ''
-                                    ? PLACEHOLDERS.technologies
-                                    : project.technologies}
-                            </p>
+                            <p>{project.technologies}</p>
                         </div>
                     </div>
                 }
@@ -161,25 +170,3 @@ export function Project({updateItems, project}) {
         </div>
     );
 }
-
-// Add PropTypes validation
-Project.propTypes = {
-    updateItems: PropTypes.func.isRequired,
-    project: PropTypes.shape({
-        orderId: PropTypes.number,
-        title: PropTypes.string,
-        description: PropTypes.string,
-        technologies: PropTypes.string,
-        organization: PropTypes.string,
-        link: PropTypes.string,
-        location: PropTypes.string,
-        startDate: PropTypes.shape({
-            month: PropTypes.number,
-            year: PropTypes.number,
-        }),
-        endDate: PropTypes.shape({
-            month: PropTypes.number,
-            year: PropTypes.number,
-        }),
-    }),
-};
