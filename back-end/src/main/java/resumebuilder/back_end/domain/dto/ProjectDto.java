@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import resumebuilder.back_end.domain.model.Project;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
