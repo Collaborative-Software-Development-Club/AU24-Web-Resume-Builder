@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import resumebuilder.back_end.domain.model.CustomDate;
-import resumebuilder.back_end.domain.model.ExperienceItem;
 
 @Data
 @AllArgsConstructor

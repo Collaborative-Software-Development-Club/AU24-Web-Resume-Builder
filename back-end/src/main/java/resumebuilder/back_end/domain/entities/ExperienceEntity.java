@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import resumebuilder.back_end.domain.model.CustomDate;
-import resumebuilder.back_end.domain.model.ExperienceItem;
 
 @Data
 @AllArgsConstructor
