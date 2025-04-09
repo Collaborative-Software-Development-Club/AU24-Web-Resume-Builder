@@ -94,7 +94,7 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
                         AI
                     </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="max-w-2xl">
                     <DialogHeader>
                         <div className="flex flex-col gap-3 pb-5">
                             <DialogTitle>Original Text</DialogTitle>

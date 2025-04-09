@@ -1,10 +1,10 @@
 import {useUserResumes} from './useUserResumes';
 import createResume from '@/services/createResume';
-import {Plus} from 'lucide-react';
 import ResumePreview from './ResumePreview';
+import {CreateResume} from './CreateResume';
 import {useNavigate} from 'react-router-dom';
 import flags from '@/flags.json';
-
+import uploadResumeData from '@/services/uploadResumeData';
 const USE_API = flags.useApi;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
 
@@ -16,7 +16,7 @@ export function Account() {
 
     if (!resumes) return <p>Loading...</p>;
 
-    const createNewResume = async () => {
+    const createNewResume = async (data) => {
         try {
             const createdResume = await createResume(DEFAULT_USER_ID);
             if (createdResume.id) {
@@ -31,12 +31,13 @@ export function Account() {
         <div className="mx-auto flex w-full max-w-6xl flex-col justify-start gap-10 px-4">
             <h2 className="text-xl font-medium">Your Resumes</h2>
             <div className="flex flex-row flex-wrap gap-6">
-                <button
+                {/* <button
                     className="flex h-48 w-40 rounded-md border text-gray-700 transition-colors hover:bg-gray-300 hover:text-black hover:shadow-md"
                     onClick={createNewResume}
                 >
                     <Plus className="m-auto" size="55" />
-                </button>
+                </button> */}
+                <CreateResume resumes={resumes} createNewResume={createNewResume} />
                 {resumes.map((resume) => (
                     <ResumePreview
                         key={resume.id}
