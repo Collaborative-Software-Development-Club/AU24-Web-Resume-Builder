@@ -34,6 +34,9 @@ public class ExperienceController {
 
     @GetMapping("")
     ResponseEntity<List<ExperienceDto>> getAllExperiences(@RequestParam(value = "userId") String userId) {
+        if (userId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<ExperienceDto> experiences = experienceService.getExperiencesForUser(userId);
         if (experiences.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
