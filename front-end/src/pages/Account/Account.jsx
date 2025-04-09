@@ -1,21 +1,22 @@
-import { useState } from 'react';
-import { useUserResumes } from './useUserResumes';
+import {useState} from 'react';
+import {useUserResumes} from './useUserResumes';
 import createResume from '@/services/createResume';
-import { Plus } from 'lucide-react';
+import {Plus} from 'lucide-react';
 import ResumePreview from './ResumePreview';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import flags from '@/flags.json';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input'; // Add this import
-import { GuestSaveDialog } from '@/components/GuestSaveDialog';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input'; // Add this import
+import {GuestSaveDialog} from '@/components/GuestSaveDialog';
 
 const USE_API = flags.useApi;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
+// const DEFAULT_USER_ID = undefined;
 
 export function Account() {
     const navigate = useNavigate();
-    const { resumes, deleteResume, error } = useUserResumes(DEFAULT_USER_ID, USE_API);
-    
+    const {resumes, deleteResume, error} = useUserResumes(DEFAULT_USER_ID, USE_API);
+
     // Temporary testing state
     const [mockLoggedIn, setMockLoggedIn] = useState(false);
     const [mockUsername, setMockUsername] = useState('test_user');
@@ -35,17 +36,17 @@ export function Account() {
     };
 
     return (
-        <div className="mx-auto max-w-6xl px-4 flex w-full flex-col justify-start gap-10">
+        <div className="mx-auto flex w-full max-w-6xl flex-col justify-start gap-10 px-4">
             {/* test */}
-            <div className="flex items-center gap-4 p-3 bg-gray-100 rounded-lg mb-2">
+            <div className="mb-2 flex items-center gap-4 rounded-lg bg-gray-100 p-3">
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium">Tempoary Test:</span>
-                    <Button 
-                        variant={mockLoggedIn ? "default" : "outline"}
-                        size="sm" 
+                    <Button
+                        variant={mockLoggedIn ? 'default' : 'outline'}
+                        size="sm"
                         onClick={() => setMockLoggedIn(!mockLoggedIn)}
                     >
-                        {mockLoggedIn ? "Logged In" : "Logged Out"}
+                        {mockLoggedIn ? 'Logged In' : 'Logged Out'}
                     </Button>
                 </div>
                 {mockLoggedIn && (
@@ -53,13 +54,13 @@ export function Account() {
                         type="text"
                         value={mockUsername}
                         onChange={(e) => setMockUsername(e.target.value)}
-                        className="w-40 h-8"
+                        className="h-8 w-40"
                         placeholder="Test username"
                     />
                 )}
             </div>
 
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
                 <div>
                     <h2 className="text-xl font-medium">Your Resumes</h2>
                     {mockLoggedIn && (
@@ -69,10 +70,7 @@ export function Account() {
                     )}
                 </div>
                 {mockLoggedIn ? (
-                    <Button 
-                        variant="outline"
-                        onClick={() => setMockLoggedIn(false)}
-                    >
+                    <Button variant="outline" onClick={() => setMockLoggedIn(false)}>
                         Switch Accounts
                     </Button>
                 ) : (

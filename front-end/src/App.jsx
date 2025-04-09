@@ -18,7 +18,7 @@ function App() {
                     <Route path="/account" element={<Account />} />
                     <Route path="/resume/:resumeId" element={<ResumeBuilder />} />
                     <Route path="/guest" element={<GuestResume />} />
-                    <Route path="/signup" element={<SignUp />} /> //new
+                    <Route path="/signup" element={<SignUp />} />
                 </Routes>
             </div>
         </Router>
