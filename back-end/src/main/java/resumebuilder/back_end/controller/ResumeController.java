@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/resume")
+@RequestMapping("/v1/resumes")
 public class ResumeController {
 
     private final ResumeService resumeService;

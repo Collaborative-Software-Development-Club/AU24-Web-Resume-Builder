@@ -11,12 +11,14 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/v1/projects")
 public class ProjectController {
 
     private final ProjectService projectService;
 
-    public ProjectController(ProjectService projectService) { this.projectService = projectService; }
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     @PostMapping("")
     public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto projectDto) {
@@ -25,7 +27,8 @@ public class ProjectController {
     }
 
     @PutMapping("/{projectId}")
-    public ResponseEntity<ProjectDto> updateProject(@PathVariable("projectId") String projectId, @RequestBody ProjectDto projectDto) {
+    public ResponseEntity<ProjectDto> updateProject(@PathVariable("projectId") String projectId,
+            @RequestBody ProjectDto projectDto) {
         Optional<ProjectDto> updatedResume = projectService.update(projectId, projectDto);
         if (updatedResume.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

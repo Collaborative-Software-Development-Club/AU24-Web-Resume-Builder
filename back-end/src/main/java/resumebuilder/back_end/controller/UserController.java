@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-
 import java.util.List;
 import java.util.Optional;
 
-
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/v1/users")
 public class UserController {
 
     @Autowired
@@ -40,7 +38,8 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/resumes/{resumeId}")
-    public ResponseEntity<UserDto> addResumeToUser(@PathVariable("userId") String userId, @PathVariable("resumeId") String resumeId) {
+    public ResponseEntity<UserDto> addResumeToUser(@PathVariable("userId") String userId,
+            @PathVariable("resumeId") String resumeId) {
         Optional<UserDto> added = userService.addResumeToUser(userId, resumeId);
         if (added.isPresent()) {
             return new ResponseEntity<>(added.get(), HttpStatus.OK);
@@ -50,7 +49,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}/resumes/{resumeId}")
-    public ResponseEntity<UserDto> removeResumeFromUser(@PathVariable("userId") String userId, @PathVariable("resumeId") String resumeId) {
+    public ResponseEntity<UserDto> removeResumeFromUser(@PathVariable("userId") String userId,
+            @PathVariable("resumeId") String resumeId) {
         Optional<UserDto> removed = userService.removeResumeFromUser(userId, resumeId);
         if (removed.isPresent()) {
             return new ResponseEntity<>(removed.get(), HttpStatus.OK);
