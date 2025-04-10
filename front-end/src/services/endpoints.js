@@ -10,7 +10,7 @@ function endpoints(baseUrl, version) {
                 return `${baseUrl}/${version}/resumes?userId=${userId}`;
             }
             throw new Error(
-                'userId is required for GET /resumes?userId={userId} endpoint or resumeId is required for GET /resumes/{resumeId} endpoint',
+                'userId is required for GET /resumes?userId={userId} endpoint or resumeId is required for /resumes/{resumeId} endpoint',
             );
         },
         users: ({userId}) => {

@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
-import {getUserResumes} from '@/services/getUserResumes';
-import deleteResumeData from '@/services/deleteResumeData';
+import {RESUME_QUERIES} from '@/services/resumeQueries';
 
 export function useUserResumes(userId, USE_API) {
     const [resumes, setResumes] = useState([]);
@@ -9,7 +8,7 @@ export function useUserResumes(userId, USE_API) {
     useEffect(() => {
         const getData = async () => {
             try {
-                const resumes = await getUserResumes(userId, {useApi: USE_API});
+                const resumes = await RESUME_QUERIES.getFromUser(userId, {useApi: USE_API});
                 setResumes(resumes);
             } catch (e) {
                 console.error(e);
@@ -20,7 +19,7 @@ export function useUserResumes(userId, USE_API) {
     }, []);
     const deleteResume = (id) => {
         try {
-            deleteResumeData(id);
+            RESUME_QUERIES.delete(id);
             setResumes((prevResumes) => prevResumes.filter((res) => res.id != id));
         } catch (e) {
             console.error(e);

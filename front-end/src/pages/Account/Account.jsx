@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import {useUserResumes} from './useUserResumes';
-import createResume from '@/services/createResume';
 import {Plus} from 'lucide-react';
 import ResumePreview from './ResumePreview';
 import {useNavigate} from 'react-router-dom';
@@ -8,6 +7,7 @@ import flags from '@/flags.json';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input'; // Add this import
 import {GuestSaveDialog} from '@/components/GuestSaveDialog';
+import {RESUME_QUERIES} from '@/services/resumeQueries';
 
 const USE_API = flags.useApi;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
@@ -26,7 +26,7 @@ export function Account() {
 
     const createNewResume = async () => {
         try {
-            const createdResume = await createResume(DEFAULT_USER_ID);
+            const createdResume = await RESUME_QUERIES.create(DEFAULT_USER_ID);
             if (createdResume.id) {
                 navigate(`/resume/${createdResume.id}`);
             }
