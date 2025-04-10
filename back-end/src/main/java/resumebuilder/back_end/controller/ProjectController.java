@@ -26,8 +26,8 @@ public class ProjectController {
         return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{projectId}")
-    public ResponseEntity<ProjectDto> updateProject(@PathVariable("projectId") String projectId,
+    @PutMapping("/{id}")
+    public ResponseEntity<ProjectDto> updateProject(@PathVariable("id") String projectId,
             @RequestBody ProjectDto projectDto) {
         Optional<ProjectDto> updatedResume = projectService.update(projectId, projectDto);
         if (updatedResume.isEmpty()) {
@@ -45,8 +45,8 @@ public class ProjectController {
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 
-    @GetMapping("/{projectId}")
-    public ResponseEntity<ProjectDto> getProject(@PathVariable("projectId") String projectId) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ProjectDto> getProject(@PathVariable("id") String projectId) {
         Optional<ProjectDto> project = projectService.findOne(projectId);
         if (project.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,8 +54,8 @@ public class ProjectController {
         return new ResponseEntity<>(project.get(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{projectId}")
-    public ResponseEntity<ProjectDto> deleteProject(@PathVariable("projectId") String projectId) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ProjectDto> deleteProject(@PathVariable("id") String projectId) {
         projectService.delete(projectId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
