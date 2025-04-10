@@ -37,7 +37,7 @@ public class AiController {
         this.aiService = aiService;
     }
 
-    @GetMapping("/enhance-text")
+    @GetMapping("/description")
     public ResponseEntity<Map<String, String>> generate(@RequestParam(value = "message") String message)
             throws UnsupportedEncodingException {
         String decodedMessage = URLDecoder.decode(message, "UTF-8");
@@ -45,7 +45,7 @@ public class AiController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/scan-resume")
+    @GetMapping("/resume")
     public ResponseEntity<Map<String, Object>> generateResumeJSON(@RequestParam(value = "message") String message)
             throws UnsupportedEncodingException, JsonProcessingException {
         String decodedMessage = URLDecoder.decode(message, "UTF-8");
