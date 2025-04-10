@@ -1,3 +1,5 @@
 {
-    "useApi": true
+    "useApi": true,
+    "apiUrl": "http://localhost:8080",
+    "apiVersion": "v1"
 }

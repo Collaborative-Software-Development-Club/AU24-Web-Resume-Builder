@@ -1,7 +1,9 @@
+import {ENDPOINTS} from '@/services/endpoints.js';
+
 export default async function deleteResumeData(resumeId) {
     console.log('deleting resume data');
 
-    const response = await fetch(`http://localhost:8080/resume/${resumeId}`, {
+    const response = await fetch(ENDPOINTS.resumes({resumeId: resumeId}), {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

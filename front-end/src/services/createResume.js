@@ -1,5 +1,7 @@
+import {ENDPOINTS} from '@/services/endpoints.js';
+
 export default async function createResume(userId, resumeData = {}) {
-    const response = await fetch(`http://localhost:8080/resume?userId=${userId}`, {
+    const response = await fetch(ENDPOINTS.resumes({userId: userId}), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

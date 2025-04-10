@@ -1,5 +1,7 @@
+import {ENDPOINTS} from '@/services/endpoints.js';
+
 export async function getUserResumes(userId) {
-    const response = await fetch(`http://localhost:8080/resume?userId=${userId}`);
+    const response = await fetch(ENDPOINTS.resumes({userId: userId}));
     console.log(response);
     if (response.status == 204) {
         return [];
