@@ -12,7 +12,10 @@ export default function ResumeBuilder() {
         throw new Error('resumeId is undefined');
     }
     const resumeHook = useResumeData(resumeId, USE_API);
-    if (!resumeHook.resume) return <p>Loading...</p>;
+    console.log(resumeHook);
+    if (resumeHook.queryResult.isLoading) return <p>Loading...</p>;
+    if (resumeHook.queryResult.isError)
+        return <p>There was an error loading the resume {resumeHook.queryResult.error.message}</p>;
 
     const saveButton = (
         <Button className="" onClick={resumeHook.save}>
