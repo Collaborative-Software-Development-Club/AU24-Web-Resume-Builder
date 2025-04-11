@@ -18,7 +18,6 @@ import resumebuilder.back_end.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -92,8 +91,7 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
-        );
+                Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())));
     }
 
 }
