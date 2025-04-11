@@ -61,6 +61,17 @@ public class ResumeService {
         return createdResumeDto;
     }
 
+    public Optional<ResumeDto> duplicate(String userId, String resumeId) {
+        Optional<ResumeEntity> resume = resumeRepository.findById(resumeId);
+        if (resume.isEmpty()) {
+            return Optional.empty();
+        }
+        ResumeEntity oldResume = resume.get();
+        oldResume.setId(null);
+        resumeRepository.save(oldResume); // should save a new copy since ResumeEntity id is null
+        return this.createDto(oldResume);
+    }
+
     public Optional<ResumeDto> update(String resumeId, ResumeDto resumeDto) {
         // System.out.println("resumeDto service>update");
         // System.out.println(resumeDto);

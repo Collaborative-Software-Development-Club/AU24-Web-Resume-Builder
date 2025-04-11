@@ -3,10 +3,12 @@ package resumebuilder.back_end.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import resumebuilder.back_end.domain.dto.CreateResumeDto;
 import resumebuilder.back_end.domain.dto.ResumeDto;
 import resumebuilder.back_end.service.ResumeService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -21,19 +23,27 @@ public class ResumeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResumeDto> createResume(@RequestParam(value = "userId") String userId) {
-        // System.out.println("Creating resume");
-        if (userId == null) {
-            System.out.println("User ID is null");
+    public ResponseEntity<ResumeDto> duplicateResume(@RequestBody CreateResumeDto ids) {
+        String userId = ids.getUserId();
+        String resumeId = ids.getResumeId();
+        Optional<ResumeDto> savedResume;
+
+        if (resumeId != null) {
+            savedResume = resumeService.duplicate(userId, resumeId);
+            if (savedResume.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else if (userId != null) {
+            savedResume = resumeService.create(userId);
+            if (savedResume.isEmpty()) {
+                // System.out.println("Error in createResume");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Optional<ResumeDto> createdResume = resumeService.create(userId);
-        if (createdResume.isEmpty()) {
-            // System.out.println("Error in createResume");
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        // System.out.println("saved resume");
-        return new ResponseEntity<>(createdResume.get(), HttpStatus.CREATED);
+
+        return new ResponseEntity<>(savedResume.get(), HttpStatus.CREATED);
     }
 
     @GetMapping("")
