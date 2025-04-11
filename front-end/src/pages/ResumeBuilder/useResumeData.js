@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {getResumeData} from '@/services/getResumeData';
+import {RESUME_QUERIES} from '@/services/resumeQueries';
 import uploadResumeData from '@/services/uploadResumeData';
 import {useResumeBase} from '@/hooks/useResumeBase';
 
@@ -17,7 +17,7 @@ export default function useResumeData(resumeId, useApi) {
 
     useEffect(() => {
         const getData = async () => {
-            const resumeData = await getResumeData(resumeId, {useApi});
+            const resumeData = await RESUME_QUERIES.getOne(resumeId, {useApi});
             setResume(resumeData);
         };
         getData();

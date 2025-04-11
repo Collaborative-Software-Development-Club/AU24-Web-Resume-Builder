@@ -10,7 +10,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/v1/projects")
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -25,8 +25,9 @@ public class ProjectController {
         return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{projectId}")
-    public ResponseEntity<ProjectDto> updateProject(@PathVariable("projectId") String projectId,
+    @PutMapping("/{id}")
+    public ResponseEntity<ProjectDto> updateProject(@PathVariable("id") String projectId,
+
             @RequestBody ProjectDto projectDto) {
         ProjectDto updatedResume = projectService.update(projectId, projectDto);
         return new ResponseEntity<>(updatedResume, HttpStatus.OK);
@@ -41,14 +42,14 @@ public class ProjectController {
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 
-    @GetMapping("/{projectId}")
-    public ResponseEntity<ProjectDto> getProject(@PathVariable("projectId") String projectId) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ProjectDto> getProject(@PathVariable("id") String projectId) {
         ProjectDto project = projectService.findOne(projectId);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{projectId}")
-    public ResponseEntity<ProjectDto> deleteProject(@PathVariable("projectId") String projectId) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ProjectDto> deleteProject(@PathVariable("id") String projectId) {
         projectService.delete(projectId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

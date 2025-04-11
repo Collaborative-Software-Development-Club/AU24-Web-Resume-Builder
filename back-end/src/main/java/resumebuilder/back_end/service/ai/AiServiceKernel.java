@@ -5,7 +5,6 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.UnsupportedEncodingException;
 
 public abstract class AiServiceKernel implements AiService {
 
