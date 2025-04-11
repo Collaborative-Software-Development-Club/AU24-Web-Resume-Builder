@@ -1,14 +1,12 @@
 import {useState} from 'react';
 import {useUserResumes} from './useUserResumes';
-import uploadResumeData from '@/services/uploadResumeData';
-import createResume from '@/services/createResume';
-import {Plus} from 'lucide-react';
 import ResumePreview from './ResumePreview';
 import {useNavigate} from 'react-router-dom';
 import flags from '@/flags.json';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input'; // Add this import
 import {GuestSaveDialog} from '@/components/GuestSaveDialog';
+import {RESUME_QUERIES} from '@/services/resumeQueries';
 import {CreateResume} from './CreateResume';
 
 const USE_API = flags.useApi;
@@ -28,11 +26,11 @@ export function Account() {
 
     const createNewResume = async (data) => {
         try {
-            const createdResume = await createResume(DEFAULT_USER_ID);
+            const createdResume = await RESUME_QUERIES.create(DEFAULT_USER_ID);
             if (createdResume.id) {
                 if (data) {
                     console.log('upload', data);
-                    await uploadResumeData(createdResume.id, {...data, id: createdResume.id});
+                    await RESUME_QUERIES.upload(createdResume.id, {...data, id: createdResume.id});
                 }
                 navigate(`/resume/${createdResume.id}`);
             }

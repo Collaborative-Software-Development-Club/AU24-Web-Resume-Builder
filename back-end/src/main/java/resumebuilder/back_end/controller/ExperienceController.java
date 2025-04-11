@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/experience")
+@RequestMapping("/v1/experiences")
 public class ExperienceController {
     private final ExperienceService experienceService;
 
