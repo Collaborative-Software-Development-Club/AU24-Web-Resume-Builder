@@ -1,7 +1,6 @@
 import {useState} from 'react';
-import {useUserResumes} from './useUserResumes';
+import {useUserResumes} from '../../hooks/useUserResumes';
 import ResumePreview from './ResumePreview';
-import {useNavigate} from 'react-router-dom';
 import flags from '@/flags.json';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input'; // Add this import
@@ -14,8 +13,7 @@ const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
 // const DEFAULT_USER_ID = undefined;
 
 export function Account() {
-    const navigate = useNavigate();
-    const {resumes, deleteResume, queryResult} = useUserResumes(DEFAULT_USER_ID, USE_API);
+    const {resumes, deleteResume, create, queryResult} = useUserResumes(DEFAULT_USER_ID, USE_API);
 
     // Temporary testing state
     const [mockLoggedIn, setMockLoggedIn] = useState(false);
@@ -29,20 +27,7 @@ export function Account() {
         return <p>Failed fetching resumes: {queryResult.error}</p>;
     }
 
-    const createNewResume = async (data) => {
-        try {
-            const createdResume = await RESUME_QUERIES.create(DEFAULT_USER_ID);
-            if (createdResume.id) {
-                if (data) {
-                    console.log('upload', data);
-                    await RESUME_QUERIES.upload(createdResume.id, {...data, id: createdResume.id});
-                }
-                navigate(`/resume/${createdResume.id}`);
-            }
-        } catch (error) {
-            console.error('Failed to create a new resume:', error);
-        }
-    };
+    const createNewResume = create;
 
     return (
         <div className="mx-auto flex w-full max-w-6xl flex-col justify-start gap-10 px-4">

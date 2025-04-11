@@ -1,4 +1,4 @@
-import useResumeData from './useResumeData';
+import useResumeData from '../../hooks/useResumeData';
 import {useParams} from 'react-router-dom';
 import ResumeEditing from '@/layouts/ResumeEditing';
 import {Button} from '@/components/ui/button';
