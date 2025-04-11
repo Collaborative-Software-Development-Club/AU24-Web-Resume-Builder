@@ -3,6 +3,8 @@ package resumebuilder.back_end.service;
 import org.springframework.stereotype.Service;
 import resumebuilder.back_end.domain.dto.ResumeDto;
 import resumebuilder.back_end.domain.entities.*;
+import resumebuilder.back_end.error_handling.exceptions.InvalidUserIDException;
+import resumebuilder.back_end.error_handling.exceptions.ResumeNotFoundException;
 import resumebuilder.back_end.mappers.ExperienceMapper;
 import resumebuilder.back_end.mappers.ProjectMapper;
 import resumebuilder.back_end.mappers.ResumeMapper;
@@ -14,7 +16,6 @@ import resumebuilder.back_end.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,43 +47,37 @@ public class ResumeService {
         return resumeRepository.existsById(id);
     }
 
-    public Optional<ResumeDto> create(String userId) {
+    public ResumeDto create(String userId) {
         // System.out.println("resumeDto service>save");
         // System.out.println(resumeDto);
         if (!userRepository.existsById(userId)) {
-            System.out.println("Invalid user id passed to ResumeService.save");
-            return Optional.empty();
+            throw new InvalidUserIDException(userId);
         }
         ResumeEntity emptyResume = new ResumeEntity(userId);
         resumeRepository.save(emptyResume);
-        Optional<ResumeDto> createdResumeDto = this.createDto(emptyResume);
+        ResumeDto createdResumeDto = this.createDto(emptyResume);
         // System.out.println("createdResumeDto in service>save");
         // System.out.println(createdResumeDto.get());
         return createdResumeDto;
     }
 
-    public Optional<ResumeDto> update(String resumeId, ResumeDto resumeDto) {
+    public ResumeDto update(String resumeId, ResumeDto resumeDto) {
         // System.out.println("resumeDto service>update");
         // System.out.println(resumeDto);
         if (!resumeRepository.existsById(resumeId)) {
-            return Optional.empty();
+            throw new ResumeNotFoundException(resumeId);
         }
-        Optional<ResumeEntity> updated = this.createAndSaveEntities(resumeDto);
-        if (updated.isEmpty()) {
-            return Optional.empty();
-        }
-        Optional<ResumeDto> createdResumeDto = this.createDto(updated.get());
+        ResumeEntity updated = this.createAndSaveEntities(resumeDto);
+        ResumeDto createdResumeDto = this.createDto(updated);
         // System.out.println("createdResumeDto in service>save");
         // System.out.println(createdResumeDto.get());
         return createdResumeDto;
     }
 
-    public Optional<ResumeDto> findOne(String id) {
-        Optional<ResumeEntity> resume = resumeRepository.findById(id);
-        if (resume.isEmpty()) {
-            return Optional.empty();
-        }
-        return this.createDto(resume.get());
+    public ResumeDto findOne(String id) {
+        ResumeEntity resume = resumeRepository.findById(id)
+                .orElseThrow(() -> new ResumeNotFoundException(id));
+        return this.createDto(resume);
     }
 
     public void delete(String id) {
@@ -90,6 +85,9 @@ public class ResumeService {
     }
 
     public List<ResumeDto> findByUserId(String userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new InvalidUserIDException(userId);
+        }
         List<ResumeEntity> resumeEntities = resumeRepository.findByUserId(userId);
         return this.createDtos(resumeEntities);
     }
@@ -97,23 +95,19 @@ public class ResumeService {
     private List<ResumeDto> createDtos(List<ResumeEntity> resumeEntities) {
         return resumeEntities.stream()
                 .map(this::createDto)
-                .filter(dto -> dto.isPresent())
-                .map(dto -> dto.get())
                 .collect(Collectors.toList());
     }
 
-    private Optional<ResumeEntity> createAndSaveEntities(ResumeDto resumeDto) {
+    private ResumeEntity createAndSaveEntities(ResumeDto resumeDto) {
         // System.out.println("In createAndSaveEntities");
-        Optional<UserEntity> userEntity = userRepository.findById(resumeDto.getUserId());
-        if (userEntity.isEmpty()) {
-            System.out.println("Invalid user id passed to ResumeService.save");
-            return Optional.empty();
-        }
+        String userId = resumeDto.getUserId();
+        UserEntity userEntity = userRepository.findById(resumeDto.getUserId())
+                .orElseThrow(() -> new InvalidUserIDException(userId));
         // extract experiences and projects from resumeDto as entities
         List<ExperienceEntity> experienceEntities = experienceMapper
-                .mapToEntity(resumeDto.getExperience().getContent(), userEntity.get().getId());
+                .mapToEntity(resumeDto.getExperience().getContent(), userEntity.getId());
         List<ProjectEntity> projectEntities = projectMapper.mapToEntity(resumeDto.getProjects().getContent(),
-                userEntity.get().getId());
+                userEntity.getId());
         // save experiences and projects to the database
         List<ExperienceEntity> savedExperiences = experienceRepository.saveAll(experienceEntities);
         List<ProjectEntity> savedProjects = projectRepository.saveAll(projectEntities);
@@ -126,24 +120,23 @@ public class ResumeService {
         resumeEntity.setLastModified(LocalDateTime.now());
         ResumeEntity savedResume = resumeRepository.save(resumeEntity);
         // extract user information from resumeDto
-        userMapper.addResumeDtoContent(userEntity.get(), resumeDto);
-        userRepository.save(userEntity.get());
+        userMapper.addResumeDtoContent(userEntity, resumeDto);
+        userRepository.save(userEntity);
         // System.out.println("Finished createAndSaveEntities");
-        return Optional.of(savedResume);
+        return savedResume;
     }
 
-    private Optional<ResumeDto> createDto(ResumeEntity resumeEntity) {
+    private ResumeDto createDto(ResumeEntity resumeEntity) {
         List<ExperienceEntity> experienceEntities = experienceRepository.findAllById(resumeEntity.getExperienceIds());
         List<ProjectEntity> projectEntities = projectRepository.findAllById(resumeEntity.getProjectIds());
-        Optional<UserEntity> userEntity = userRepository.findById(resumeEntity.getUserId());
-        if (userEntity.isEmpty()) {
-            return Optional.empty();
-        }
-        ResumeDto resumeDto = resumeMapper.mapToDto(
+        String userId = resumeEntity.getUserId();
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(() -> new InvalidUserIDException(userId));
+
+        return resumeMapper.mapToDto(
                 resumeEntity,
                 experienceMapper.mapToExperienceItem(experienceEntities),
                 projectMapper.mapToProject(projectEntities),
-                userEntity.get());
-        return Optional.ofNullable(resumeDto); // should never be null; if it is that means mapper messed up
+                userEntity);
     }
 }

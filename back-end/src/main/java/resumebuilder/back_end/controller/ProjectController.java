@@ -7,7 +7,6 @@ import resumebuilder.back_end.domain.dto.ProjectDto;
 import resumebuilder.back_end.service.ProjectService;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -28,12 +27,10 @@ public class ProjectController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProjectDto> updateProject(@PathVariable("id") String projectId,
+
             @RequestBody ProjectDto projectDto) {
-        Optional<ProjectDto> updatedResume = projectService.update(projectId, projectDto);
-        if (updatedResume.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedResume.get(), HttpStatus.OK);
+        ProjectDto updatedResume = projectService.update(projectId, projectDto);
+        return new ResponseEntity<>(updatedResume, HttpStatus.OK);
     }
 
     @GetMapping("")
@@ -47,11 +44,8 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProjectDto> getProject(@PathVariable("id") String projectId) {
-        Optional<ProjectDto> project = projectService.findOne(projectId);
-        if (project.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(project.get(), HttpStatus.OK);
+        ProjectDto project = projectService.findOne(projectId);
+        return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
