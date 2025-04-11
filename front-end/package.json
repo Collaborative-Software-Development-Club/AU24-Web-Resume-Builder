@@ -24,6 +24,7 @@
         "@radix-ui/react-slot": "^1.1.2",
         "@radix-ui/react-toast": "^1.2.7",
         "@radix-ui/react-tooltip": "^1.2.0",
+        "@tanstack/react-query": "^5.72.2",
         "add": "^2.0.6",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",

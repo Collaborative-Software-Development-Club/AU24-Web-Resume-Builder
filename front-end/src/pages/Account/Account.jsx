@@ -15,14 +15,19 @@ const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
 
 export function Account() {
     const navigate = useNavigate();
-    const {resumes, deleteResume, error} = useUserResumes(DEFAULT_USER_ID, USE_API);
+    const {resumes, deleteResume, queryResult} = useUserResumes(DEFAULT_USER_ID, USE_API);
 
     // Temporary testing state
     const [mockLoggedIn, setMockLoggedIn] = useState(false);
     const [mockUsername, setMockUsername] = useState('test_user');
 
-    if (error) return <p>{error}</p>;
-    if (!resumes) return <p>Loading...</p>;
+    console.log(queryResult);
+
+    if (queryResult.isPending) return <p>Loading...</p>;
+
+    if (queryResult.isError) {
+        return <p>Failed fetching resumes: {queryResult.error}</p>;
+    }
 
     const createNewResume = async (data) => {
         try {
