@@ -19,19 +19,19 @@ export function CreateResume({resumes, createNewResume}) {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [copyIndex, setcopyIndex] = useState(null);
 
-    //Will be implementing the upload and copy methods
     const handleProceed = () => {
         console.log(selectedOption);
         switch (selectedOption) {
             case 'option-one':
-                console.log("opiton-one-called")
+                console.log('opiton-one-called');
                 createNewResume();
                 break;
             case 'option-two':
-                //createNewResume(copyData);
+                var description = 'Copy of ' + resumes[copyIndex].description;
+                createNewResume({...resumes[copyIndex], description: description});
                 break;
             case 'option-three':
-                //importResume();
+                //TODO: implement file upload and its create function
                 break;
             default:
                 createNewResume({});
@@ -77,7 +77,7 @@ export function CreateResume({resumes, createNewResume}) {
                                 ''
                             ) : (
                                 <div className="flex flex-col gap-1">
-                                    <h1 className='text-base'>Choose a Resume to Copy From</h1>
+                                    <h1 className="text-base">Choose a Resume to Copy From</h1>
                                     <div className="max-h-96 w-full rounded-sm border">
                                         {resumes?.map((item, index) => {
                                             return (
