@@ -50,83 +50,79 @@ export function CreateResume({resumes, createNewResume}) {
                 <DialogHeader>
                     <DialogTitle>Set Up Your Resume</DialogTitle>
                 </DialogHeader>
-                <DialogDescription>
-                    <RadioGroup value={selectedOption} onValueChange={setSelectedOption}>
+
+                <RadioGroup value={selectedOption} onValueChange={setSelectedOption} className="text-gray-500">
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="option-one" id="option-one" className="h-5 w-5" />
+                        <Label htmlFor="option-one" className="text-lg">
+                            Create New Resume
+                        </Label>
+                    </div>
+                    <div>
                         <div className="flex items-center space-x-2">
                             <RadioGroupItem
-                                value="option-one"
-                                id="option-one"
+                                value="option-two"
+                                id="option-two"
                                 className="h-5 w-5"
                             />
-                            <Label htmlFor="option-one" className="text-lg">
-                                Create New Resume
+                            <Label htmlFor="option-two" className="text-lg">
+                                Copy Existing Resume
                             </Label>
                         </div>
-                        <div>
-                            <div className="flex items-center space-x-2">
-                                <RadioGroupItem
-                                    value="option-two"
-                                    id="option-two"
-                                    className="h-5 w-5"
-                                />
-                                <Label htmlFor="option-two" className="text-lg">
-                                    Copy Existing Resume
-                                </Label>
-                            </div>
-                            {selectedOption !== 'option-two' ? (
-                                ''
-                            ) : (
-                                <div className="flex flex-col gap-1">
-                                    <h1 className="text-base">Choose a Resume to Copy From</h1>
-                                    <div className="max-h-96 w-full rounded-sm border">
-                                        {resumes?.map((item, index) => {
-                                            return (
-                                                <div
-                                                    key={index}
-                                                    className={`flex flex-row items-center justify-between rounded-sm px-2 transition hover:bg-gray-200 ${
-                                                        copyIndex === index ? 'bg-gray-200' : ''
-                                                    }`}
-                                                    onClick={() => {
-                                                        console.log(index);
-                                                        setcopyIndex(index);
-                                                    }}
-                                                >
-                                                    <p className="text-base">{item.description}</p>
-                                                    <p className="font-light">
-                                                        {'Updated ' +
-                                                            formatDistanceToNow(
-                                                                new Date(item.lastModified),
-                                                                {addSuffix: true},
-                                                            )}
-                                                    </p>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
+                        {selectedOption !== 'option-two' ? (
+                            ''
+                        ) : (
+                            <div className="flex flex-col gap-1">
+                                <h1 className="text-base">Choose a Resume to Copy From</h1>
+                                <div className="max-h-96 w-full rounded-sm border">
+                                    {resumes?.map((item, index) => {
+                                        return (
+                                            <div
+                                                key={index}
+                                                className={`flex flex-row items-center justify-between rounded-sm px-2 transition hover:bg-gray-200 ${
+                                                    copyIndex === index ? 'bg-gray-200' : ''
+                                                }`}
+                                                onClick={() => {
+                                                    console.log(index);
+                                                    setcopyIndex(index);
+                                                }}
+                                            >
+                                                <p className="text-base">{item.description}</p>
+                                                <p className="font-light">
+                                                    {'Updated ' +
+                                                        formatDistanceToNow(
+                                                            new Date(item.lastModified),
+                                                            {addSuffix: true},
+                                                        )}
+                                                </p>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
-                            )}
-                        </div>
-                        <div>
-                            <div className="flex items-center space-x-2">
-                                <RadioGroupItem
-                                    value="option-three"
-                                    id="option-three"
-                                    className="h-5 w-5"
-                                />
-                                <Label htmlFor="option-three" className="text-lg">
-                                    Import from PDF/Word
-                                </Label>
                             </div>
-                            {selectedOption !== 'option-three' ? (
-                                ''
-                            ) : (
-                                <div>
-                                    <h1>Upload Your Resume</h1>
-                                </div>
-                            )}
+                        )}
+                    </div>
+                    <div>
+                        <div className="flex items-center space-x-2">
+                            <RadioGroupItem
+                                value="option-three"
+                                id="option-three"
+                                className="h-5 w-5"
+                            />
+                            <Label htmlFor="option-three" className="text-lg">
+                                Import from PDF/Word
+                            </Label>
                         </div>
-                    </RadioGroup>
-                </DialogDescription>
+                        {selectedOption !== 'option-three' ? (
+                            ''
+                        ) : (
+                            <div>
+                                <h1>Upload Your Resume</h1>
+                            </div>
+                        )}
+                    </div>
+                </RadioGroup>
+                <DialogDescription />
                 <DialogFooter>
                     <Button onClick={handleProceed}>Proceed</Button>
                 </DialogFooter>

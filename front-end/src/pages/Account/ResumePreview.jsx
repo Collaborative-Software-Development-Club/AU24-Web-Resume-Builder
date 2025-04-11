@@ -48,7 +48,7 @@ export default function ResumePreview({resumeId, onDelete, description, lastModi
                         to={`/resume/${resumeId}`}
                         className={buttonVariants({variant: 'default'})}
                     >
-                        <Pencil className="text-accent-foreground" />
+                        <Pencil className="text-white" />
                     </Link>
                     <Button variant="outline" onClick={downloadResume}>
                         <Download className="text-accent-foreground" />

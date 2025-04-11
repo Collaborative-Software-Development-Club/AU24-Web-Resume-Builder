@@ -11,6 +11,7 @@ import {
     CardHeader,
     CardTitle,
 } from './components/ui/card';
+import {motion} from 'framer-motion';
 
 export function Signup() {
     const [formData, setFormData] = useState({
@@ -59,7 +60,13 @@ export function Signup() {
     };
 
     return (
-        <div className="flex flex-row items-center justify-center">
+        <div className="flex flex-row items-center justify-center h-full pb-20 bg-gradient-to-br from-white via-indigo-50 to-purple-100">
+            <motion.div
+                    initial={{opacity: 0, y: 20}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{duration: 0.8}}
+                    className="max-w-2xl pb-20 "
+                >
             <Card className="w-full max-w-sm">
                 <CardHeader>
                     <CardTitle className="text-2xl">Create an Account</CardTitle>
@@ -75,7 +82,7 @@ export function Signup() {
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="flex flex-col gap-6">
+                        <div className="flex flex-col gap-5">
                             <div className="grid gap-2">
                                 <Label htmlFor="username">Username</Label>
                                 <Input
@@ -142,6 +149,7 @@ export function Signup() {
                     </Link>
                 </CardFooter>
             </Card>
+            </motion.div>
         </div>
     );
 }
