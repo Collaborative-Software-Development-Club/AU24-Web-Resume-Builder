@@ -3,6 +3,8 @@ package resumebuilder.back_end.service;
 import org.springframework.stereotype.Service;
 import resumebuilder.back_end.domain.dto.ProjectDto;
 import resumebuilder.back_end.domain.entities.ProjectEntity;
+import resumebuilder.back_end.error_handling.exceptions.InvalidProjectIDException;
+import resumebuilder.back_end.error_handling.exceptions.InvalidUserIDException;
 import resumebuilder.back_end.mappers.ProjectMapper;
 import resumebuilder.back_end.repository.ProjectRepository;
 import resumebuilder.back_end.repository.UserRepository;
@@ -35,13 +37,16 @@ public class ProjectService {
         return projectMapper.mapToDto(projectEntity);
     }
 
-    public Optional<ProjectDto> update(String id, ProjectDto projectDto) {
-        if (!projectRepository.existsById(id) || userRepository.existsById(projectDto.getUserId())) {
-            return Optional.empty();
+    public ProjectDto update(String id, ProjectDto projectDto) {
+        if (!projectRepository.existsById(id)) {
+            throw new InvalidProjectIDException(id);
+        }
+        if (!userRepository.existsById(projectDto.getUserId())) {
+            throw new InvalidUserIDException(projectDto.getUserId());
         }
         ProjectEntity projectEntity = projectMapper.mapToEntity(projectDto);
         projectRepository.save(projectEntity);
-        return Optional.of(projectMapper.mapToDto(projectEntity));
+        return projectMapper.mapToDto(projectEntity);
     }
 
     public List<ProjectDto> findAll(String userId) {
@@ -51,9 +56,10 @@ public class ProjectService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<ProjectDto> findOne(String id) {
-        Optional<ProjectEntity> project = projectRepository.findById(id);
-        return project.map(entity -> projectMapper.mapToDto(entity));
+    public ProjectDto findOne(String id) {
+        ProjectEntity project = projectRepository.findById(id)
+                .orElseThrow(() -> new InvalidProjectIDException(id));
+        return projectMapper.mapToDto(project);
     }
 
     public void delete(String id) {

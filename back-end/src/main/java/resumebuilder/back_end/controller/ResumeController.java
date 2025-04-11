@@ -27,13 +27,14 @@ public class ResumeController {
             System.out.println("User ID is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Optional<ResumeDto> createdResume = resumeService.create(userId);
-        if (createdResume.isEmpty()) {
-            // System.out.println("Error in createResume");
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        ResumeDto createdResume = resumeService.create(userId);
+        // FIXME Maybe? I don't know if we want some error handling here, but this should be covered in the service
+//        if (createdResume.isEmpty()) {
+//            // System.out.println("Error in createResume");
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
         // System.out.println("saved resume");
-        return new ResponseEntity<>(createdResume.get(), HttpStatus.CREATED);
+        return new ResponseEntity<>(createdResume, HttpStatus.CREATED);
     }
 
     @GetMapping("")
@@ -51,11 +52,11 @@ public class ResumeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResumeDto> getResume(@PathVariable("id") String id) {
-        Optional<ResumeDto> resume = resumeService.findOne(id);
-        if (resume.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(resume.get(), HttpStatus.OK);
+        ResumeDto resume = resumeService.findOne(id);
+//        if (resume.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        return new ResponseEntity<>(resume, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -63,11 +64,11 @@ public class ResumeController {
             @PathVariable("id") String id,
             @RequestBody ResumeDto resumeDto) {
         // System.out.println("PUT /resume");
-        Optional<ResumeDto> updatedResume = resumeService.update(id, resumeDto);
-        if (updatedResume.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedResume.get(), HttpStatus.OK);
+        ResumeDto updatedResume = resumeService.update(id, resumeDto);
+//        if (updatedResume.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        return new ResponseEntity<>(updatedResume, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

@@ -28,9 +28,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable String id) {
-        return userService.findOne(id)
-                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        UserDto user = userService.findOne(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping
@@ -41,21 +40,13 @@ public class UserController {
 
     @PostMapping("/{userId}/resumes/{resumeId}")
     public ResponseEntity<UserDto> addResumeToUser(@PathVariable("userId") String userId, @PathVariable("resumeId") String resumeId) {
-        Optional<UserDto> added = userService.addResumeToUser(userId, resumeId);
-        if (added.isPresent()) {
-            return new ResponseEntity<>(added.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        UserDto added = userService.addResumeToUser(userId, resumeId);
+        return new ResponseEntity<>(added, HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}/resumes/{resumeId}")
     public ResponseEntity<UserDto> removeResumeFromUser(@PathVariable("userId") String userId, @PathVariable("resumeId") String resumeId) {
-        Optional<UserDto> removed = userService.removeResumeFromUser(userId, resumeId);
-        if (removed.isPresent()) {
-            return new ResponseEntity<>(removed.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        UserDto removed = userService.removeResumeFromUser(userId, resumeId);
+        return new ResponseEntity<>(removed, HttpStatus.OK);
     }
 }

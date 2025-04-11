@@ -11,6 +11,7 @@ import resumebuilder.back_end.domain.dto.UserDto;
 import resumebuilder.back_end.domain.dto.UserRequestDto;
 import resumebuilder.back_end.domain.entities.UserEntity;
 import resumebuilder.back_end.domain.model.enums.Role;
+import resumebuilder.back_end.error_handling.exceptions.InvalidUserIDException;
 import resumebuilder.back_end.mappers.UserMapper;
 import resumebuilder.back_end.repository.UserRepository;
 
@@ -51,29 +52,24 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<UserDto> findOne(String id) {
-        Optional<UserEntity> user = userRepository.findById(id);
-        return user.map(userMapper::mapToDto);
+    public UserDto findOne(String id) {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new InvalidUserIDException(id));
+        return userMapper.mapToDto(user);
     }
 
-    public Optional<UserDto> addResumeToUser(String userId, String resumeId) {
-        Optional<UserEntity> user = userRepository.findById(userId);
-        if (user.isPresent()) {
-            UserEntity userEntity = user.get();
-            userRepository.save(userEntity);
-            return Optional.ofNullable(userMapper.mapToDto(userEntity));
-        }
-        return Optional.empty();
+    public UserDto addResumeToUser(String userId, String resumeId) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new InvalidUserIDException(userId));
+        userRepository.save(user);
+        return userMapper.mapToDto(user);
     }
 
-    public Optional<UserDto> removeResumeFromUser(String userId, String resumeId) {
-        Optional<UserEntity> user = userRepository.findById(userId);
-        if (user.isPresent()) {
-            UserEntity userEntity = user.get();
-            userRepository.save(userEntity);
-            return Optional.ofNullable(userMapper.mapToDto(userEntity));
-        }
-        return Optional.empty();
+    public UserDto removeResumeFromUser(String userId, String resumeId) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new InvalidUserIDException(userId));
+        userRepository.save(user);
+        return userMapper.mapToDto(user);
     }
 
     public void delete(String id) {

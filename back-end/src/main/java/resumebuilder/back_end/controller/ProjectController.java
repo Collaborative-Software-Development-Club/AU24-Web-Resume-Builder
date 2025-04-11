@@ -26,11 +26,11 @@ public class ProjectController {
 
     @PutMapping("/{projectId}")
     public ResponseEntity<ProjectDto> updateProject(@PathVariable("projectId") String projectId, @RequestBody ProjectDto projectDto) {
-        Optional<ProjectDto> updatedResume = projectService.update(projectId, projectDto);
-        if (updatedResume.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedResume.get(), HttpStatus.OK);
+        ProjectDto updatedResume = projectService.update(projectId, projectDto);
+//        if (updatedResume.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        return new ResponseEntity<>(updatedResume, HttpStatus.OK);
     }
 
     @GetMapping("")
@@ -44,11 +44,11 @@ public class ProjectController {
 
     @GetMapping("/{projectId}")
     public ResponseEntity<ProjectDto> getProject(@PathVariable("projectId") String projectId) {
-        Optional<ProjectDto> project = projectService.findOne(projectId);
-        if (project.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(project.get(), HttpStatus.OK);
+        ProjectDto project = projectService.findOne(projectId);
+//        if (project.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
     @DeleteMapping("/{projectId}")
