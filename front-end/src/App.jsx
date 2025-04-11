@@ -10,7 +10,7 @@ import SignUp from '@/SignUp';
 function App() {
     return (
         <Router>
-            <div className="flex w-full flex-col items-stretch gap-10">
+            <div className="flex w-full flex-col items-stretch h-screen">
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<About />} />

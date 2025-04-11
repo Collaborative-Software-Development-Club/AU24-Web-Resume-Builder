@@ -1,13 +1,13 @@
 import {useState} from 'react';
 import {useUserResumes} from './useUserResumes';
-import createResume from '@/services/createResume';
-import {Plus} from 'lucide-react';
 import ResumePreview from './ResumePreview';
 import {useNavigate} from 'react-router-dom';
 import flags from '@/flags.json';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input'; // Add this import
 import {GuestSaveDialog} from '@/components/GuestSaveDialog';
+import {RESUME_QUERIES} from '@/services/resumeQueries';
+import {CreateResume} from './CreateResume';
 
 const USE_API = flags.useApi;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
@@ -24,10 +24,14 @@ export function Account() {
     if (error) return <p>{error}</p>;
     if (!resumes) return <p>Loading...</p>;
 
-    const createNewResume = async () => {
+    const createNewResume = async (data) => {
         try {
-            const createdResume = await createResume(DEFAULT_USER_ID);
+            const createdResume = await RESUME_QUERIES.create(DEFAULT_USER_ID);
             if (createdResume.id) {
+                if (data) {
+                    console.log('upload', data);
+                    await RESUME_QUERIES.upload(createdResume.id, {...data, id: createdResume.id});
+                }
                 navigate(`/resume/${createdResume.id}`);
             }
         } catch (error) {
@@ -79,12 +83,7 @@ export function Account() {
             </div>
 
             <div className="grid grid-cols-6 gap-6">
-                <button
-                    className="flex h-48 w-40 rounded-md border text-gray-700 transition-colors hover:bg-gray-300 hover:text-black hover:shadow-md"
-                    onClick={createNewResume}
-                >
-                    <Plus className="m-auto" size="55" />
-                </button>
+                <CreateResume resumes={resumes} createNewResume={createNewResume} />
                 {resumes.map((resume) => (
                     <ResumePreview
                         key={resume.id}
