@@ -4,7 +4,6 @@ import {motion} from 'framer-motion';
 import {useNavigate} from 'react-router-dom';
 
 export default function About() {
-    const navigate = useNavigate();
     return (
         <div className="flex h-full flex-col bg-gradient-to-br from-white via-indigo-50 to-purple-100">
             {/* Hero Section */}
