@@ -48,7 +48,7 @@ export default function ResumeEditing({
     };
     console.log('resume editing updateDescription: ', updateDescription);
     return (
-        <div className="flex justify-center pb-20 sm:mx-10">
+        <div className="flex h-full py-10 justify-center sm:mx-10">
             {/* Sidebar to control visibility and ordering */}
             <Sidebar
                 resume={resume}
@@ -60,7 +60,7 @@ export default function ResumeEditing({
                 <div className="flex w-full flex-col items-center">
                     <div className="w-full max-w-5xl">
                         {/* Static components */}
-                        <div className="flex flex-row justify-end gap-4">
+                        <div className="flex flex-row justify-end gap-4 pb-4">
                             <Button className="" variant="secondary" onClick={() => download()}>
                                 Download
                             </Button>
