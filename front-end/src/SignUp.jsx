@@ -64,7 +64,7 @@ export function Signup() {
             <motion.div
                     initial={{opacity: 0, y: 20}}
                     animate={{opacity: 1, y: 0}}
-                    transition={{duration: 0.8}}
+                    transition={{duration: 0.6}}
                     className="max-w-2xl pb-20 "
                 >
             <Card className="w-full max-w-sm">
@@ -102,7 +102,7 @@ export function Signup() {
                                 >
                                     Password
                                 </Label>
-                                <div className="relative mt-1">
+                                <div className="relative">
                                     <Input
                                         type={showPassword ? 'text' : 'password'}
                                         id="password"

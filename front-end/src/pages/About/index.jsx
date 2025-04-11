@@ -11,7 +11,7 @@ export default function About() {
                 <motion.div
                     initial={{opacity: 0, y: 20}}
                     animate={{opacity: 1, y: 0}}
-                    transition={{duration: 0.8}}
+                    transition={{duration: 0.6}}
                     className="max-w-2xl text-center pb-20"
                 >
                     <h2 className="mb-6 text-3xl font-extrabold text-gray-900 md:text-5xl">
