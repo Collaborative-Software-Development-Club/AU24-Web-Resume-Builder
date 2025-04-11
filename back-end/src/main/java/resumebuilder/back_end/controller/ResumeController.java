@@ -22,7 +22,7 @@ public class ResumeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResumeDto> duplicateResume(@RequestBody CreateResumeDto ids) {
+    public ResponseEntity<ResumeDto> create(@RequestBody CreateResumeDto ids) {
         String userId = ids.getUserId();
         String resumeId = ids.getResumeId();
         ResumeDto savedResume;
