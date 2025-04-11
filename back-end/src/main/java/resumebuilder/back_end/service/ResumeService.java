@@ -86,6 +86,8 @@ public class ResumeService {
     }
 
     public List<ResumeDto> findByUserId(String userId) {
+        // TODO add error for userid non existent
+
         List<ResumeEntity> resumeEntities = resumeRepository.findByUserId(userId);
         return this.createDtos(resumeEntities);
     }
@@ -135,7 +137,6 @@ public class ResumeService {
                 resumeEntity,
                 experienceMapper.mapToExperienceItem(experienceEntities),
                 projectMapper.mapToProject(projectEntities),
-                userEntity
-        );
+                userEntity);
     }
 }

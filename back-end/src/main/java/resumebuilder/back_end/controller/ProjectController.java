@@ -7,7 +7,6 @@ import resumebuilder.back_end.domain.dto.ProjectDto;
 import resumebuilder.back_end.service.ProjectService;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -16,7 +15,9 @@ public class ProjectController {
 
     private final ProjectService projectService;
 
-    public ProjectController(ProjectService projectService) { this.projectService = projectService; }
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     @PostMapping("")
     public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto projectDto) {
@@ -25,11 +26,9 @@ public class ProjectController {
     }
 
     @PutMapping("/{projectId}")
-    public ResponseEntity<ProjectDto> updateProject(@PathVariable("projectId") String projectId, @RequestBody ProjectDto projectDto) {
+    public ResponseEntity<ProjectDto> updateProject(@PathVariable("projectId") String projectId,
+            @RequestBody ProjectDto projectDto) {
         ProjectDto updatedResume = projectService.update(projectId, projectDto);
-//        if (updatedResume.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
         return new ResponseEntity<>(updatedResume, HttpStatus.OK);
     }
 
@@ -45,9 +44,6 @@ public class ProjectController {
     @GetMapping("/{projectId}")
     public ResponseEntity<ProjectDto> getProject(@PathVariable("projectId") String projectId) {
         ProjectDto project = projectService.findOne(projectId);
-//        if (project.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
