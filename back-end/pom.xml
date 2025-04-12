@@ -80,6 +80,11 @@
             <artifactId>spring-ai-azure-openai</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.2.0</version>
+        </dependency>
 
         <!-- Spring Security Stuff -->
         <dependency>
@@ -110,6 +115,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
+            <version>6.4.4</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

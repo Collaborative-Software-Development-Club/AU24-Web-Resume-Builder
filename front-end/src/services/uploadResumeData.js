@@ -1,6 +1,8 @@
+import {ENDPOINTS} from '@/services/endpoints.js';
+
 export default async function uploadResumeData(resumeId, resumeData) {
     console.log('uploading resume data');
-    const response = await fetch(`http://localhost:8080/resume/${resumeId}`, {
+    const response = await fetch(ENDPOINTS.resumes({resumeId: resumeId}), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

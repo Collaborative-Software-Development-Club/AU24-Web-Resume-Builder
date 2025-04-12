@@ -16,7 +16,6 @@ import resumebuilder.back_end.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,6 +85,9 @@ public class ResumeService {
     }
 
     public List<ResumeDto> findByUserId(String userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new InvalidUserIDException(userId);
+        }
         List<ResumeEntity> resumeEntities = resumeRepository.findByUserId(userId);
         return this.createDtos(resumeEntities);
     }
@@ -135,7 +137,6 @@ public class ResumeService {
                 resumeEntity,
                 experienceMapper.mapToExperienceItem(experienceEntities),
                 projectMapper.mapToProject(projectEntities),
-                userEntity
-        );
+                userEntity);
     }
 }

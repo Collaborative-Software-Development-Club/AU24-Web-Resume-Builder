@@ -1,8 +1,8 @@
 package resumebuilder.back_end.error_handling;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import resumebuilder.back_end.error_handling.exceptions.*;
@@ -18,8 +18,7 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 "No resume found for provided resume ID.",
                 HttpStatus.NOT_FOUND.value(),
-                LocalDateTime.now()
-        );
+                LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -29,8 +28,7 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 "Invalid resume data.",
                 HttpStatus.BAD_REQUEST.value(),
-                LocalDateTime.now()
-        );
+                LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
@@ -38,10 +36,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleInvalidUserId(InvalidUserIDException ex) {
         ErrorResponse error = new ErrorResponse(
                 ex.getMessage(),
-                "No user found for provided uer ID.",
+                "No user found for provided user ID.",
                 HttpStatus.NOT_FOUND.value(),
-                LocalDateTime.now()
-        );
+                LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -51,19 +48,17 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 "No project found for provided project id.",
                 HttpStatus.NOT_FOUND.value(),
-                LocalDateTime.now()
-        );
+                LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUsernameNotFound(UnexpectedRollbackException ex) {
+    public ResponseEntity<ErrorResponse> handleUsernameNotFound(UsernameNotFoundException ex) {
         ErrorResponse error = new ErrorResponse(
                 ex.getMessage(),
                 "Username not found.",
                 HttpStatus.NOT_FOUND.value(),
-                LocalDateTime.now()
-        );
+                LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -84,9 +79,7 @@ public class GlobalExceptionHandler {
                 "Internal server error",
                 ex.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                LocalDateTime.now()
-        );
+                LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
-

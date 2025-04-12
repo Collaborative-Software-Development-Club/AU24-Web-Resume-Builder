@@ -11,17 +11,17 @@ import {
 import {Input} from '@/components/ui/input';
 import {Link} from 'react-router-dom';
 
-export function GuestSaveDialog() {
-    //Log in and Sign up feature to be added
+export function GuestSaveDialog({ text = "Save" }) {
+    //log in and sign up feature
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button>Save</Button>
+                <Button>{text}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Save Your Resume!</DialogTitle>
-                    <DialogDescription>Sign up or Log in to save your resume</DialogDescription>
+                    <DialogDescription>Log in to save your resume</DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-col gap-4 pb-1 pt-3">
                     <Input id="name" placeholder="Username" className="col-span-3" />
@@ -34,7 +34,7 @@ export function GuestSaveDialog() {
                     <hr size="10" />
                     <DialogFooter className="row flex items-center !justify-center text-sm text-muted-foreground">
                         Don't have an account?
-                        <Link className={buttonVariants({variant: 'link'})}>Sign In</Link>
+                        <Link to="/signup" className={buttonVariants({variant: 'link'})}>Sign Up</Link>
                     </DialogFooter>
                 </div>
             </DialogContent>

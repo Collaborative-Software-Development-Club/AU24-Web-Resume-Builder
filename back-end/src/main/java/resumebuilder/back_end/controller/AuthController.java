@@ -15,7 +15,7 @@ import resumebuilder.back_end.service.UserService;
 import java.util.Collections;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/v1/auth")
 public class AuthController {
     @Autowired
     private AuthService authService;

@@ -2,16 +2,16 @@ package resumebuilder.back_end.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import resumebuilder.back_end.domain.dto.ResumeDto;
 import resumebuilder.back_end.service.ResumeService;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/resume")
+@RequestMapping("/v1/resumes")
 public class ResumeController {
 
     private final ResumeService resumeService;
@@ -21,30 +21,16 @@ public class ResumeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResumeDto> createResume(@RequestParam(value = "userId") String userId) {
-        // System.out.println("Creating resume");
-        if (userId == null) {
-            System.out.println("User ID is null");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<ResumeDto> createResume(@NonNull @RequestParam(value = "userId") String userId) {
         ResumeDto createdResume = resumeService.create(userId);
-        // FIXME Maybe? I don't know if we want some error handling here, but this should be covered in the service
-//        if (createdResume.isEmpty()) {
-//            // System.out.println("Error in createResume");
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-        // System.out.println("saved resume");
         return new ResponseEntity<>(createdResume, HttpStatus.CREATED);
     }
 
     @GetMapping("")
     public ResponseEntity<List<ResumeDto>> getAllResumes(@RequestParam(value = "userId") String userId) {
-        // System.out.println("In getAllResumes");
-        // TODO add a different response for when the userId is invalid (requires proper
-        // throwing of errors inside the methods)
         List<ResumeDto> resumes = resumeService.findByUserId(userId);
         if (resumes.isEmpty()) {
-            // System.out.println("No resumes found or error");
+            // case for valid user but no resumes
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(resumes, HttpStatus.OK);
@@ -53,9 +39,6 @@ public class ResumeController {
     @GetMapping("/{id}")
     public ResponseEntity<ResumeDto> getResume(@PathVariable("id") String id) {
         ResumeDto resume = resumeService.findOne(id);
-//        if (resume.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
         return new ResponseEntity<>(resume, HttpStatus.OK);
     }
 
@@ -65,9 +48,6 @@ public class ResumeController {
             @RequestBody ResumeDto resumeDto) {
         // System.out.println("PUT /resume");
         ResumeDto updatedResume = resumeService.update(id, resumeDto);
-//        if (updatedResume.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
         return new ResponseEntity<>(updatedResume, HttpStatus.OK);
     }
 
