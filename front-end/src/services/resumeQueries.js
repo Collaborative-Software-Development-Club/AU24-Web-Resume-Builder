@@ -45,10 +45,7 @@ function resumeQueries(endpoints) {
             }
         },
 
-        getOne: async function (resumeId, {useApi}) {
-            if (useApi === false) {
-                return jsonData;
-            }
+        getOne: async function (resumeId) {
             const response = await fetch(endpoints.resumes({resumeId: resumeId}));
             const data = await response.json();
             if (!response.ok) {

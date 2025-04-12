@@ -7,7 +7,7 @@ import {Card, CardDescription, CardTitle} from '@/components/ui/card';
 import {formatDistanceToNow} from 'date-fns';
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@/components/ui/tooltip';
 
-export default function ResumePreview({resumeId, onDelete, description, lastModified}) {
+export function ResumePreview({resumeId, onDelete, description, lastModified}) {
     const [isTooltipOpen, setIsTooltipOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
@@ -28,15 +28,13 @@ export default function ResumePreview({resumeId, onDelete, description, lastModi
                     <Card className="flex h-48 w-40 flex-col gap-4 p-4 hover:opacity-50">
                         <FileText className="h-full w-full text-gray-700" />
                         <CardTitle className="text-left">{description}</CardTitle>
-                        <CardDescription className="flex items-start gap-2 text-left text-xs">
+                        <CardDescription className="flex items-center gap-2 text-left text-xs">
                             <Clock className="" />
                             <span>
                                 Updated{' '}
                                 {formatDistanceToNow(new Date(lastModified), {addSuffix: true})}
                             </span>
                         </CardDescription>
-                        {/* <div className="absolute inset-0 z-10 flex items-center justify-center gap-1 rounded-md bg-gray-400 bg-opacity-50 text-center text-black opacity-0 transition-opacity duration-300 hover:opacity-100">
-            </div> */}
                     </Card>
                 </TooltipTrigger>
                 <TooltipContent

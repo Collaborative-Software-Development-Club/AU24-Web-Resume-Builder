@@ -1,11 +1,11 @@
 import {useState} from 'react';
 import {useUserResumes} from '../../hooks/useUserResumes';
-import ResumePreview from './ResumePreview';
 import flags from '@/flags.json';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input'; // Add this import
 import {GuestSaveDialog} from '@/components/GuestSaveDialog';
 import {CreateResume} from './CreateResume';
+import {ResumeList} from './ResumeList';
 
 const USE_API = flags.useApi;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
@@ -25,12 +25,6 @@ export function Account() {
     const [mockUsername, setMockUsername] = useState('test_user');
 
     console.log(queryResult);
-
-    if (queryResult.isPending) return <p>Loading...</p>;
-
-    if (queryResult.isError) {
-        return <p>Failed fetching resumes: {queryResult.error}</p>;
-    }
 
     return (
         <div className="mx-auto flex w-full max-w-6xl flex-col justify-start gap-10 px-4">
@@ -80,15 +74,9 @@ export function Account() {
                     resumes={resumes}
                     createNewResume={createNewResume}
                     duplicateResume={duplicateResume}
+                    deleteResume={deleteResume}
                 />
-                {resumes.map((resume) => (
-                    <ResumePreview
-                        key={resume.id}
-                        resumeId={resume.id}
-                        onDelete={deleteResume}
-                        {...resume}
-                    />
-                ))}
+                <ResumeList queryStatus={queryResult} resumes={resumes} />
             </div>
         </div>
     );

@@ -2,12 +2,12 @@ import {RESUME_QUERIES} from '@/services/resumeQueries';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {useNavigate} from 'react-router-dom';
 
-export function useUserResumes(userId, USE_API) {
+export function useUserResumes(userId) {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const {data, isPending, isError, error} = useQuery({
         queryKey: ['resumes', userId],
-        queryFn: () => RESUME_QUERIES.getFromUser(userId, {useApi: USE_API}),
+        queryFn: () => RESUME_QUERIES.getFromUser(userId),
     });
     const saveMutation = useMutation({
         mutationFn: (id) => RESUME_QUERIES.delete(id),
