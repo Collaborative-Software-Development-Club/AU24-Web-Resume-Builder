@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import resumebuilder.back_end.domain.dto.AuthRequestDto;
 import resumebuilder.back_end.domain.dto.UserRequestDto;
 import resumebuilder.back_end.service.AuthService;
@@ -14,6 +15,7 @@ import resumebuilder.back_end.service.UserService;
 
 import java.util.Collections;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/v1/auth")
 public class AuthController {

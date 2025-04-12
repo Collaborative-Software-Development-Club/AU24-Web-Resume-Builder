@@ -17,7 +17,7 @@ function resumeQueries(endpoints) {
             const data = await response.json();
             // console.log('data', data.details);
             if (!response.ok) {
-                throw new error(
+                throw new Error(
                     `failed to create resume: ${response.status} ${response.statustext}\n${data.details}`,
                 );
             }
