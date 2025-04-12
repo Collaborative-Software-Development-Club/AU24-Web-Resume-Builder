@@ -16,6 +16,7 @@ import resumebuilder.back_end.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,6 +60,14 @@ public class ResumeService {
         // System.out.println("createdResumeDto in service>save");
         // System.out.println(createdResumeDto.get());
         return createdResumeDto;
+    }
+
+    public ResumeDto duplicate(String userId, String resumeId) {
+        ResumeEntity resume = resumeRepository.findById(resumeId)
+                .orElseThrow(() -> new ResumeNotFoundException(resumeId));
+        resume.setId(null);
+        resumeRepository.save(resume); // should save a new copy since ResumeEntity id is null
+        return this.createDto(resume);
     }
 
     public ResumeDto update(String resumeId, ResumeDto resumeDto) {

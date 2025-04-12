@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import resumebuilder.back_end.domain.dto.CreateResumeDto;
 import resumebuilder.back_end.domain.dto.ResumeDto;
 import resumebuilder.back_end.service.ResumeService;
 
@@ -21,9 +22,20 @@ public class ResumeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResumeDto> createResume(@NonNull @RequestParam(value = "userId") String userId) {
-        ResumeDto createdResume = resumeService.create(userId);
-        return new ResponseEntity<>(createdResume, HttpStatus.CREATED);
+    public ResponseEntity<ResumeDto> create(@RequestBody CreateResumeDto ids) {
+        String userId = ids.getUserId();
+        String resumeId = ids.getResumeId();
+        ResumeDto savedResume;
+
+        if (resumeId != null) {
+            savedResume = resumeService.duplicate(userId, resumeId);
+        } else if (userId != null) {
+            savedResume = resumeService.create(userId);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(savedResume, HttpStatus.CREATED);
     }
 
     @GetMapping("")
