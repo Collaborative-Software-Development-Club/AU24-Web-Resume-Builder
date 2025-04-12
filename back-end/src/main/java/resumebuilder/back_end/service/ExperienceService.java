@@ -3,25 +3,37 @@ package resumebuilder.back_end.service;
 import org.springframework.stereotype.Service;
 import resumebuilder.back_end.domain.dto.ExperienceDto;
 import resumebuilder.back_end.domain.entities.ExperienceEntity;
+import resumebuilder.back_end.error_handling.exceptions.InvalidExperienceIDException;
+import resumebuilder.back_end.error_handling.exceptions.InvalidProjectIDException;
+import resumebuilder.back_end.error_handling.exceptions.InvalidUserIDException;
 import resumebuilder.back_end.mappers.ExperienceMapper;
 import resumebuilder.back_end.repository.ExperienceRepository;
+import resumebuilder.back_end.repository.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ExperienceService {
     private final ExperienceRepository experienceRepository;
     private final ExperienceMapper experienceMapper;
+    private final UserRepository userRepository;
 
-    public ExperienceService(ExperienceRepository experienceRepository, ExperienceMapper experienceMapper) {
+    public ExperienceService(ExperienceRepository experienceRepository, ExperienceMapper experienceMapper,
+            UserRepository userRepository) {
         this.experienceRepository = experienceRepository;
         this.experienceMapper = experienceMapper;
+        this.userRepository = userRepository;
+    }
+
+    public boolean exists(String id) {
+        return experienceRepository.existsById(id);
     }
 
     // Create list of Dtos for a given userId
-    public List<ExperienceDto> getExperiencesForUser(String userId) {
+    public List<ExperienceDto> findAll(String userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new InvalidUserIDException(userId);
+        }
         List<ExperienceEntity> experienceEntities = experienceRepository.findByUserId(userId);
         return this.createDtos(experienceEntities);
     }
@@ -29,17 +41,14 @@ public class ExperienceService {
     // Create list of dtos from list of entities
     private List<ExperienceDto> createDtos(List<ExperienceEntity> experienceEntities) {
         return experienceEntities.stream()
-                .map(entity -> experienceMapper.mapToDto(entity))
-                .collect(Collectors.toList());
+                .map(entity -> experienceMapper.mapToDto(entity)).toList();
     }
 
     // Find experience by id
-    public Optional<ExperienceDto> findOne(String experienceId) {
-        Optional<ExperienceEntity> entity = experienceRepository.findById(experienceId);
-        if (entity.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.ofNullable(experienceMapper.mapToDto(entity.get()));
+    public ExperienceDto findOne(String experienceId) {
+        ExperienceEntity entity = experienceRepository.findById(experienceId)
+                .orElseThrow(() -> new InvalidExperienceIDException(experienceId));
+        return experienceMapper.mapToDto(entity);
     }
 
     // Save experience to database
@@ -50,24 +59,26 @@ public class ExperienceService {
     }
 
     // Update experience in db using exp id, dto
-    public Optional<ExperienceDto> update(String experienceId, ExperienceDto updatedExperience) {
-        Optional<ExperienceEntity> ee = experienceRepository.findById(experienceId);
-        if (ee.isEmpty()) {
-            return Optional.empty();
+    public ExperienceDto update(String experienceId, ExperienceDto updatedExperience) {
+        if (!userRepository.existsById(updatedExperience.getUserId())) {
+            throw new InvalidUserIDException(updatedExperience.getUserId());
         }
-        ExperienceEntity existingExperience = ee.get();
-        existingExperience.setCompany(updatedExperience.getCompany());
-        existingExperience.setLocation(updatedExperience.getLocation());
-        existingExperience.setPosition(updatedExperience.getPosition());
-        existingExperience.setStartDate(updatedExperience.getStartDate());
-        existingExperience.setEndDate(updatedExperience.getEndDate());
-        existingExperience.setDescription(updatedExperience.getDescription());
-        ExperienceEntity savedEntity = experienceRepository.save(existingExperience);
-        return Optional.of(experienceMapper.mapToDto(savedEntity));
+        if (!experienceRepository.existsById(experienceId)) {
+            throw new InvalidExperienceIDException(experienceId);
+        }
+        // since db will check the id in DTO, is has to be the one provided in the
+        // endpoint and not be null
+        // in reality, we should have used a DTO specific to a create/update request
+        updatedExperience.setId(experienceId);
+        ExperienceEntity ee = experienceMapper.mapToEntity(updatedExperience);
+        return experienceMapper.mapToDto(ee);
     }
 
     // Delete experience for specific user
     public void delete(String experienceId) {
+        if (!experienceRepository.existsById(experienceId)) {
+            throw new InvalidProjectIDException(experienceId);
+        }
         experienceRepository.deleteById(experienceId);
     }
 
