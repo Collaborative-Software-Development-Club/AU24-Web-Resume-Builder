@@ -1,13 +1,12 @@
 import {useEffect} from 'react';
 import {RESUME_QUERIES} from '@/services/resumeQueries';
-import uploadResumeData from '@/services/uploadResumeData';
 import {useResumeBase} from '@/hooks/useResumeBase';
-import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {useMutation, useQuery} from '@tanstack/react-query';
 
 export default function useResumeData(resumeId, useApi) {
     const {resume, setResume, ...rest} = useResumeBase(null);
     const saveMutation = useMutation({
-        mutationFn: () => uploadResumeData(resumeId, resume),
+        mutationFn: () => RESUME_QUERIES.upload(resumeId, resume),
     });
     const save = saveMutation.mutate;
     const {data, isLoading, isError, error} = useQuery({

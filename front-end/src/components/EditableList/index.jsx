@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dialog, DialogTrigger} from '@/components/ui/dialog';
-import {useEditableList} from './useEditableList';
+import {useEditableList} from '../../hooks/useEditableList';
 import {EditModal} from './EditModal';
 import {PopupSideButton} from '../PopupSideButton';
 
