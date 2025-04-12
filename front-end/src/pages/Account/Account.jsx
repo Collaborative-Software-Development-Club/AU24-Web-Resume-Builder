@@ -5,7 +5,6 @@ import flags from '@/flags.json';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input'; // Add this import
 import {GuestSaveDialog} from '@/components/GuestSaveDialog';
-import {RESUME_QUERIES} from '@/services/resumeQueries';
 import {CreateResume} from './CreateResume';
 
 const USE_API = flags.useApi;
@@ -13,7 +12,13 @@ const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
 // const DEFAULT_USER_ID = undefined;
 
 export function Account() {
-    const {resumes, deleteResume, create, queryResult} = useUserResumes(DEFAULT_USER_ID, USE_API);
+    const {
+        resumes,
+        deleteResume,
+        create: createNewResume,
+        duplicate: duplicateResume,
+        queryResult,
+    } = useUserResumes(DEFAULT_USER_ID, USE_API);
 
     // Temporary testing state
     const [mockLoggedIn, setMockLoggedIn] = useState(false);
@@ -26,8 +31,6 @@ export function Account() {
     if (queryResult.isError) {
         return <p>Failed fetching resumes: {queryResult.error}</p>;
     }
-
-    const createNewResume = create;
 
     return (
         <div className="mx-auto flex w-full max-w-6xl flex-col justify-start gap-10 px-4">
@@ -73,7 +76,11 @@ export function Account() {
             </div>
 
             <div className="grid grid-cols-6 gap-6">
-                <CreateResume resumes={resumes} createNewResume={createNewResume} />
+                <CreateResume
+                    resumes={resumes}
+                    createNewResume={createNewResume}
+                    duplicateResume={duplicateResume}
+                />
                 {resumes.map((resume) => (
                     <ResumePreview
                         key={resume.id}

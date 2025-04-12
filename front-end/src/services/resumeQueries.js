@@ -5,18 +5,22 @@ export const RESUME_QUERIES = resumeQueries(ENDPOINTS);
 
 function resumeQueries(endpoints) {
     return {
-        create: async function (userid) {
-            const response = await fetch(endpoints.resumes({userId: userid}), {
-                method: 'post',
+        create: async function ({userId, resumeId}) {
+            const response = await fetch(endpoints.resumes(), {
+                method: 'POST',
                 headers: {
                     'content-type': 'application/json',
                 },
+                body: JSON.stringify({
+                    userId,
+                    resumeId,
+                }),
             });
             // console.log('response', response);
             const data = await response.json();
             // console.log('data', data.details);
             if (!response.ok) {
-                throw new error(
+                throw new Error(
                     `failed to create resume: ${response.status} ${response.statustext}\n${data.details}`,
                 );
             }

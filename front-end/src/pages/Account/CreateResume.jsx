@@ -14,7 +14,7 @@ import {Label} from '@/components/ui/label';
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
 import {formatDistanceToNow} from 'date-fns';
 
-export function CreateResume({resumes, createNewResume}) {
+export function CreateResume({resumes, createNewResume, duplicateResume}) {
     const [selectedOption, setSelectedOption] = useState('option-one');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [copyIndex, setcopyIndex] = useState(null);
@@ -27,8 +27,7 @@ export function CreateResume({resumes, createNewResume}) {
                 createNewResume();
                 break;
             case 'option-two':
-                // TODO use duplicate endpoint
-                throw new Error('Option for creating resume not supported');
+                duplicateResume(resumes[copyIndex].id);
                 break;
             case 'option-three':
                 //TODO: implement file upload and its create function

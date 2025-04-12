@@ -2,16 +2,14 @@ import flags from '@/flags.json';
 
 function endpoints(baseUrl, version) {
     return {
-        resumes: ({resumeId, userId}) => {
+        resumes: ({resumeId, userId} = {}) => {
             if (resumeId) {
                 return `${baseUrl}/${version}/resumes/${resumeId}`;
             }
             if (userId) {
                 return `${baseUrl}/${version}/resumes?userId=${userId}`;
             }
-            throw new Error(
-                'userId is required for GET /resumes?userId={userId} endpoint or resumeId is required for /resumes/{resumeId} endpoint',
-            );
+            return `${baseUrl}/${version}/resumes`;
         },
         users: ({userId}) => {
             if (userId) {

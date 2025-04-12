@@ -17,20 +17,29 @@ export function useUserResumes(userId, USE_API) {
     });
     const deleteResume = saveMutation.mutate;
     const createMutation = useMutation({
-        mutationFn: async () => {
-            const data = await RESUME_QUERIES.create(userId);
+        mutationFn: async (resumeId = undefined) => {
+            const data = await RESUME_QUERIES.create({userId, resumeId});
             return data.id;
         },
         onSuccess: (resumeId) => {
-            console.log('resumeId in create', resumeId);
+            // console.log('resumeId in create', resumeId);
             navigate(`/resume/${resumeId}`);
+            queryClient.invalidateQueries({queryKey: ['resumes', userId]});
         },
-        onError: (error) => console.log(error),
+        onError: (error) => console.error(error),
     });
-    const create = createMutation.mutate;
+    const create = () => createMutation.mutate();
+    const duplicate = (resumeId) => createMutation.mutate(resumeId);
     const resumes = data;
     if (resumes) {
         resumes.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
     }
-    return {resumes, deleteResume, create, queryResult: {isError, isPending, error}};
+    return {
+        resumes,
+        deleteResume,
+        create,
+        duplicate,
+        duplicate,
+        queryResult: {isError, isPending, error},
+    };
 }
