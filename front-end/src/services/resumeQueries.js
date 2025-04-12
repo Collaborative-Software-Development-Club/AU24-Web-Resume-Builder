@@ -5,13 +5,12 @@ export const RESUME_QUERIES = resumeQueries(ENDPOINTS);
 
 function resumeQueries(endpoints) {
     return {
-        create: async function (userid, resumedata = {}) {
+        create: async function (userid) {
             const response = await fetch(endpoints.resumes({userId: userid}), {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json',
                 },
-                body: JSON.stringify(resumedata),
             });
             // console.log('response', response);
             const data = await response.json();

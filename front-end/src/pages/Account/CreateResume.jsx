@@ -27,11 +27,12 @@ export function CreateResume({resumes, createNewResume}) {
                 createNewResume();
                 break;
             case 'option-two':
-                var description = 'Copy of ' + resumes[copyIndex].description;
-                createNewResume({...resumes[copyIndex], description: description});
+                // TODO use duplicate endpoint
+                throw new Error('Option for creating resume not supported');
                 break;
             case 'option-three':
                 //TODO: implement file upload and its create function
+                throw new Error('Option for creating resume not supported');
                 break;
             default:
                 createNewResume({});
@@ -51,7 +52,11 @@ export function CreateResume({resumes, createNewResume}) {
                     <DialogTitle>Set Up Your Resume</DialogTitle>
                 </DialogHeader>
 
-                <RadioGroup value={selectedOption} onValueChange={setSelectedOption} className="text-gray-500">
+                <RadioGroup
+                    value={selectedOption}
+                    onValueChange={setSelectedOption}
+                    className="text-gray-500"
+                >
                     <div className="flex items-center space-x-2">
                         <RadioGroupItem value="option-one" id="option-one" className="h-5 w-5" />
                         <Label htmlFor="option-one" className="text-lg">
