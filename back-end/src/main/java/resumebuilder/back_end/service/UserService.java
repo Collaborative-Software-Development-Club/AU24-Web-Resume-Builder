@@ -12,6 +12,7 @@ import resumebuilder.back_end.domain.dto.UserRequestDto;
 import resumebuilder.back_end.domain.entities.UserEntity;
 import resumebuilder.back_end.domain.model.enums.Role;
 import resumebuilder.back_end.error_handling.exceptions.InvalidUserIDException;
+import resumebuilder.back_end.error_handling.exceptions.InvalidUsernameException;
 import resumebuilder.back_end.mappers.UserMapper;
 import resumebuilder.back_end.repository.UserRepository;
 
@@ -57,22 +58,14 @@ public class UserService implements UserDetailsService {
         return userMapper.mapToDto(user);
     }
 
-    public UserDto addResumeToUser(String userId, String resumeId) {
-        UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new InvalidUserIDException(userId));
-        userRepository.save(user);
-        return userMapper.mapToDto(user);
-    }
-
-    public UserDto removeResumeFromUser(String userId, String resumeId) {
-        UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new InvalidUserIDException(userId));
-        userRepository.save(user);
-        return userMapper.mapToDto(user);
-    }
-
     public void delete(String id) {
         userRepository.deleteById(id);
+    }
+
+    public UserDto findByUsername(String username) {
+        UserEntity ue = userRepository.findByUsername(username)
+                .orElseThrow(() -> new InvalidUsernameException(username));
+        return userMapper.mapToDto(ue);
     }
 
     public UserDto registerUser(UserRequestDto requestDto) {
