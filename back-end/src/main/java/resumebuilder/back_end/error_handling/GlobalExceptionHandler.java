@@ -67,6 +67,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(DuplicateUsernameException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateUsername(DuplicateUsernameException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                "Registration error.",
+                HttpStatus.CONFLICT.value(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
         ErrorResponse error = new ErrorResponse(

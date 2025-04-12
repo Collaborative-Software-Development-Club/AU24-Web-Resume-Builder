@@ -1,5 +1,6 @@
 package resumebuilder.back_end.service;
 
+import com.mongodb.DuplicateKeyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import resumebuilder.back_end.domain.dto.UserDto;
 import resumebuilder.back_end.domain.dto.UserRequestDto;
 import resumebuilder.back_end.domain.entities.UserEntity;
 import resumebuilder.back_end.domain.model.enums.Role;
+import resumebuilder.back_end.error_handling.exceptions.DuplicateUsernameException;
 import resumebuilder.back_end.error_handling.exceptions.InvalidUserIDException;
 import resumebuilder.back_end.mappers.UserMapper;
 import resumebuilder.back_end.repository.UserRepository;
@@ -80,7 +82,11 @@ public class UserService implements UserDetailsService {
         UserEntity user = userMapper.toEntity(requestDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
-        user = userRepository.save(user);
+        try {
+            user = userRepository.save(user);
+        } catch (DuplicateKeyException ex) {
+            throw new DuplicateUsernameException(user.getUsername());
+        }
         return userMapper.toResponseDto(user);
     }
 
