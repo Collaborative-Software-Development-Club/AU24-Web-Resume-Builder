@@ -43,16 +43,22 @@ public class ProjectService {
         if (!userRepository.existsById(projectDto.getUserId())) {
             throw new InvalidUserIDException(projectDto.getUserId());
         }
+        // since db will check the id in DTO, is has to be the one provided in the
+        // endpoint and not be null
+        // in reality, we should have used a DTO specific to a create/update request
+        projectDto.setId(id);
         ProjectEntity projectEntity = projectMapper.mapToEntity(projectDto);
         projectRepository.save(projectEntity);
         return projectMapper.mapToDto(projectEntity);
     }
 
     public List<ProjectDto> findAll(String userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new InvalidUserIDException(userId);
+        }
         List<ProjectEntity> projectEntities = projectRepository.findByUserId(userId);
         return projectEntities.stream()
-                .map(entity -> projectMapper.mapToDto(entity))
-                .collect(Collectors.toList());
+                .map(entity -> projectMapper.mapToDto(entity)).toList();
     }
 
     public ProjectDto findOne(String id) {
@@ -62,6 +68,9 @@ public class ProjectService {
     }
 
     public void delete(String id) {
+        if (!projectRepository.existsById(id)) {
+            throw new InvalidProjectIDException(id);
+        }
         projectRepository.deleteById(id);
     }
 

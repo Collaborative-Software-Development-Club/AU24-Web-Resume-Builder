@@ -20,7 +20,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class ResumeEntity {
     @Id
-    @NonNull
     private String id;
     @NonNull
     private String userId;
