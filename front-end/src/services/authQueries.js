@@ -21,7 +21,7 @@ function authQueries(endpoints) {
                 );
             }
             console.log('logged in successfully');
-            return data.token;
+            return data;
         },
 
         register: async function (authData) {

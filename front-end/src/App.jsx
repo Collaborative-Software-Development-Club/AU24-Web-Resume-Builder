@@ -7,7 +7,8 @@ import GuestResume from '@/pages/GuestResume';
 import {NavBar} from '@/components/navbar';
 import AuthProvider from 'react-auth-kit';
 import createStore from 'react-auth-kit/createStore';
-import SignUp from '@/SignUp';
+import SignUp from '@/pages/Authentication/SignUp';
+import LogIn from './pages/Authentication/LogIn';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ function App() {
                             <Route path="/resume/:resumeId" element={<ResumeBuilder />} />
                             <Route path="/guest" element={<GuestResume />} />
                             <Route path="/signup" element={<SignUp />} />
+                            <Route path="/login" element={<LogIn />} />
                         </Routes>
                     </div>
                 </Router>

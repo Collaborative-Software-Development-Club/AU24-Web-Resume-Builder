@@ -7,10 +7,11 @@ import {
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import {cn} from '@/lib/utils';
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated';
+import {LogInDialog} from './LogInDialog';
 
 export function NavBar() {
-    const defaultResumeId = '67352f2265e5d74b8503ce90';
+    const isAuthenticated = useIsAuthenticated();
     const location = useLocation();
 
     const getActiveLocation = () => {
@@ -35,13 +36,23 @@ export function NavBar() {
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <NavigationMenuLink
-                            active={activeLocation == 'account'}
-                            className={navigationMenuTriggerStyle()}
-                            asChild
-                        >
-                            <Link to="/account">Account</Link>
-                        </NavigationMenuLink>
+                        {isAuthenticated ? (
+                            <NavigationMenuLink
+                                active={activeLocation == 'account'}
+                                className={navigationMenuTriggerStyle()}
+                                asChild
+                            >
+                                <Link to="/account">Account</Link>
+                            </NavigationMenuLink>
+                        ) : (
+                            <NavigationMenuLink
+                                active={activeLocation == 'login'}
+                                className={navigationMenuTriggerStyle()}
+                                asChild
+                            >
+                                <LogInDialog text="Log In" className="bg-none border-none text-black shadow-none"/>
+                            </NavigationMenuLink>
+                        )}
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>

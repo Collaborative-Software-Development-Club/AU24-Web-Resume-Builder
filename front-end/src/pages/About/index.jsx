@@ -1,11 +1,10 @@
-import {Button, buttonVariants} from '@/components/ui/button';
+import {buttonVariants} from '@/components/ui/button';
 import {cn} from '@/lib/utils';
 import {motion} from 'framer-motion';
-import {useNavigate} from 'react-router-dom';
 
 export default function About() {
     return (
-        <div className="flex h-full flex-col bg-gradient-to-br from-white via-indigo-50 to-purple-100">
+        <div className="flex h-full flex-col bg-gradient-to-br from-white via-indigo-100 to-purple-200">
             {/* Hero Section */}
             <div className="flex flex-grow items-center justify-center px-4">
                 <motion.div
@@ -38,7 +37,7 @@ export default function About() {
                                 'pt-3 text-lg text-indigo-600 hover:underline',
                             )}
                         >
-                            Log in
+                            Sign up
                         </a>
                     </div>
                 </motion.div>

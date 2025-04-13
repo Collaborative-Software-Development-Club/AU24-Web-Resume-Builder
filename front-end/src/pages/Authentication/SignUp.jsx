@@ -10,11 +10,11 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from './components/ui/card';
+} from '../../components/ui/card';
 import {motion} from 'framer-motion';
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import {useNavigate} from 'react-router-dom';
-import {AUTH_QUERIES} from './services/authQueries';
+import {AUTH_QUERIES} from '../../services/authQueries';
 
 export default function Signup() {
     const [formData, setFormData] = useState({
@@ -57,23 +57,25 @@ export default function Signup() {
             alert('Signup successful! Redirecting to account page...');
 
             //LogIn
-            const token = await AUTH_QUERIES.login(formData);
+            const data = await AUTH_QUERIES.login(formData);
             if (
                 signIn({
                     auth: {
-                        token: token,
+                        token: data.token,
                         type: 'Bearer',
+                        expiresIn: 3600,
+                    },
+                    userState: {
+                        username: data.user.username,
+                        uid: data.user.id,
                     },
                 })
             ) {
-                navigate('/account');
+                navigate('/account/' + data.user.id);
             }
-
         } catch (err) {
             setError(err.message || 'Signup failed. Please try again.');
-        } finally {
-            //setIsSubmitting(false);
-        }
+        } 
     };
 
     return (
