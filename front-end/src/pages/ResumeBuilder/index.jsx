@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import ResumeEditing from '@/layouts/ResumeEditing';
 import {Button} from '@/components/ui/button';
 import flags from '@/flags.json';
+import {Loader2} from 'lucide-react';
 
 const USE_API = flags.useApi;
 
@@ -17,7 +18,12 @@ export default function ResumeBuilder() {
     if (resumeHook.queryResult.isError)
         return <p>There was an error loading the resume {resumeHook.queryResult.error.message}</p>;
 
-    const saveButton = (
+    const saveButton = resumeHook.saveResult.isPending ? (
+        <Button disabled>
+            <Loader2 className="animate-spin" />
+            Saving
+        </Button>
+    ) : (
         <Button className="" onClick={resumeHook.save}>
             Save
         </Button>

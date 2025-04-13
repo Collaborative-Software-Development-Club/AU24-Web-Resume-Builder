@@ -15,9 +15,10 @@ import {
 const TEXT_COLOR = '#000000';
 const NAME_SIZE = 38;
 const CONTACTS_SIZE = 20;
-const ITEM_HEADER_SIZE = 28;
-const BULLET_SIZE = 24;
-const SUBHEADING_SIZE = 28;
+const ITEM_HEADER_SIZE = 24;
+const BULLET_SIZE = 20;
+const SUBHEADING_SIZE = 22;
+const TAB_STOP_POSITION = 12240;
 
 //! a large part of this was generated with Claude 🤖
 
@@ -25,7 +26,16 @@ export function downloadResume(resumeData) {
     const doc = new Document({
         sections: [
             {
-                properties: {},
+                properties: {
+                    page: {
+                        margin: {
+                            top: 720, // 0.5 inch
+                            right: 720, // 0.5 inch
+                            bottom: 720, // 0.5 inch
+                            left: 720, // 0.5 inch
+                        },
+                    },
+                },
                 children: [...formatHeader(resumeData), ...formatSections(resumeData)],
             },
         ],
@@ -142,7 +152,7 @@ function formatEducation(education) {
         tabStops: [
             {
                 type: TabStopType.RIGHT,
-                position: TabStopPosition.MAX,
+                position: TAB_STOP_POSITION,
             },
         ],
         children: [
@@ -177,12 +187,12 @@ function formatEducation(education) {
         tabStops: [
             {
                 type: TabStopType.RIGHT,
-                position: TabStopPosition.MAX,
+                position: TAB_STOP_POSITION,
             },
         ],
         children: [
             createSubheading(degreeText),
-            createSubheading(graduationText),
+            createSubheading(graduationText ? `\t${graduationText}` : ''),
             // new TextRun({
             //     text: degreeText,
             //     color: TEXT_COLOR,
@@ -223,12 +233,12 @@ function formatEducation(education) {
     }
 
     // Honors
-    if (honors && honors.length > 0) {
+    if (honors) {
         elements.push(
             new Paragraph({
                 children: [
                     new TextRun({
-                        text: `Awards and Honors: ${honors.join(', ')}`,
+                        text: `Awards and Honors: ${honors}`,
                         color: TEXT_COLOR,
                         size: BULLET_SIZE,
                     }),
@@ -252,7 +262,7 @@ function formatExperienceItem(item) {
         tabStops: [
             {
                 type: TabStopType.RIGHT,
-                position: TabStopPosition.MAX,
+                position: TAB_STOP_POSITION,
             },
         ],
         spacing: {
@@ -280,7 +290,7 @@ function formatExperienceItem(item) {
         tabStops: [
             {
                 type: TabStopType.RIGHT,
-                position: TabStopPosition.MAX,
+                position: TAB_STOP_POSITION,
             },
         ],
         children: [
@@ -319,11 +329,13 @@ function formatProjectItem(item) {
     const {title, organization, location, startDate, endDate, description} = item;
 
     // Title with links
+    const dateText = formatDateRange(startDate, endDate);
+
     const titleElement = new Paragraph({
         tabStops: [
             {
                 type: TabStopType.RIGHT,
-                position: TabStopPosition.MAX,
+                position: TAB_STOP_POSITION,
             },
         ],
         spacing: {
@@ -336,32 +348,38 @@ function formatProjectItem(item) {
                 color: TEXT_COLOR,
                 size: ITEM_HEADER_SIZE,
             }),
-            new TextRun({
-                text: location ? `\t${location}` : '',
-                color: TEXT_COLOR,
-                italics: true, // Make location italic
-                size: ITEM_HEADER_SIZE,
-            }),
+            createSubheading(dateText ? `\t${dateText}` : ''),
+            // new TextRun({
+            //     text: location ? `\t${location}` : '',
+            //     color: TEXT_COLOR,
+            //     italics: true, // Make location italic
+            //     size: ITEM_HEADER_SIZE,
+            // }),
         ],
     });
 
     // Organization and Date
-    const dateText = formatDateRange(startDate, endDate);
 
     const elements = [titleElement];
 
-    if (organization || dateText) {
+    if (organization || location) {
         elements.push(
             new Paragraph({
                 tabStops: [
                     {
                         type: TabStopType.RIGHT,
-                        position: TabStopPosition.MAX,
+                        position: TAB_STOP_POSITION,
                     },
                 ],
                 children: [
                     createSubheading(organization || ''),
-                    createSubheading(dateText ? `\t${dateText}` : ''),
+                    new TextRun({
+                        text: location ? `\t${location}` : '',
+                        color: TEXT_COLOR,
+                        italics: true, // Make location italic
+                        size: ITEM_HEADER_SIZE,
+                    }),
+                    // createSubheading(dateText ? `\t${dateText}` : ''),
                     // new TextRun({
                     //     text: organization || '',
                     //     italics: true,
@@ -388,40 +406,17 @@ function formatProjectItem(item) {
 }
 
 function formatSkills(skills) {
-    const skillGroups = {};
-
-    // Group skills by category
-    skills.forEach((skill) => {
-        if (!skillGroups[skill.category]) {
-            skillGroups[skill.category] = [];
-        }
-        skillGroups[skill.category].push(skill);
-    });
+    console.log(skills);
 
     const elements = [];
 
-    // Create bullet point for each skill category
-    Object.entries(skillGroups).forEach(([category, skillList]) => {
-        elements.push(
-            new Paragraph({
-                children: [
-                    new TextRun({
-                        text: `• ${category}: ${skillList.join(', ')}`,
-                        color: TEXT_COLOR,
-                        size: BULLET_SIZE,
-                    }),
-                ],
-            }),
-        );
-    });
-
     // If there are no categories, just list all skills
-    if (elements.length === 0 && skills.items.length > 0) {
+    if (skills.length > 0) {
         elements.push(
             new Paragraph({
                 children: [
                     new TextRun({
-                        text: `• ${skills.items.map((skill) => skill).join(', ')}`,
+                        text: `• ${skills.map((skill) => skill).join(', ')}`,
                         color: TEXT_COLOR,
                         size: BULLET_SIZE,
                     }),

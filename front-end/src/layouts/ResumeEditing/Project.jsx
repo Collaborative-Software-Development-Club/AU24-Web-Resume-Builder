@@ -76,7 +76,7 @@ export function Project({updateItems, project}) {
                                 type="number"
                                 inputMode="numeric"
                                 placeholder={PLACEHOLDERS.startYear}
-                                value={project.startDate.year}
+                                value={project.startDate.year || ''}
                                 onChange={(e) =>
                                     handleSelectChange('startDate', 'year', Number(e.target.value))
                                 }
@@ -95,7 +95,7 @@ export function Project({updateItems, project}) {
                                 type="number"
                                 inputMode="numeric"
                                 placeholder={PLACEHOLDERS.startYear}
-                                value={project.endDate.year}
+                                value={project.endDate.year || ''}
                                 onChange={(e) =>
                                     handleSelectChange('endDate', 'year', Number(e.target.value))
                                 }

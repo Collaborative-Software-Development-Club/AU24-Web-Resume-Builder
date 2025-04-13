@@ -1,13 +1,27 @@
 import {useEffect} from 'react';
 import {RESUME_QUERIES} from '@/services/resumeQueries';
-import uploadResumeData from '@/services/uploadResumeData';
 import {useResumeBase} from '@/hooks/useResumeBase';
-import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {useMutation, useQuery} from '@tanstack/react-query';
+import {useToast} from '@/hooks/use-toast';
 
 export default function useResumeData(resumeId, useApi) {
     const {resume, setResume, ...rest} = useResumeBase(null);
+    const {toast} = useToast();
     const saveMutation = useMutation({
-        mutationFn: () => uploadResumeData(resumeId, resume),
+        mutationFn: () => RESUME_QUERIES.upload(resumeId, resume),
+        onSuccess: () => {
+            toast({
+                title: 'Saved',
+                description: 'Your resume has been saved successfully.',
+            });
+        },
+        onError: (error) => {
+            toast({
+                title: 'Error saving resume',
+                description: error.message,
+                variant: 'destructive',
+            });
+        },
     });
     const save = saveMutation.mutate;
     const {data, isLoading, isError, error} = useQuery({
@@ -29,6 +43,9 @@ export default function useResumeData(resumeId, useApi) {
             isLoading: isLoadingOverride,
             isError,
             error,
+        },
+        saveResult: {
+            isPending: saveMutation.isPending,
         },
     };
 }

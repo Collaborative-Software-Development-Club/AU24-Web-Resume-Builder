@@ -5,12 +5,16 @@ export const RESUME_QUERIES = resumeQueries(ENDPOINTS);
 
 function resumeQueries(endpoints) {
     return {
-        create: async function (userid) {
-            const response = await fetch(endpoints.resumes({userId: userid}), {
-                method: 'post',
+        create: async function ({userId, resumeId}) {
+            const response = await fetch(endpoints.resumes(), {
+                method: 'POST',
                 headers: {
                     'content-type': 'application/json',
                 },
+                body: JSON.stringify({
+                    userId,
+                    resumeId,
+                }),
             });
             // console.log('response', response);
             const data = await response.json();
@@ -41,10 +45,7 @@ function resumeQueries(endpoints) {
             }
         },
 
-        getOne: async function (resumeId, {useApi}) {
-            if (useApi === false) {
-                return jsonData;
-            }
+        getOne: async function (resumeId) {
             const response = await fetch(endpoints.resumes({resumeId: resumeId}));
             const data = await response.json();
             if (!response.ok) {

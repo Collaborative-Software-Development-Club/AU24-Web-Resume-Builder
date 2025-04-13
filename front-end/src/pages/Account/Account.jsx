@@ -1,12 +1,11 @@
 import {useUserResumes} from '../../hooks/useUserResumes';
-import ResumePreview from './ResumePreview';
 import flags from '@/flags.json';
 import {Button} from '@/components/ui/button';
-import {Input} from '@/components/ui/input'; // Add this import
 import {CreateResume} from './CreateResume';
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
 import { useNavigate } from 'react-router-dom';
+import {ResumeList} from './ResumeList';
 
 const USE_API = flags.useApi;
 const DEFAULT_USER_ID = '671992ca81a83b313f050d31';
@@ -16,17 +15,16 @@ export function Account() {
     const logOut = useSignOut();
     const navigate = useNavigate();
     const auth = useAuthUser();
-    const {resumes, deleteResume, create, queryResult} = useUserResumes(auth.uid, USE_API);
-    console.log("auth:", auth)
+    const {
+        resumes,
+        deleteResume,
+        create: createNewResume,
+        duplicate: duplicateResume,
+        queryResult,
+    } = useUserResumes(DEFAULT_USER_ID, USE_API);
+
+
     console.log(queryResult);
-
-    if (queryResult.isPending) return <p>Loading...</p>;
-
-    if (queryResult.isError) {
-        return <p>Failed fetching resumes: {queryResult.error}</p>;
-    }
-
-    const createNewResume = create;
 
     return (
         <div className="mx-auto flex w-full max-w-6xl flex-col justify-start gap-10 px-4 pt-10">
@@ -70,15 +68,13 @@ export function Account() {
             </div>
 
             <div className="grid grid-cols-6 gap-6">
-                <CreateResume resumes={resumes} createNewResume={createNewResume} />
-                {resumes.map((resume) => (
-                    <ResumePreview
-                        key={resume.id}
-                        resumeId={resume.id}
-                        onDelete={deleteResume}
-                        {...resume}
-                    />
-                ))}
+                <CreateResume
+                    resumes={resumes}
+                    createNewResume={createNewResume}
+                    duplicateResume={duplicateResume}
+                    deleteResume={deleteResume}
+                />
+                <ResumeList queryStatus={queryResult} resumes={resumes} />
             </div>
         </div>
     );

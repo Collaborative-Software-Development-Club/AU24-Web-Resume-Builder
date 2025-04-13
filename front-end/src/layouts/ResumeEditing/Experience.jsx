@@ -82,7 +82,7 @@ export function Experience({updateItems, experience}) {
                                 type="number"
                                 inputMode="numeric"
                                 placeholder={PLACEHOLDERS.startYear}
-                                value={experience.startDate.year}
+                                value={experience.startDate.year || ''}
                                 onChange={(e) =>
                                     handleSelectChange('startDate', 'year', Number(e.target.value))
                                 }
@@ -100,7 +100,7 @@ export function Experience({updateItems, experience}) {
                                 type="number"
                                 inputMode="numeric"
                                 placeholder={PLACEHOLDERS.endYear}
-                                value={experience.endDate.year}
+                                value={experience.endDate.year || ''}
                                 onChange={(e) =>
                                     handleSelectChange('endDate', 'year', Number(e.target.value))
                                 }
