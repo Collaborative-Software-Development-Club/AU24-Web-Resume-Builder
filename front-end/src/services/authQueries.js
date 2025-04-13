@@ -3,7 +3,6 @@ import {ENDPOINTS} from '@/services/endpoints.js';
 export const AUTH_QUERIES = authQueries(ENDPOINTS);
 
 function authQueries(endpoints) {
-
     return {
         login: async function (authData) {
             const response = await fetch(endpoints.auth.login(), {
@@ -15,6 +14,7 @@ function authQueries(endpoints) {
             });
 
             const data = await response.json();
+            console.log(data);
             if (!response.ok) {
                 throw new Error(
                     `failed to create resume: ${response.status} ${response.statustext}\n${data.details}`,

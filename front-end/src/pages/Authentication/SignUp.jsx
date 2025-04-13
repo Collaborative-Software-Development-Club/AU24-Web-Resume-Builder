@@ -54,7 +54,6 @@ export default function Signup() {
         try {
             console.log('Signup data:', formData);
             await AUTH_QUERIES.register(formData);
-            alert('Signup successful! Redirecting to account page...');
 
             //LogIn
             const data = await AUTH_QUERIES.login(formData);
@@ -71,11 +70,12 @@ export default function Signup() {
                     },
                 })
             ) {
-                navigate('/account/' + data.user.id);
+                alert('Signup successful! Redirecting to account page...');
+                navigate('/account');
             }
         } catch (err) {
-            setError(err.message || 'Signup failed. Please try again.');
-        } 
+            setError(err.message ? "Username already exists. Please choose a different username.": 'Signup failed. Please try again.');
+        }
     };
 
     return (
@@ -100,7 +100,7 @@ export default function Signup() {
                         )}
                     </CardHeader>
                     <CardContent>
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form onSubmit={handleSubmit}>
                             <div className="flex flex-col gap-5">
                                 <div className="grid gap-2">
                                     <Label htmlFor="username">Username</Label>
@@ -114,13 +114,8 @@ export default function Signup() {
                                         placeholder="Enter your username"
                                     />
                                 </div>
-                                <div className="grid gap-2">
-                                    <Label
-                                        htmlFor="password"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        Password
-                                    </Label>
+                                <div className="grid gap-1">
+                                    <Label htmlFor="password">Password</Label>
                                     <div className="relative">
                                         <Input
                                             type={showPassword ? 'text' : 'password'}

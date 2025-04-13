@@ -4,7 +4,7 @@ import {Button} from '@/components/ui/button';
 import {CreateResume} from './CreateResume';
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {ResumeList} from './ResumeList';
 
 const USE_API = flags.useApi;
@@ -21,8 +21,7 @@ export function Account() {
         create: createNewResume,
         duplicate: duplicateResume,
         queryResult,
-    } = useUserResumes(DEFAULT_USER_ID, USE_API);
-
+    } = useUserResumes(auth.uid, USE_API);
 
     console.log(queryResult);
 

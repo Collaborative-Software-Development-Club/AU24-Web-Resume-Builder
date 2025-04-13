@@ -63,9 +63,8 @@ export function LogInDialog({text = 'Save', className}) {
                 navigate('/account');
             }
         } catch (err) {
-            setError(err.message || 'Signup failed. Please try again.');
-        } finally {
-            //setIsSubmitting(false);
+            //handle err message once its implemented in the backend
+            setError('Log in failed. Please try again with different username or password.');
         }
     };
 
@@ -79,9 +78,14 @@ export function LogInDialog({text = 'Save', className}) {
                     <DialogTitle>Log In</DialogTitle>
                     <DialogDescription>Log in to save your resume!</DialogDescription>
                 </DialogHeader>
-                <div className="flex flex-col gap-4 pb-1 pt-3">
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="flex flex-col gap-5">
+                {error && (
+                    <div className="my-3 rounded-md bg-red-100 p-3 text-sm text-red-700">
+                        {error}
+                    </div>
+                )}
+                <div className="flex flex-col gap-4">
+                    <form onSubmit={handleSubmit}>
+                        <div className="flex flex-col gap-4">
                             <div className="grid gap-2">
                                 <Label htmlFor="username">Username</Label>
                                 <Input
@@ -94,7 +98,7 @@ export function LogInDialog({text = 'Save', className}) {
                                     placeholder="Enter your username"
                                 />
                             </div>
-                            <div className="grid gap-2">
+                            <div className="grid gap-1">
                                 <Label
                                     htmlFor="password"
                                     className="block text-sm font-medium text-gray-700"
