@@ -18,6 +18,8 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
     const [selectedOption, setSelectedOption] = useState('option-one');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [copyIndex, setcopyIndex] = useState(null);
+    const [uploadedFile, setUploadedFile] = useState(null);
+
 
     const handleProceed = () => {
         console.log(selectedOption);
@@ -30,13 +32,19 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                 duplicateResume(resumes[copyIndex].id);
                 break;
             case 'option-three':
-                //TODO: implement file upload and its create function
-                throw new Error('Option for creating resume not supported');
+                document.getElementById("file-upload-input").click();
                 break;
             default:
                 createNewResume({});
         }
         setIsDialogOpen(false);
+    };
+
+    const handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setUploadedFile(file);
+        }
     };
 
     return (
@@ -130,6 +138,13 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                 <DialogFooter>
                     <Button onClick={handleProceed}>Proceed</Button>
                 </DialogFooter>
+                <input
+                    id="file-upload-input"
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    style={{ display: 'none' }}
+                    onChange={handleFileUpload}
+                />
             </DialogContent>
         </Dialog>
     );
