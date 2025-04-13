@@ -74,9 +74,12 @@ export function Account() {
                     resumes={resumes}
                     createNewResume={createNewResume}
                     duplicateResume={duplicateResume}
+                />
+                <ResumeList
+                    queryStatus={queryResult}
+                    resumes={resumes}
                     deleteResume={deleteResume}
                 />
-                <ResumeList queryStatus={queryResult} resumes={resumes} />
             </div>
         </div>
     );
