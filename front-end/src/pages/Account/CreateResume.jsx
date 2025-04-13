@@ -32,7 +32,7 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                 duplicateResume(resumes[copyIndex].id);
                 break;
             case 'option-three':
-                document.getElementById('file-upload-input').click();
+                throw new Error('Handling for file upload is not implemented yet');
                 break;
             default:
                 createNewResume({});
@@ -143,13 +143,6 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                 <DialogFooter>
                     <Button onClick={handleProceed}>Proceed</Button>
                 </DialogFooter>
-                <input
-                    id="file-upload-input"
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    style={{display: 'none'}}
-                    onChange={handleFileUpload}
-                />
             </DialogContent>
         </Dialog>
     );
