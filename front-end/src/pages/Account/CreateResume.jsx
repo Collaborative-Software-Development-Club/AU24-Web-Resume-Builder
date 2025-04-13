@@ -131,7 +131,7 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                                     <Input
                                         id="resume"
                                         type="file"
-                                        onChange={handleFileInput}
+                                        onChange={handleFileUpload}
                                         accept=".pdf"
                                     />
                                 </div>
