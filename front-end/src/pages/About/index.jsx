@@ -2,6 +2,8 @@ import {Button, buttonVariants} from '@/components/ui/button';
 import {cn} from '@/lib/utils';
 import {motion} from 'framer-motion';
 import {useNavigate} from 'react-router-dom';
+import UploadButton from '@/components/ui/uploadbutton'; // Adjust the path if needed
+
 
 export default function About() {
     return (
