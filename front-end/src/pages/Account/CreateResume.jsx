@@ -13,11 +13,13 @@ import {Button} from '@/components/ui/button';
 import {Label} from '@/components/ui/label';
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
 import {formatDistanceToNow} from 'date-fns';
+import {Input} from '@/components/ui/input';
 
 export function CreateResume({resumes, createNewResume, duplicateResume}) {
     const [selectedOption, setSelectedOption] = useState('option-one');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [copyIndex, setcopyIndex] = useState(null);
+    const [uploadedFile, setUploadedFile] = useState(null);
 
     const handleProceed = () => {
         console.log(selectedOption);
@@ -37,6 +39,13 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                 createNewResume({});
         }
         setIsDialogOpen(false);
+    };
+
+    const handleFileInput = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setUploadedFile(file);
+        }
     };
 
     return (
@@ -73,9 +82,7 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                                 Copy Existing Resume
                             </Label>
                         </div>
-                        {selectedOption !== 'option-two' ? (
-                            ''
-                        ) : (
+                        {selectedOption == 'option-two' && (
                             <div className="flex flex-col gap-1">
                                 <h1 className="text-base">Choose a Resume to Copy From</h1>
                                 <div className="max-h-96 w-full rounded-sm border">
@@ -117,11 +124,18 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                                 Import from PDF/Word
                             </Label>
                         </div>
-                        {selectedOption !== 'option-three' ? (
-                            ''
-                        ) : (
+                        {selectedOption == 'option-three' && (
                             <div>
                                 <h1>Upload Your Resume</h1>
+                                <div className="">
+                                    <Label htmlFor="resume">Your resume</Label>
+                                    <Input
+                                        id="resume"
+                                        type="file"
+                                        onChange={handleFileInput}
+                                        accept=".pdf"
+                                    />
+                                </div>
                             </div>
                         )}
                     </div>
