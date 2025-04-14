@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {Plus} from 'lucide-react';
+import {Fragment, useState} from 'react';
+import {Clock, CopyPlus, FilePenLine, FileText, FileUp, Plus} from 'lucide-react';
 import {
     Dialog,
     DialogContent,
@@ -14,38 +14,140 @@ import {Label} from '@/components/ui/label';
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
 import {formatDistanceToNow} from 'date-fns';
 import {Input} from '@/components/ui/input';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
+import {cn} from '@/lib/utils';
+import {ResumePreview} from './ResumePreview';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from '@/components/ui/carousel';
 
 export function CreateResume({resumes, createNewResume, duplicateResume}) {
-    const [selectedOption, setSelectedOption] = useState('option-one');
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [copyIndex, setcopyIndex] = useState(null);
+    const [resumeToCopyId, setResumeToCopyId] = useState(null);
     const [uploadedFile, setUploadedFile] = useState(null);
-
-    const handleProceed = () => {
-        console.log(selectedOption);
-        switch (selectedOption) {
-            case 'option-one':
-                console.log('opiton-one-called');
-                createNewResume();
-                break;
-            case 'option-two':
-                duplicateResume(resumes[copyIndex].id);
-                break;
-            case 'option-three':
-                throw new Error('Handling for file upload is not implemented yet');
-                break;
-            default:
-                createNewResume({});
-        }
-        setIsDialogOpen(false);
-    };
-
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
         if (file) {
             setUploadedFile(file);
         }
     };
+    const options = [
+        {
+            id: 'scratch',
+            description:
+                'Existing data from your education, name, and contact information will be used.',
+            label: 'From Scratch',
+            icon: <FilePenLine className="text-primary" />,
+            action: createNewResume,
+            form: null,
+        },
+        {
+            id: 'duplicate',
+            label: 'Copy Existing Resume',
+            description: 'Create a new resume by duplicating an existing one.',
+            icon: <CopyPlus className="text-primary" />,
+            action: () => duplicateResume(resumeToCopyId),
+            form: (
+                <>
+                    <DialogDescription className="">Choose a Resume to Copy From</DialogDescription>
+                    <RadioGroup
+                        className="flex flex-col items-stretch"
+                        value={resumeToCopyId}
+                        onValueChange={setResumeToCopyId}
+                    >
+                        <Carousel
+                            className="flex flex-row items-center gap-2"
+                            opts={{
+                                align: 'start',
+                            }}
+                        >
+                            <CarouselPrevious className="" />
+                            <CarouselContent>
+                                {resumes?.map((item, index) => {
+                                    return (
+                                        <CarouselItem key={item.id} className="basis-auto">
+                                            <RadioGroupItem
+                                                className="sr-only"
+                                                value={item.id}
+                                                id={item.id}
+                                                name={item.id}
+                                            />
+                                            <Label htmlFor={item.id} className="">
+                                                <Card
+                                                    className={cn(
+                                                        'flex h-48 w-40 flex-col gap-4 p-4',
+                                                        resumeToCopyId == item.id &&
+                                                            'border-2 border-primary',
+                                                    )}
+                                                >
+                                                    <FileText className="h-full w-full text-gray-700" />
+                                                    <CardTitle className="text-left">
+                                                        {item.description}
+                                                    </CardTitle>
+                                                    <CardDescription className="flex items-center gap-2 text-left text-xs">
+                                                        <Clock className="" />
+                                                        <span>
+                                                            Updated{' '}
+                                                            {formatDistanceToNow(
+                                                                new Date(item.lastModified),
+                                                                {
+                                                                    addSuffix: true,
+                                                                },
+                                                            )}
+                                                        </span>
+                                                    </CardDescription>
+                                                </Card>
+                                            </Label>
+                                        </CarouselItem>
+                                    );
+                                })}
+                            </CarouselContent>
+                            <CarouselNext className="" />
+                        </Carousel>
+                    </RadioGroup>
+                </>
+            ),
+        },
+        {
+            id: 'import',
+            label: 'Import',
+            description: 'Upload a resume file to import your data.',
+            icon: <FileUp className="text-primary" />,
+            action: () => {
+                throw new Error('Handling for file upload is not implemented yet');
+            },
+            form: (
+                <div>
+                    <CardDescription>Upload Your Resume</CardDescription>
+                    <div className="">
+                        <Label htmlFor="resume">Your resume</Label>
+                        <Input id="resume" type="file" onChange={handleFileUpload} accept=".pdf" />
+                    </div>
+                </div>
+            ),
+        },
+    ];
+    const [selectedOption, setSelectedOption] = useState(options[0].id);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const handleProceed = () => {
+        options.find((option) => option.id === selectedOption).action();
+        setIsDialogOpen(false);
+    };
+
+    const notAllowedToProceed =
+        (selectedOption === 'duplicate' && !resumeToCopyId) ||
+        (selectedOption == 'import' && !uploadedFile);
 
     return (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -54,7 +156,7 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                     <Plus className="m-auto" size="55" />
                 </button>
             </DialogTrigger>
-            <DialogContent className="max-w-lg">
+            <DialogContent className="flex max-w-2xl flex-col">
                 <DialogHeader>
                     <DialogTitle>Set Up Your Resume</DialogTitle>
                 </DialogHeader>
@@ -62,86 +164,41 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                 <RadioGroup
                     value={selectedOption}
                     onValueChange={setSelectedOption}
-                    className="text-gray-500"
+                    className="flex flex-row"
                 >
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="option-one" id="option-one" className="h-5 w-5" />
-                        <Label htmlFor="option-one" className="text-lg">
-                            Create New Resume
-                        </Label>
-                    </div>
-                    <div>
-                        <div className="flex items-center space-x-2">
+                    {options.map((option) => (
+                        <Fragment key={option.id}>
                             <RadioGroupItem
-                                value="option-two"
-                                id="option-two"
-                                className="h-5 w-5"
+                                value={option.id}
+                                id={option.id}
+                                name={option.id}
+                                className="sr-only"
                             />
-                            <Label htmlFor="option-two" className="text-lg">
-                                Copy Existing Resume
+                            <Label htmlFor={option.id}>
+                                <Card
+                                    className={cn(
+                                        'flex h-full w-48 flex-col justify-start p-1',
+                                        selectedOption == option.id && 'border-2 border-primary',
+                                    )}
+                                >
+                                    <CardHeader>{option.icon}</CardHeader>
+                                    <CardContent>
+                                        <CardTitle className="text-base">{option.label}</CardTitle>
+                                        <CardDescription className="text-xs">
+                                            {option.description}
+                                        </CardDescription>
+                                    </CardContent>
+                                </Card>
                             </Label>
-                        </div>
-                        {selectedOption == 'option-two' && (
-                            <div className="flex flex-col gap-1">
-                                <h1 className="text-base">Choose a Resume to Copy From</h1>
-                                <div className="max-h-96 w-full rounded-sm border">
-                                    {resumes?.map((item, index) => {
-                                        return (
-                                            <div
-                                                key={index}
-                                                className={`flex flex-row items-center justify-between rounded-sm px-2 transition hover:bg-gray-200 ${
-                                                    copyIndex === index ? 'bg-gray-200' : ''
-                                                }`}
-                                                onClick={() => {
-                                                    console.log(index);
-                                                    setcopyIndex(index);
-                                                }}
-                                            >
-                                                <p className="text-base">{item.description}</p>
-                                                <p className="font-light">
-                                                    {'Updated ' +
-                                                        formatDistanceToNow(
-                                                            new Date(item.lastModified),
-                                                            {addSuffix: true},
-                                                        )}
-                                                </p>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                    <div>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem
-                                value="option-three"
-                                id="option-three"
-                                className="h-5 w-5"
-                            />
-                            <Label htmlFor="option-three" className="text-lg">
-                                Import from PDF/Word
-                            </Label>
-                        </div>
-                        {selectedOption == 'option-three' && (
-                            <div>
-                                <h1>Upload Your Resume</h1>
-                                <div className="">
-                                    <Label htmlFor="resume">Your resume</Label>
-                                    <Input
-                                        id="resume"
-                                        type="file"
-                                        onChange={handleFileUpload}
-                                        accept=".pdf"
-                                    />
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                        </Fragment>
+                    ))}
                 </RadioGroup>
+                {options.find((option) => option.id === selectedOption).form}
                 <DialogDescription />
                 <DialogFooter>
-                    <Button onClick={handleProceed}>Proceed</Button>
+                    <Button onClick={handleProceed} disabled={notAllowedToProceed}>
+                        Create
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
