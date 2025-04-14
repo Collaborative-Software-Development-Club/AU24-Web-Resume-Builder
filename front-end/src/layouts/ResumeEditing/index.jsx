@@ -8,6 +8,7 @@ import Sidebar from './Sidebar';
 import {Projects} from './Projects';
 import {Experiences} from './Experiences';
 import {Fragment} from 'react';
+import {Download} from 'lucide-react';
 
 export default function ResumeEditing({
     resume,
@@ -46,42 +47,41 @@ export default function ResumeEditing({
         PROJECTS: <Projects updateProjects={updateProjects} projects={resume.projects.content} />,
         SKILLS: <Skills updateSkills={updateSkills} skills={resume.skills.content ?? []} />,
     };
-    console.log('resume editing updateDescription: ', updateDescription);
     return (
-        <div className="flex h-full py-10 justify-center sm:mx-10">
-            {/* Sidebar to control visibility and ordering */}
-            <Sidebar
-                resume={resume}
-                ordering={resume.orderOfSections}
-                setOrdering={updateOrderOfSections}
-                setDescription={updateDescription}
-                toggleSectionVisibility={toggleSectionVisibility}
-            >
-                <div className="flex w-full flex-col items-center">
-                    <div className="w-full max-w-5xl">
-                        {/* Static components */}
-                        <div className="flex flex-row justify-end gap-4 pb-4">
-                            <Button className="" variant="secondary" onClick={() => download()}>
-                                Download
-                            </Button>
-                            {saveButton}
-                        </div>
-                        <Name name={resume.name} updateName={updateName} />
-                        <ContactMethods
-                            contactMethods={resume.contactMethods ?? []}
-                            updateContactMethods={updateContactMethods}
-                        />
-
-                        {/* Render ordered components conditionally */}
-                        {resume.orderOfSections?.map(
-                            (sectionId) =>
-                                isVisible(sectionId) && (
-                                    <Fragment key={sectionId}>{sections[sectionId]}</Fragment>
-                                ),
-                        )}
-                    </div>
+        <Sidebar
+            resume={resume}
+            ordering={resume.orderOfSections}
+            setOrdering={updateOrderOfSections}
+            setDescription={updateDescription}
+            toggleSectionVisibility={toggleSectionVisibility}
+        >
+            <div className="flex w-full flex-col gap-4 p-4">
+                <div className="flex flex-row justify-end gap-2">
+                    <Button
+                        className="gap-2"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => download()}
+                    >
+                        <Download />
+                    </Button>
+                    {saveButton}
                 </div>
-            </Sidebar>
-        </div>
+                <div className="w-full rounded-sm bg-white p-8">
+                    <Name name={resume.name} updateName={updateName} />
+                    <ContactMethods
+                        contactMethods={resume.contactMethods ?? []}
+                        updateContactMethods={updateContactMethods}
+                    />
+
+                    {resume.orderOfSections?.map(
+                        (sectionId) =>
+                            isVisible(sectionId) && (
+                                <Fragment key={sectionId}>{sections[sectionId]}</Fragment>
+                            ),
+                    )}
+                </div>
+            </div>
+        </Sidebar>
     );
 }

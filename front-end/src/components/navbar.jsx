@@ -7,8 +7,9 @@ import {
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import {buttonVariants} from './ui/button';
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated';
-import {LogInDialog} from './LogInDialog';
+import {cn} from '@/lib/utils';
 
 export function NavBar() {
     const isAuthenticated = useIsAuthenticated();
@@ -16,19 +17,19 @@ export function NavBar() {
 
     const getActiveLocation = () => {
         if (location.pathname.includes('/about')) return 'about';
-        if (location.pathname.includes('/account')) return 'account';
+        if (location.pathname.includes('/dashboard')) return 'dashboard';
         return '';
     };
 
     const activeLocation = getActiveLocation();
 
     return (
-        <div className="flex flex-row justify-end rounded-xl pr-5 pt-6 shadow-sm">
-            <NavigationMenu>
+        <div className="flex flex-row justify-end p-2">
+            <NavigationMenu className="">
                 <NavigationMenuList className="gap-1">
                     <NavigationMenuItem>
                         <NavigationMenuLink
-                            className={navigationMenuTriggerStyle()}
+                            className={buttonVariants({variant: 'link'})}
                             active={activeLocation == 'about'}
                             asChild
                         >
@@ -36,23 +37,15 @@ export function NavBar() {
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        {isAuthenticated ? (
-                            <NavigationMenuLink
-                                active={activeLocation == 'account'}
-                                className={navigationMenuTriggerStyle()}
-                                asChild
-                            >
-                                <Link to="/account">Account</Link>
-                            </NavigationMenuLink>
-                        ) : (
-                            <NavigationMenuLink
-                                active={activeLocation == 'login'}
-                                className={navigationMenuTriggerStyle()}
-                                asChild
-                            >
-                                <LogInDialog text="Log In" className="bg-none border-none text-black shadow-none"/>
-                            </NavigationMenuLink>
-                        )}
+                        <NavigationMenuLink
+                            active={activeLocation == 'dashboard'}
+                            className={cn(
+                                buttonVariants({variant: isAuthenticated ? 'link' : 'outline'}),
+                            )}
+                            asChild
+                        >
+                            <Link to="/dashboard">{isAuthenticated ? 'My Resumes' : 'Log In'}</Link>
+                        </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>

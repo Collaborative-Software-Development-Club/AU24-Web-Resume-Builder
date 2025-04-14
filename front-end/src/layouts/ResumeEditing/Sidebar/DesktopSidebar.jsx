@@ -20,7 +20,7 @@ export const DesktopSidebar = ({
 }) => {
     console.log('DesktopSidebar', setDescription);
     return (
-        <SidebarProvider>
+        <SidebarProvider className="gap-4">
             <Sidebar>
                 <SidebarContent>
                     <SidebarGroup>

@@ -50,7 +50,7 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
     return (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-                <button className="flex h-48 w-40 rounded-md border text-gray-700 transition-colors hover:bg-gray-300 hover:text-black hover:shadow-md">
+                <button className="flex h-48 w-40 rounded-2xl border text-gray-700 transition-colors hover:bg-gray-300 hover:text-black hover:shadow-md">
                     <Plus className="m-auto" size="55" />
                 </button>
             </DialogTrigger>

@@ -1,10 +1,13 @@
 import {buttonVariants} from '@/components/ui/button';
 import {cn} from '@/lib/utils';
 import {motion} from 'framer-motion';
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated';
+import {Link} from 'react-router-dom';
 
 export default function About() {
+    const isAuthenticated = useIsAuthenticated();
     return (
-        <div className="flex h-full flex-col bg-gradient-to-br from-white via-indigo-100 to-purple-200">
+        <div className="flex h-screen flex-col">
             {/* Hero Section */}
             <div className="flex flex-grow items-center justify-center px-4">
                 <motion.div
@@ -21,24 +24,32 @@ export default function About() {
                         completely free to start.
                     </p>
                     <div className="flex flex-row items-center justify-center gap-2 space-x-4">
-                        <a
-                            className={cn(
-                                buttonVariants({variant: 'default'}),
-                                'rounded-xl bg-indigo-600 px-6 py-3 text-lg text-white shadow-md hover:bg-indigo-700',
-                            )}
-                            href="/guest"
-                        >
-                            Get Started for Free
-                        </a>
-                        <a
-                            href="/signup"
-                            className={cn(
-                                buttonVariants({variant: 'link'}),
-                                'pt-3 text-lg text-indigo-600 hover:underline',
-                            )}
-                        >
-                            Sign up
-                        </a>
+                        {isAuthenticated ? (
+                            <Link to="/dashboard" className={buttonVariants()}>
+                                Go to My Resumes
+                            </Link>
+                        ) : (
+                            <>
+                                <Link
+                                    className={cn(
+                                        buttonVariants({variant: 'default'}),
+                                        'rounded-xl bg-indigo-600 px-6 py-3 text-lg text-white shadow-md hover:bg-indigo-700',
+                                    )}
+                                    to="/resume"
+                                >
+                                    Create a Resume
+                                </Link>
+                                <Link
+                                    to="/auth"
+                                    className={cn(
+                                        buttonVariants({variant: 'link'}),
+                                        'pt-3 text-lg text-indigo-600 hover:underline',
+                                    )}
+                                >
+                                    Sign up
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </motion.div>
             </div>
