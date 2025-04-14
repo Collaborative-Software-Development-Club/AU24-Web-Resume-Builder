@@ -7,7 +7,7 @@ import {Loader2} from 'lucide-react';
 
 const USE_API = flags.useApi;
 
-export default function ResumeBuilder() {
+export default function RemoteResume() {
     const resumeId = useParams()?.resumeId;
     if (resumeId == undefined) {
         throw new Error('resumeId is undefined');

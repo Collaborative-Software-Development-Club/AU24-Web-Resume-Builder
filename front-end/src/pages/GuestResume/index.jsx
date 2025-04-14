@@ -1,8 +1,8 @@
 import ResumeEditing from '@/layouts/ResumeEditing';
-import {GuestSaveDialog} from '@/components/GuestSaveDialog';
-import {useGuestResume} from '../../hooks/useGuestResume';
+import {LogInDialog} from './LogInDialog';
+import {useGuestResume} from '@/hooks/useGuestResume';
 
-export default function ResumeBuilder() {
+export default function GuestResume() {
     const resumeHook = useGuestResume();
-    return <ResumeEditing saveButton={<GuestSaveDialog />} {...resumeHook} />;
+    return <ResumeEditing saveButton={<LogInDialog />} {...resumeHook} />;
 }

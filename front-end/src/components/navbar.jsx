@@ -7,27 +7,29 @@ import {
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import {buttonVariants} from './ui/button';
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated';
 import {cn} from '@/lib/utils';
 
 export function NavBar() {
-    const defaultResumeId = '67352f2265e5d74b8503ce90';
+    const isAuthenticated = useIsAuthenticated();
     const location = useLocation();
 
     const getActiveLocation = () => {
         if (location.pathname.includes('/about')) return 'about';
-        if (location.pathname.includes('/account')) return 'account';
+        if (location.pathname.includes('/dashboard')) return 'dashboard';
         return '';
     };
 
     const activeLocation = getActiveLocation();
 
     return (
-        <div className="flex flex-row justify-end rounded-xl pr-5 pt-6 shadow-sm">
-            <NavigationMenu>
+        <div className="flex flex-row justify-end p-2">
+            <NavigationMenu className="">
                 <NavigationMenuList className="gap-1">
                     <NavigationMenuItem>
                         <NavigationMenuLink
-                            className={navigationMenuTriggerStyle()}
+                            className={buttonVariants({variant: 'link'})}
                             active={activeLocation == 'about'}
                             asChild
                         >
@@ -36,11 +38,13 @@ export function NavBar() {
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                         <NavigationMenuLink
-                            active={activeLocation == 'account'}
-                            className={navigationMenuTriggerStyle()}
+                            active={activeLocation == 'dashboard'}
+                            className={cn(
+                                buttonVariants({variant: isAuthenticated ? 'link' : 'outline'}),
+                            )}
                             asChild
                         >
-                            <Link to="/account">Account</Link>
+                            <Link to="/dashboard">{isAuthenticated ? 'My Resumes' : 'Log In'}</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
