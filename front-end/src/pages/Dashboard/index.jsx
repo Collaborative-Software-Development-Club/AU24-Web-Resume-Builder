@@ -42,7 +42,11 @@ export function Dashboard() {
                     duplicateResume={duplicateResume}
                     deleteResume={deleteResume}
                 />
-                <ResumeList queryStatus={queryResult} resumes={resumes} />
+                <ResumeList
+                    queryStatus={queryResult}
+                    resumes={resumes}
+                    deleteResume={deleteResume}
+                />
             </div>
         </div>
     );
