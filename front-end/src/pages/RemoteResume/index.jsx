@@ -13,7 +13,6 @@ export default function RemoteResume() {
         throw new Error('resumeId is undefined');
     }
     const resumeHook = useResumeData(resumeId, USE_API);
-    console.log(resumeHook);
     if (resumeHook.queryResult.isLoading) return <p>Loading...</p>;
     if (resumeHook.queryResult.isError)
         return <p>There was an error loading the resume {resumeHook.queryResult.error.message}</p>;

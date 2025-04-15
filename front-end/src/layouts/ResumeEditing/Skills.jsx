@@ -2,7 +2,7 @@ import {EditableList} from '@/components/EditableList';
 import {SectionTitle} from './SectionTitle';
 
 const Skills = ({skills, updateSkills}) => {
-    console.log('skills', skills);
+    // console.log('skills', skills);
     return (
         <div>
             <SectionTitle title="Skills" />

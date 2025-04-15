@@ -11,14 +11,18 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog';
 import {Wand2, Loader2} from 'lucide-react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {BulletPointDisplayView} from '@/layouts/ResumeEditing/BulletPointDisplayView';
-import {useToast} from '@/hooks/use-toast';
+import {useEnhanceText} from '@/hooks/useEnhanceText.jsx';
 
 export function AITextImprovementInput({placeholder, onChange, name, value}) {
-    const [aiImprovedText, setAiImprovedText] = useState('');
+    // const [aiImprovedText, setAiImprovedText] = useState('');
+    const {improvedText: aiImprovedText, enhanceText, mutationResult} = useEnhanceText(value);
     const [dialogReady, setDialogReady] = useState(false);
-    const {toast} = useToast();
+
+    useEffect(() => {
+        if (aiImprovedText && aiImprovedText !== value) setDialogReady(true);
+    }, [aiImprovedText]);
 
     const allowImprovementRequest = value?.length >= 30;
 
@@ -34,41 +38,7 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
 
     const handleButtonClick = async (e) => {
         e.preventDefault();
-        if (!allowImprovementRequest) {
-            toast({
-                title: 'Text is not ready for enhancement',
-                description: 'Text must be at least 30 characters long to use AI enhancement.',
-                variant: 'destructive',
-            });
-            return;
-        }
-
-        toast({
-            title: (
-                <div className="flex flex-row gap-2">
-                    Enhancing your text...
-                    <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
-                </div>
-            ),
-            description: 'Our AI is working on improving your content...',
-        });
-
-        try {
-            const response = await enhanceText(value);
-            setAiImprovedText(response);
-            setDialogReady(true);
-            // toast({
-            //     title: 'Enhancement ready ✅',
-            //     description: 'Your AI-enhanced text is now available.',
-            // });
-        } catch (err) {
-            console.error(err);
-            toast({
-                title: 'Enhancement failed',
-                description: 'There was an error enhancing your text. Please try again.',
-                variant: 'destructive',
-            });
-        }
+        enhanceText(value);
     };
 
     return (
@@ -90,7 +60,11 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
                         }
                         onClick={handleButtonClick}
                     >
-                        <Wand2 />
+                        {mutationResult.isLoading ? (
+                            <Loader2 className="animate-spin" size={20} />
+                        ) : (
+                            <Wand2 size={20} />
+                        )}
                         AI
                     </Button>
                 </DialogTrigger>

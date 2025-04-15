@@ -1,16 +1,17 @@
-import {RESUME_QUERIES} from '@/services/resumeQueries';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {useNavigate} from 'react-router-dom';
+import {useResumeQueries} from './useResumeQueries';
 
 export function useUserResumes(userId) {
+    const resumeQueries = useResumeQueries();
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const {data, isPending, isError, error} = useQuery({
         queryKey: ['resumes', userId],
-        queryFn: () => RESUME_QUERIES.getFromUser(userId),
+        queryFn: () => resumeQueries.getFromUser(userId),
     });
     const saveMutation = useMutation({
-        mutationFn: (id) => RESUME_QUERIES.delete(id),
+        mutationFn: (id) => resumeQueries.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['resumes', userId]});
         },
@@ -18,7 +19,7 @@ export function useUserResumes(userId) {
     const deleteResume = saveMutation.mutate;
     const createMutation = useMutation({
         mutationFn: async (resumeId = undefined) => {
-            const data = await RESUME_QUERIES.create({userId, resumeId});
+            const data = await resumeQueries.create({userId, resumeId});
             return data.id;
         },
         onSuccess: (resumeId) => {

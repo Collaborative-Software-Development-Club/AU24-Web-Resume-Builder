@@ -23,7 +23,7 @@ export default function ResumeEditing({
     updateSkills,
     updateDescription,
 }) {
-    console.log('resume in ResumeEditing: ', resume);
+    // console.log('resume in ResumeEditing: ', resume);
     const download = () => {
         downloadResume(resume);
     };

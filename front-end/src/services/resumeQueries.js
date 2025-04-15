@@ -1,15 +1,13 @@
 import {ENDPOINTS} from '@/services/endpoints.js';
-import jsonData from '@/../../data/resume.json';
 
-export const RESUME_QUERIES = resumeQueries(ENDPOINTS);
-
-function resumeQueries(endpoints) {
+export function resumeQueries(authHeader) {
     return {
         create: async function ({userId, resumeId}) {
-            const response = await fetch(endpoints.resumes(), {
+            const response = await fetch(ENDPOINTS.resumes(), {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
+                    Authorization: authHeader,
                 },
                 body: JSON.stringify({
                     userId,
@@ -28,12 +26,11 @@ function resumeQueries(endpoints) {
         },
 
         delete: async function (resumeId) {
-            console.log('deleting resume data');
-
-            const response = await fetch(endpoints.resumes({resumeId: resumeId}), {
+            const response = await fetch(ENDPOINTS.resumes({resumeId: resumeId}), {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'content-type': 'application/json',
+                    Authorization: authHeader,
                 },
             });
             if (response.ok) {
@@ -46,7 +43,13 @@ function resumeQueries(endpoints) {
         },
 
         getOne: async function (resumeId) {
-            const response = await fetch(endpoints.resumes({resumeId: resumeId}));
+            const response = await fetch(ENDPOINTS.resumes({resumeId: resumeId}), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: authHeader,
+                },
+            });
             const data = await response.json();
             if (!response.ok) {
                 throw new Error(
@@ -57,7 +60,14 @@ function resumeQueries(endpoints) {
         },
 
         getFromUser: async function (userId) {
-            const response = await fetch(endpoints.resumes({userId: userId}));
+            console.log('getting resumes from user');
+            const response = await fetch(ENDPOINTS.resumes({userId: userId}), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: authHeader,
+                },
+            });
             console.log(response);
             if (response.status == 204) {
                 return [];
@@ -69,10 +79,11 @@ function resumeQueries(endpoints) {
 
         upload: async function (resumeId, resumeData) {
             console.log('uploading resume data');
-            const response = await fetch(endpoints.resumes({resumeId: resumeId}), {
+            const response = await fetch(ENDPOINTS.resumes({resumeId: resumeId}), {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: authHeader,
                 },
                 body: JSON.stringify(resumeData),
             });

@@ -33,7 +33,7 @@ public class AiController {
      * having a local model
      */
     @Autowired
-    public AiController(@Qualifier("Mock") AiService aiService) {
+    public AiController(@Qualifier("Azure") AiService aiService) {
         this.aiService = aiService;
     }
 

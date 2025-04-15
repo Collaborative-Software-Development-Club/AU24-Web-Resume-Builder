@@ -18,7 +18,6 @@ export const DesktopSidebar = ({
     toggleSectionVisibility,
     children,
 }) => {
-    console.log('DesktopSidebar', setDescription);
     return (
         <SidebarProvider className="gap-4">
             <Sidebar>
