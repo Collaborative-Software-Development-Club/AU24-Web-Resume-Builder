@@ -40,6 +40,7 @@ export function useUserResumes(userId) {
                 return data.id;
             }
             const data = await resumeQueries.create({userId, resumeId});
+            return data.id;
         },
         onSuccess: redirectAndInvalidate,
         onError: (error) => console.error(error),
