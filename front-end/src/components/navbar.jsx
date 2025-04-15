@@ -24,10 +24,7 @@ export function NavBar() {
     const activeLocation = getActiveLocation();
 
     return (
-        <div className="flex flex-row items-center justify-between p-2">
-            <h1 className="text-xl font-bold text-primary">
-                AI Resume Builder <span className="text-sm">By CSDC</span>
-            </h1>
+        <div className="flex flex-row items-center justify-end bg-white/50 p-2">
             <NavigationMenu className="">
                 <NavigationMenuList className="gap-1">
                     <NavigationMenuItem>

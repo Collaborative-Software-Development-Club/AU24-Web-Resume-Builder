@@ -23,7 +23,7 @@ export default function ResumeEditing({
     updateSkills,
     updateDescription,
 }) {
-    // console.log('resume in ResumeEditing: ', resume);
+    console.log('resume in ResumeEditing: ', resume);
     const download = () => {
         downloadResume(resume);
     };
@@ -55,7 +55,7 @@ export default function ResumeEditing({
             setDescription={updateDescription}
             toggleSectionVisibility={toggleSectionVisibility}
         >
-            <div className="flex w-full flex-col gap-4 p-4">
+            <div className="flex w-full flex-col gap-4 p-4 px-10">
                 <div className="flex flex-row justify-end gap-2">
                     <Button
                         className="gap-2"

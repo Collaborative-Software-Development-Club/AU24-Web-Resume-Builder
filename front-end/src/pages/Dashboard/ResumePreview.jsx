@@ -25,7 +25,7 @@ export function ResumePreview({resumeId, onDelete, description, lastModified}) {
         <TooltipProvider delayDuration={50}>
             <Tooltip open={isTooltipOpen || isDeleteDialogOpen} onOpenChange={setIsTooltipOpen}>
                 <TooltipTrigger asChild>
-                    <Card className="flex h-48 w-40 flex-col gap-4 bg-transparent p-4 hover:opacity-50">
+                    <Card className="flex h-48 w-40 flex-col gap-4 bg-white/50 p-4">
                         <FileText className="h-full w-full text-gray-700" />
                         <CardTitle className="text-left">{description}</CardTitle>
                         <CardDescription className="flex items-center gap-2 text-left text-xs">

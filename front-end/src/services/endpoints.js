@@ -22,7 +22,7 @@ function endpoints(baseUrl, version) {
             login: () => `${baseUrl}/${version}/auth/login`,
         },
         ai: {
-            resume: ({resumeText}) => `${baseUrl}/${version}/ai/resume?message=${resumeText}`,
+            resume: () => `${baseUrl}/${version}/ai/resume`,
             description: ({text}) => `${baseUrl}/${version}/ai/description?message=${text}`,
         },
     };

@@ -15,7 +15,9 @@ export function Dashboard() {
         deleteResume,
         create: createNewResume,
         duplicate: duplicateResume,
+        createFromFile,
         queryResult,
+        createResult,
     } = useUserResumes(auth.uid);
 
     return (
@@ -41,6 +43,8 @@ export function Dashboard() {
                     createNewResume={createNewResume}
                     duplicateResume={duplicateResume}
                     deleteResume={deleteResume}
+                    createFromFile={createFromFile}
+                    createResult={createResult}
                 />
                 <ResumeList
                     queryStatus={queryResult}

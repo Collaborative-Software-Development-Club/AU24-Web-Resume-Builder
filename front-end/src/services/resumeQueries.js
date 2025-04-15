@@ -73,7 +73,6 @@ export function resumeQueries(authHeader) {
                 return [];
             }
             const data = await response.json();
-            console.log(data);
             return data;
         },
 
@@ -94,9 +93,9 @@ export function resumeQueries(authHeader) {
             if (response.ok) {
                 return data;
             } else {
-                throw new Error(
-                    `Failed to update resume: ${response.status} ${response.statusText} ${JSON.stringify(data)}`,
-                );
+                const message = `Failed to update resume: ${response.status} ${response.statusText} ${JSON.stringify(data)}`;
+                console.error(message);
+                throw new Error(message);
             }
         },
     };

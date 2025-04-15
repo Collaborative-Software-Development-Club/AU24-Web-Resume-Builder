@@ -71,6 +71,8 @@ public class ResumeService {
     }
 
     public ResumeDto update(String resumeId, ResumeDto resumeDto) {
+        // just in case there's something up with the requeset
+        resumeDto.setId(resumeId);
         // System.out.println("resumeDto service>update");
         // System.out.println(resumeDto);
         if (!resumeRepository.existsById(resumeId)) {

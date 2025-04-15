@@ -136,5 +136,179 @@ public abstract class AiServiceKernel implements AiService {
             + //
             "One point about jargon: Use shorthand like \"QoQ\" (for quarter over quarter) only if you're 100 percent sure that the resume reviewer will know exactly what you mean.";
 
-    private final String resume_JSON_Format = "{\r\n\t\"name\": \"Brutus\",\r\n\t\"contactMethods\": [\r\n\t\t\"buckeye.1@osu.edu\",\r\n\t\t\"614-222-2222\",\r\n\t\t\"100 Ohio State Ave, Columbus OH, 43210\"\r\n\t],\r\n\t\"education\": {\r\n\t\t\"visible\": true,\r\n\t\t\"institution\": \"The Ohio State University\",\r\n\t\t\"location\": \"Columbus, Ohio\",\r\n\t\t\"degree\": \"Bachelor of Science in Business Administration\",\r\n\t\t\"graduationDate\": {\r\n\t\t\t\"month\": 5,\r\n\t\t\t\"year\": 2021\r\n\t\t},\r\n\t\t\"specialization\": \"Finance\",\r\n\t\t\"minor\": \"Business Analytics\",\r\n\t\t\"gpa\": 4.0,\r\n\t\t\"honors\": [\r\n\t\t\t{\r\n\t\t\t\t\"name\": \"Fisher Pacesetter Award\",\r\n\t\t\t\t\"description\": \"Given to the top one percent of students based on academic performance and demonstrated leadership ability\"\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"name\": \"Honors Cohort Program\",\r\n\t\t\t\t\"description\": \"One of 30 students selected to participate in the College of Business’ flagship two-year academic program\"\r\n\t\t\t}\r\n\t\t]\r\n\t},\r\n\t\"experience\": {\r\n\t\t\"visible\": true,\r\n\t\t\"items\": [\r\n\t\t\t{\r\n        \"id\": 0,\r\n\t\t\t\t\"company\": \"The Ohio State University\",\r\n\t\t\t\t\"location\": \"Columbus, Ohio\",\r\n\t\t\t\t\"position\": \"Resident Advisor\",\r\n\t\t\t\t\"startDate\": {\r\n\t\t\t\t\t\"month\": 8,\r\n\t\t\t\t\t\"year\": 2018\r\n\t\t\t\t},\r\n\t\t\t\t\"endDate\": null,\r\n\t\t\t\t\"description\": \"Ensured safety and served as a resource for 65+ residents\\nFacilitated programs to foster the growth and development of undergraduate students\\nAddressed and resolved issues to ensure a quality living experience for all residents in the residence hall\",\r\n\t\t\t\t\"visible\": true\r\n\t\t\t},\r\n\t\t\t{\r\n        \"id\": 1,\r\n\t\t\t\t\"company\": \"L Brands\",\r\n\t\t\t\t\"location\": \"Columbus, Ohio\",\r\n\t\t\t\t\"position\": \"Operations Management Intern\",\r\n\t\t\t\t\"startDate\": {\r\n\t\t\t\t\t\"month\": 5,\r\n\t\t\t\t\t\"year\": 2019\r\n\t\t\t\t},\r\n\t\t\t\t\"endDate\": {\r\n\t\t\t\t\t\"month\": 8,\r\n\t\t\t\t\t\"year\": 2019\r\n\t\t\t\t},\r\n\t\t\t\t\"description\": \"Developed 40+ new standardized operating procedures to improve efficiency, productivity, and employee morale\\nWorked with a team of 10 distribution managers to expand Bath and Body Works operations to a secondary campus\",\r\n\t\t\t\t\"visible\": true\r\n\t\t\t},\r\n\t\t\t{\r\n        \"id\": 2,\r\n\t\t\t\t\"company\": \"The Ohio State University Wexner Medical Center\",\r\n\t\t\t\t\"location\": \"Columbus, Ohio\",\r\n\t\t\t\t\"position\": \"Supply Chain Intern\",\r\n\t\t\t\t\"startDate\": {\r\n\t\t\t\t\t\"month\": 5,\r\n\t\t\t\t\t\"year\": 2018\r\n\t\t\t\t},\r\n\t\t\t\t\"endDate\": {\r\n\t\t\t\t\t\"month\": 8,\r\n\t\t\t\t\t\"year\": 2018\r\n\t\t\t\t},\r\n\t\t\t\t\"description\": \"Collaborated with the purchasing department to develop metrics for tracking department performance\\nResolved several hundred pricing discrepancies\\nFormulated standard operating procedures for future interns\",\r\n\t\t\t\t\"visible\": true\r\n\t\t\t},\r\n\t\t\t{\r\n        \"id\": 3,\r\n\t\t\t\t\"organization\": \"Buckeye Undergraduate Consulting Club\",\r\n\t\t\t\t\"location\": \"Columbus, Ohio\",\r\n\t\t\t\t\"position\": \"VP of Marketing and Communications\",\r\n\t\t\t\t\"startDate\": {\r\n\t\t\t\t\t\"month\": 1,\r\n\t\t\t\t\t\"year\": 2017\r\n\t\t\t\t},\r\n\t\t\t\t\"endDate\": null,\r\n\t\t\t\t\"description\": \"Conducted market research on blockchain technology feasibility for wire transactions\\nDeveloped analytical skills through Power BI and Tableau workshops\\nCompeted in three case competitions\",\r\n\t\t\t\t\"visible\": false\r\n\t\t\t},\r\n\t\t\t{\r\n        \"id\": 4,\r\n\t\t\t\t\"organization\": \"Phi Chi Theta Professional Business Fraternity\",\r\n\t\t\t\t\"location\": \"Columbus, Ohio\",\r\n\t\t\t\t\"position\": \"Professional Development Chair\",\r\n\t\t\t\t\"startDate\": {\r\n\t\t\t\t\t\"month\": 2,\r\n\t\t\t\t\t\"year\": 2018\r\n\t\t\t\t},\r\n\t\t\t\t\"endDate\": null,\r\n\t\t\t\t\"description\": \"Created individualized professional development experiences for new members\\nDeveloped and executed workshops to enrich pledges' understanding of brotherhood, professionalism, and philanthropy\",\r\n\t\t\t\t\"visible\": false\r\n\t\t\t},\r\n\t\t\t{\r\n        \"id\": 5,\r\n\t\t\t\t\"organization\": \"Fisher Emerging Consultants\",\r\n\t\t\t\t\"location\": \"Columbus, Ohio\",\r\n\t\t\t\t\"position\": \"Member\",\r\n\t\t\t\t\"startDate\": {\r\n\t\t\t\t\t\"month\": 2,\r\n\t\t\t\t\t\"year\": 2019\r\n\t\t\t\t},\r\n\t\t\t\t\"endDate\": {\r\n\t\t\t\t\t\"month\": 4,\r\n\t\t\t\t\t\"year\": 2019\r\n\t\t\t\t},\r\n\t\t\t\t\"description\": \"Participated in a consulting career readiness program focusing on problem solving, professionalism, and networking\",\r\n\t\t\t\t\"visible\": false\r\n\t\t\t}\r\n\t\t]\r\n\t},\r\n\t\"projects\": {\r\n\t\t\"visible\": true,\r\n\t\t\"items\": [\r\n\t\t\t{\r\n        \"id\": 0,\r\n\t\t\t\t\"title\": \"Blockchain Feasibility Research\",\r\n\t\t\t\t\"organization\": \"Buckeye Undergraduate Consulting Club\",\r\n\t\t\t\t\"location\": \"Columbus, Ohio\",\r\n\t\t\t\t\"link\": \"Github.com\",\r\n\t\t\t\t\"technologies\": \"React, Express, Node\",\r\n\t\t\t\t\"startDate\": {\r\n\t\t\t\t\t\"month\": 1,\r\n\t\t\t\t\t\"year\": 2018\r\n\t\t\t\t},\r\n\t\t\t\t\"endDate\": {\r\n\t\t\t\t\t\"month\": 3,\r\n\t\t\t\t\t\"year\": 2018\r\n\t\t\t\t},\r\n\t\t\t\t\"description\": \"Conducted in-depth research on the feasibility of incorporating blockchain technology for wire transactions for a local Columbus client.\",\r\n\t\t\t\t\"visible\": true\r\n\t\t\t},\r\n\t\t\t{\r\n        \"id\": 1,\r\n\t\t\t\t\"title\": \"Consumer Insights Case Competition\",\r\n\t\t\t\t\"organization\": \"Phi Chi Theta\",\r\n\t\t\t\t\"location\": \"Columbus, Ohio\",\r\n\t\t\t\t\"startDate\": {\r\n\t\t\t\t\t\"month\": 9,\r\n\t\t\t\t\t\"year\": 2018\r\n\t\t\t\t},\r\n\t\t\t\t\"endDate\": {\r\n\t\t\t\t\t\"month\": 11,\r\n\t\t\t\t\t\"year\": 2018\r\n\t\t\t\t},\r\n\t\t\t\t\"description\": \"Competed and won first place in the Phi Chi Theta-DSP Case Competition, presenting innovative solutions for consumer insights.\",\r\n\t\t\t\t\"visible\": true\r\n\t\t\t},\r\n\t\t\t{\r\n        \"id\": 2,\r\n\t\t\t\t\"title\": \"Johnson & Johnson M&A Case\",\r\n\t\t\t\t\"organization\": \"Ohio State Business Association\",\r\n\t\t\t\t\"location\": \"Columbus, Ohio\",\r\n\t\t\t\t\"startDate\": {\r\n\t\t\t\t\t\"month\": 4,\r\n\t\t\t\t\t\"year\": 2019\r\n\t\t\t\t},\r\n\t\t\t\t\"endDate\": {\r\n\t\t\t\t\t\"month\": 5,\r\n\t\t\t\t\t\"year\": 2019\r\n\t\t\t\t},\r\n\t\t\t\t\"description\": \"Won first place in Johnson & Johnson’s M&A case competition, providing strategic merger recommendations to a panel of executives.\",\r\n\t\t\t\t\"visible\": false\r\n\t\t\t}\r\n\t\t]\r\n\t},\r\n\t\"skills\": {\r\n\t\t\"items\": [\r\n\t\t\t{\r\n\t\t\t\t\"skillName\": \"Excel\"\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"skillName\": \"Tableau\"\r\n\t\t\t}\r\n\t\t]\r\n\t},\r\n\t\"orderOfSections\": [\"EXPERIENCE\", \"PROJECTS\", \"SKILLS\", \"EDUCATION\"]\r\n}\r\n";
+    private final String resume_JSON_Format = "{\n" + //
+            "  \"name\": \"Lorenzo Mion\",\n" + //
+            "  \"contactMethods\": [\n" + //
+            "    \"lorenzodfmion@gmail.com\"\n" + //
+            "  ],\n" + //
+            "  \"education\": {\n" + //
+            "    \"visible\": true,\n" + //
+            "    \"content\": {\n" + //
+            "      \"institution\": \"The Ohio State University\",\n" + //
+            "      \"location\": \"Columbus, OH\",\n" + //
+            "      \"degree\": \"Computer Science and Engineering, Specialization in Software Engineering\",\n" + //
+            "      \"graduationDate\": {\n" + //
+            "        \"month\": 5,\n" + //
+            "        \"year\": 2026\n" + //
+            "      },\n" + //
+            "      \"specialization\": \"\",\n" + //
+            "      \"minor\": \"\",\n" + //
+            "      \"gpa\": \"3.8\",\n" + //
+            "      \"honors\": \"4x Dean’s List, 2x Scholar-Athlete Award, Academic All-Big Ten, USFCA All-Academic Team 23-24\"\n"
+            + //
+            "    }\n" + //
+            "  },\n" + //
+            "  \"experience\": {\n" + //
+            "    \"visible\": true,\n" + //
+            "    \"content\": [\n" + //
+            "      {\n" + //
+            "        \"6\": {},\n" + //
+            "        \"7\": {},\n" + //
+            "        \"id\": 0,\n" + //
+            "        \"visible\": true,\n" + //
+            "        \"company\": \"OSU Wexner Medical Center - IT Department\",\n" + //
+            "        \"description\": \"Worked on Vitals, the proprietary digital platform used by Ohio State’s 750 medical students and 3,400+ academic staff\\n"
+            + //
+            "Wrote R scripts to create SQL queries to upload data from 200+ new matriculants to the Vitals MySQL database\\n"
+            + //
+            "Used Angular with Kendo UI and Bootstrap to streamline the Vitals user interface, making it more responsive on mobile devices\\n"
+            + //
+            "Participated professional development sessions twice a week to further develop communication, leadership, and organizational skills\",\n"
+            + //
+            "        \"location\": \"\",\n" + //
+            "        \"position\": \"Software Engineering Intern\",\n" + //
+            "        \"startDate\": {\n" + //
+            "          \"month\": 6,\n" + //
+            "          \"year\": 2024\n" + //
+            "        },\n" + //
+            "        \"endDate\": {\n" + //
+            "          \"month\": 7,\n" + //
+            "          \"year\": 2024\n" + //
+            "        }\n" + //
+            "      },\n" + //
+            "      {\n" + //
+            "        \"1\": {},\n" + //
+            "        \"startDate\": {\n" + //
+            "          \"month\": 1,\n" + //
+            "          \"year\": \"2024\"\n" + //
+            "        },\n" + //
+            "        \"endDate\": {\n" + //
+            "          \"month\": 0\n" + //
+            "        },\n" + //
+            "        \"location\": \"Columbus, OH\",\n" + //
+            "        \"position\": \"Web Project Lead\",\n" + //
+            "        \"company\": \"Collaborative Software Development Club at Ohio State\",\n" + //
+            "        \"description\": \"Manage and teach 18 students in weekly meetings to develop a Full-Stack (React.js + Spring Boot) AI Resume Builder\\n"
+            + //
+            " Designed a REST API with Spring Boot using the Controller, Service Repository pattern to manage resumes and resume contents\\n"
+            + //
+            " Incorporated MongoDB Atlas NoSQL database with Spring Boot and developed a non-relational schema to store resume information\\n"
+            + //
+            " Developed a resume builder interface with React.js, Vite, Taiwind, Shadcn UI to handle user input for creation of formatted resumes\\n"
+            + //
+            " Led a team of 5 students through the creation of a Full-Stack blog application using Express.js, React.js, MongoDB Atlas\\n"
+            + //
+            " Redesigned the club website with better UI design using Next.js, TypeScript, and CSS, attracting ~70 students to the first fall meeting\\n"
+            + //
+            " Created a custom CMS using the Notion API and Next.js SSG (Static Site Generation) to facilitate changes to the club website\"\n"
+            + //
+            "      }\n" + //
+            "    ]\n" + //
+            "  },\n" + //
+            "  \"projects\": {\n" + //
+            "    \"visible\": true,\n" + //
+            "    \"content\": [\n" + //
+            "      {\n" + //
+            "        \"id\": 0,\n" + //
+            "        \"visible\": true,\n" + //
+            "        \"organization\": \"\",\n" + //
+            "        \"description\": \"Co-founded and developed a centralized platform for results and stats of NCAA fencing results and meets using TypeScript and Next.js\\n"
+            + //
+            " Created Python scripts using Pandas and BeautifulSoup to get data from 1300+ matches, 250+ athletes from CSV and HTML files\\n"
+            + //
+            " Reduced page loading time and improved SEO by leveraging Static Site Generation (SSG) to create pages for over 80+ teams\\n"
+            + //
+            " Increased development speed and reduced code duplication by creating reusable UI components based on ShadcnUI and Tailwind CSS\",\n"
+            + //
+            "        \"location\": \"\",\n" + //
+            "        \"title\": \"NonStop Fencing Web App\",\n" + //
+            "        \"startDate\": {\n" + //
+            "          \"year\": null\n" + //
+            "        },\n" + //
+            "        \"endDate\": {\n" + //
+            "          \"month\": 2,\n" + //
+            "          \"year\": 2024\n" + //
+            "        },\n" + //
+            "        \"startYear\": \"2024\",\n" + //
+            "        \"technologies\": \"TypeScript, Next.js, React.js, Python, Pandas, BeautifulSoup\",\n" + //
+            "        \"link\": \"https://github.com/ldfMion/FEH_Robot_A\"\n" + //
+            "      },\n" + //
+            "      {\n" + //
+            "        \"startDate\": {\n" + //
+            "          \"month\": 1,\n" + //
+            "          \"year\": 2023\n" + //
+            "        },\n" + //
+            "        \"endDate\": {\n" + //
+            "          \"month\": 4,\n" + //
+            "          \"year\": 2024\n" + //
+            "        },\n" + //
+            "        \"location\": \"\",\n" + //
+            "        \"title\": \"Robot Competition - Fundamentals of Engineering Honors \",\n" + //
+            "        \"description\": \"Coordinated a team of 3 people to prototype, fabricate, and program a robot for the FEH robotics course competition\\n"
+            + //
+            " Utilized C++ and SolidWorks to program the FEH microcontroller and fabricate essential robot components\\n"
+            + //
+            " Accelerated development by creating a C++ library that abstracted encoder counts and the Robot Positioning System\",\n"
+            + //
+            "        \"technologies\": \"\",\n" + //
+            "        \"link\": \"https://github.com/ldfMion/FEH_Robot_A\",\n" + //
+            "        \"organization\": \"\",\n" + //
+            "        \"startYear\": \"2023\",\n" + //
+            "        \"endMonth\": {\n" + //
+            "          \"month\": 4\n" + //
+            "        },\n" + //
+            "        \"endYear\": {\n" + //
+            "          \"year\": 20235\n" + //
+            "        }\n" + //
+            "      },\n" + //
+            "      {\n" + //
+            "        \"startDate\": {},\n" + //
+            "        \"endDate\": {\n" + //
+            "          \"month\": 0\n" + //
+            "        },\n" + //
+            "        \"location\": \"\",\n" + //
+            "        \"title\": \"Instant Fencing Web App\",\n" + //
+            "        \"description\": \"Developed a web app using Next.js that allows fencers to create mock competitions without having to do calculations by hand\\n"
+            + //
+            "Incorporated Firebase Authentication and Firestore, allowing for real-time collaboration between users\\n"
+            + //
+            " Formalized a non-relational (NoSQL) data modeling schema within Firestore for managing users, events, results, and bouts\\n"
+            + //
+            " Designed a custom user interface (UI) in Figma and CSS modules to allow for easy visualization of results and tables\\n"
+            + //
+            " Developed an automated end-to-end (E2E) testing suite for the user interface using the Cypress testing library, increasing bug detectio\",\n"
+            + //
+            "        \"technologies\": \"JavaScript, Next.js React.js, Firebase, CSS, Figma, Cypress\",\n" + //
+            "        \"link\": \"github.com\",\n" + //
+            "        \"organization\": \"\",\n" + //
+            "        \"startYear\": \"2024\"\n" + //
+            "      }\n" + //
+            "    ]\n" + //
+            "  },\n" + //
+            "  \"skills\": {\n" + //
+            "    \"visible\": true,\n" + //
+            "    \"content\": [\n" + //
+            "      \"JavaScript\",\n" + //
+            "      \"React.js\"\n" + //
+            "    ]\n" + //
+            "  },\n" + //
+            "  \"orderOfSections\": [\n" + //
+            "    \"EDUCATION\",\n" + //
+            "    \"SKILLS\",\n" + //
+            "    \"EXPERIENCE\",\n" + //
+            "    \"PROJECTS\"\n" + //
+            "  ],\n" + //
+            "  \"description\": \"<Enter something that identifies this resume, like the kind of role it is used for. Keep in around 2 to 3 words.>\"\n"
+            + //
+            "}";
 }
