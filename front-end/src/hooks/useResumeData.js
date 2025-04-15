@@ -1,14 +1,15 @@
 import {useEffect} from 'react';
-import {RESUME_QUERIES} from '@/services/resumeQueries';
 import {useResumeBase} from '@/hooks/useResumeBase';
 import {useMutation, useQuery} from '@tanstack/react-query';
 import {useToast} from '@/hooks/use-toast';
+import {useResumeQueries} from './useResumeQueries';
 
-export default function useResumeData(resumeId, useApi) {
+export default function useResumeData(resumeId) {
+    const resumeQueries = useResumeQueries();
     const {resume, setResume, ...rest} = useResumeBase(null);
     const {toast} = useToast();
     const saveMutation = useMutation({
-        mutationFn: () => RESUME_QUERIES.upload(resumeId, resume),
+        mutationFn: () => resumeQueries.upload(resumeId, resume),
         onSuccess: () => {
             toast({
                 title: 'Saved',
@@ -25,7 +26,7 @@ export default function useResumeData(resumeId, useApi) {
     });
     const save = saveMutation.mutate;
     const {data, isLoading, isError, error} = useQuery({
-        queryFn: () => RESUME_QUERIES.getOne(resumeId, {useApi}),
+        queryFn: () => resumeQueries.getOne(resumeId),
         queryKey: ['resume', resumeId],
     });
 

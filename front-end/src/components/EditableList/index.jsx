@@ -23,7 +23,7 @@ export function EditableList({
     buttonText = 'Edit',
 }) {
     const {editableList, handleChange, addNew, remove} = useEditableList(list, updateList);
-    console.log('editableList', editableList);
+    // console.log('editableList', editableList);
 
     return (
         <div className="group relative">

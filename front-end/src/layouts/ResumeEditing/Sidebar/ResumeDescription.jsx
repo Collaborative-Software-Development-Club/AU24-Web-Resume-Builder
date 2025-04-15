@@ -2,7 +2,7 @@ import {EditOnClick} from '../../../components/EditOnClick.jsx';
 import {AutosizeTextarea} from '@/components/ui/autosize-textarea.jsx';
 
 function ResumeDescription({description, setDescription}) {
-    console.log('ResumeDescription', description, setDescription);
+    // console.log('ResumeDescription', description, setDescription);
     return (
         <div className="p-4">
             <EditOnClick
