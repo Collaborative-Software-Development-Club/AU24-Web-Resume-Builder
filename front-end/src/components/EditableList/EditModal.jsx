@@ -41,7 +41,6 @@ export function EditModal({elements, handleChange, addNew, remove, title, descri
                                         variant="destructive"
                                         size="icon"
                                         onClick={() => {
-                                            console.log('removing');
                                             remove(element.id);
                                         }}
                                     >

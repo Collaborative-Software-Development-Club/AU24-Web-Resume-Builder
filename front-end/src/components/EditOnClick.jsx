@@ -63,7 +63,6 @@ function EditView({children, closeEditing, sectionName}) {
 
     const handleKeyPress = (event) => {
         if (event.key === 'Escape') {
-            console.log('closing');
             closeEditing();
         }
     };

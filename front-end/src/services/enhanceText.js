@@ -1,7 +1,6 @@
 import {ENDPOINTS} from '@/services/endpoints.js';
 
 export const enhanceText = async (text, authHeader) => {
-    console.log('enhancing text', authHeader);
     try {
         const encodedText = encodeURIComponent(text);
         const response = await fetch(ENDPOINTS.ai.description({text: encodedText}), {

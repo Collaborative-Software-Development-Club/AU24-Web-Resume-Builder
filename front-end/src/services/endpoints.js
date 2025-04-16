@@ -29,6 +29,5 @@ function endpoints(baseUrl, version) {
 }
 
 const URL = import.meta.env.VITE_API_URL;
-console.log('API URL:', URL);
 
 export const ENDPOINTS = endpoints(URL, flags.apiVersion);

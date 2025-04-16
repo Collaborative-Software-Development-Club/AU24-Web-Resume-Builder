@@ -406,8 +406,6 @@ function formatProjectItem(item) {
 }
 
 function formatSkills(skills) {
-    console.log(skills);
-
     const elements = [];
 
     // If there are no categories, just list all skills

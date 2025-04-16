@@ -34,7 +34,7 @@ export function resumeQueries(authHeader) {
                 },
             });
             if (response.ok) {
-                console.log('Item deleted successfully');
+                // console.log('Item deleted successfully');
             } else {
                 throw new Error(
                     `Failed to delete resume: ${response.status} ${response.statusText}\n${await response.json()}`,
@@ -67,7 +67,6 @@ export function resumeQueries(authHeader) {
                     Authorization: authHeader,
                 },
             });
-            console.log(response);
             if (response.status == 204) {
                 return [];
             }
