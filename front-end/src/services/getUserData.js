@@ -6,6 +6,5 @@ export default async function getUserData(userId, useApi) {
     }
     const response = await fetch(ENDPOINTS.users({userId: userId}));
     const data = await response.json();
-    console.log('getUserData request: ', data);
     return data;
 }

@@ -14,13 +14,11 @@ function authQueries(endpoints) {
             });
 
             const data = await response.json();
-            console.log(data);
             if (!response.ok) {
                 throw new Error(
                     `failed to create resume: ${response.status} ${response.statustext}\n${data.details}`,
                 );
             }
-            console.log('logged in successfully');
             return data;
         },
 
@@ -39,7 +37,6 @@ function authQueries(endpoints) {
                     `failed to create resume: ${response.status} ${response.statustext}\n${errorData.details}`,
                 );
             }
-            console.log('logged in successfully');
         },
     };
 }

@@ -18,7 +18,7 @@ import java.net.URLDecoder;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 @RestController
 @RequestMapping("/v1/ai")
@@ -34,7 +34,7 @@ public class AiController {
      * having a local model
      */
     @Autowired
-    public AiController(@Qualifier("Mock") AiService aiService) {
+    public AiController(@Qualifier("Azure") AiService aiService) {
         this.aiService = aiService;
     }
 
