@@ -48,9 +48,11 @@ public abstract class AiServiceKernel implements AiService {
     private String createResumeScanPrompt(String resume, String format) {
         return "You are to transcribe a given resume into a given json format, filling out each " + //
                 "json category according to information from the resume. If no relevant information" + //
-                " is found, you are free to leave that category blank. Examples are provided in the " + //
-                "sample json format. Return your response as a json string.\nHere is the sample json format: " + format
-                + ",\n\nHere is the" + //
+                " is found, you are free to leave that category blank. Examples are provided in the "
+                +
+                " sample json format. Return your response as a json string.\nHere is the sample json format: " + format
+                + ",\n  Notice that the json format accepts only one education, if multiple education sections are found, choose the most recent one. If the resume contains additional content like involvement, volunteer experience, sports teams, student organizations, or anything else that might fit into experience, add them to the experiences section. The number of experiences is unlimited, add as many as seem fit. \nHere is the"
+                + //
                 "resume you are to transcribe: " + resume;
     }
 
@@ -164,7 +166,6 @@ public abstract class AiServiceKernel implements AiService {
             "      {\n" + //
             "        \"6\": {},\n" + //
             "        \"7\": {},\n" + //
-            "        \"id\": 0,\n" + //
             "        \"visible\": true,\n" + //
             "        \"company\": \"OSU Wexner Medical Center - IT Department\",\n" + //
             "        \"description\": \"Worked on Vitals, the proprietary digital platform used by Ohio State’s 750 medical students and 3,400+ academic staff\\n"
@@ -219,7 +220,6 @@ public abstract class AiServiceKernel implements AiService {
             "    \"visible\": true,\n" + //
             "    \"content\": [\n" + //
             "      {\n" + //
-            "        \"id\": 0,\n" + //
             "        \"visible\": true,\n" + //
             "        \"organization\": \"\",\n" + //
             "        \"description\": \"Co-founded and developed a centralized platform for results and stats of NCAA fencing results and meets using TypeScript and Next.js\\n"

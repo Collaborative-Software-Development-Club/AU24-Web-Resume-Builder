@@ -40,7 +40,7 @@ public class MockAiService implements AiService {
     }
 
     private String mockResume = "{\n" + //
-            "  \"name\": \"Lorenzo Mion\",\n" + //
+            "  \"name\": \"Mock Resume From MockAiService\",\n" + //
             "  \"contactMethods\": [\n" + //
             "    \"lorenzodfmion@gmail.com\"\n" + //
             "  ],\n" + //
