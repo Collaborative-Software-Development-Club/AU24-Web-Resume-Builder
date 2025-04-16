@@ -204,7 +204,7 @@ export function CreateResume({
                         disabled={notAllowedToProceed || createResult.isPending}
                     >
                         {createResult.isPending && <Loader2 className="animate-spin" />}
-                        {createResult.isLoading ? 'Creating...' : 'Create'}
+                        {createResult.isPending ? 'Creating...' : 'Create'}
                     </Button>
                 </DialogFooter>
             </DialogContent>
