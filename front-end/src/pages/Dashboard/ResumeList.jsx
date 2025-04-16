@@ -11,7 +11,13 @@ export function ResumeList({queryStatus, resumes, deleteResume}) {
         return <p>Error loading resumes: {queryStatus.error.message}</p>;
     }
     return resumes.map((resume) => (
-        <ResumePreview key={resume.id} resumeId={resume.id} onDelete={deleteResume} {...resume} />
+        <ResumePreview
+            key={resume.id}
+            resumeId={resume.id}
+            onDelete={deleteResume}
+            {...resume}
+            resume={resume}
+        />
     ));
 }
 

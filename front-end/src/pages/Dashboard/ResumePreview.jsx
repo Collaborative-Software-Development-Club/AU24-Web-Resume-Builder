@@ -6,12 +6,15 @@ import {Button, buttonVariants} from '@/components/ui/button';
 import {Card, CardDescription, CardTitle} from '@/components/ui/card';
 import {formatDistanceToNow} from 'date-fns';
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@/components/ui/tooltip';
+import {downloadResume} from '@/services/downloadResume';
 
-export function ResumePreview({resumeId, onDelete, description, lastModified}) {
+export function ResumePreview({resumeId, onDelete, description, lastModified, resume}) {
     const [isTooltipOpen, setIsTooltipOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-    const downloadResume = () => {};
+    const handleDownload = () => {
+        downloadResume(resume);
+    };
 
     const deleteResume = async () => {
         try {
@@ -48,7 +51,7 @@ export function ResumePreview({resumeId, onDelete, description, lastModified}) {
                     >
                         <Pencil className="text-white" />
                     </Link>
-                    <Button variant="outline" onClick={downloadResume}>
+                    <Button variant="outline" onClick={handleDownload}>
                         <Download className="text-accent-foreground" />
                     </Button>
                     <Delete
