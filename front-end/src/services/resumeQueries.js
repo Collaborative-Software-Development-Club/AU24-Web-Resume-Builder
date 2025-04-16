@@ -34,10 +34,10 @@ export function resumeQueries(authHeader) {
                 },
             });
             if (response.ok) {
-                console.log('Item deleted successfully');
+                // console.log('Item deleted successfully');
             } else {
                 throw new Error(
-                    `Failed to get resume: ${response.status} ${response.statusText}\n${await response.json()}`,
+                    `Failed to delete resume: ${response.status} ${response.statusText}\n${await response.json()}`,
                 );
             }
         },
@@ -60,7 +60,6 @@ export function resumeQueries(authHeader) {
         },
 
         getFromUser: async function (userId) {
-            console.log('getting resumes from user');
             const response = await fetch(ENDPOINTS.resumes({userId: userId}), {
                 method: 'GET',
                 headers: {
@@ -68,17 +67,14 @@ export function resumeQueries(authHeader) {
                     Authorization: authHeader,
                 },
             });
-            console.log(response);
             if (response.status == 204) {
                 return [];
             }
             const data = await response.json();
-            console.log(data);
             return data;
         },
 
         upload: async function (resumeId, resumeData) {
-            console.log('uploading resume data');
             const response = await fetch(ENDPOINTS.resumes({resumeId: resumeId}), {
                 method: 'PUT',
                 headers: {
@@ -94,9 +90,9 @@ export function resumeQueries(authHeader) {
             if (response.ok) {
                 return data;
             } else {
-                throw new Error(
-                    `Failed to update resume: ${response.status} ${response.statusText} ${JSON.stringify(data)}`,
-                );
+                const message = `Failed to update resume: ${response.status} ${response.statusText} ${JSON.stringify(data)}`;
+                console.error(message);
+                throw new Error(message);
             }
         },
     };

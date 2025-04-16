@@ -35,7 +35,6 @@ export function LogInForm() {
         try {
             //LogIn
             const data = await AUTH_QUERIES.login(formData);
-            console.log(data);
             if (
                 signIn({
                     auth: {

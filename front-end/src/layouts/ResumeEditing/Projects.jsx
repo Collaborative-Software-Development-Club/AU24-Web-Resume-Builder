@@ -1,18 +1,16 @@
+import {useState} from 'react';
 import {SectionTitle} from './SectionTitle';
 import {Project} from './Project';
 import {SectionOfDraggableItems} from './SectionOfDraggableItems';
 
 export function Projects({updateProjects, projects}) {
     return (
-        <>
-            <SectionTitle title="Projects" />
-            <SectionOfDraggableItems
-                renderItem={(data, update) => <Project project={data} updateItems={update} />}
-                itemData={projects}
-                createNewItem={createNewItem}
-                setItemData={updateProjects}
-            />
-        </>
+        <SectionOfDraggableItems
+            renderItem={(data, update) => <Project project={data} updateItems={update} />}
+            itemData={projects}
+            createNewItem={createNewItem}
+            setItemData={updateProjects}
+        />
     );
 }
 

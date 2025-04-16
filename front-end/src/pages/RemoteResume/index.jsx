@@ -4,6 +4,7 @@ import ResumeEditing from '@/layouts/ResumeEditing';
 import {Button} from '@/components/ui/button';
 import flags from '@/flags.json';
 import {Loader2} from 'lucide-react';
+import {LoadingResume} from './LoadingResume';
 
 const USE_API = flags.useApi;
 
@@ -13,7 +14,7 @@ export default function RemoteResume() {
         throw new Error('resumeId is undefined');
     }
     const resumeHook = useResumeData(resumeId, USE_API);
-    if (resumeHook.queryResult.isLoading) return <p>Loading...</p>;
+    if (resumeHook.queryResult.isLoading) return <LoadingResume />;
     if (resumeHook.queryResult.isError)
         return <p>There was an error loading the resume {resumeHook.queryResult.error.message}</p>;
 

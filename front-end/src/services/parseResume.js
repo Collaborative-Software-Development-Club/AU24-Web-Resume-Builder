@@ -1,24 +1,25 @@
 import {ENDPOINTS} from '@/services/endpoints.js';
+import pdfToText from 'react-pdftotext';
 
-export const enhanceText = async (text, authHeader) => {
+export const parseResume = async (file, authHeader) => {
     try {
-        const encodedText = encodeURIComponent(text);
-        const response = await fetch(ENDPOINTS.ai.description({text: encodedText}), {
-            method: 'GET',
+        const text = await pdfToText(file);
+        const response = await fetch(ENDPOINTS.ai.resume(), {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: authHeader,
             },
+            body: JSON.stringify(text),
         });
-
         if (!response.ok) {
             throw new Error('Failed to enhance text');
         }
 
         const data = await response.json();
-        return data.generation;
+        return data;
     } catch (error) {
-        console.error('Error enhancing text:', error);
+        console.error('Error parsing resume:', error);
         throw error;
     }
 };

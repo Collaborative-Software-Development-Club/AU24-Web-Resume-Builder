@@ -15,7 +15,9 @@ export function Dashboard() {
         deleteResume,
         create: createNewResume,
         duplicate: duplicateResume,
+        createFromFile,
         queryResult,
+        createResult,
     } = useUserResumes(auth.uid);
 
     return (
@@ -35,12 +37,14 @@ export function Dashboard() {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-6 gap-6">
+            <div className="flex flex-row flex-wrap gap-6">
                 <CreateResume
                     resumes={resumes}
                     createNewResume={createNewResume}
                     duplicateResume={duplicateResume}
                     deleteResume={deleteResume}
+                    createFromFile={createFromFile}
+                    createResult={createResult}
                 />
                 <ResumeList
                     queryStatus={queryResult}

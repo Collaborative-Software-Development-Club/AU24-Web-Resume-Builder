@@ -42,7 +42,6 @@ export function SignUpForm() {
         //setIsSubmitting(true);
 
         try {
-            console.log('Signup data:', formData);
             await AUTH_QUERIES.register(formData);
 
             //LogIn

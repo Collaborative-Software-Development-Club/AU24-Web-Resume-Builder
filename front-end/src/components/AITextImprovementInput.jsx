@@ -95,7 +95,6 @@ export function AITextImprovementInput({placeholder, onChange, name, value}) {
                                 className=""
                                 variant="default"
                                 onClick={(e) => {
-                                    console.log(e);
                                     e.stopPropagation();
                                     onChange({target: {name, value: aiImprovedText}});
                                     setDialogReady(false);

@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +18,8 @@ import java.net.URLDecoder;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/v1/ai")
 public class AiController {
@@ -45,11 +46,11 @@ public class AiController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/resume")
-    public ResponseEntity<Map<String, Object>> generateResumeJSON(@RequestParam(value = "message") String message)
+    @PostMapping("/resume")
+    public ResponseEntity<Map<String, Object>> generateResumeJSON(@RequestBody String rawText)
             throws UnsupportedEncodingException, JsonProcessingException {
-        String decodedMessage = URLDecoder.decode(message, "UTF-8");
-        Map<String, Object> map = aiService.scanResumeToJSON(decodedMessage);
+        // String decodedMessage = URLDecoder.decode(message, "UTF-8");
+        Map<String, Object> map = aiService.scanResumeToJSON(rawText);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

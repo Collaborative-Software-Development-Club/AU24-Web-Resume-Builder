@@ -21,6 +21,7 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
                             section={resume.education}
                             name="Education"
                             handleVisibilityChange={handleVisibilityChange}
+                            visible={resume.education.visible}
                         />
                     );
                     break;
@@ -31,6 +32,7 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
                             section={resume.experience}
                             name="Experience"
                             handleVisibilityChange={handleVisibilityChange}
+                            visible={resume.experience.visible}
                         />
                     );
                     break;
@@ -41,6 +43,7 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
                             section={resume.projects}
                             name="Projects"
                             handleVisibilityChange={handleVisibilityChange}
+                            visible={resume.projects.visible}
                         />
                     );
                     break;
@@ -51,6 +54,7 @@ export const SidebarContent = ({resume, ordering, setOrdering, toggleSectionVisi
                             section={resume.skills}
                             name="Skills"
                             handleVisibilityChange={handleVisibilityChange}
+                            visible={resume.skills.visible}
                         />
                     );
                     break;

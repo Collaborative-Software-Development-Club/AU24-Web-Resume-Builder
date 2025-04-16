@@ -9,7 +9,6 @@ import resumebuilder.back_end.service.ProjectService;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/v1/projects")
 public class ProjectController {

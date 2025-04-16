@@ -22,10 +22,12 @@ function endpoints(baseUrl, version) {
             login: () => `${baseUrl}/${version}/auth/login`,
         },
         ai: {
-            resume: ({resumeText}) => `${baseUrl}/${version}/ai/resume?message=${resumeText}`,
+            resume: () => `${baseUrl}/${version}/ai/resume`,
             description: ({text}) => `${baseUrl}/${version}/ai/description?message=${text}`,
         },
     };
 }
 
-export const ENDPOINTS = endpoints(flags.apiUrl, flags.apiVersion);
+const URL = import.meta.env.VITE_API_URL;
+
+export const ENDPOINTS = endpoints(URL, flags.apiVersion);

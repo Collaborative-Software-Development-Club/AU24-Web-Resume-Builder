@@ -10,7 +10,7 @@ import resumebuilder.back_end.service.ResumeService;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5173")
+// @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/v1/resumes")
 public class ResumeController {

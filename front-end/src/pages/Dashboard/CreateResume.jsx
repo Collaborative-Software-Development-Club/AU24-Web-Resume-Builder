@@ -1,5 +1,5 @@
 import {Fragment, useState} from 'react';
-import {Clock, CopyPlus, FilePenLine, FileText, FileUp, Plus} from 'lucide-react';
+import {Clock, CopyPlus, FilePenLine, FileText, FileUp, Loader2, Plus} from 'lucide-react';
 import {
     Dialog,
     DialogContent,
@@ -23,7 +23,6 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import {cn} from '@/lib/utils';
-import {ResumePreview} from './ResumePreview';
 import {
     Carousel,
     CarouselContent,
@@ -32,7 +31,13 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel';
 
-export function CreateResume({resumes, createNewResume, duplicateResume}) {
+export function CreateResume({
+    resumes,
+    createNewResume,
+    duplicateResume,
+    createFromFile,
+    createResult,
+}) {
     const [resumeToCopyId, setResumeToCopyId] = useState(null);
     const [uploadedFile, setUploadedFile] = useState(null);
     const handleFileUpload = (e) => {
@@ -124,7 +129,7 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
             description: 'Upload a resume file to import your data.',
             icon: <FileUp className="text-primary" />,
             action: () => {
-                throw new Error('Handling for file upload is not implemented yet');
+                createFromFile(uploadedFile);
             },
             form: (
                 <div>
@@ -138,11 +143,9 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
         },
     ];
     const [selectedOption, setSelectedOption] = useState(options[0].id);
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const handleProceed = () => {
         options.find((option) => option.id === selectedOption).action();
-        setIsDialogOpen(false);
     };
 
     const notAllowedToProceed =
@@ -150,9 +153,9 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
         (selectedOption == 'import' && !uploadedFile);
 
     return (
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <Dialog>
             <DialogTrigger asChild>
-                <button className="flex h-48 w-40 rounded-2xl border text-gray-700 transition-colors hover:bg-gray-300 hover:text-black hover:shadow-md">
+                <button className="flex h-48 w-40 rounded-2xl border bg-white/50 transition-colors hover:bg-gray-100 hover:shadow-md">
                     <Plus className="m-auto" size="55" />
                 </button>
             </DialogTrigger>
@@ -196,8 +199,12 @@ export function CreateResume({resumes, createNewResume, duplicateResume}) {
                 {options.find((option) => option.id === selectedOption).form}
                 <DialogDescription />
                 <DialogFooter>
-                    <Button onClick={handleProceed} disabled={notAllowedToProceed}>
-                        Create
+                    <Button
+                        onClick={handleProceed}
+                        disabled={notAllowedToProceed || createResult.isPending}
+                    >
+                        {createResult.isPending && <Loader2 className="animate-spin" />}
+                        {createResult.isPending ? 'Creating...' : 'Create'}
                     </Button>
                 </DialogFooter>
             </DialogContent>
