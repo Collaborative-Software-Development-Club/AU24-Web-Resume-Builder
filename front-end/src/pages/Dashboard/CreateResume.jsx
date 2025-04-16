@@ -132,12 +132,13 @@ export function CreateResume({
                 createFromFile(uploadedFile);
             },
             form: (
-                <div>
+                <div className="flex flex-col gap-2">
                     <CardDescription>Upload Your Resume</CardDescription>
                     <div className="">
                         <Label htmlFor="resume">Your resume</Label>
                         <Input id="resume" type="file" onChange={handleFileUpload} accept=".pdf" />
                     </div>
+                    <p>Scanning may take a few seconds.</p>
                 </div>
             ),
         },
@@ -198,6 +199,11 @@ export function CreateResume({
                 </RadioGroup>
                 {options.find((option) => option.id === selectedOption).form}
                 <DialogDescription />
+                {createResult.isError && (
+                    <div className="rounded-md bg-red-100 p-3 text-sm text-red-700">
+                        There was an error creating your resume.
+                    </div>
+                )}
                 <DialogFooter>
                     <Button
                         onClick={handleProceed}
