@@ -8,17 +8,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
 
     private static final String SECRET_KEY = Base64.getEncoder().encodeToString("placeholder_key_superlong_getmoreLength".getBytes());
 
-    public String generateToken(String username) {
+    private static final int tokenExpireTimeSeconds = 1000 * 60 * 60;
+
+    public String generateToken(String username, String userId) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("userId", userId)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1-hour expiration
+                .setExpiration(new Date(System.currentTimeMillis() + tokenExpireTimeSeconds))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
@@ -43,6 +47,8 @@ public class JwtUtil {
     public String extractUsername(String token) {
         return extractClaims(token).getSubject();
     }
+
+    public String extractUserId(String token) {return extractClaims(token).get("userId", String.class);}
 
     private Claims extractClaims(String token) {
         return Jwts.parser()
