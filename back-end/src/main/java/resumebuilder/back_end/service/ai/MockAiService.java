@@ -211,6 +211,6 @@ public class MockAiService implements AiService {
             "    \"EXPERIENCE\",\n" + //
             "    \"PROJECTS\"\n" + //
             "  ],\n" + //
-            "  \"description\": \"Resume 1\"\n" + //
+            "  \"description\": \"<this briefly identifies the resume. keep it in 2-3 words.>\"\n" + //
             "}";
 }
