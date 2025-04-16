@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {Input} from '@/components/ui/input';
 import {SectionTitle} from './SectionTitle';
 import Months from './Months';
@@ -6,6 +7,12 @@ import {MonthDisplayView} from './MonthDisplayView';
 import {DEFAULT_RESUME} from '@/lib/DEFAULT_RESUME';
 
 const Education = ({updateEducation, education}) => {
+    const [isVisible, setIsVisible] = useState(true);
+
+    const toggleVisibility = () => {
+        setIsVisible((prev) => !prev);
+    };
+
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         updateEducation({[name]: value});
@@ -27,8 +34,13 @@ const Education = ({updateEducation, education}) => {
     return (
         <div className="mt-4">
             <div className="w-full">
-                <SectionTitle title="Education" />
+                <SectionTitle 
+                    title="Education"
+                    isVisible={isVisible}
+                    onToggleVisibility={toggleVisibility} 
+                />
                 {/* Combined Row for Institution, Location */}
+                {isVisible && (
                 <EditOnClick
                     sectionName={'education'}
                     empty={isEmpty}
@@ -136,6 +148,7 @@ const Education = ({updateEducation, education}) => {
                         </div>
                     }
                 />
+                )}
             </div>
         </div>
     );
