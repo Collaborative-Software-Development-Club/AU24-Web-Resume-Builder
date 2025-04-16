@@ -9,6 +9,7 @@ import {Projects} from './Projects';
 import {Experiences} from './Experiences';
 import {Fragment} from 'react';
 import {Download} from 'lucide-react';
+import {SectionTitle} from './SectionTitle';
 
 export default function ResumeEditing({
     resume,
@@ -36,16 +37,44 @@ export default function ResumeEditing({
     // Map of components for easy rendering
     const sections = {
         EDUCATION: (
-            <Education updateEducation={updateEducation} education={resume.education.content} />
+            <>
+                <SectionTitle
+                    title="Education"
+                    hide={() => toggleSectionVisibility('education', false)}
+                />
+                <Education updateEducation={updateEducation} education={resume.education.content} />
+            </>
         ),
         EXPERIENCE: (
-            <Experiences
-                updateExperience={updateExperience}
-                experiences={resume.experience.content}
-            />
+            <>
+                <SectionTitle
+                    title="Experience"
+                    hide={() => toggleSectionVisibility('experience', false)}
+                />
+                <Experiences
+                    updateExperience={updateExperience}
+                    experiences={resume.experience.content}
+                />
+            </>
         ),
-        PROJECTS: <Projects updateProjects={updateProjects} projects={resume.projects.content} />,
-        SKILLS: <Skills updateSkills={updateSkills} skills={resume.skills.content ?? []} />,
+        PROJECTS: (
+            <>
+                <SectionTitle
+                    title="Projects"
+                    hide={() => toggleSectionVisibility('projects', false)}
+                />
+                <Projects updateProjects={updateProjects} projects={resume.projects.content} />
+            </>
+        ),
+        SKILLS: (
+            <>
+                <SectionTitle
+                    title="Skills"
+                    hide={() => toggleSectionVisibility('skills', false)}
+                />
+                <Skills updateSkills={updateSkills} skills={resume.skills.content ?? []} />
+            </>
+        ),
     };
     return (
         <Sidebar

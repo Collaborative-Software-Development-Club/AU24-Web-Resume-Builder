@@ -1,20 +1,18 @@
+import {useState} from 'react';
 import Experience from './Experience';
 import {SectionOfDraggableItems} from './SectionOfDraggableItems';
 import {SectionTitle} from './SectionTitle';
 
 export function Experiences({updateExperience, experiences}) {
     return (
-        <>
-            <SectionTitle title="Experience" />
-            <SectionOfDraggableItems
-                renderItem={(experienceData, update) => (
-                    <Experience experience={experienceData} updateItems={update} />
-                )}
-                itemData={experiences}
-                createNewItem={createNewItem}
-                setItemData={updateExperience}
-            />
-        </>
+        <SectionOfDraggableItems
+            renderItem={(experienceData, update) => (
+                <Experience experience={experienceData} updateItems={update} />
+            )}
+            itemData={experiences}
+            createNewItem={createNewItem}
+            setItemData={updateExperience}
+        />
     );
 }
 
