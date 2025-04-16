@@ -91,5 +91,6 @@
     }
     body {
         @apply bg-background text-foreground;
+        @apply bg-gradient-to-br from-white via-indigo-50 to-purple-200;
     }
 }

@@ -37,7 +37,7 @@ export function Dashboard() {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-6 gap-6">
+            <div className="flex flex-row flex-wrap gap-6">
                 <CreateResume
                     resumes={resumes}
                     createNewResume={createNewResume}

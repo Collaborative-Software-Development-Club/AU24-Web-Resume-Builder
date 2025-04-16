@@ -310,5 +310,5 @@ public abstract class AiServiceKernel implements AiService {
             "  ],\n" + //
             "  \"description\": \"<Enter something that identifies this resume, like the kind of role it is used for. Keep in around 2 to 3 words.>\"\n"
             + //
-            "}";
+            "";
 }

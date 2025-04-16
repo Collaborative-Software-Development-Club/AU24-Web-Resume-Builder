@@ -33,7 +33,7 @@ function App() {
 function InnerApp() {
     return (
         <Router>
-            <div className="h-full min-h-screen bg-gradient-to-br from-white via-indigo-50 to-purple-200">
+            <div className="h-full min-h-screen">
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<About />} />

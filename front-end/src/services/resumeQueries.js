@@ -37,7 +37,7 @@ export function resumeQueries(authHeader) {
                 console.log('Item deleted successfully');
             } else {
                 throw new Error(
-                    `Failed to get resume: ${response.status} ${response.statusText}\n${await response.json()}`,
+                    `Failed to delete resume: ${response.status} ${response.statusText}\n${await response.json()}`,
                 );
             }
         },
@@ -60,7 +60,6 @@ export function resumeQueries(authHeader) {
         },
 
         getFromUser: async function (userId) {
-            console.log('getting resumes from user');
             const response = await fetch(ENDPOINTS.resumes({userId: userId}), {
                 method: 'GET',
                 headers: {
@@ -77,7 +76,6 @@ export function resumeQueries(authHeader) {
         },
 
         upload: async function (resumeId, resumeData) {
-            console.log('uploading resume data');
             const response = await fetch(ENDPOINTS.resumes({resumeId: resumeId}), {
                 method: 'PUT',
                 headers: {

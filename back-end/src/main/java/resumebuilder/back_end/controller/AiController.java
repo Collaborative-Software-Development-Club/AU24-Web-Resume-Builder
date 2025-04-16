@@ -20,7 +20,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/v1/ai")
 public class AiController {

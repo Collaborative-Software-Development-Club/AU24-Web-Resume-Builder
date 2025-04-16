@@ -28,4 +28,7 @@ function endpoints(baseUrl, version) {
     };
 }
 
-export const ENDPOINTS = endpoints(flags.apiUrl, flags.apiVersion);
+const URL = import.meta.env.VITE_API_URL;
+console.log('API URL:', URL);
+
+export const ENDPOINTS = endpoints(URL, flags.apiVersion);

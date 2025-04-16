@@ -24,7 +24,6 @@ export default function ResumeEditing({
     updateSkills,
     updateDescription,
 }) {
-    console.log('resume in ResumeEditing: ', resume);
     const download = () => {
         downloadResume(resume);
     };
@@ -96,7 +95,7 @@ export default function ResumeEditing({
                     </Button>
                     {saveButton}
                 </div>
-                <div className="w-full rounded-sm bg-white p-8">
+                <div className="mx-auto w-full max-w-5xl rounded-sm bg-white p-8">
                     <Name name={resume.name} updateName={updateName} />
                     <ContactMethods
                         contactMethods={resume.contactMethods ?? []}
