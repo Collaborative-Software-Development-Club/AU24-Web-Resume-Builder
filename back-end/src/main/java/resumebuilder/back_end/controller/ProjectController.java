@@ -2,6 +2,7 @@ package resumebuilder.back_end.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import resumebuilder.back_end.domain.dto.ProjectDto;
 import resumebuilder.back_end.service.ProjectService;
@@ -19,12 +20,14 @@ public class ProjectController {
     }
 
     @PostMapping("")
+    @PreAuthorize("@componentSecurity.canAccessUser(authentication, #projectDto.userId)")
     public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto projectDto) {
         ProjectDto createdProject = projectService.save(projectDto);
         return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("@componentSecurity.hasAccessToProject(authentication, #projectId)")
     public ResponseEntity<ProjectDto> updateProject(@PathVariable("id") String projectId,
 
             @RequestBody ProjectDto projectDto) {
@@ -33,6 +36,7 @@ public class ProjectController {
     }
 
     @GetMapping("")
+    @PreAuthorize("@componentSecurity.canAccessUser(authentication, #userId)")
     public ResponseEntity<List<ProjectDto>> getAllProjects(@RequestParam(value = "userId") String userId) {
         List<ProjectDto> projects = projectService.findAll(userId);
         if (projects.isEmpty()) {
@@ -42,12 +46,14 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@componentSecurity.hasAccessToProject(authentication, #projectId)")
     public ResponseEntity<ProjectDto> getProject(@PathVariable("id") String projectId) {
         ProjectDto project = projectService.findOne(projectId);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("@componentSecurity.hasAccessToProject(authentication, #projectId)")
     public ResponseEntity<ProjectDto> deleteProject(@PathVariable("id") String projectId) {
         projectService.delete(projectId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

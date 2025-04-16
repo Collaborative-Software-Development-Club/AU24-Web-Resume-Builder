@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import resumebuilder.back_end.domain.dto.AuthRequestDto;
 import resumebuilder.back_end.domain.utils.JwtUtil;
+import resumebuilder.back_end.error_handling.exceptions.InvalidUsernameException;
+import resumebuilder.back_end.repository.UserRepository;
 
 @Service
 public class AuthService {
@@ -17,6 +19,9 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public String authenticate(AuthRequestDto request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
@@ -25,7 +30,12 @@ public class AuthService {
         // Get user details after successful authentication
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
+        String username = userDetails.getUsername();
+        String userId = userRepository.findByUsername(username)
+                .orElseThrow(() -> new InvalidUsernameException(username))
+                .getId();
+
         // Generate JWT
-        return jwtUtil.generateToken(userDetails.getUsername());
+        return jwtUtil.generateToken(username, userId);
     }
 }

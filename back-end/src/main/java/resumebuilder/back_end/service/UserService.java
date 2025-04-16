@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import resumebuilder.back_end.domain.dto.UserDto;
 import resumebuilder.back_end.domain.dto.UserRequestDto;
 import resumebuilder.back_end.domain.entities.UserEntity;
+import resumebuilder.back_end.security.UserPrincipal;
 import resumebuilder.back_end.domain.model.enums.Role;
 import resumebuilder.back_end.error_handling.exceptions.DuplicateUsernameException;
 import resumebuilder.back_end.error_handling.exceptions.InvalidUserIDException;
@@ -88,10 +89,12 @@ public class UserService implements UserDetailsService {
         UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        return new org.springframework.security.core.userdetails.User(
+        return new UserPrincipal(
+                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
-                Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())));
+                Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+        );
     }
 
 }
