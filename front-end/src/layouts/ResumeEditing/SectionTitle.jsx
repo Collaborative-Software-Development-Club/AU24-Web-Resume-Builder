@@ -1,24 +1,23 @@
 import React from 'react';
-import { Button } from "@/components/ui/button";
-import { Eye, EyeOff } from "lucide-react";
+import {Button} from '@/components/ui/button';
+import {Eye, EyeOff} from 'lucide-react';
 
-export function SectionTitle({ title, isVisible, onToggleVisibility }) {
-  return (
-    <div className="flex items-center gap-2">
-      <h2 className="text-2xl font-semibold">{title}</h2>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={onToggleVisibility}
-        className="h-6 w-6 p-0 hover:bg-transparent text-muted-foreground hover:text-foreground"
-      >
-        {isVisible ? (
-          <Eye className="h-3.5 w-3.5" />
-        ) : (
-          <EyeOff className="h-3.5 w-3.5" />
-        )}
-        <span className="sr-only">{isVisible ? "Hide" : "Show"} section</span>
-      </Button>
-    </div>
-  );
+export function SectionTitle({title, hide}) {
+    return (
+        <div>
+            <div className="times flex items-center gap-2">
+                <h2 className="times text-left text-2xl">{title}</h2>
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={hide}
+                    className="h-6 w-6 p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
+                >
+                    <EyeOff className="h-3.5 w-3.5" />
+                    <span className="sr-only">Hide section</span>
+                </Button>
+            </div>
+            <hr></hr>
+        </div>
+    );
 }
