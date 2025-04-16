@@ -2,6 +2,7 @@ package resumebuilder.back_end.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import resumebuilder.back_end.domain.dto.CreateResumeDto;
 import resumebuilder.back_end.domain.dto.ResumeDto;
@@ -21,9 +22,10 @@ public class ResumeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ResumeDto> create(@RequestBody CreateResumeDto ids) {
-        String userId = ids.getUserId();
-        String resumeId = ids.getResumeId();
+    @PreAuthorize("@componentSecurity.canAccessUser(authentication, #createResumeDto.userId)")
+    public ResponseEntity<ResumeDto> create(@RequestBody CreateResumeDto createResumeDto) {
+        String userId = createResumeDto.getUserId();
+        String resumeId = createResumeDto.getResumeId();
         ResumeDto savedResume;
 
         if (resumeId != null) {
@@ -38,6 +40,7 @@ public class ResumeController {
     }
 
     @GetMapping("")
+    @PreAuthorize("@componentSecurity.canAccessUser(authentication, #userId)")
     public ResponseEntity<List<ResumeDto>> getAllResumes(@RequestParam(value = "userId") String userId) {
         List<ResumeDto> resumes = resumeService.findByUserId(userId);
         if (resumes.isEmpty()) {
@@ -48,12 +51,14 @@ public class ResumeController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@componentSecurity.hasAccessToResume(authentication, #id)")
     public ResponseEntity<ResumeDto> getResume(@PathVariable("id") String id) {
         ResumeDto resume = resumeService.findOne(id);
         return new ResponseEntity<>(resume, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("@componentSecurity.hasAccessToResume(authentication, #id)")
     public ResponseEntity<ResumeDto> updateResume(
             @PathVariable("id") String id,
             @RequestBody ResumeDto resumeDto) {
@@ -63,6 +68,7 @@ public class ResumeController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("@componentSecurity.hasAccessToResume(authentication, #id)")
     public ResponseEntity<ResumeDto> deleteResume(@PathVariable("id") String id) {
         resumeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
